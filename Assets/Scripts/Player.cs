@@ -2,22 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : CharacterBase
 {
-    #region 컴포넌트 참조
-    [Header("컴포넌트 참조")]
-    [SerializeField] SpriteRenderer sp;
-    [SerializeField] Animator anim;
-    [SerializeField] AnimationEventReciever evnt;
-    [SerializeField] ParticleSystem particle;
-
-    #endregion
-
     #region 오브젝트 참조
     [Header("오브젝트 참조")]
-    [SerializeField] Transform aim;
     [SerializeField] Transform atk;
+    [SerializeField] ParticleSystem particle;
     #endregion
+
 
     #region 입력 변수
     Vector3 inputVec;
@@ -25,7 +17,7 @@ public class Player : MonoBehaviour
     bool isSpace;
     #endregion
 
-    #region 상태참조 변수
+    #region 상태변수
     bool commandLock;
     bool attackSwitch = false;
     #endregion
@@ -53,10 +45,7 @@ public class Player : MonoBehaviour
 
         if (inputVec != Vector3.zero)
         {
-            setAnimState();
-
-            anim.SetBool("isMoving", true);
-            transform.position += inputVec * 2.5f * Time.deltaTime;
+            moveToDir(inputVec);
             return;
         }
         else
@@ -75,6 +64,7 @@ public class Player : MonoBehaviour
         anim.SetBool("attackSwitch", attackSwitch);
 
         atk.position = aim.position;
+
         float angle = Mathf.Atan2(lastVec.y, lastVec.x) * Mathf.Rad2Deg;
         atk.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         atk.GetComponent<Animator>().SetTrigger("doAttack");
@@ -85,17 +75,5 @@ public class Player : MonoBehaviour
         inputVec = (Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical")).normalized;
         if (inputVec != Vector3.zero) lastVec = inputVec;
         isSpace = Input.GetKeyDown(KeyCode.Space);
-    }
-
-    void setAnimState()
-    {
-        anim.SetFloat("dirX", inputVec.x);
-        anim.SetFloat("dirY", inputVec.y);
-
-        aim.transform.localPosition = inputVec * 0.8f;
-        if (inputVec.x != 0) sp.flipX = inputVec.x < 0 ? true : false;
-        
-
-
     }
 }

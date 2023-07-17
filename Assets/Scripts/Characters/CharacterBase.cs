@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CharacterBase : MonoBehaviour
+{
+    #region 컴포넌트 참조
+    [Header("컴포넌트 참조")]
+    [SerializeField] protected SpriteRenderer sp;
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected AnimationEventReciever evnt;
+
+    [SerializeField] protected Transform aim;
+    #endregion
+
+    #region 상태변수
+    [Header("상태변수")]
+    public bool isDead;
+
+    #endregion
+
+    #region 스테이터스
+    [Header("Status")]
+    public float moveSpeed;
+    public float aimRange;
+    #endregion
+    protected virtual void Hit()
+    {
+
+    }
+
+
+    /// <summary>
+    /// 목표 지점으로 이동시키는 함수
+    /// </summary>
+    /// <param name="target"></param>
+    protected virtual void moveTowardTarget(Vector3 target)
+    {
+        Vector3 moveVec = (target - transform.position).normalized;
+
+        moveToDir(moveVec);
+    }
+
+
+    /// <summary>
+    /// 정규화된 벡터를 넣어 해당 방향으로 이동시키는 함수.
+    /// </summary>
+    /// <param name="dir"></param>
+    protected virtual void moveToDir(Vector3 dir)
+    {
+        anim.SetBool("isMoving", true);
+
+        setDir(dir);
+
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, moveSpeed * Time.deltaTime);
+    }
+
+    protected virtual void setDir(Vector3 dir)
+    {
+        anim.SetFloat("dirX", dir.x);
+        anim.SetFloat("dirY", dir.y);
+        if (dir.x != 0) sp.flipX = dir.x < 0 ? true : false;
+        aim.transform.localPosition = dir * aimRange;
+    }
+}
