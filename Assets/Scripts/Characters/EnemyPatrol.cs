@@ -35,7 +35,6 @@ public class EnemyPatrol : Enemy
     {
         while(Vector3.Distance(transform.position, destination) >= 0.3f)
         {
-            Debug.Log("A");
             moveTowardTarget(destination);
             yield return null;
         }

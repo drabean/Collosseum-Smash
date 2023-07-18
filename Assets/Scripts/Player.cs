@@ -54,10 +54,13 @@ public class Player : CharacterBase
             return;
         }
     }
-
+    //테스트코드
+    [SerializeField] AttackCol a;
 
     void attack()
     {
+        a.Attack();
+
         attackSwitch = !attackSwitch;
 
         anim.SetTrigger("doAttack");

@@ -8,4 +8,9 @@ public class Enemy : CharacterBase
     public Transform Target;
 
     public virtual void StartAI() { }
+
+    public override void Hit()
+    {
+        Debug.Log("OUC");
+    }
 }

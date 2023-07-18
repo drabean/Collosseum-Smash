@@ -24,7 +24,7 @@ public class CharacterBase : MonoBehaviour
     public float moveSpeed;
     public float aimRange;
     #endregion
-    protected virtual void Hit()
+    public virtual void Hit()
     {
 
     }
