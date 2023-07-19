@@ -9,6 +9,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] protected SpriteRenderer sp;
     [SerializeField] protected Animator anim;
     [SerializeField] protected AnimationEventReciever evnt;
+    [SerializeField] protected Rigidbody2D rb;
 
     [SerializeField] protected Transform aim;
     #endregion
@@ -24,7 +25,7 @@ public class CharacterBase : MonoBehaviour
     public float moveSpeed;
     public float aimRange;
     #endregion
-    public virtual void Hit()
+    public virtual void Hit(Transform attackerPos)
     {
 
     }

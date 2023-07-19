@@ -8,6 +8,8 @@ using UnityEngine;
 public class AttackCol : MonoBehaviour
 {
     Collider2D col;
+    [SerializeField] Transform attackerPos;
+
     private void Awake()
     {
         col = GetComponent<Collider2D>();
@@ -16,7 +18,7 @@ public class AttackCol : MonoBehaviour
     {
        if( collision.TryGetComponent<Enemy>(out Enemy enem))
         {
-            enem.Hit();
+            enem.Hit(attackerPos);
         }
     }
 
