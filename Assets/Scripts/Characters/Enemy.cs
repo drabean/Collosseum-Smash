@@ -27,9 +27,9 @@ public class Enemy : CharacterBase
         //Material º¯°æ
         Material origin = sp.material;
         sp.material = Resources.Load<Material>("Materials/WhiteFlash");
-        GameManager.Inst.Shake(0.1f, 0.1f);
-        GameManager.Inst.Zoom(0.05f, 0.97f);
-        GameManager.Inst.SlowTime(0.1f, 0.2f);
+        GameManager.Inst.Shake(0.15f, 20f, 0.08f);
+        GameManager.Inst.Zoom(0.15f, 0.99f);
+        GameManager.Inst.SlowTime(0.2f, 0.6f);
 
         yield return new WaitForSeconds(0.15f);
 

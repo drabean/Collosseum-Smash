@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 785169f27bf2d8c43b6d8a653940b5a9
+guid: 00b837d84c54c3049916266fcdf61c06
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,7 +118,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,64 +129,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Slash_0
+      name: Move_LF_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
-        width: 24
-        height: 24
+        y: 8
+        width: 8
+        height: 2
       alignment: 9
-      pivot: {x: 0.33333334, y: 0.5}
+      pivot: {x: 0.5, y: 1.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fee4e9320ee337442aa32f750419c655
-      internalID: 1208831809
+      spriteID: 6fac8e8c353b5b548a4245f82d5fbaf3
+      internalID: -636689729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Slash_1
+      name: Move_LF_1
       rect:
         serializedVersion: 2
-        x: 24
-        y: 24
-        width: 24
-        height: 24
+        x: 0
+        y: 6
+        width: 8
+        height: 2
       alignment: 9
-      pivot: {x: 0.33333334, y: 0.5}
+      pivot: {x: 0.5, y: 1.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbfbb25321966ea4ab03e622a558bdcf
-      internalID: 1161912022
+      spriteID: 73beee079b6539b459649a3dabf247b8
+      internalID: 976059241
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Slash_2
+      name: Move_LF_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 8
+        height: 2
+      alignment: 9
+      pivot: {x: 0.5, y: 1.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c54f19cf31758034ca913dbd1acbdc61
+      internalID: -910591438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move_LF_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 8
+        height: 2
+      alignment: 9
+      pivot: {x: 0.5, y: 1.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3c6f2b87fbcd614f83fa99ead49251a
+      internalID: 647915562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move_LF_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 24
-        height: 24
+        width: 8
+        height: 2
       alignment: 9
-      pivot: {x: 0.33333334, y: 0.5}
+      pivot: {x: 0.5, y: 1.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49b9c3d44c77f5d46a433a8fffa4a1a6
-      internalID: -364037941
+      spriteID: 6febaccbd7149fb4fb05dadd9433d765
+      internalID: 287950961
       vertices: []
       indices: 
       edges: []
@@ -202,9 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Slash_0: 1208831809
-      Slash_1: 1161912022
-      Slash_2: -364037941
+      Move_LF_0: -636689729
+      Move_LF_1: 976059241
+      Move_LF_2: -910591438
+      Move_LF_3: 647915562
+      Move_LF_4: 287950961
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

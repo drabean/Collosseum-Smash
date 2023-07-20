@@ -5,16 +5,27 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     Camera cam;
+
+    [SerializeField] AnimationCurve shakeX;
+    [SerializeField] AnimationCurve shakeY;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
     }
-    public void Shake(float duration, float power)
-    {
-        StartCoroutine(co_Shake(duration, power));
-    }
 
-    IEnumerator co_Shake(float duration, float magnitude)
+    /// <summary>
+    /// 화면을 흔드는 함수입니다.
+    /// </summary>
+    /// <param name="duration">화면을 흔드는 총 시간</param>
+    /// <param name="shakeSpeed">초당  흔드는 횟수</param>
+    /// <param name="xPower"></param>
+    /// <param name="yPower"></param>
+    public void Shake(float duration, float shakeSpeed, float xPower, float yPower)
+    {
+        StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower));
+    }
+    IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower)
     {
         Vector3 camOriginPos = transform.localPosition;
 
@@ -22,8 +33,8 @@ public class CameraController : MonoBehaviour
 
         while (timer <= duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            float x = shakeX.Evaluate(timer * shakeSpeed) * xPower;
+            float y = shakeX.Evaluate(timer * shakeSpeed) * yPower;
 
             transform.localPosition = camOriginPos + new Vector3(x, y, 0f);
 
@@ -34,7 +45,6 @@ public class CameraController : MonoBehaviour
 
         transform.localPosition = camOriginPos;
     }
-
     public void Zoom(float duration, float power)
     {
         StartCoroutine(co_Zoom(duration, power));
