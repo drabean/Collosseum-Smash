@@ -5,11 +5,6 @@ using UnityEngine;
 public class EnemyPatrol : Enemy
 {
     Vector3 destination;
-
-    private void Start()
-    {
-        StartAI();
-    }
     public override void StartAI()
     {
         StartCoroutine(co_Idle());

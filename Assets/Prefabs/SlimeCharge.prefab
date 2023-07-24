@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1620728181462010666}
   - component: {fileID: 1620728181462010667}
   - component: {fileID: -4394521948981522571}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SlimeCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,13 +53,14 @@ MonoBehaviour:
   sp: {fileID: 1620728181462010836}
   anim: {fileID: 1620728181462010837}
   evnt: {fileID: 1620728181462010667}
+  rb: {fileID: -4394521948981522571}
   aim: {fileID: 1620728181686597898}
   isDead: 0
   moveSpeed: 0.9
   aimRange: 0.6
   Target: {fileID: 0}
   chargeRange: 2
-  chargeStartRange: 1.5
+  chargeStartRange: 1.6
   chargeTime: 0.25
   waitBeforeTime: 0.7
   waitAfterTime: 1
@@ -205,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1620728181686597898}
   - component: {fileID: 1620728181686597941}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

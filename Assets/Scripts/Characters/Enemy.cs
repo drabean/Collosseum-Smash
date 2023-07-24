@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : CharacterBase
 {
     [Header("Àû")]
     public Transform Target;
 
+    #region delegate
+    public Action onDeath;
+    public Action onSpawn;
+    #endregion
     public virtual void StartAI() { }
+
 
     public override void Hit(Transform attackerPos)
     {
+        StopAllCoroutines();
+
         StartCoroutine(co_Hit(attackerPos));
     }
 

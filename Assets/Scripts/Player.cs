@@ -21,7 +21,11 @@ public class Player : CharacterBase
 
     #region 상태변수
     bool attackSwitch = false;
+    public bool isInAttackRange = false;
     #endregion
+
+
+
     private void Awake()
     {
         evnt.moveEffect = () => particle.Play();
@@ -34,10 +38,13 @@ public class Player : CharacterBase
 
         //임시코드
 
+        /*
         if (isSpace)
         {
             attack();
         }
+        */
+        attack();
 
         if (inputVec != Vector3.zero)
         {
@@ -52,9 +59,15 @@ public class Player : CharacterBase
     }
     //테스트코드
     [SerializeField] AttackCol a;
-
+    float attackTimeLeft = 0;
+    [SerializeField] float attackCooltime;
     void attack()
     {
+        attackTimeLeft -= Time.deltaTime;
+        if (!isInAttackRange) return;
+        if (attackTimeLeft >= 0) return;
+        attackTimeLeft = attackCooltime;
+
         a.Attack();
 
         attackSwitch = !attackSwitch;

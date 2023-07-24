@@ -10,10 +10,7 @@ public class EnemyCharge : Enemy
     public float chargeTime;//돌진시간
     public float waitBeforeTime;//돌진 전 대기시간
     public float waitAfterTime;//돌진후대기시간
-    private void Awake()
-    {
-        StartAI();
-    }
+
     public override void StartAI()
     {
         StartCoroutine(co_Chase());

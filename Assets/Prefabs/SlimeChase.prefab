@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145949988399145451}
   - component: {fileID: 1145949988399145428}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1145949988644328395}
   - component: {fileID: 1145949988644328394}
   - component: {fileID: 5721678675283705108}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SlimeChase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +137,7 @@ MonoBehaviour:
   sp: {fileID: 1145949988644328245}
   anim: {fileID: 1145949988644328244}
   evnt: {fileID: 1145949988644328394}
+  rb: {fileID: 5721678675283705108}
   aim: {fileID: 1145949988399145451}
   isDead: 0
   moveSpeed: 1.5

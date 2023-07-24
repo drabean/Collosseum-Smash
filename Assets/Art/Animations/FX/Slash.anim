@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_Attack
+  m_Name: Slash
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 1208831809, guid: 785169f27bf2d8c43b6d8a653940b5a9, type: 3}
-    - time: 0.06666667
+    - time: 0.05
       value: {fileID: 1161912022, guid: 785169f27bf2d8c43b6d8a653940b5a9, type: 3}
-    - time: 0.13333334
+    - time: 0.1
       value: {fileID: -364037941, guid: 785169f27bf2d8c43b6d8a653940b5a9, type: 3}
     - time: 0.15
       value: {fileID: 0}
