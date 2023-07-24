@@ -16,13 +16,13 @@ TagManager:
   - 
   - 
   - 
+  - Ally
+  - AllyAttack
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyAttack
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Stage
+    uniqueID: 3420432779
+    locked: 0
+  - name: Effect
+    uniqueID: 4199077789
     locked: 0

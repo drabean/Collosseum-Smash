@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 1620728181462010837}
   - component: {fileID: 1620728181462010666}
   - component: {fileID: 1620728181462010667}
-  m_Layer: 0
+  - component: {fileID: -4394521948981522571}
+  m_Layer: 16
   m_Name: SlimeCharge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,13 +53,14 @@ MonoBehaviour:
   sp: {fileID: 1620728181462010836}
   anim: {fileID: 1620728181462010837}
   evnt: {fileID: 1620728181462010667}
+  rb: {fileID: -4394521948981522571}
   aim: {fileID: 1620728181686597898}
   isDead: 0
   moveSpeed: 0.9
   aimRange: 0.6
   Target: {fileID: 0}
   chargeRange: 2
-  chargeStartRange: 1.5
+  chargeStartRange: 1.6
   chargeTime: 0.25
   waitBeforeTime: 0.7
   waitAfterTime: 1
@@ -173,6 +175,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51028a7058d4093419da22d235e84c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &-4394521948981522571
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620728181462010664}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1620728181686597899
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1620728181686597898}
   - component: {fileID: 1620728181686597941}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a491b9d8f2e0f0d45a810d651da3cafa
+guid: 65ca34a554e525d488758b26ebdb7496
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,68 +101,134 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dust_0
+      name: Move_UF_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 4
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 40
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d6da8ca49089084d89b19096f3eb865
-      internalID: 1136913625
+      spriteID: 6306eb101ed576d4185d880ce83845ab
+      internalID: -2062577116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dust_1
+      name: Move_UF_1
       rect:
         serializedVersion: 2
-        x: 4
-        y: 5
-        width: 4
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 20
+        y: 40
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c21768e1e3a0a224cbc3367578488de6
-      internalID: 1214469097
+      spriteID: 7526845b1df6c324f8a8f54527b3738e
+      internalID: 563315883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dust_2
+      name: Move_UF_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 20
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5abda1a33a9be4b885749903c54a57
+      internalID: -1519079561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move_UF_3
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 20
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af8fdcd55ddef248b4eca553fd17b71
+      internalID: 310134444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move_UF_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 143ca640510322641b9d755dc89de833
-      internalID: 1033071801
+      spriteID: d3ff48794b6afe44fbd71cdb8a4473f8
+      internalID: 1303821142
       vertices: []
       indices: 
       edges: []
@@ -178,9 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dust_0: 1136913625
-      Dust_1: 1214469097
-      Dust_2: 1033071801
+      Move_UF_0: -2062577116
+      Move_UF_1: 563315883
+      Move_UF_2: -1519079561
+      Move_UF_3: 310134444
+      Move_UF_4: 1303821142
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

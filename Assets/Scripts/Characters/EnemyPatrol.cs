@@ -5,11 +5,6 @@ using UnityEngine;
 public class EnemyPatrol : Enemy
 {
     Vector3 destination;
-
-    private void Start()
-    {
-        StartAI();
-    }
     public override void StartAI()
     {
         StartCoroutine(co_Idle());
@@ -35,7 +30,6 @@ public class EnemyPatrol : Enemy
     {
         while(Vector3.Distance(transform.position, destination) >= 0.3f)
         {
-            Debug.Log("A");
             moveTowardTarget(destination);
             yield return null;
         }

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : CharacterBase
 {
     #region 오브젝트 참조
     [Header("오브젝트 참조")]
     [SerializeField] Transform atk;
+    [SerializeField] Transform spriteGroup;
     [SerializeField] ParticleSystem particle;
     #endregion
 
@@ -18,30 +20,31 @@ public class Player : CharacterBase
     #endregion
 
     #region 상태변수
-    bool commandLock;
     bool attackSwitch = false;
+    public bool isInAttackRange = false;
     #endregion
+
+
+
     private void Awake()
     {
-        evnt.commandLockStart = () => commandLock = true;
-        evnt.commandLockEnd = () => commandLock = false;
         evnt.moveEffect = () => particle.Play();
     }
 
 
     private void Update()
     {
-        if (commandLock) return;
         getInput();
 
         //임시코드
 
+        /*
         if (isSpace)
         {
             attack();
-
-            return;
         }
+        */
+        attack();
 
         if (inputVec != Vector3.zero)
         {
@@ -54,10 +57,19 @@ public class Player : CharacterBase
             return;
         }
     }
-
-
+    //테스트코드
+    [SerializeField] AttackCol a;
+    float attackTimeLeft = 0;
+    [SerializeField] float attackCooltime;
     void attack()
     {
+        attackTimeLeft -= Time.deltaTime;
+        if (!isInAttackRange) return;
+        if (attackTimeLeft >= 0) return;
+        attackTimeLeft = attackCooltime;
+
+        a.Attack();
+
         attackSwitch = !attackSwitch;
 
         anim.SetTrigger("doAttack");
@@ -76,4 +88,14 @@ public class Player : CharacterBase
         if (inputVec != Vector3.zero) lastVec = inputVec;
         isSpace = Input.GetKeyDown(KeyCode.Space);
     }
+
+    Vector3 minVec = new Vector3(-1, 1, 1);
+    protected override void setDir(Vector3 dir)
+    {
+        anim.SetFloat("dirX", dir.x);
+        anim.SetFloat("dirY", dir.y);
+        if (dir.x != 0) spriteGroup.localScale = dir.x < 0 ? minVec : Vector3.one;
+        aim.transform.localPosition = dir * aimRange;
+    }
+
 }

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyChase : Enemy
 {
-    private void Awake()
-    {
-        StartAI();
-    }
     public override void StartAI()
     {
         StartCoroutine(co_Chase());
