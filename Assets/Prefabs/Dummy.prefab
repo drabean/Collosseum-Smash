@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2700296542849834237}
   - component: {fileID: 2700296542849834236}
   - component: {fileID: 2700296542849834239}
+  - component: {fileID: 5242865262351638585}
   m_Layer: 16
   m_Name: Dummy
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   evnt: {fileID: 0}
   rb: {fileID: 2700296542849834239}
   aim: {fileID: 0}
+  hit: {fileID: 0}
   isDead: 0
   moveSpeed: 0
   aimRange: 0
@@ -155,3 +157,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5242865262351638585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700296542849834234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -22,8 +22,13 @@ public class Player : CharacterBase
     #region 상태변수
     bool attackSwitch = false;
     public bool isInAttackRange = false;
+    bool isInvincible = false;
     #endregion
 
+    #region 플레이어 
+    [Header("최대체력")] public int maxHP;
+    [Header("현재체력")] public int curHP;
+    #endregion
 
 
     private void Awake()
@@ -31,19 +36,16 @@ public class Player : CharacterBase
         evnt.moveEffect = () => particle.Play();
     }
 
+    private void Start()
+    {
+        UIMgr.Inst.joystick.setTarget(GetInput);
+        UIMgr.Inst.hp.Set(curHP);
+    }
 
     private void Update()
     {
-        getInput();
-
+        //
         //임시코드
-
-        /*
-        if (isSpace)
-        {
-            attack();
-        }
-        */
         attack();
 
         if (inputVec != Vector3.zero)
@@ -82,10 +84,10 @@ public class Player : CharacterBase
         atk.GetComponent<Animator>().SetTrigger("doAttack");
     }
 
-    void getInput()
+    public void GetInput(Vector2 inputVec)
     {
-        inputVec = (Vector2.right * Input.GetAxisRaw("Horizontal") + Vector2.up * Input.GetAxisRaw("Vertical")).normalized;
-        if (inputVec != Vector3.zero) lastVec = inputVec;
+        this.inputVec = inputVec;
+        if (this.inputVec != Vector3.zero) lastVec = inputVec;
         isSpace = Input.GetKeyDown(KeyCode.Space);
     }
 
@@ -98,4 +100,28 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
+    public override void Hit(Transform attackerPos)
+    {
+        if (isInvincible) return;
+
+        StartCoroutine(co_Invincible());
+    }
+
+    IEnumerator co_Invincible()
+    {
+        isInvincible = true;
+        curHP--;
+
+        GameManager.Inst.Shake(0.15f, 50f, 0.12f);
+        GameManager.Inst.Zoom(0.15f, 0.98f);
+        GameManager.Inst.SlowTime(0.5f, 0.2f);
+
+        UIMgr.Inst.hp.Set(curHP);
+        hit.FlashWhite(0.3f);
+        hit.Togle(1.0f);
+
+        yield return new WaitForSeconds(1.0f);
+
+        isInvincible = false;
+    }
 }
