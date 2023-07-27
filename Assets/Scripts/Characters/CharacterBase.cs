@@ -12,6 +12,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
 
     [SerializeField] protected Transform aim;
+    [SerializeField] protected ModuleHit hit;
     #endregion
 
     #region 상태변수
@@ -27,7 +28,6 @@ public class CharacterBase : MonoBehaviour
     #endregion
     public virtual void Hit(Transform attackerPos)
     {
-
     }
 
 
