@@ -11,6 +11,13 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         m_mainCam = Camera.main.GetComponent<CameraController>();
     }
+    int score = 0;
+    public void addScore(int score)
+    {
+        this.score += score;
+        UIMgr.Inst.score.Set(this.score);
+
+    }
 
     /// <summary>
     /// 카메라를 일정 시간동안 흔듭니다.

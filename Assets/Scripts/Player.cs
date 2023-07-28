@@ -16,7 +16,6 @@ public class Player : CharacterBase
     #region 입력 변수
     Vector3 inputVec;
     Vector3 lastVec = Vector3.right;
-    bool isSpace;
     #endregion
 
     #region 상태변수
@@ -86,14 +85,15 @@ public class Player : CharacterBase
 
     public void GetInput(Vector2 inputVec)
     {
+        Debug.Log(inputVec);
         this.inputVec = inputVec;
         if (this.inputVec != Vector3.zero) lastVec = inputVec;
-        isSpace = Input.GetKeyDown(KeyCode.Space);
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
     protected override void setDir(Vector3 dir)
     {
+        dir = dir.normalized;
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
         if (dir.x != 0) spriteGroup.localScale = dir.x < 0 ? minVec : Vector3.one;

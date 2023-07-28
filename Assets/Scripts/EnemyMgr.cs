@@ -25,11 +25,14 @@ public class EnemyMgr : Singleton<EnemyMgr>
     //임시 소환 코드
     public void SpawnEnemy()
     {
-        for (int i = 0; i < 3; i++)
+        float difficultyTotal = 0;
+
+        while(difficultyTotal < 3)
         {
             Enemy spawnedEnemy = Instantiate(enemyList[Random.Range(0, enemyList.Length)], spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
             spawnedEnemy.Target = curPlayer.transform;
             spawnedEnemy.StartAI();
-        }
+            difficultyTotal += spawnedEnemy.difficulty;
+        }    
     }
 }
