@@ -52,11 +52,17 @@ public class FloatingJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler
 
         Vector2 direction = (joystickHandle.localPosition).normalized;
 
+
+
         float clampMagnitude = Mathf.Clamp((joystickHandle.localPosition).magnitude, 0, radius);
 
         joystickHandle.localPosition = direction * clampMagnitude;
+
         //조이스틱 값 전달
-        invokeJoystick(joystickHandle.localPosition / radius);
+        //invokeJoystick(joystickHandle.localPosition / radius);
+
+        invokeJoystick(direction);
+
     }
 }
 

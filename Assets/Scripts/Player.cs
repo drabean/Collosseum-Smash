@@ -78,14 +78,12 @@ public class Player : CharacterBase
 
         atk.position = aim.position;
 
-        float angle = Mathf.Atan2(lastVec.y, lastVec.x) * Mathf.Rad2Deg;
-        atk.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        atk.transform.rotation = lastVec.ToQuaternion();
         atk.GetComponent<Animator>().SetTrigger("doAttack");
     }
 
     public void GetInput(Vector2 inputVec)
     {
-        Debug.Log(inputVec);
         this.inputVec = inputVec;
         if (this.inputVec != Vector3.zero) lastVec = inputVec;
     }
@@ -112,9 +110,9 @@ public class Player : CharacterBase
         isInvincible = true;
         curHP--;
 
-        GameManager.Inst.Shake(0.15f, 50f, 0.12f);
-        GameManager.Inst.Zoom(0.15f, 0.98f);
-        GameManager.Inst.SlowTime(0.5f, 0.2f);
+        GameMgr.Inst.Shake(0.15f, 50f, 0.12f);
+        GameMgr.Inst.Zoom(0.15f, 0.98f);
+        GameMgr.Inst.SlowTime(0.5f, 0.2f);
 
         UIMgr.Inst.hp.Set(curHP);
         hit.FlashWhite(0.3f);

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25f0b5bcac9109948920cf37026ea044
+guid: fa8977bb643b9a2498433e29a6decd1e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,127 +129,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HitEffect_0
+      name: Smoke_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 20
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
+        y: 30
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4829c698e18866c46be8124ffa12af71
-      internalID: 830818219
+      spriteID: a2bbfcc638940154c82b96fa8e40efa7
+      internalID: -787293243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HitEffect_1
+      name: Smoke_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 20
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
+        x: 30
+        y: 30
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 950c246a6bc584a4ab737c7f974a8157
-      internalID: -2142839376
+      spriteID: 61c9ed36b90ad2e4f88de669678c6af1
+      internalID: -52935936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HitEffect_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 20
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 676f78951f003b24f9e6ba756061c7e5
-      internalID: -59985878
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HitEffect_3
+      name: Smoke_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70658dbd9fbebb24da221f527d45fd15
-      internalID: -786654084
+      spriteID: a354ef7eac7cc134a872931be07ef2a4
+      internalID: -484007900
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HitEffect_4
+      name: Smoke_3
       rect:
         serializedVersion: 2
-        x: 16
+        x: 30
         y: 0
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff183020c822d1a478dfa64cd423e5c5
-      internalID: -903919575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HitEffect_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 20
-      alignment: 9
-      pivot: {x: 0.0625, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11d8ea8bf763c9c448fe6513a9c30ba4
-      internalID: -1694523716
+      spriteID: b7ad49dc4946a5e46bb5667a27eae911
+      internalID: -709815881
       vertices: []
       indices: 
       edges: []
@@ -265,12 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HitEffect_0: 830818219
-      HitEffect_1: -2142839376
-      HitEffect_2: -59985878
-      HitEffect_3: -786654084
-      HitEffect_4: -903919575
-      HitEffect_5: -1694523716
+      Smoke_0: -787293243
+      Smoke_1: -52935936
+      Smoke_2: -484007900
+      Smoke_3: -709815881
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
