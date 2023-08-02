@@ -41,9 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Stage
+  - name: Background
     uniqueID: 3420432779
     locked: 0
-  - name: Effect
+  - name: Stage
     uniqueID: 4199077789
+    locked: 0
+  - name: BackEffect
+    uniqueID: 3602473339
+    locked: 0
+  - name: Character
+    uniqueID: 2413043449
+    locked: 0
+  - name: FrontEffect
+    uniqueID: 2163130635
+    locked: 0
+  - name: UI
+    uniqueID: 1726863119
     locked: 0

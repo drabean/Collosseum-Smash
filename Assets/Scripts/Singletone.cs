@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
 
@@ -37,6 +37,26 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+}
+
+public class Singleton<T> where T : class, new()
+{
+    private static object _syncobj = new object();
+    private static volatile T _instance = null;
+    public static T Inst
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                lock (_syncobj)
+                {
+                    _instance = new T();
+                }
+            }
+            return _instance;
         }
     }
 }

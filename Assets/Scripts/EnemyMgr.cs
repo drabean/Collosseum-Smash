@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMgr : Singleton<EnemyMgr>
+public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
     [SerializeField] Enemy[] enemyList;
 

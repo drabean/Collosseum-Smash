@@ -42,7 +42,7 @@ public class Enemy : CharacterBase
         hit.FlashWhite(0.1f);
         GameMgr.Inst.Shake(0.15f, 40f, 0.2f);
         GameMgr.Inst.Zoom(0.15f, 0.99f);
-        GameMgr.Inst.SlowTime(0.3f, 0.2f);
+        GameMgr.Inst.SlowTime(0.15f, 0.2f);
 
         yield return new WaitForSeconds(0.15f);
 

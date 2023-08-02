@@ -12,10 +12,31 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
+
+        StartCoroutine(co_FollowTarget());
+    }
+    #region 추적
+    [SerializeField] Transform target;
+    [SerializeField] Vector3 offset;
+    //TEST
+    
+
+    IEnumerator co_FollowTarget()
+    {
+        while(true)
+        {
+            transform.position = Vector3.Lerp(transform.position, target.position + offset, 0.2f);
+            yield return null;
+        }
     }
 
+
+
+
+    #endregion
+
     /// <summary>
-    /// 화면을 흔드는 함수입니다.
+    /// 화면 흔들기
     /// </summary>
     /// <param name="duration">화면을 흔드는 총 시간</param>
     /// <param name="shakeSpeed">초당  흔드는 횟수</param>
@@ -23,6 +44,7 @@ public class CameraController : MonoBehaviour
     /// <param name="yPower"></param>
     public void Shake(float duration, float shakeSpeed, float xPower, float yPower)
     {
+        StopAllCoroutines();
         StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower));
     }
     IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower)
@@ -44,6 +66,7 @@ public class CameraController : MonoBehaviour
         }
 
         transform.localPosition = camOriginPos;
+        StartCoroutine(co_FollowTarget());
     }
     public void Zoom(float duration, float power)
     {
@@ -76,6 +99,6 @@ public class CameraController : MonoBehaviour
         }
 
         cam.orthographicSize = originSize;
-
+        StartCoroutine(co_FollowTarget());
     }
 }

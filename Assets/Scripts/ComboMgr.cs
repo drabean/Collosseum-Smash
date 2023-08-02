@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComboMgr :Singleton<ComboMgr>
+public class ComboMgr :MonoSingleton<ComboMgr>
 {
     const float comboLimit = 3;
     float lastComboTIme = -10;

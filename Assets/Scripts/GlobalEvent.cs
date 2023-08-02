@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class GlobalEvent : Singleton<GlobalEvent>
+public class GlobalEvent : MonoSingleton<GlobalEvent>
 {
     public Action onEnemyDie;
 }
