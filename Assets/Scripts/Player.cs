@@ -16,7 +16,6 @@ public class Player : CharacterBase
     #region 입력 변수
     Vector3 inputVec;
     Vector3 lastVec = Vector3.right;
-    bool isSpace;
     #endregion
 
     #region 상태변수
@@ -79,8 +78,7 @@ public class Player : CharacterBase
 
         atk.position = aim.position;
 
-        float angle = Mathf.Atan2(lastVec.y, lastVec.x) * Mathf.Rad2Deg;
-        atk.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        atk.transform.rotation = lastVec.ToQuaternion();
         atk.GetComponent<Animator>().SetTrigger("doAttack");
     }
 
@@ -88,12 +86,12 @@ public class Player : CharacterBase
     {
         this.inputVec = inputVec;
         if (this.inputVec != Vector3.zero) lastVec = inputVec;
-        isSpace = Input.GetKeyDown(KeyCode.Space);
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
     protected override void setDir(Vector3 dir)
     {
+        dir = dir.normalized;
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
         if (dir.x != 0) spriteGroup.localScale = dir.x < 0 ? minVec : Vector3.one;
@@ -112,9 +110,9 @@ public class Player : CharacterBase
         isInvincible = true;
         curHP--;
 
-        GameManager.Inst.Shake(0.15f, 50f, 0.12f);
-        GameManager.Inst.Zoom(0.15f, 0.98f);
-        GameManager.Inst.SlowTime(0.5f, 0.2f);
+        GameMgr.Inst.Shake(0.15f, 50f, 0.12f);
+        GameMgr.Inst.Zoom(0.15f, 0.98f);
+        GameMgr.Inst.SlowTime(0.5f, 0.2f);
 
         UIMgr.Inst.hp.Set(curHP);
         hit.FlashWhite(0.3f);

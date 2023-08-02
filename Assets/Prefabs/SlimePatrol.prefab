@@ -5006,6 +5006,7 @@ MonoBehaviour:
   moveSpeed: 1.7
   aimRange: 0.6
   Target: {fileID: 0}
+  difficulty: 1
 --- !u!212 &7331239566457888525
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -49,15 +49,18 @@ public class CharacterBase : MonoBehaviour
     /// <param name="dir"></param>
     protected virtual void moveToDir(Vector3 dir)
     {
+        if (dir.magnitude > 1) dir = dir.normalized;
+
         anim.SetBool("isMoving", true);
 
         setDir(dir);
-
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, moveSpeed * Time.deltaTime);
+       // transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, moveSpeed * Time.deltaTime);
+        transform.position += dir * moveSpeed * Time.deltaTime;
     }
 
     protected virtual void setDir(Vector3 dir)
     {
+        dir = dir.normalized;
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
         if (dir.x != 0) sp.flipX = dir.x < 0 ? true : false;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameMgr : Singleton<GameMgr>
 {
     CameraController m_mainCam;
 
@@ -10,6 +10,13 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         m_mainCam = Camera.main.GetComponent<CameraController>();
+    }
+    int score = 0;
+    public void addScore(int score)
+    {
+        this.score += score;
+        UIMgr.Inst.score.Set(this.score);
+
     }
 
     /// <summary>

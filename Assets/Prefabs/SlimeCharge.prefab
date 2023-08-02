@@ -62,6 +62,7 @@ MonoBehaviour:
   moveSpeed: 0.9
   aimRange: 0.6
   Target: {fileID: 0}
+  difficulty: 2
   chargeRange: 2
   chargeStartRange: 1.6
   chargeTime: 0.25
