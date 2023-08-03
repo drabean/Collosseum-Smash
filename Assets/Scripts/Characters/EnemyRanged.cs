@@ -11,6 +11,8 @@ public class EnemyRanged : Enemy
     public Projectile projectile;
     public float projectileSpeed;
 
+    GameObject curAttackWarning;
+
     private void Awake()
     {
         evnt.attack = shootProjectile;
@@ -20,6 +22,12 @@ public class EnemyRanged : Enemy
     {
         StartCoroutine(co_Chase());
     }
+
+    public override void Hit(Transform attackerPos)
+    {
+        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
+        base.Hit(attackerPos);
+    }
     IEnumerator co_Chase()
     {
         while (Vector3.Distance(transform.position, Target.position) >= attackRange)
@@ -27,6 +35,7 @@ public class EnemyRanged : Enemy
             moveTowardTarget(Target.position);
             yield return null;
         }
+        moveTowardTarget(Target.position);
 
         StartCoroutine(co_Attack());
     }
@@ -36,6 +45,7 @@ public class EnemyRanged : Enemy
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
+        curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, transform.position + (aim.position - transform.position).normalized * projectileSpeed * 2, 0.7f, attackWaitTime);
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
 
@@ -64,6 +74,6 @@ public class EnemyRanged : Enemy
 
         temp.moveVec = (aim.position - transform.position);
         temp.moveSpeed = projectileSpeed;
-        Destroy(temp.gameObject, 4.0f);
+        Destroy(temp.gameObject, 2.0f);
     }
 }

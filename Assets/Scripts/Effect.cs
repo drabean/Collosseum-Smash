@@ -10,6 +10,6 @@ public class Effect : MonoBehaviour
 
     private void Awake()
     {
-        despawnAction += () => Destroy(gameObject);//임시코드
+        despawnAction += () => GetComponent<Poolable>().Push();//임시코드
     }
 }

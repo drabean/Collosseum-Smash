@@ -6,8 +6,10 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
     [SerializeField] Enemy[] enemyList;
 
-    GameObject warning;
-    GameObject smoke;
+    // GameObject warning;
+    // GameObject smoke;
+    ObjectPool Pool_warning;
+    ObjectPool Pool_smoke;
 
     Player _player;
 
@@ -24,8 +26,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     protected override void Awake()
     {
         base.Awake();
-        warning = Resources.Load<GameObject>("Prefabs/Warning");
-        smoke = Resources.Load<GameObject>("Prefabs/Smoke");
+        Pool_warning = new ObjectPool("Prefabs/Warning");
+        Pool_smoke = new ObjectPool("Prefabs/Smoke");
 
     }
     private void Start()
@@ -51,11 +53,16 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position)
     {
-        GameObject warning = Instantiate(this.warning, position, Quaternion.identity);
+        GameObject warning = Pool_warning.Pop();
+        warning.transform.position = position;
 
         yield return new WaitForSeconds(1.0f);
-        Destroy(warning);
-        Instantiate(smoke, position, Quaternion.identity);
+        warning.GetComponent<Poolable>().Push();
+
+        GameObject smoke = Pool_smoke.Pop();
+        smoke.transform.position = position;
+        smoke.GetComponent<Poolable>().Push(2.0f);
+
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
         spawnedEnemy.Target = curPlayer.transform;
         spawnedEnemy.StartAI();

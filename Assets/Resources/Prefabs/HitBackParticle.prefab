@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5046067252008630424}
   - component: {fileID: 5046067252008630425}
   - component: {fileID: 5046067252008630502}
+  - component: {fileID: -3749289605024251935}
   m_Layer: 0
   m_Name: HitBackParticle
   m_TagString: Untagged
@@ -4814,3 +4815,15 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &-3749289605024251935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5046067252008630503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2deb8444e5eab4d8c592c39f9afc8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

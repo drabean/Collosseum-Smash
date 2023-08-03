@@ -143,10 +143,10 @@ MonoBehaviour:
   hit: {fileID: 1742816727417321260}
   isDead: 0
   moveSpeed: 0.7
-  aimRange: 2
+  aimRange: 1
   Target: {fileID: 0}
   difficulty: 3
-  attackRange: 2
+  attackRange: 2.5
   attackWaitTime: 0.7
   runawayTime: 1
   projectile: {fileID: 9048280943113272309, guid: 9a9733596e68b1249ab12df3627d9eac, type: 3}

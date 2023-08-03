@@ -35,16 +35,16 @@ public class Enemy : CharacterBase
 
         hit.HitEffect(hitVec);
         hit.DmgTxt(ComboMgr.Inst.checkCombo());
-        Transform hitBackParticle = Instantiate<Transform>(Resources.Load<Transform>("Prefabs/HitBackParticle"));
+
+        Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/HitBackParticle").transform;
         hitBackParticle.SetParent(transform, false);
         hitBackParticle.transform.rotation = (hitVec * (-1)).ToQuaternion();
 
         hit.FlashWhite(0.1f);
         GameMgr.Inst.Shake(0.15f, 40f, 0.2f);
-        GameMgr.Inst.Zoom(0.15f, 0.99f);
         GameMgr.Inst.SlowTime(0.15f, 0.2f);
 
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSecondsRealtime(0.15f);
 
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
@@ -53,6 +53,7 @@ public class Enemy : CharacterBase
         yield return new WaitForSeconds(3.0f);
 
         //TODO: 각종 오브젝트들 풀 반환 해야함
+        hitBackParticle.GetComponent<Poolable>().Push();
         Destroy(gameObject);
     }
 

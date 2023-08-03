@@ -10,6 +10,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         base.Awake();
         m_mainCam = Camera.main.GetComponent<CameraController>();
+
+        Pool_attackWarningLinear = new ObjectPool("Prefabs/AttackWarningLinear");
+        Pool_attackWarningCircle = new ObjectPool("Prefabs/AttackWarningCircle");
     }
     int score = 0;
     public void addScore(int score)
@@ -59,5 +62,34 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSecondsRealtime(time);
 
         Time.timeScale = 1;
+    }
+
+
+    ObjectPool Pool_attackWarningLinear;
+    public GameObject AttackEffectLinear(Vector3 startPos, Vector3 endpos, float height, float time)
+    {
+        //TODO: ObjectPool
+        GameObject temp = Pool_attackWarningLinear.Pop();
+        temp.transform.position = startPos;
+        temp.transform.rotation = (endpos - startPos).ToQuaternion();
+        temp.GetComponent<SpriteRenderer>().size = Vector2.right * (endpos - startPos).magnitude + Vector2.up * height;
+
+        temp.GetComponent<Poolable>().Push(time);
+
+        return temp;
+    }
+
+   // SpriteRenderer attackWarningCircle;
+    ObjectPool Pool_attackWarningCircle;
+    public GameObject AttackEffectCircle(Vector3 startPos, float range, float time)
+    {
+        //TODO: ObjectPool
+        GameObject temp = Pool_attackWarningCircle.Pop();
+        temp.transform.position = startPos;
+        temp.transform.localScale = Vector3.one * (range * 2);
+
+        temp.GetComponent<Poolable>().Push(time);
+
+        return temp;
     }
 }

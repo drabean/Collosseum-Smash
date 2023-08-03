@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4563896698972208391}
   - component: {fileID: 4743375716827612046}
   - component: {fileID: 3701804117188774034}
+  - component: {fileID: -2775165131196969724}
   m_Layer: 0
   m_Name: HitEffect2
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -786654084, guid: 25f0b5bcac9109948920cf37026ea044, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.60784316}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 6707395871069261316}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a72eed414f83b154f91468d536380212, type: 2}
+  m_Controller: {fileID: 9100000, guid: d806c481efb8c724f9f08e79166d3d2d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -117,5 +118,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2775165131196969724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707395871069261316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

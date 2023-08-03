@@ -8,36 +8,40 @@ public class ModuleHit : MonoBehaviour
 {
     SpriteRenderer[] sps;
 
-    GameObject[] hitEffect = new GameObject[2];
+    //GameObject[] hitEffect = new GameObject[2];
 
-    TextMeshPro _dmgTxt;
+
 
     public void Awake()
     {
         sps = GetComponentsInChildren<SpriteRenderer>();
         originMat = sps[0].material;
         whiteMat = Resources.Load<Material>("Materials/FlashWhite");
-        hitEffect[0] = Resources.Load<GameObject>("Prefabs/HitEffect");
-        hitEffect[1] = Resources.Load<GameObject>("Prefabs/HitEffect2");
-        _dmgTxt = Resources.Load<TextMeshPro>("Prefabs/DmgTxt");
-
     }
 
     #region HitEffect
 
     public void HitEffect(Vector3 hitVec)
-    {
-        Instantiate(hitEffect[0], transform.position , (hitVec * (-1)).ToQuaternion()).transform.localScale = Vector3.one * Random.Range(1.7f, 2.6f);
-        Instantiate(hitEffect[1], transform.position, (hitVec * (-1)).ToQuaternion()).transform.localScale = Vector3.one * Random.Range(1.7f, 2.6f);
+    {;
+        GameObject hitEffect = DictionaryPool.Inst.Pop("Prefabs/HitEffect");
+        hitEffect.transform.position = transform.position;
+        hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
+        hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
+        hitEffect = DictionaryPool.Inst.Pop("Prefabs/HitEffect2");
+        hitEffect.transform.position = transform.position;
+        hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
+        hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
     }
     #endregion
 
     #region DmgTxt
     public void DmgTxt(int combo)
     {
-        TextMeshPro dmgTxt = Instantiate(_dmgTxt, transform.position + Vector3.up * 0.8f, Quaternion.identity);
-        dmgTxt.text = combo + "combo!";
-        Destroy(dmgTxt, 0.2f);
+        //TextMeshPro dmgTxt = Instantiate(_dmgTxt, transform.position + Vector3.up * 0.8f, Quaternion.identity);
+        GameObject dmgTxt = DictionaryPool.Inst.Pop("Prefabs/DmgTxt");
+        dmgTxt.transform.position = transform.position + Vector3.up * 0.8f;
+        dmgTxt.GetComponent<TextMeshPro>().text = combo + "combo!";
+        DictionaryPool.Inst.Push(dmgTxt.gameObject, 0.2f);
 
     }
     #endregion
