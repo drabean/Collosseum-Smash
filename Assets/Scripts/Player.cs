@@ -7,7 +7,6 @@ public class Player : CharacterBase
 {
     #region 오브젝트 참조
     [Header("오브젝트 참조")]
-    [SerializeField] Transform atk;
     [SerializeField] Transform spriteGroup;
     [SerializeField] ParticleSystem particle;
     #endregion
@@ -22,6 +21,7 @@ public class Player : CharacterBase
     bool attackSwitch = false;
     public bool isInAttackRange = false;
     bool isInvincible = false;
+    bool commandLock = false;
     #endregion
 
     #region 플레이어 
@@ -33,6 +33,9 @@ public class Player : CharacterBase
     private void Awake()
     {
         evnt.moveEffect = () => particle.Play();
+        evnt.attack = doAttack;
+        evnt.commandLockStart = () => commandLock = true;
+        evnt.commandLockEnd = () => commandLock = false;
     }
 
     private void Start()
@@ -69,17 +72,12 @@ public class Player : CharacterBase
         if (attackTimeLeft >= 0) return;
         attackTimeLeft = attackCooltime;
 
-        a.Attack();
-
-        attackSwitch = !attackSwitch;
-
         anim.SetTrigger("doAttack");
-        anim.SetBool("attackSwitch", attackSwitch);
+    }
 
-        atk.position = aim.position;
-
-        atk.transform.rotation = lastVec.ToQuaternion();
-        atk.GetComponent<Animator>().SetTrigger("doAttack");
+    void doAttack()
+    {
+        DictionaryPool.Inst.Pop("Prefabs/AttackEffect").transform.position = aim.position;
     }
 
     public void GetInput(Vector2 inputVec)
@@ -91,6 +89,7 @@ public class Player : CharacterBase
     Vector3 minVec = new Vector3(-1, 1, 1);
     protected override void setDir(Vector3 dir)
     {
+        if (commandLock) return;
         dir = dir.normalized;
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
