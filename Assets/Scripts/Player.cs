@@ -18,7 +18,6 @@ public class Player : CharacterBase
     #endregion
 
     #region 상태변수
-    bool attackSwitch = false;
     public bool isInAttackRange = false;
     bool isInvincible = false;
     bool commandLock = false;
@@ -50,6 +49,11 @@ public class Player : CharacterBase
         //임시코드
         attack();
 
+#if UNITY_EDITOR
+        this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
+        if(inputVec != null) lastVec = this.inputVec;
+
+#endif
         if (inputVec != Vector3.zero)
         {
             moveToDir(inputVec);
@@ -70,6 +74,7 @@ public class Player : CharacterBase
         attackTimeLeft -= Time.deltaTime;
         if (!isInAttackRange) return;
         if (attackTimeLeft >= 0) return;
+
         attackTimeLeft = attackCooltime;
 
         anim.SetTrigger("doAttack");
@@ -84,6 +89,8 @@ public class Player : CharacterBase
     {
         this.inputVec = inputVec;
         if (this.inputVec != Vector3.zero) lastVec = inputVec;
+
+
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);

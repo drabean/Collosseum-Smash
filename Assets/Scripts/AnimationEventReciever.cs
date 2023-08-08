@@ -14,7 +14,7 @@ public class AnimationEventReciever : MonoBehaviour
     public void onCommandLockStart() { commandLockStart?.Invoke(); }
     public void onCommandLockEnd() { commandLockEnd?.Invoke(); }
 
-    public void onAttackEvent() { attack?.Invoke(); }
-    public void onMoveEffect() { moveEffect?.Invoke(); }
-    
+    public void onAttackEvent() { attack?.Invoke();}
+    public void onMoveEffect() { moveEffect?.Invoke();}
+
 }
