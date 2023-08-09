@@ -33,7 +33,7 @@ AnimationClip:
       value: {fileID: 855729247, guid: e80ff4ce11bca9345879f5215172d306, type: 3}
     - time: 0.28333333
       value: {fileID: 746296492, guid: e80ff4ce11bca9345879f5215172d306, type: 3}
-    - time: 0.38333333
+    - time: 0.41666666
       value: {fileID: 746296492, guid: e80ff4ce11bca9345879f5215172d306, type: 3}
     attribute: m_Sprite
     path: SpriteGroup/UpperBody
@@ -67,7 +67,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.43333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -101,7 +101,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.38333333
+  - time: 0.4
     functionName: onCommandLockEnd
     data: 
     objectReferenceParameter: {fileID: 0}

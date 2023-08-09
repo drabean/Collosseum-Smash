@@ -65,24 +65,18 @@ public class Player : CharacterBase
             return;
         }
     }
-    //테스트코드
-    [SerializeField] AttackCol a;
-    float attackTimeLeft = 0;
-    [SerializeField] float attackCooltime;
     void attack()
     {
-        attackTimeLeft -= Time.deltaTime;
         if (!isInAttackRange) return;
-        if (attackTimeLeft >= 0) return;
+        if (commandLock) return;
 
-        attackTimeLeft = attackCooltime;
 
         anim.SetTrigger("doAttack");
     }
 
     void doAttack()
     {
-        DictionaryPool.Inst.Pop("Prefabs/AttackEffect").transform.position = aim.position;
+        DictionaryPool.Inst.Pop("Prefabs/Effect/AttackEffect").transform.position = aim.position;
     }
 
     public void GetInput(Vector2 inputVec)

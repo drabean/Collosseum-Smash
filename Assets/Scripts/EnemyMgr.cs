@@ -32,7 +32,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     }
     private void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, 2.0f);
+        InvokeRepeating("SpawnEnemy", 0f, 8.0f);
     }
 
 

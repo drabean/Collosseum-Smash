@@ -703,7 +703,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 65536
-  detectionRadius: 1
+  detectionRadius: 0.8
   owner: {fileID: 650875044}
 --- !u!1 &626450868
 GameObject:
@@ -864,8 +864,6 @@ MonoBehaviour:
   isInAttackRange: 0
   maxHP: 3
   curHP: 3
-  a: {fileID: 0}
-  attackCooltime: 0.4
 --- !u!4 &650875045
 Transform:
   m_ObjectHideFlags: 0
@@ -926,7 +924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList:
-  - {fileID: 1145949988644328240, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
+  - {fileID: 2420703359672377589, guid: ba6aa93594ac3d24f9f88062fee10b85, type: 3}
   spawnArea:
   - {fileID: 466920636}
   - {fileID: 626450869}

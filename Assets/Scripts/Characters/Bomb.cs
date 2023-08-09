@@ -19,7 +19,7 @@ public class Bomb : MonoBehaviour
 
     public void Explode()
     {
-        DictionaryPool.Inst.Pop("Prefabs/Explosion").transform.position = transform.position;
+        DictionaryPool.Inst.Pop("Prefabs/Effect/Explosion").transform.position = transform.position;
 
         Destroy(gameObject);
     }

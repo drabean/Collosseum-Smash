@@ -23,12 +23,12 @@ public class ModuleHit : MonoBehaviour
 
     public void HitEffect(Vector3 hitVec)
     {;
-        GameObject hitEffect = DictionaryPool.Inst.Pop("Prefabs/HitEffect");
+        GameObject hitEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/HitEffect");
         hitEffect.transform.position = transform.position;
         hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
         hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
 
-        hitEffect = DictionaryPool.Inst.Pop("Prefabs/HitEffect2");
+        hitEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/HitEffect2");
         hitEffect.transform.position = transform.position;
         hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
         hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
