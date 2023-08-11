@@ -8,14 +8,15 @@ public class EnemyRanged : Enemy
     public float attackRange;
     public float attackWaitTime;
     public float runawayTime;
-    public Projectile projectile;
-    public float projectileSpeed;
+    public string projectileName;
 
     GameObject curAttackWarning;
+    Attack curProjectile;
 
     private void Awake()
     {
         evnt.attack = shootProjectile;
+        projectile = Resources.Load<Attack>(projectileName);
     }
 
     public override void StartAI()
@@ -45,7 +46,10 @@ public class EnemyRanged : Enemy
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, transform.position + (aim.position - transform.position).normalized * projectileSpeed * 2, 0.7f, attackWaitTime);
+
+       
+        curAttackWarning = projectile.ShowWarning(transform.position, Target.position, attackWaitTime);
+        
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
 
@@ -68,12 +72,20 @@ public class EnemyRanged : Enemy
         StartCoroutine(co_Chase());
     }
 
+    Attack projectile;
+
     void shootProjectile()
     {
-        Projectile temp = Instantiate<Projectile>(projectile, transform.position, Quaternion.identity);
+        curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
+        curProjectile.Shoot(transform.position, aim.transform.position);
+    }
 
-        temp.moveVec = (aim.position - transform.position);
-        temp.moveSpeed = projectileSpeed;
-        Destroy(temp.gameObject, 2.0f);
+    protected override void setDir(Vector3 dir)
+    {
+        dir = dir.normalized;
+        anim.SetFloat("dirX", dir.x);
+        anim.SetFloat("dirY", dir.y);
+        if (dir.x != 0) sp.flipX = dir.x < 0 ? true : false;
+        aim.transform.position = Target.position;
     }
 }

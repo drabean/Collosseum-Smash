@@ -57,9 +57,10 @@ public class Enemy : CharacterBase
         Destroy(gameObject);
     }
 
-    [ContextMenu("SpawnTest")]
-    public void testFunc()
+    [ContextMenu("StartAction")]
+    public void StartAction()
     {
+        Target = GameObject.FindObjectOfType<Player>().transform;
         StartAI();
     }
 }

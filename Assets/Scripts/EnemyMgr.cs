@@ -6,11 +6,6 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
     [SerializeField] Enemy[] enemyList;
 
-    // GameObject warning;
-    // GameObject smoke;
-    ObjectPool Pool_warning;
-    ObjectPool Pool_smoke;
-
     Player _player;
 
     public Transform[] spawnArea = new Transform[2];
@@ -26,9 +21,6 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     protected override void Awake()
     {
         base.Awake();
-        Pool_warning = new ObjectPool("Prefabs/Warning");
-        Pool_smoke = new ObjectPool("Prefabs/Smoke");
-
     }
     private void Start()
     {
@@ -53,13 +45,13 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position)
     {
-        GameObject warning = Pool_warning.Pop();
+        GameObject warning = DictionaryPool.Inst.Pop("Prefabs/Warning");
         warning.transform.position = position;
 
         yield return new WaitForSeconds(1.0f);
         warning.GetComponent<Poolable>().Push();
 
-        GameObject smoke = Pool_smoke.Pop();
+        GameObject smoke = DictionaryPool.Inst.Pop("Prefabs/Smoke");
         smoke.transform.position = position;
         smoke.GetComponent<Poolable>().Push(2.0f);
 
