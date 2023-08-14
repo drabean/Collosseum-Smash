@@ -6,6 +6,7 @@ public class Projectile : Attack
 {
     public float moveSpeed;
     public float lifeTime;
+    public bool isRotate;
 
     Vector3 moveVec;
 
@@ -19,7 +20,7 @@ public class Projectile : Attack
     {
         transform.position = startPos;
         moveVec = (targetPos - startPos).normalized;
-
+        if (isRotate) transform.rotation = moveVec.ToQuaternion();
         StartCoroutine(co_Shoot());
     }
 

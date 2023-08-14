@@ -258,12 +258,12 @@ TextureImporter:
       name: FireMage_6
       rect:
         serializedVersion: 2
-        x: 3
+        x: 1
         y: 6
-        width: 11
+        width: 12
         height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.7083333, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,6 +271,27 @@ TextureImporter:
       bones: []
       spriteID: 6c4c62b7a10fa464e81b7c23c0a4ba4e
       internalID: -397795570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireMage_7
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 6
+        width: 12
+        height: 9
+      alignment: 9
+      pivot: {x: 0.7083333, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8e9e270ee189b44a99d382184fcb0db
+      internalID: -1910302248
       vertices: []
       indices: 
       edges: []
@@ -293,6 +314,7 @@ TextureImporter:
       FireMage_4: -739860689
       FireMage_5: 1813623846
       FireMage_6: -397795570
+      FireMage_7: -1910302248
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

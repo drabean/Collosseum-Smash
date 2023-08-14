@@ -33,7 +33,7 @@ public class ModuleHit : MonoBehaviour
         hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
         hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
 
-        hitEffect = DictionaryPool.Inst.Pop("Prefabs/HitParticle");
+        hitEffect = DictionaryPool.Inst.Pop("Prefabs/Particle/HitParticle");
         hitEffect.transform.position = transform.position;
         hitEffect.transform.rotation = (hitVec).ToQuaternion();
         hitEffect.GetComponent<ParticleSystem>().Play();

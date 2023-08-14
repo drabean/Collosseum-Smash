@@ -36,7 +36,7 @@ public class Enemy : CharacterBase
         hit.HitEffect(hitVec);
         hit.DmgTxt(ComboMgr.Inst.checkCombo());
 
-        Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/HitBackParticle").transform;
+        Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/HitBackParticle").transform;
         hitBackParticle.SetParent(transform, false);
         hitBackParticle.transform.rotation = (hitVec * (-1)).ToQuaternion();
 

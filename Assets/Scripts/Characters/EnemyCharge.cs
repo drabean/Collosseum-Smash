@@ -16,7 +16,7 @@ public class EnemyCharge : Enemy
         StartCoroutine(co_Chase());
     }
 
-    IEnumerator co_Chase()
+    protected virtual IEnumerator co_Chase()
     {
         while (Vector3.Distance(transform.position, Target.position) >= chargeStartRange)
         {
@@ -26,13 +26,15 @@ public class EnemyCharge : Enemy
 
         StartCoroutine(co_Charge());
     }
-    IEnumerator co_Charge()
+   protected IEnumerator co_Charge()
     {
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
         Vector3 chargeDir = (Target.position - transform.position).normalized;
         Vector3 chargeDestination = transform.position + chargeDir * chargeRange;
+
         setDir(chargeDir);
+        GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
 
         yield return new WaitForSeconds(waitBeforeTime);
 
