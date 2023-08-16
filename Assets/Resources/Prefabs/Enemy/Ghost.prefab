@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5058226412308680537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1642001, y: -1.0966015, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -165,10 +165,11 @@ MonoBehaviour:
   isDead: 0
   moveSpeed: 4
   aimRange: 0
+  type: 2
   Target: {fileID: 0}
-  difficulty: 0
-  chargeRange: 4
-  chargeStartRange: 2.5
+  difficulty: 3
+  chargeRange: 6
+  chargeStartRange: 3.5
   chargeTime: 0.25
   waitBeforeTime: 0.5
   waitAfterTime: 1.3
@@ -256,7 +257,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.15}

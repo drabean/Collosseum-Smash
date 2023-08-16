@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620728181462010664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.55, y: -1.46, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -61,10 +61,11 @@ MonoBehaviour:
   isDead: 0
   moveSpeed: 0.9
   aimRange: 0.6
+  type: 2
   Target: {fileID: 0}
   difficulty: 2
-  chargeRange: 2
-  chargeStartRange: 1.6
+  chargeRange: 3.5
+  chargeStartRange: 2
   chargeTime: 0.25
   waitBeforeTime: 0.7
   waitAfterTime: 1

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 1811298285318587836}
   - component: {fileID: 1811298285318587839}
   - component: {fileID: 1811298285318587837}
-  - component: {fileID: 1811298285318587776}
   - component: {fileID: 1811298285318587777}
   - component: {fileID: 8863150477875782468}
   - component: {fileID: 7066934350734680193}
+  - component: {fileID: -8302100380197454348}
   m_Layer: 12
-  m_Name: AttackEffect
+  m_Name: AllyMeleeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,18 +110,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1811298285318587776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811298285318587838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1811298285318587777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,3 +150,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-8302100380197454348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811298285318587838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56bf67ec492f3d4a97c48ef2132c0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

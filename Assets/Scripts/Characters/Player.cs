@@ -76,7 +76,9 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        DictionaryPool.Inst.Pop("Prefabs/Effect/AttackEffect").transform.position = aim.position;
+        AllyMeleeAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<AllyMeleeAttack>();
+        atk.transform.position = aim.position;
+        atk.playerTr = transform;
     }
 
     public void GetInput(Vector2 inputVec)

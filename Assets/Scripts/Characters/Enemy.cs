@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum ENEMYTYPE
+{
+    NORMAL,
+    RANGED,
+    SPECIAL
+}
 public class Enemy : CharacterBase
 {
+    public ENEMYTYPE type;
+
     [Header("Àû")]
     public Transform Target;
 
@@ -15,12 +23,15 @@ public class Enemy : CharacterBase
     protected void invokeOnDeath() { onDeath?.Invoke(); }
     public Action onSpawn;
     #endregion
+
+    protected GameObject curAttackWarning;
     public virtual void StartAI() { }
 
 
     public override void Hit(Transform attackerPos)
     {
         StopAllCoroutines();
+        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
         ModuleAttack attack = GetComponentInChildren<ModuleAttack>();
         Destroy(attack);
         StartCoroutine(co_Hit(attackerPos));

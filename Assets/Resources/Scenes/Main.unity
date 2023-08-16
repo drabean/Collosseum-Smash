@@ -872,7 +872,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650875039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.07, y: -0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -910,7 +910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &653598102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,10 +923,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fb7ecfe23a4d46a1ae21b5fa053d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList:
+  curDifficulty: 8
+  normalEnemy:
   - {fileID: 2420703359672377589, guid: ba6aa93594ac3d24f9f88062fee10b85, type: 3}
-  - {fileID: 8153387403442747216, guid: c58b41ad70307074288586d57819a936, type: 3}
+  - {fileID: 7037995334092932916, guid: 62ebdb16f4a2c0842b7fb67d3de9833d, type: 3}
+  - {fileID: 1145949988644328240, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
+  - {fileID: 7331239566457888514, guid: 7b9b36f948ebc7244821cd0b7bbf77c5, type: 3}
+  rangedEnemy:
   - {fileID: 1886171841371232995, guid: 67a4fad49313bd248afdabde913bbc80, type: 3}
+  - {fileID: 8153387403442747216, guid: c58b41ad70307074288586d57819a936, type: 3}
+  - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
+  specialEnemy:
+  - {fileID: 8023907101193040440, guid: 45f881ff416eac542a718d8b9b89885d, type: 3}
+  - {fileID: 6028886635807258624, guid: 23a925423b60b9b4ba20388df6a9d24e, type: 3}
+  - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
   spawnArea:
   - {fileID: 466920636}
   - {fileID: 626450869}

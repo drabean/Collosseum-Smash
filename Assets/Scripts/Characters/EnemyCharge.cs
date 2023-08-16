@@ -34,7 +34,7 @@ public class EnemyCharge : Enemy
         Vector3 chargeDestination = transform.position + chargeDir * chargeRange;
 
         setDir(chargeDir);
-        GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
+        curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
 
         yield return new WaitForSeconds(waitBeforeTime);
 

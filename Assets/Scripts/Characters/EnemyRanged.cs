@@ -10,7 +10,6 @@ public class EnemyRanged : Enemy
     public float runawayTime;
     public string projectileName;
 
-    GameObject curAttackWarning;
     Attack curProjectile;
 
     private void Awake()
@@ -24,11 +23,6 @@ public class EnemyRanged : Enemy
         StartCoroutine(co_Chase());
     }
 
-    public override void Hit(Transform attackerPos)
-    {
-        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
-        base.Hit(attackerPos);
-    }
     IEnumerator co_Chase()
     {
         while (Vector3.Distance(transform.position, Target.position) >= attackRange)

@@ -11,8 +11,6 @@ public class EnemyMelee: Enemy
     public float attackWaitTime;
     public float attackAfterWaitTime;
 
-    GameObject curAttackWarning;
-
     private void Awake()
     {
         evnt.attack = doAttack;
@@ -21,12 +19,6 @@ public class EnemyMelee: Enemy
     public override void StartAI()
     {
         StartCoroutine(co_Chase());
-    }
-
-    public override void Hit(Transform attackerPos)
-    {
-        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
-        base.Hit(attackerPos);
     }
     IEnumerator co_Chase()
     {
