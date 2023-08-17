@@ -22,12 +22,12 @@ public class EnemyMelee: Enemy
     }
     IEnumerator co_Chase()
     {
-        while (Vector3.Distance(transform.position, Target.position) >= attackRange)
+        while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
         {
-            moveTowardTarget(Target.position);
+            moveTowardTarget(Target.transform.position);
             yield return null;
         }
-        moveTowardTarget(Target.position);
+        moveTowardTarget(Target.transform.position);
 
         StartCoroutine(co_Attack());
     }

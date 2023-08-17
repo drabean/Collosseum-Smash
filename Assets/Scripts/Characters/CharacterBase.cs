@@ -26,11 +26,23 @@ public class CharacterBase : MonoBehaviour
     public float moveSpeed;
     public float aimRange;
     #endregion
-    public virtual void Hit(Transform attackerPos)
+
+
+    /// <summary>
+    ///  피격 함수 (공격측에서 호출)
+    ///  
+    /// </summary>
+    /// <param name="attackerPos">피해를 입히는데 성공했다면 T, 실패 시 F</param>
+    /// <returns></returns>
+    public virtual bool Hit(Transform attackerPos)
     {
+        return true;
     }
 
+    public virtual void Stun(Transform attackerPos)
+    {
 
+    }
     /// <summary>
     /// 목표 지점으로 이동시키는 함수
     /// </summary>

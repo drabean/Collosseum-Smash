@@ -13,7 +13,7 @@ public class EnemyChase : Enemy
     {
         while(!isDead)
         {
-            moveTowardTarget(Target.position);
+            moveTowardTarget(Target.transform.position);
             yield return null;
         }
     }

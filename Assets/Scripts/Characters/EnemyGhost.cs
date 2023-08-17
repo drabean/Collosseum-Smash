@@ -10,9 +10,9 @@ public class EnemyGhost : EnemyCharge
 
     protected override IEnumerator co_Chase()
     {
-        while (Vector3.Distance(transform.position, Target.position) >= chargeStartRange)
+        while (Vector3.Distance(transform.position, Target.transform.position) >= chargeStartRange)
         {
-            moveTowardTarget(Target.position);
+            moveTowardTarget(Target.transform.position);
             yield return null;
         }
 
@@ -20,7 +20,7 @@ public class EnemyGhost : EnemyCharge
 
         while(attackTimeLeft >= 0)
         {
-            Vector2 moveVec = (Target.position - transform.position);
+            Vector2 moveVec = (Target.transform.position - transform.position);
             moveVec = Vector2.right * moveVec.y + Vector2.up * moveVec.x * -1;
 
             moveToDir(moveVec);

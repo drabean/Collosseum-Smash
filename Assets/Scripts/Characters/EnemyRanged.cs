@@ -25,12 +25,12 @@ public class EnemyRanged : Enemy
 
     IEnumerator co_Chase()
     {
-        while (Vector3.Distance(transform.position, Target.position) >= attackRange)
+        while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
         {
-            moveTowardTarget(Target.position);
+            moveTowardTarget(Target.transform.position);
             yield return null;
         }
-        moveTowardTarget(Target.position);
+        moveTowardTarget(Target.transform.position);
 
         StartCoroutine(co_Attack());
     }
@@ -42,7 +42,7 @@ public class EnemyRanged : Enemy
         anim.SetBool("isReady", true);
 
        
-        curAttackWarning = projectile.ShowWarning(transform.position, Target.position, attackWaitTime);
+        curAttackWarning = projectile.ShowWarning(transform.position, Target.transform.position, attackWaitTime);
         
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
@@ -59,7 +59,7 @@ public class EnemyRanged : Enemy
         while(runTimeLeft >= 0)
         {
             runTimeLeft -= Time.deltaTime;
-            moveToDir(transform.position - Target.position);
+            moveToDir(transform.position - Target.transform.position);
             yield return null;
         }
 
@@ -80,6 +80,6 @@ public class EnemyRanged : Enemy
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
         if (dir.x != 0) sp.flipX = dir.x < 0 ? true : false;
-        aim.transform.position = Target.position;
+        aim.transform.position = Target.transform.position;
     }
 }

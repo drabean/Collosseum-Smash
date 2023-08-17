@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[System.Serializable]
+public class STATUS
+{
+    public int STR;
+    public int VIT;
+    public int SPD;
+}
 
 public class Player : CharacterBase
 {
@@ -24,14 +32,38 @@ public class Player : CharacterBase
     #endregion
 
     #region 플레이어 
-    [Header("최대체력")] public int maxHP;
-    [Header("현재체력")] public int curHP;
+    public STATUS _stat;
+    //TODO: 공격범위 조절 추가 (지금은 X)
+
+    int maxHP;
+    int curHP;
+
+    /// <summary>
+    /// stat을 기반으로 실제 적용시키는 함수
+    /// </summary>
+    void setStatus()
+    {
+        moveSpeed = 2f + (_stat.SPD * 0.5f);
+        maxHP = _stat.VIT + 1;
+        curHP = maxHP;
+        UIMgr.Inst.hp.Set(curHP);
+    }
     #endregion
 
+    #region Events ( 아이템 등에서 활용)
+    public Action<int> onCombo;
+    void invokeOnCombo(int combo) { onCombo?.Invoke(combo); }
+    public Action onMovement;
+    void invokeOnMovement() { onMovement?.Invoke(); }
+    public Action onHit;
+    void invokeOnHit() { onHit?.Invoke(); }
+    #endregion
+
+    [HideInInspector] public Combo combo = new Combo();
 
     private void Awake()
     {
-        evnt.moveEffect = () => particle.Play();
+        evnt.moveEffect = onMove;
         evnt.attack = doAttack;
         evnt.commandLockStart = () => commandLock = true;
         evnt.commandLockEnd = () => commandLock = false;
@@ -40,7 +72,8 @@ public class Player : CharacterBase
     private void Start()
     {
         UIMgr.Inst.joystick.setTarget(GetInput);
-        UIMgr.Inst.hp.Set(curHP);
+
+        setStatus();
     }
 
     private void Update()
@@ -100,11 +133,12 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    public override void Hit(Transform attackerPos)
+    public override bool Hit(Transform attackerPos)
     {
-        if (isInvincible) return;
-
+        if (isInvincible) return false;
+        invokeOnHit();
         StartCoroutine(co_Invincible());
+        return true;
     }
 
     IEnumerator co_Invincible()
@@ -123,5 +157,11 @@ public class Player : CharacterBase
         yield return new WaitForSeconds(1.0f);
 
         isInvincible = false;
+    }
+
+    void onMove()
+    {
+        particle.Play();
+        invokeOnMovement();
     }
 }

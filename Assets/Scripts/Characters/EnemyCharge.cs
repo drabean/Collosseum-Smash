@@ -18,9 +18,9 @@ public class EnemyCharge : Enemy
 
     protected virtual IEnumerator co_Chase()
     {
-        while (Vector3.Distance(transform.position, Target.position) >= chargeStartRange)
+        while (Vector3.Distance(transform.position, Target.transform.position) >= chargeStartRange)
         {
-            moveTowardTarget(Target.position);
+            moveTowardTarget(Target.transform.position);
             yield return null;
         }
 
@@ -30,7 +30,7 @@ public class EnemyCharge : Enemy
     {
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        Vector3 chargeDir = (Target.position - transform.position).normalized;
+        Vector3 chargeDir = (Target.transform.position - transform.position).normalized;
         Vector3 chargeDestination = transform.position + chargeDir * chargeRange;
 
         setDir(chargeDir);

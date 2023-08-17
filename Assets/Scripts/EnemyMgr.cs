@@ -121,12 +121,13 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         
         for(int i = 0; i < spawnList.Count; i++)
         {
-            if (Vector2.Distance(spawnList[i], curPlayer.transform.position) <= 4) spawnList.Remove(spawnList[i]);
+            //플레이어에서 가까운 위치의 소환좌표들을 제외시켜줌
+            if (Vector2.Distance(spawnList[i], curPlayer.transform.position) <= 6) spawnList.Remove(spawnList[i]);
         }
         
         for (int i = 0; i < total.Count; i++)
         {
-            if (spawnList.Count == 0) break;
+            if (spawnList.Count == 0) break;            //몬스터가 소환될 위치가 더이상 없다면, 소환 중지.
             Vector2 tempVec = spawnList[Random.Range(0, spawnList.Count)];
             spawnList.Remove(tempVec);
             StartCoroutine(co_SpawnEnemy(total[i], tempVec));
@@ -163,7 +164,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         smoke.GetComponent<Poolable>().Push(2.0f);
 
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
-        spawnedEnemy.Target = curPlayer.transform;
+        spawnedEnemy.Target = curPlayer;
         spawnedEnemy.StartAI();
         switch(spawnedEnemy.type)
         {

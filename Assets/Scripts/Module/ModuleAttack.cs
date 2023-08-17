@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ModuleAttack : MonoBehaviour
 {
+    public bool isStun;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
         {
-            character.Hit(transform);
+            if (!isStun) character.Hit(transform);
+            else character.Stun(transform);
         }
     }
 }
