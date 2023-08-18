@@ -54,7 +54,7 @@ public class Enemy : CharacterBase
         hitBackParticle.transform.rotation = (hitVec * (-1)).ToQuaternion();
 
         hit.FlashWhite(0.1f);
-        GameMgr.Inst.Shake(0.2f, 30f, 0.25f);
+        GameMgr.Inst.Shake(0.2f, 20f, 0.2f);
         GameMgr.Inst.SlowTime(0.1f, 0.2f);
 
         yield return new WaitForSecondsRealtime(0.15f);
@@ -70,6 +70,8 @@ public class Enemy : CharacterBase
         Destroy(gameObject);
     }
 
+    float KnockBackPower = 0.5f;
+
     public override void Stun(Transform attackerPos)
     {
         StopAllCoroutines();
@@ -81,15 +83,22 @@ public class Enemy : CharacterBase
         hit.DmgTxt("Stun!");
 
         //rb.AddForce((transform.position - attackerPos.position).normalized * 5, ForceMode2D.Impulse);
-        StartCoroutine(co_Stun(1.5f));
+        Vector3 destination = transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower;
+        StartCoroutine(co_Stun(1.5f, destination));
     }
-    IEnumerator co_Stun(float time)
+    IEnumerator co_Stun(float time, Vector3 destination)
     {
         GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/StunEffect");
         stunEffect.GetComponent<Poolable>().Push(time);
-        stunEffect.transform.position = gameObject.transform.position + Vector3.up * 0.8f;
-
-        yield return new WaitForSeconds(time);
+        stunEffect.transform.parent = transform;
+        stunEffect.transform.localPosition = Vector3.up * 0.8f;
+        float timeLeft = time;
+        while (timeLeft >= 0)
+        {
+            transform.position = Vector3.Lerp(transform.position, destination,  3 * Time.deltaTime);
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
 
         StartAI();
     }

@@ -9,7 +9,7 @@ public class ThunderStep : Equip
 
     public override void onEquip(Player player)
     {
-        owner = player;
+        base.onEquip(player);
         owner.onMovement += thunderStep;
 
     }
@@ -28,11 +28,4 @@ public class ThunderStep : Equip
            DictionaryPool.Inst.Pop("Prefabs/Effect/Thunder").transform.position = owner.transform.position;
         }
     }
-
-#if UNITY_EDITOR
-    private void Awake()
-    {
-        onEquip(owner);
-    }
-#endif
 }

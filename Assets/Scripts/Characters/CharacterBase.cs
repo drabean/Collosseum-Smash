@@ -11,7 +11,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] protected AnimationEventReciever evnt;
     [SerializeField] protected Rigidbody2D rb;
 
-    [SerializeField] protected Transform aim;
+    public Transform aim;
     [SerializeField] protected ModuleHit hit;
     #endregion
 
