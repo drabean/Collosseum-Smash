@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStun: 0
 --- !u!1 &5058226412059540858
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,10 +169,10 @@ MonoBehaviour:
   type: 2
   Target: {fileID: 0}
   difficulty: 3
-  chargeRange: 6
+  chargeRange: 5
   chargeStartRange: 3.5
   chargeTime: 0.25
-  waitBeforeTime: 0.5
+  waitBeforeTime: 1
   waitAfterTime: 1.3
   attackWaitTime: 1.2
 --- !u!212 &5058226412308680613

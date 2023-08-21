@@ -85,7 +85,6 @@ public class Player : CharacterBase
 #if UNITY_EDITOR
         this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
         if(inputVec != null) lastVec = this.inputVec;
-
 #endif
         if (inputVec != Vector3.zero)
         {
@@ -112,6 +111,7 @@ public class Player : CharacterBase
         AllyMeleeAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<AllyMeleeAttack>();
         atk.transform.position = aim.position;
         atk.playerTr = transform;
+        invokeOnCombo(combo.GetCombo());
     }
 
     public void GetInput(Vector2 inputVec)

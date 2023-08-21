@@ -6,7 +6,11 @@ public abstract class Equip : MonoBehaviour
 {
     public  Player owner;
 
-    public abstract void onEquip(Player player);
+    public virtual void onEquip(Player player)
+    {
+        owner = player;
+        transform.parent = owner.transform;
+    }
 
     public abstract void onUnEquip(Player player);
 
@@ -16,4 +20,5 @@ public abstract class Equip : MonoBehaviour
         onEquip(owner);
     }
 #endif
+
 }

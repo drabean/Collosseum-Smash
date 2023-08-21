@@ -9,7 +9,7 @@ public class ThunderStep : Equip
 
     public override void onEquip(Player player)
     {
-        owner = player;
+        base.onEquip(player);
         owner.onMovement += thunderStep;
 
     }
