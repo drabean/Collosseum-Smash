@@ -9,4 +9,11 @@ public abstract class Equip : MonoBehaviour
     public abstract void onEquip(Player player);
 
     public abstract void onUnEquip(Player player);
+
+#if UNITY_EDITOR
+    private void Awake()
+    {
+        onEquip(owner);
+    }
+#endif
 }

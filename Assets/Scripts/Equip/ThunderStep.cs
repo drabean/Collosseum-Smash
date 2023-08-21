@@ -28,11 +28,4 @@ public class ThunderStep : Equip
            DictionaryPool.Inst.Pop("Prefabs/Effect/Thunder").transform.position = owner.transform.position;
         }
     }
-
-#if UNITY_EDITOR
-    private void Awake()
-    {
-        onEquip(owner);
-    }
-#endif
 }

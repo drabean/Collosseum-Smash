@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModuleAttack : MonoBehaviour
 {
     public bool isStun;
+    public bool cantPenetrate;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,6 +13,11 @@ public class ModuleAttack : MonoBehaviour
         {
             if (!isStun) character.Hit(transform);
             else character.Stun(transform);
+
+            if (cantPenetrate)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
