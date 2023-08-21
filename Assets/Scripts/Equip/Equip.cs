@@ -15,8 +15,9 @@ public abstract class Equip : MonoBehaviour
     public abstract void onUnEquip(Player player);
 
 #if UNITY_EDITOR
-    private void Awake()
+    private void Start()
     {
+        owner = GameObject.FindObjectOfType<Player>();
         onEquip(owner);
     }
 #endif

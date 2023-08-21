@@ -55,8 +55,16 @@ public class Player : CharacterBase
     void invokeOnCombo(int combo) { onCombo?.Invoke(combo); }
     public Action onMovement;
     void invokeOnMovement() { onMovement?.Invoke(); }
-    public Action onHit;
-    void invokeOnHit() { onHit?.Invoke(); }
+
+    public Func<bool, bool> onHit;
+    bool invokeOnHit(bool resisted)
+    {
+        if (onHit == null)
+            return true;
+        else
+            return onHit(resisted);
+    }
+
     #endregion
 
     [HideInInspector] public Combo combo = new Combo();
@@ -111,7 +119,7 @@ public class Player : CharacterBase
         AllyMeleeAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<AllyMeleeAttack>();
         atk.transform.position = aim.position;
         atk.playerTr = transform;
-        invokeOnCombo(combo.GetCombo());
+        invokeOnCombo(combo.increaseCombo());
     }
 
     public void GetInput(Vector2 inputVec)
@@ -133,18 +141,21 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    public override bool Hit(Transform attackerPos)
+    public override void Hit(Transform attackerPos)
     {
-        if (isInvincible) return false;
-        invokeOnHit();
-        StartCoroutine(co_Invincible());
-        return true;
+        if (isInvincible) return;
+        StartCoroutine(co_Invincible(invokeOnHit(false)));
     }
 
-    IEnumerator co_Invincible()
+    /// <summary>
+    /// 데미지를 입히고, 무적시간을 부여하며 연출을 해주는 코루틴
+    /// </summary>
+    /// <param name="resisted">아이템 등을 통한 저항에 성공했다면 false</param>
+    /// <returns></returns>
+    IEnumerator co_Invincible(bool resisted)
     {
         isInvincible = true;
-        curHP--;
+        if(!resisted) curHP--;
 
         GameMgr.Inst.Shake(0.15f, 50f, 0.12f);
         GameMgr.Inst.Zoom(0.15f, 0.98f);

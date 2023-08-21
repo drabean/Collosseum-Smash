@@ -32,11 +32,9 @@ public class CharacterBase : MonoBehaviour
     ///  피격 함수 (공격측에서 호출)
     ///  
     /// </summary>
-    /// <param name="attackerPos">피해를 입히는데 성공했다면 T, 실패 시 F</param>
     /// <returns></returns>
-    public virtual bool Hit(Transform attackerPos)
+    public virtual void Hit(Transform attackerPos)
     {
-        return true;
     }
 
     public virtual void Stun(Transform attackerPos)

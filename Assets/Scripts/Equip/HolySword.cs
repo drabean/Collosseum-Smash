@@ -21,7 +21,7 @@ public class HolySword : Equip
 
     void holySlash(int combo)
     {
-        if((combo+1)  % reqCombo == 0 && combo > 0)
+        if(combo % reqCombo == 0 && combo > 0)
         {
             Instantiate<Attack>(projectile, transform.position, Quaternion.identity).Shoot(transform.position, owner.aim.transform.position);
         }

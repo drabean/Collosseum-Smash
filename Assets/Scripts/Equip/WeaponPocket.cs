@@ -6,24 +6,27 @@ public class WeaponPocket : Equip
 {
     public float spawnWaitTIme = 6.0f;
 
+    Item daggerPrefab;
+    Item curDagger;
+
+    Transform[] spawnArea;
+
     public override void onEquip(Player player)
     {
-        StartCoroutine(co_SpawnRoutine());
+        daggerPrefab = Resources.Load<Item>("Prefabs/Item/ItemDagger");
+         spawnArea = EnemyMgr.Inst.spawnArea;
+
+        spawnNewDagger();
     }
     public override void onUnEquip(Player player)
     {
-        StopCoroutine(co_SpawnRoutine());
+        Destroy(curDagger);
     }
 
-    IEnumerator co_SpawnRoutine()
+
+    void spawnNewDagger()
     {
-        WaitForSeconds waitForSpawn = new WaitForSeconds(spawnWaitTIme);
-        GameObject Dagger = Resources.Load<GameObject>("Prefabs/Item/ItemDagger");
-        Transform[] spawnArea =  EnemyMgr.Inst.spawnArea;
-        while(true)
-        {
-            yield return waitForSpawn;
-            Instantiate(Dagger, Vector2.right * Random.Range(spawnArea[0].position.x, spawnArea[1].position.x) + Vector2.up * Random.Range(spawnArea[0].position.y, spawnArea[1].position.y), Quaternion.identity);
-        }
+        curDagger = Instantiate(daggerPrefab, Vector2.right * Random.Range(spawnArea[0].position.x, spawnArea[1].position.x) + Vector2.up * Random.Range(spawnArea[0].position.y, spawnArea[1].position.y), Quaternion.identity);
+        curDagger.onAcquire += spawnNewDagger;
     }
 }

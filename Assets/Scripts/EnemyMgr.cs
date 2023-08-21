@@ -35,9 +35,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         }  
     }
 
-    protected override void Awake()
+    protected  void Awake()
     {
-        base.Awake();
         spawnPoints = new List<Vector2>();
         float xDif = (spawnArea[1].transform.position.x - spawnArea[0].transform.position.x) / spawnAreaNum;
         float yDif = (spawnArea[1].transform.position.y - spawnArea[0].transform.position.y) / spawnAreaNum;
@@ -54,8 +53,6 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     }
     private void Start()
     {
-        // InvokeRepeating("SpawnEnemy", 0f, 8.0f);
-
         StartCoroutine(co_SpawnRoutine());
     }
 

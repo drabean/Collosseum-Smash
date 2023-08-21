@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9173400136024425868}
   - component: {fileID: 3944230587399281574}
   m_Layer: 12
-  m_Name: Dagger
+  m_Name: NinjaDagger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ Animator:
   m_GameObject: {fileID: 3648400753803865966}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b8d16866bc8f97a488a2c0fa70dccefa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1a6261c34a6d7bf4683676528b20d022, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -145,7 +145,7 @@ SpriteRenderer:
   m_SortingLayerID: -2131836661
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1063432709, guid: ea2abc77367f5f74e98f81615eec4623, type: 3}
+  m_Sprite: {fileID: 150028483, guid: 20f4cd2a4819b3044862baf863ac650d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -195,4 +195,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStun: 0
-  cantPenetrate: 0
+  cantPenetrate: 1

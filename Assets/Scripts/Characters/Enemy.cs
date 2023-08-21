@@ -28,15 +28,12 @@ public class Enemy : CharacterBase
     public virtual void StartAI() { }
 
 
-    public override bool Hit(Transform attackerPos)
+    public override void Hit(Transform attackerPos)
     {
         StopAllCoroutines();
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
 
-        Target.combo.increaseCombo();
-
         StartCoroutine(co_Hit(attackerPos, Target.combo.GetCombo()));
-        return true;
     }
 
     IEnumerator co_Hit(Transform attackerPos, int combo)
@@ -88,7 +85,7 @@ public class Enemy : CharacterBase
     }
     IEnumerator co_Stun(float time, Vector3 destination)
     {
-        GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/StunEffect");
+        GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/StunEffect");
         stunEffect.GetComponent<Poolable>().Push(time);
         stunEffect.transform.parent = transform;
         stunEffect.transform.localPosition = Vector3.up * 0.8f;

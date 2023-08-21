@@ -6,9 +6,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 {
     CameraController m_mainCam;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         m_mainCam = Camera.main.GetComponent<CameraController>();
 
         Pool_attackWarningLinear = new ObjectPool("Prefabs/AttackWarningLinear");
