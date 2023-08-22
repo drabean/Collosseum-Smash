@@ -28,9 +28,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// <param name="shakeSpeed"></param>
     /// <param name="xPower"></param>
     /// <param name="yPower"></param>
-    public void Shake(float duration, float shakeSpeed, float xPower, float yPower = 0)
+    public void Shake(float duration, float shakeSpeed, float xPower, float yPower = 0, bool isForced = false)
     {
-        m_mainCam.Shake(duration, shakeSpeed, xPower, yPower);
+        m_mainCam.Shake(duration, shakeSpeed, xPower, yPower, isForced);
     }
 
     /// <summary>

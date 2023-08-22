@@ -60,7 +60,7 @@ public class Player : CharacterBase
     bool invokeOnHit(bool resisted)
     {
         if (onHit == null)
-            return true;
+            return false;
         else
             return onHit(resisted);
     }

@@ -9,11 +9,18 @@ public class CameraController : MonoBehaviour
     [SerializeField] AnimationCurve shakeX;
     [SerializeField] AnimationCurve shakeY;
 
+    //다른 진동에 의해 캔슬되면 안되는 진동일떄 함
+    bool isLocked;
     private void Awake()
     {
         cam = GetComponent<Camera>();
 
         StartCoroutine(co_FollowTarget());
+    }
+
+    private void Start()
+    {
+        if (target == null) target = GameObject.FindObjectOfType<Player>().transform;
     }
     #region 추적
     [SerializeField] Transform target;
@@ -42,30 +49,30 @@ public class CameraController : MonoBehaviour
     /// <param name="shakeSpeed">초당  흔드는 횟수</param>
     /// <param name="xPower"></param>
     /// <param name="yPower"></param>
-    public void Shake(float duration, float shakeSpeed, float xPower, float yPower)
+    public void Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced)
     {
+        if (isLocked) return;
         StopAllCoroutines();
-        StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower));
+        StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower, isForced));
     }
-    IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower)
+    IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced)
     {
-        Vector3 camOriginPos = transform.localPosition;
 
         float timer = 0;
-
+        if (isForced) isLocked = true;
         while (timer <= duration)
         {
             float x = shakeX.Evaluate(timer * shakeSpeed) * xPower;
             float y = shakeX.Evaluate(timer * shakeSpeed) * yPower;
 
-            transform.localPosition = camOriginPos + new Vector3(x, y, 0f);
+            transform.localPosition = target.position + new Vector3(x, y, 0f) + offset;
 
 
             timer += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = camOriginPos;
+        if (isForced) isLocked = false;
         StartCoroutine(co_FollowTarget());
     }
     public void Zoom(float duration, float power)

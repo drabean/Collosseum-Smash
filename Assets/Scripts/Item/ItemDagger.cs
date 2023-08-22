@@ -26,11 +26,9 @@ public class ItemDagger : Item
 
             float maxLength = Vector3.Distance(transform.position, hits[0].transform.position);
             target = hits[0].transform;
-            Debug.Log("NAME" + hits[0].transform.gameObject.name);
             //가장 멀리있는 Enemy 찾기
             for (int i = 1; i < hits.Length; i++)
             {
-                Debug.Log("NAME" + hits[i].transform.gameObject.name);
                 //TODO: 더 빠르고 효율적인 코드 찾아보기
                 float dist = Vector3.Distance(transform.position, hits[i].transform.position);
                 if (dist > maxLength)

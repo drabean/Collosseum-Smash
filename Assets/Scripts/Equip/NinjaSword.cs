@@ -28,7 +28,9 @@ public class NinjaSword : Equip
 
             if (hits.Length == 0) return;
 
-            for (int i = 0; i < 3; i++)
+            int targetCount = hits.Length < 3 ? hits.Length : 3;
+            
+            for (int i = 0; i < targetCount; i++)
             {
 
                 Attack dagger = Instantiate<Attack>(daggerPrefab);
