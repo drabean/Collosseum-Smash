@@ -33,7 +33,7 @@ public class CharacterBase : MonoBehaviour
     ///  
     /// </summary>
     /// <returns></returns>
-    public virtual void Hit(Transform attackerPos)
+    public virtual void Hit(Transform attackerPos, bool isMelee = false)
     {
     }
 

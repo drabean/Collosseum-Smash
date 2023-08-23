@@ -28,11 +28,12 @@ public class Enemy : CharacterBase
     public virtual void StartAI() { }
 
 
-    public override void Hit(Transform attackerPos)
+    public override void Hit(Transform attackerPos, bool isMelee = false)
     {
         StopAllCoroutines();
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
 
+        Target.HitSuccess(isMelee);
         StartCoroutine(co_Hit(attackerPos, Target.combo.GetCombo()));
     }
 

@@ -17,12 +17,15 @@ public class Player : CharacterBase
     [Header("오브젝트 참조")]
     [SerializeField] Transform spriteGroup;
     [SerializeField] ParticleSystem particle;
+    public IconHolder iconHolder;
     #endregion
 
 
     #region 입력 변수
     Vector3 inputVec;
     Vector3 lastVec = Vector3.right;
+
+    bool inputAttack;
     #endregion
 
     #region 상태변수
@@ -51,8 +54,8 @@ public class Player : CharacterBase
     #endregion
 
     #region Events ( 아이템 등에서 활용)
-    public Action<int> onCombo;
-    void invokeOnCombo(int combo) { onCombo?.Invoke(combo); }
+    public Action onMeleeHit;
+    void invokeOnMeleeHit() { onMeleeHit?.Invoke(); }
     public Action onMovement;
     void invokeOnMovement() { onMovement?.Invoke(); }
 
@@ -65,10 +68,16 @@ public class Player : CharacterBase
             return onHit(resisted);
     }
 
+
+    public Action onAttack;
+    void invokeOnAttack() { onAttack?.Invoke(); }
+
     #endregion
 
     [HideInInspector] public Combo combo = new Combo();
 
+
+    public bool testMode;
     private void Awake()
     {
         evnt.moveEffect = onMove;
@@ -79,22 +88,25 @@ public class Player : CharacterBase
 
     private void Start()
     {
-        UIMgr.Inst.joystick.setTarget(GetInput);
-
+        if (!testMode)
+        {
+            UIMgr.Inst.joystick.setTarget(GetInput);
+            UIMgr.Inst.atkBtn.setTarget(attack);
+        }
+        
         setStatus();
     }
 
     private void Update()
     {
-        //
-        //임시코드
-        attack();
 
-#if UNITY_EDITOR
-        this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
-        if(inputVec != null) lastVec = this.inputVec;
-#endif
-        if (inputVec != Vector3.zero)
+        if (testMode)
+        {
+            this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
+            if (inputVec != null) lastVec = this.inputVec;
+            if (Input.GetKey(KeyCode.Space)) attack();
+        }
+        if (inputVec != Vector3.zero && !commandLock)
         {
             moveToDir(inputVec);
             return;
@@ -107,7 +119,6 @@ public class Player : CharacterBase
     }
     void attack()
     {
-        if (!isInAttackRange) return;
         if (commandLock) return;
 
 
@@ -116,18 +127,16 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        AllyMeleeAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<AllyMeleeAttack>();
+        ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<ModuleAttack>();
         atk.transform.position = aim.position;
-        atk.playerTr = transform;
-        invokeOnCombo(combo.increaseCombo());
+        atk.ownerTr = transform;
+        invokeOnAttack();
     }
 
     public void GetInput(Vector2 inputVec)
     {
         this.inputVec = inputVec;
         if (this.inputVec != Vector3.zero) lastVec = inputVec;
-
-
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
@@ -141,7 +150,7 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    public override void Hit(Transform attackerPos)
+    public override void Hit(Transform attackerPos, bool isMelee = false)
     {
         if (isInvincible) return;
         StartCoroutine(co_Invincible(invokeOnHit(false)));
@@ -174,5 +183,12 @@ public class Player : CharacterBase
     {
         particle.Play();
         invokeOnMovement();
+    }
+
+    public void HitSuccess(bool isMelee)
+    {
+        int curCombo = combo.increaseCombo();
+
+        if(isMelee)invokeOnMeleeHit();
     }
 }
