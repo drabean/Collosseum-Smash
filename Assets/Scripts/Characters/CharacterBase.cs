@@ -23,6 +23,8 @@ public class CharacterBase : MonoBehaviour
 
     #region 스테이터스
     [Header("Status")]
+    public float maxHP;
+    public float curHP;
     public float moveSpeed;
     public float aimRange;
     #endregion
@@ -33,11 +35,11 @@ public class CharacterBase : MonoBehaviour
     ///  
     /// </summary>
     /// <returns></returns>
-    public virtual void Hit(Transform attackerPos, bool isMelee = false)
+    public virtual void Hit(Transform attackerPos, float dmg = 0, bool isMelee = false)
     {
     }
 
-    public virtual void Stun(Transform attackerPos)
+    public virtual void Stun(Transform attackerPos, float stunTIme = 0.5f)
     {
 
     }

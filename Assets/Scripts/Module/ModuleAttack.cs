@@ -8,7 +8,7 @@ public class ModuleAttack : MonoBehaviour
     public bool isStun;
     public bool isMelee;
     public bool cantPenetrate;
-
+    public float dmg;
     public Transform ownerTr;
 
     public Action onHit;
@@ -23,7 +23,7 @@ public class ModuleAttack : MonoBehaviour
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
         {
-            if (!isStun) character.Hit(transform, isMelee);
+            if (!isStun) character.Hit(transform, dmg,  isMelee);
             else character.Stun(transform);
 
             InvokeOnHit();

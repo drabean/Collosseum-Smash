@@ -6,11 +6,14 @@ public class CameraController : MonoBehaviour
 {
     Camera cam;
 
+    //X방향 Shake값 Curve
     [SerializeField] AnimationCurve shakeX;
+    //Y방향 Shake값 Curve
     [SerializeField] AnimationCurve shakeY;
 
-    //다른 진동에 의해 캔슬되면 안되는 진동일떄 함
+    //다른 진동에 의해 덮어쓰여지면 안되는 진동.
     bool isLocked;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
@@ -20,13 +23,13 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        camOriginSize = cam.orthographicSize;
         if (target == null) target = GameObject.FindObjectOfType<Player>().transform;
     }
+
     #region 추적
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
-    //TEST
-    
 
     IEnumerator co_FollowTarget()
     {
@@ -75,6 +78,16 @@ public class CameraController : MonoBehaviour
         if (isForced) isLocked = false;
         StartCoroutine(co_FollowTarget());
     }
+
+
+    //카메라 원래 사이즈
+    float camOriginSize;
+
+    /// <summary>
+    /// 화면 확대 
+    /// </summary>
+    /// <param name="duration">확대하는 시간</param>
+    /// <param name="power">확대하는 정도</param>
     public void Zoom(float duration, float power)
     {
         StartCoroutine(co_Zoom(duration, power));
@@ -82,30 +95,29 @@ public class CameraController : MonoBehaviour
 
     IEnumerator co_Zoom(float duration, float power)
     {
-        float originSize = cam.orthographicSize;
-        float targetSize = originSize * power;
+        float targetSize = camOriginSize * power;
 
-        float elapsedTime = 0f;
+        float time = 0f;
 
-        while (elapsedTime < duration * 0.5f)
+        while (time < duration * 0.5f)
         {
-            float t = elapsedTime / (duration * 0.5f);
-            cam.orthographicSize = Mathf.Lerp(originSize, targetSize, t);
-            elapsedTime += Time.deltaTime;
+            float t = time / (duration * 0.5f);
+            cam.orthographicSize = Mathf.Lerp(camOriginSize, targetSize, t);
+            time += Time.deltaTime;
             yield return null;
         }
 
-        elapsedTime = 0f;
+        time = 0f;
 
-        while (elapsedTime < duration * 0.5f)
+        while (time < duration * 0.5f)
         {
-            float t = elapsedTime / (duration * 0.5f);
-            cam.orthographicSize = Mathf.Lerp(targetSize, originSize, t);
-            elapsedTime += Time.deltaTime;
+            float t = time / (duration * 0.5f);
+            cam.orthographicSize = Mathf.Lerp(targetSize, camOriginSize, t);
+            time += Time.deltaTime;
             yield return null;
         }
 
-        cam.orthographicSize = originSize;
+        cam.orthographicSize = camOriginSize;
         StartCoroutine(co_FollowTarget());
     }
 }

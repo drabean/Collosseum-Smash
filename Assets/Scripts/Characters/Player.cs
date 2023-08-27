@@ -38,9 +38,6 @@ public class Player : CharacterBase
     public STATUS _stat;
     //TODO: 공격범위 조절 추가 (지금은 X)
 
-    int maxHP;
-    int curHP;
-
     /// <summary>
     /// stat을 기반으로 실제 적용시키는 함수
     /// </summary>
@@ -49,7 +46,7 @@ public class Player : CharacterBase
         moveSpeed = 2f + (_stat.SPD * 0.5f);
         maxHP = _stat.VIT + 1;
         curHP = maxHP;
-        UIMgr.Inst.hp.Set(curHP);
+        UIMgr.Inst.hp.Set((int)curHP);
     }
     #endregion
 
@@ -127,8 +124,9 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Effect/AllyMeleeAttack").GetComponent<ModuleAttack>();
+        ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Attack/AllyMeleeAttack").GetComponent<ModuleAttack>();
         atk.transform.position = aim.position;
+        atk.transform.rotation = (aim.position - transform.position).ToQuaternion();
         atk.ownerTr = transform;
         invokeOnAttack();
     }
@@ -150,7 +148,7 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    public override void Hit(Transform attackerPos, bool isMelee = false)
+    public override void Hit(Transform attackerPos, float dmg = 0, bool isMelee = false)
     {
         if (isInvincible) return;
         StartCoroutine(co_Invincible(invokeOnHit(false)));
@@ -170,7 +168,7 @@ public class Player : CharacterBase
         GameMgr.Inst.Zoom(0.15f, 0.98f);
         GameMgr.Inst.SlowTime(0.5f, 0.2f);
 
-        UIMgr.Inst.hp.Set(curHP);
+        UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
         hit.Togle(1.0f);
 

@@ -11,9 +11,9 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     float normalEnemyMaxCount => curDifficulty;
 
     int curRangedEnemyCount = 0;
-    float specialEnemyMaxCount => curDifficulty / 5f;
+    float specialEnemyMaxCount => curDifficulty / 6f;
     int curSpecialEnemyCount = 0;
-    float rangedEnemyMaxCount => curDifficulty / 5f;
+    float rangedEnemyMaxCount => curDifficulty / 6f;
 
     float totalCount => curNormalEnemyCount + curRangedEnemyCount + curSpecialEnemyCount;
 
@@ -26,27 +26,28 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     List<Vector2> spawnPoints;
     int spawnAreaNum = 5;
+
     public Player curPlayer
     {
         get
         {
             if (_player == null) _player = FindObjectOfType<Player>();
             return _player;
-        }  
+        }
     }
 
-    protected  void Awake()
+    protected void Awake()
     {
         spawnPoints = new List<Vector2>();
         float xDif = (spawnArea[1].transform.position.x - spawnArea[0].transform.position.x) / spawnAreaNum;
         float yDif = (spawnArea[1].transform.position.y - spawnArea[0].transform.position.y) / spawnAreaNum;
 
 
-        for(int i = 0; i < spawnAreaNum; i++)
+        for (int i = 0; i < spawnAreaNum; i++)
         {
-            for(int j  = 0; j < spawnAreaNum; j++)
+            for (int j = 0; j < spawnAreaNum; j++)
             {
-                spawnPoints.Add( Vector2.right * (spawnArea[0].transform.position.x + (xDif) * i) + Vector2.up * (spawnArea[0].transform.position.y + (yDif) * j));
+                spawnPoints.Add(Vector2.right * (spawnArea[0].transform.position.x + (xDif) * i) + Vector2.up * (spawnArea[0].transform.position.y + (yDif) * j));
             }
         }
 
@@ -57,16 +58,15 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     }
 
     //TODO: 난이도에따라 시간 조절 가능하게 하기
-    const float spawnTime = 10;
+    const float spawnTime = 20;
     IEnumerator co_SpawnRoutine()
     {
         float spawnTimeLeft = spawnTime;
 
         while (true)
         {
-            if(spawnTimeLeft <= 0 || totalCount <= 2)
+            if (spawnTimeLeft <= 0 || totalCount < 2)
             {
-
                 if (curRangedEnemyCount <= 1)
                 {
                     spawnEnemy(true, false);
@@ -82,6 +82,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 spawnTimeLeft = spawnTime;
             }
 
+            UIMgr.Inst.progress.SetTimer(spawnTime, spawnTimeLeft);
             spawnTimeLeft -= Time.deltaTime;
             yield return null;
         }
@@ -112,16 +113,16 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 total.Add(temp);
             }
         }
-        for(int i = curNormalEnemyCount; i < spawnDifficulty; i++) total.Add(getNormal());  // 남은 difficulty만큼 일반 적 소환
+        for (int i = curNormalEnemyCount; i < spawnDifficulty; i++) total.Add(getNormal());  // 남은 difficulty만큼 일반 적 소환
 
         List<Vector2> spawnList = spawnPoints.ToList();
-        
-        for(int i = 0; i < spawnList.Count; i++)
+
+        for (int i = 0; i < spawnList.Count; i++)
         {
             //플레이어에서 가까운 위치의 소환좌표들을 제외시켜줌
             if (Vector2.Distance(spawnList[i], curPlayer.transform.position) <= 6) spawnList.Remove(spawnList[i]);
         }
-        
+
         for (int i = 0; i < total.Count; i++)
         {
             if (spawnList.Count == 0) break;            //몬스터가 소환될 위치가 더이상 없다면, 소환 중지.
@@ -163,17 +164,35 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
         spawnedEnemy.Target = curPlayer;
         spawnedEnemy.StartAI();
-        switch(spawnedEnemy.type)
+        switch (spawnedEnemy.type)
         {
             case ENEMYTYPE.NORMAL:
-                spawnedEnemy.onDeath += () => { curNormalEnemyCount--; };
+                spawnedEnemy.onDeath += () => { curNormalEnemyCount--; onEnemyDie(); };
                 break;
             case ENEMYTYPE.RANGED:
-                spawnedEnemy.onDeath += () => { curRangedEnemyCount--; };
+                spawnedEnemy.onDeath += () => { curRangedEnemyCount--; onEnemyDie(); };
                 break;
             case ENEMYTYPE.SPECIAL:
-                spawnedEnemy.onDeath += () => { curSpecialEnemyCount--; };
+                spawnedEnemy.onDeath += () => { curSpecialEnemyCount--; onEnemyDie(); };
                 break;
         }
     }
+
+    #region Progress 관련
+   int totalProgress = 10;
+    int curProgress;
+    void onEnemyDie()
+    {
+        curProgress++;
+        if(curProgress >= totalProgress)
+        {
+            curProgress = 0;
+            totalProgress++;
+            curDifficulty++;
+        }
+        UIMgr.Inst.progress.SetProgress(totalProgress, curProgress);
+    }
+
+    #endregion
 }
+

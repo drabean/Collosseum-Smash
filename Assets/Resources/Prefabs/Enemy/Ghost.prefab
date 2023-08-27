@@ -72,6 +72,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStun: 0
+  isMelee: 0
+  cantPenetrate: 0
+  dmg: 0
+  ownerTr: {fileID: 0}
 --- !u!1 &5058226412059540858
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +168,8 @@ MonoBehaviour:
   aim: {fileID: 5058226412059540859}
   hit: {fileID: 6644338803689578930}
   isDead: 0
+  maxHP: 1.5
+  curHP: 1.5
   moveSpeed: 4
   aimRange: 0
   type: 2

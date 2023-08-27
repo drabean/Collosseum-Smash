@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  reqCombo: 4
+  reqCombo: 6
   curIcon: {fileID: 0}
   layer:
     serializedVersion: 2

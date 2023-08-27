@@ -195,4 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStun: 0
+  isMelee: 0
   cantPenetrate: 0
+  dmg: 1
+  ownerTr: {fileID: 0}

@@ -90,6 +90,8 @@ MonoBehaviour:
   aim: {fileID: 1145949988399145451}
   hit: {fileID: 1576325421281623330}
   isDead: 0
+  maxHP: 1
+  curHP: 1
   moveSpeed: 1.5
   aimRange: 0.5
   type: 0
@@ -310,3 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStun: 0
+  isMelee: 0
+  cantPenetrate: 0
+  dmg: 0
+  ownerTr: {fileID: 0}

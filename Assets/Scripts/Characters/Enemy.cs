@@ -28,13 +28,14 @@ public class Enemy : CharacterBase
     public virtual void StartAI() { }
 
 
-    public override void Hit(Transform attackerPos, bool isMelee = false)
+    public override void Hit(Transform attackerPos,float dmg = 0, bool isMelee = false)
     {
-        StopAllCoroutines();
-        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
+        stopAction();
 
         Target.HitSuccess(isMelee);
-        StartCoroutine(co_Hit(attackerPos, Target.combo.GetCombo()));
+        curHP -= dmg;
+        if (curHP <= 0) StartCoroutine(co_Hit(attackerPos, Target.combo.GetCombo()));
+        else Stun(attackerPos);
     }
 
     IEnumerator co_Hit(Transform attackerPos, int combo)
@@ -70,27 +71,30 @@ public class Enemy : CharacterBase
 
     float KnockBackPower = 0.5f;
 
-    public override void Stun(Transform attackerPos)
+    public override void Stun(Transform attackerPos, float stunTime = 0.5f)
     {
         StopAllCoroutines();
+
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
+
+        Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.1f);
+        hit.HitEffect(hitVec);
+        hit.DmgTxt("stun");
+        GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
 
-        hit.DmgTxt("Stun!");
-
-        //rb.AddForce((transform.position - attackerPos.position).normalized * 5, ForceMode2D.Impulse);
         Vector3 destination = transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower;
-        StartCoroutine(co_Stun(1.5f, destination));
+        StartCoroutine(co_Stun(stunTime, destination));
     }
-    IEnumerator co_Stun(float time, Vector3 destination)
+    IEnumerator co_Stun(float stunTIme, Vector3 destination)
     {
         GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/StunEffect");
-        stunEffect.GetComponent<Poolable>().Push(time);
+        stunEffect.GetComponent<Poolable>().Push(stunTIme);
         stunEffect.transform.parent = transform;
         stunEffect.transform.localPosition = Vector3.up * 0.8f;
-        float timeLeft = time;
+        float timeLeft = stunTIme;
         while (timeLeft >= 0)
         {
             transform.position = Vector3.Lerp(transform.position, destination,  3 * Time.deltaTime);
@@ -100,6 +104,12 @@ public class Enemy : CharacterBase
 
         StartAI();
     }
+    protected virtual void stopAction()
+    {
+        StopAllCoroutines();
+        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
+    }
+
 
     [ContextMenu("StartAction")]
     public void StartAction()
