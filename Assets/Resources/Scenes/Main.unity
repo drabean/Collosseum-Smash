@@ -346,6 +346,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
+      propertyPath: testMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836778, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_Name
       value: Hero
@@ -15494,7 +15498,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -15551,7 +15555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1141909183, guid: f7ac179cad07e5f40a9d6a45c1b9cbb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7ac179cad07e5f40a9d6a45c1b9cbb7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15991,7 +15995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

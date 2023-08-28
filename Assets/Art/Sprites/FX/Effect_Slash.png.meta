@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f7ac179cad07e5f40a9d6a45c1b9cbb7
+guid: 41230343f8927b44aba928d9d2645efc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtkBtn_0
+      name: Effect_Slash_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 18
-        width: 17
-        height: 18
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2f3b11d22fd3b145903100e3bf9117e
-      internalID: 1141909183
+      spriteID: 42160610ce0f7324d90771b4fe56840f
+      internalID: -810866450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtkBtn_1
+      name: Effect_Slash_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 17
-        height: 18
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c014c6dfd1d51542b25ab91237a47d8
-      internalID: -1290671259
+      spriteID: 16dde15580007d7458f1b706e5dec883
+      internalID: -1455236470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Effect_Slash_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d37e20ddb76ea148aac6dbebfad2466
+      internalID: -1507830180
       vertices: []
       indices: 
       edges: []
@@ -181,8 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtkBtn_0: 1141909183
-      AtkBtn_1: -1290671259
+      Effect_Slash_0: -810866450
+      Effect_Slash_1: -1455236470
+      Effect_Slash_2: -1507830180
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
