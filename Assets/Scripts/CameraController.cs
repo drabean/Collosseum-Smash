@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public Vector3 min;
+    public Vector3 max;
     Camera cam;
 
     //X방향 Shake값 Curve
@@ -13,12 +15,11 @@ public class CameraController : MonoBehaviour
 
     //다른 진동에 의해 덮어쓰여지면 안되는 진동.
     bool isLocked;
-
+    //진동, 회전등의 연출일떄 true. 
+    bool isShaking;
     private void Awake()
     {
         cam = GetComponent<Camera>();
-
-        StartCoroutine(co_FollowTarget());
     }
 
     private void Start()
@@ -31,16 +32,23 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
 
-    IEnumerator co_FollowTarget()
+
+
+    private void Update()
     {
-        while(true)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position + offset, 0.2f);
-            yield return null;
-        }
+
+       if(!isShaking) transform.position = Vector3.Lerp(transform.position, clampVector(target.transform.position) + offset, 0.2f);
+       //if(!isShaking) transform.position = target.position + offset;
     }
 
+    Vector3 clampVector(Vector3 point)
+    {
+        // 카메라 이동 가능 범위를 벗어나지 않도록 Clamp 처리합니다.
+        float clampedX = Mathf.Clamp(point.x, min.x, max.x);
+        float clampedY = Mathf.Clamp(point.y, min.y, max.y);
 
+        return Vector2.right * clampedX + Vector2.up * clampedY;
+    }
 
 
     #endregion
@@ -60,7 +68,7 @@ public class CameraController : MonoBehaviour
     }
     IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced)
     {
-
+        isShaking = true;
         float timer = 0;
         if (isForced) isLocked = true;
         while (timer <= duration)
@@ -76,7 +84,7 @@ public class CameraController : MonoBehaviour
         }
 
         if (isForced) isLocked = false;
-        StartCoroutine(co_FollowTarget());
+        isShaking = false;
     }
 
 
@@ -118,6 +126,5 @@ public class CameraController : MonoBehaviour
         }
 
         cam.orthographicSize = camOriginSize;
-        StartCoroutine(co_FollowTarget());
     }
 }

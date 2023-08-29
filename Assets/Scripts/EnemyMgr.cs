@@ -25,7 +25,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     public Transform[] spawnArea = new Transform[2];
 
     List<Vector2> spawnPoints;
-    int spawnAreaNum = 5;
+    int spawnAreaNum = 8;
 
     public Player curPlayer
     {
