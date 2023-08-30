@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 
-public class UIJoystickCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class UIControlCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public RectTransform joyStick;
 
@@ -56,10 +56,9 @@ public class UIJoystickCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         isJoystickActive = false;
+        joyStick.anchoredPosition = Vector2.zero;
         joystickHandle.anchoredPosition = Vector2.zero;
         invokeJoystick(Vector2.zero);
-
-        joyStick.gameObject.SetActive(false);
     }
 
 

@@ -2,25 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class UIProgressCanvas : MonoBehaviour
 {
-    [SerializeField] Image timerImage;
-    [SerializeField] Image progressBar;
+    [SerializeField] TextMeshProUGUI tmp_difficulty;
+    [SerializeField] Animator panelMovement;
 
-    public void SetTimer(float total, float cur)
+    public void showDifficulty(int difficulty)
     {
-        timerImage.fillAmount = cur / total;
-    }
-
-    public void SetProgress(float total, float cur)
-    {
-        progressBar.fillAmount = cur / total;
-    }
-
-    public void TimerAlert()
-    {
-
+        tmp_difficulty.text = difficulty.ToString();
+        panelMovement.SetTrigger("Show");
     }
 
 }

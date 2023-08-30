@@ -28,18 +28,21 @@ public class Enemy : CharacterBase
     public virtual void StartAI() { }
 
 
-    public override void Hit(Transform attackerPos,float dmg = 0, bool isMelee = false)
+    public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
-        stopAction();
-
-        Target.HitSuccess(isMelee);
+        if (isDead) return;
         curHP -= dmg;
-        if (curHP <= 0) StartCoroutine(co_Hit(attackerPos, Target.combo.GetCombo()));
-        else Stun(attackerPos);
+        if (curHP <= 0)
+        {
+            Target.HitSuccess();
+            StartCoroutine(co_Smash(attackerPos, Target.combo.GetCombo()));
+        }
+        else Hit(attackerPos, dmg, stunTime);
     }
 
-    IEnumerator co_Hit(Transform attackerPos, int combo)
+    IEnumerator co_Smash(Transform attackerPos, int combo)
     {
+        isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
         //HitEffect 소환 - 임시 코드로 땜빵
         //TODO: 오브젝트 풀 사용해야함
@@ -62,19 +65,18 @@ public class Enemy : CharacterBase
         rb.gravityScale = 1.0f;
         invokeOnDeath();
         Destroy(GetComponent<Collider2D>());
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.5f);
 
         //TODO: 각종 오브젝트들 풀 반환 해야함
         hitBackParticle.GetComponent<Poolable>().Push();
         Destroy(gameObject);
     }
 
-    float KnockBackPower = 0.5f;
+    float KnockBackPower = 2f;
 
-    public override void Stun(Transform attackerPos, float stunTime = 0.5f)
+    public void Hit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
-        StopAllCoroutines();
-
+        stopAction();
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
@@ -85,29 +87,26 @@ public class Enemy : CharacterBase
         hit.DmgTxt("stun");
         GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
 
-        Vector3 destination = transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower;
-        StartCoroutine(co_Stun(stunTime, destination));
+        //스턴당한 적이 도착할 위치 계산
+        hit.knockback(1.0f, transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower);
+        StartCoroutine(co_Stun(stunTime));
     }
-    IEnumerator co_Stun(float stunTIme, Vector3 destination)
+    IEnumerator co_Stun(float stunTIme)
     {
         GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/StunEffect");
         stunEffect.GetComponent<Poolable>().Push(stunTIme);
         stunEffect.transform.parent = transform;
         stunEffect.transform.localPosition = Vector3.up * 0.8f;
         float timeLeft = stunTIme;
-        while (timeLeft >= 0)
-        {
-            transform.position = Vector3.Lerp(transform.position, destination,  3 * Time.deltaTime);
-            timeLeft -= Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(1.0f);
 
         StartAI();
     }
     protected virtual void stopAction()
     {
-        StopAllCoroutines();
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
+        anim.Play("Idle");
+        StopAllCoroutines();
     }
 
 

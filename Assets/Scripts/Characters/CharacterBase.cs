@@ -29,17 +29,14 @@ public class CharacterBase : MonoBehaviour
     public float aimRange;
     #endregion
 
-
     /// <summary>
-    ///  피격 함수 (공격측에서 호출)
-    ///  
+    /// 피격시 공격자 측에서 호출시키는 함수.
     /// </summary>
-    /// <returns></returns>
-    public virtual void Hit(Transform attackerPos, float dmg = 0, bool isMelee = false)
-    {
-    }
-
-    public virtual void Stun(Transform attackerPos, float stunTIme = 0.5f)
+    /// <param name="attackerPos"></param>
+    /// <param name="dmg"></param>
+    /// <param name="isStun"></param>
+    /// <param name="stunTIme"></param>
+    public virtual void onHit(Transform attackerPos, float dmg, float stunTIme = 0.2f)
     {
 
     }

@@ -11,7 +11,7 @@ public class NecklaceOfBlessing : Equip
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        player.onHit += blessing;
+        player.actionHit += blessing;
 
     }
     public override void onUnEquip(Player player)

@@ -174,11 +174,11 @@ MonoBehaviour:
   aimRange: 0
   type: 2
   Target: {fileID: 0}
-  difficulty: 3
+  difficulty: 2
   chargeRange: 5
   chargeStartRange: 3.5
   chargeTime: 0.25
-  waitBeforeTime: 1
+  waitBeforeTime: 0.8
   waitAfterTime: 1.3
   attackWaitTime: 1.2
 --- !u!212 &5058226412308680613

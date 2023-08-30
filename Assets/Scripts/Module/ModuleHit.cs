@@ -129,4 +129,23 @@ public class ModuleHit : MonoBehaviour
 
     }
     #endregion
+
+    #region KnockBack
+
+    public  void knockback(float KnockbackTime, Vector2 KnockbackDestination )
+    {
+        StartCoroutine(co_Knockback(KnockbackTime, KnockbackDestination));
+    }
+    IEnumerator co_Knockback(float KnockbackTime, Vector2 KnockbackDestination)
+    {
+        float timeLeft = KnockbackTime;
+        while (timeLeft >= 0)
+        {
+            transform.position = Vector3.Lerp(transform.position, KnockbackDestination, 3 * Time.deltaTime);
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    #endregion
 }

@@ -13,7 +13,7 @@ public class UIMgr : MonoBehaviour
 
     public UIScoreCanvas score;
     public UIHPCanvavs hp;
-    public UIJoystickCanvas joystick;
+    public UIControlCanvas joystick;
     public UIProgressCanvas progress;
     public AtkBtn atkBtn;
 }

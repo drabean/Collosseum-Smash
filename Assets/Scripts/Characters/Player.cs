@@ -51,18 +51,18 @@ public class Player : CharacterBase
     #endregion
 
     #region Events ( 아이템 등에서 활용)
-    public Action onMeleeHit;
-    void invokeOnMeleeHit() { onMeleeHit?.Invoke(); }
+    public Action actionSmash;
+    void invokeOnSmash() { actionSmash?.Invoke(); }
     public Action onMovement;
     void invokeOnMovement() { onMovement?.Invoke(); }
 
-    public Func<bool, bool> onHit;
+    public Func<bool, bool> actionHit;
     bool invokeOnHit(bool resisted)
     {
-        if (onHit == null)
+        if (actionHit == null)
             return false;
         else
-            return onHit(resisted);
+            return actionHit(resisted);
     }
 
 
@@ -88,7 +88,7 @@ public class Player : CharacterBase
         if (!testMode)
         {
             UIMgr.Inst.joystick.setTarget(GetInput);
-            UIMgr.Inst.atkBtn.setTarget(attack);
+            //UIMgr.Inst.atkBtn.setTarget(attack);
         }
         
         setStatus();
@@ -101,9 +101,10 @@ public class Player : CharacterBase
         {
             this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
             if (inputVec != null) lastVec = this.inputVec;
-            if (Input.GetKey(KeyCode.Space)) attack();
+            //if (Input.GetKey(KeyCode.Space)) attack();
+            if (isInAttackRange) attack();
         }
-        if (inputVec != Vector3.zero && !commandLock)
+        if (inputVec != Vector3.zero)
         {
             moveToDir(inputVec);
             return;
@@ -148,7 +149,7 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    public override void Hit(Transform attackerPos, float dmg = 0, bool isMelee = false)
+    public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
         if (isInvincible) return;
         StartCoroutine(co_Invincible(invokeOnHit(false)));
@@ -183,10 +184,13 @@ public class Player : CharacterBase
         invokeOnMovement();
     }
 
-    public void HitSuccess(bool isMelee)
+    /// <summary>
+    /// 적을 타격 성공 했을 때, 호출
+    /// </summary>
+    /// <param name="isMelee"></param>
+    public void HitSuccess()
     {
         int curCombo = combo.increaseCombo();
-
-        if(isMelee)invokeOnMeleeHit();
+        invokeOnSmash();
     }
 }

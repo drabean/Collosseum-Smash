@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStun: 0
+  StunTIme: 1
   isMelee: 0
   cantPenetrate: 0
   dmg: 1

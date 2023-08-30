@@ -5,7 +5,7 @@ using UnityEngine;
 public class Combo
 {
     //콤보 유지 시간
-    const float comboLimit = 3;
+    const float comboLimit = 1.5f;
     //마지막 콤보 갱신 시간
     float lastComboTIme = -10;
 

@@ -12,17 +12,18 @@ public class EquipWeapon : Equip
     {
         base.onEquip(player);
         //owner.onCombo += smash;
-        owner.onMeleeHit += countAttack;
+        owner.actionSmash += countAttack;
         countLeft = reqCombo;
     }
 
     public override void onUnEquip(Player player)
     {
         // owner.onCombo -= smash;
-        owner.onMeleeHit -= countAttack;
+        owner.actionSmash -= countAttack;
     }
     void countAttack()
     {
+        if (curIcon != null) return;
         countLeft--;
 
         if (countLeft <= 0)

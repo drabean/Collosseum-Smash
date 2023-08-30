@@ -76,7 +76,7 @@ public class CameraController : MonoBehaviour
             float x = shakeX.Evaluate(timer * shakeSpeed) * xPower;
             float y = shakeX.Evaluate(timer * shakeSpeed) * yPower;
 
-            transform.localPosition = target.position + new Vector3(x, y, 0f) + offset;
+            transform.localPosition = clampVector(target.position) + new Vector3(x, y, 0f) + offset;
 
 
             timer += Time.deltaTime;

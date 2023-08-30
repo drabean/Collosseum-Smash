@@ -17,7 +17,7 @@ public class BigHammer : EquipWeapon
 
         for (int i = 0; i < hits.Length; i++)
         {
-            hits[i].transform.gameObject.GetComponent<CharacterBase>().Stun(transform);
+            hits[i].transform.gameObject.GetComponent<CharacterBase>().onHit(transform, 0, 1.0f);
         }
 
     }

@@ -5,14 +5,12 @@ using System;
 
 public class ModuleAttack : MonoBehaviour
 {
-    public bool isStun;
-    public bool isMelee;
+    public float StunTIme;
     public bool cantPenetrate;
     public float dmg;
     public Transform ownerTr;
 
-    public Action onHit;
-    void InvokeOnHit() { onHit?.Invoke(); }
+
 
 
     private void Start()
@@ -23,10 +21,8 @@ public class ModuleAttack : MonoBehaviour
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
         {
-            if (!isStun) character.Hit(transform, dmg,  isMelee);
-            else character.Stun(transform);
+            character.onHit(transform, dmg, StunTIme);
 
-            InvokeOnHit();
             if (cantPenetrate)
             {
                 Destroy(gameObject);
