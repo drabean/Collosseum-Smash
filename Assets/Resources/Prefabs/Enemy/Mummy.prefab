@@ -183,7 +183,7 @@ MonoBehaviour:
   difficulty: 1
   attackRange: 0.8
   attackWidth: 0.5
-  attackName: Prefabs/Effect/ClawEffect
+  attackName: Prefabs/Attack/ClawEffect
   attackWaitTime: 0.4
   attackAfterWaitTime: 1.2
 --- !u!95 &7037995334092932870

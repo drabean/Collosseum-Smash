@@ -29,10 +29,10 @@ public class EnemyMelee: Enemy
         }
         moveTowardTarget(Target.transform.position);
 
-        StartCoroutine(co_Attack());
+        StartCoroutine(co_Atk());
     }
 
-    IEnumerator co_Attack()
+    IEnumerator co_Atk()
     {
 
         anim.SetBool("isMoving", false);
@@ -53,4 +53,6 @@ public class EnemyMelee: Enemy
         attackEffect.GetComponent<SpriteRenderer>().flipX = sp.flipX;
         
     }
+
+
 }

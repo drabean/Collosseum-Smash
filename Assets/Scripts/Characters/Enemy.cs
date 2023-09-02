@@ -17,6 +17,7 @@ public class Enemy : CharacterBase
     public Player Target;
 
     public float difficulty;
+    public bool isSuperarmor;
 
     #region delegate
     public Action onDeath;
@@ -32,12 +33,17 @@ public class Enemy : CharacterBase
     {
         if (isDead) return;
         curHP -= dmg;
+
+
         if (curHP <= 0)
         {
             Target.HitSuccess();
             StartCoroutine(co_Smash(attackerPos, Target.combo.GetCombo()));
         }
-        else Hit(attackerPos, dmg, stunTime);
+        else
+        {
+            Hit(attackerPos, dmg, stunTime);
+        }
     }
 
     IEnumerator co_Smash(Transform attackerPos, int combo)
@@ -76,7 +82,8 @@ public class Enemy : CharacterBase
 
     public void Hit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
-        stopAction();
+
+        if(!isSuperarmor) stopAction();
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
@@ -84,12 +91,12 @@ public class Enemy : CharacterBase
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.1f);
         hit.HitEffect(hitVec);
-        hit.DmgTxt("stun");
+        if (!isSuperarmor) hit.DmgTxt("stun");
         GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
 
         //스턴당한 적이 도착할 위치 계산
-        hit.knockback(1.0f, transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower);
-        StartCoroutine(co_Stun(stunTime));
+        if (!isSuperarmor) hit.knockback(1.0f, transform.position + (transform.position - attackerPos.position).normalized * KnockBackPower);
+        if (!isSuperarmor) StartCoroutine(co_Stun(stunTime));
     }
     IEnumerator co_Stun(float stunTIme)
     {
