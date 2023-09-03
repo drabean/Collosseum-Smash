@@ -6,8 +6,13 @@ public class EnemyChampion : Enemy
 {
     [SerializeField] Transform spriteGroup;
 
-    //공격 행동 횟수
+
+
+    //공격 후, 플레이어에게 공격 기회를 주는 시간. (탈진 시간)
+    public float fatigueTime;
+    //탈진까지 필요한 공격 횟수
     public int attackCount;
+    //
     int attackCountLeft;
 
     [Header("패턴1")]
@@ -36,6 +41,8 @@ public class EnemyChampion : Enemy
         evnt.attack = doPat1;
         evnt.attack2 = doPat2;
         projectile = Resources.Load<Attack>(projectileName);
+
+        attackCountLeft = attackCount;
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
@@ -77,22 +84,26 @@ public class EnemyChampion : Enemy
         else // 패턴 준비가 안되었으므로, 그냥 이동.
         {
             attackCountLeft = attackCount;
-            StartCoroutine(co_Delay());
+            StartCoroutine(cofatigue());
         }
     }
 
-    IEnumerator co_Delay()
+    IEnumerator cofatigue()
     {
-        yield return new WaitForSeconds(1.5f);
+        anim.SetBool("isFatigue", true);
+        yield return new WaitForSeconds(fatigueTime);
+        anim.SetBool("isFatigue", false);
         selectNextMove();
     }
 
     #endregion
 
     #region 이동
+
+    //타겟을 향해서 이동하는 stste
     IEnumerator co_Chase(IEnumerator nextMove = null)
     {
-        moveSpeed = 6f;
+        moveSpeed = 4f;
         while (Vector3.Distance(transform.position, Target.transform.position) >= pat1Range)
         {
             moveTowardTarget(Target.transform.position);
@@ -103,6 +114,7 @@ public class EnemyChampion : Enemy
         if (nextMove != null) StartCoroutine(nextMove);
         else selectNextMove();
     }
+    //타겟의 반대방향으로 이동하는 state
     IEnumerator co_Runaway(IEnumerator nextMove = null)
     {
         moveSpeed = 2f;
@@ -118,12 +130,12 @@ public class EnemyChampion : Enemy
         if (nextMove != null) StartCoroutine(nextMove);
         else selectNextMove();
     }
-
+    //Target을 중심으로 좌 우 중 랜덤한 방향으로 돌아서 이동하는 state
     IEnumerator co_Wander(IEnumerator nextMove = null)
     {
         moveSpeed = 4f;
-        float wanderTime = Random.Range(0.6f, 1.3f);
-        bool isReversed = Random.Range(0, 2) == 0;
+        float wanderTime = Random.Range(0.6f, 1.3f);//이동할 시간을 정함
+        bool isReversed = Random.Range(0, 2) == 0;//회전 방향을 정함
 
         while (wanderTime >= 0)
         {
@@ -140,7 +152,7 @@ public class EnemyChampion : Enemy
         else selectNextMove();
     }
     #endregion
-
+    //patttern1 state
     IEnumerator co_Pat1(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
@@ -153,7 +165,6 @@ public class EnemyChampion : Enemy
         for(int i = 0; i < pat1RepeatTime; i++)
         {
             anim.SetTrigger("doAttack");
-            transform.position += (aim.position - transform.position).normalized * 0.4f;
             yield return new WaitForSeconds(pat1IntervalTime);
         }
         yield return new WaitForSeconds(pat1WaitAfterTime);
@@ -162,16 +173,17 @@ public class EnemyChampion : Enemy
         else selectNextMove();
     }
 
-
+    //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
         ModuleAttack atk = DictionaryPool.Inst.Pop(pat1AtkName).GetComponent<ModuleAttack>();
         atk.transform.position = aim.position;
         atk.ownerTr = transform;
+        transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
         GameMgr.Inst.Shake(0.1f, 40, 0.2f);
     }
-
+    //Pattern2 state
     IEnumerator co_Pat2(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
@@ -200,7 +212,7 @@ public class EnemyChampion : Enemy
     public string projectileName;
 
     Attack curProjectile;
-
+    //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat2()
     {
         curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);

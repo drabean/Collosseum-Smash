@@ -38,6 +38,7 @@ public class Enemy : CharacterBase
         if (curHP <= 0)
         {
             Target.HitSuccess();
+            StopAllCoroutines(); // FSM 중지
             StartCoroutine(co_Smash(attackerPos, Target.combo.GetCombo()));
         }
         else
@@ -50,8 +51,7 @@ public class Enemy : CharacterBase
     {
         isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
-        //HitEffect 소환 - 임시 코드로 땜빵
-        //TODO: 오브젝트 풀 사용해야함
+
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec);
