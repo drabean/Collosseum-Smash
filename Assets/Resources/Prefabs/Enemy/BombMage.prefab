@@ -68,7 +68,8 @@ MonoBehaviour:
   type: 1
   Target: {fileID: 0}
   difficulty: 2
-  attackRange: 8
+  isSuperarmor: 0
+  attackRange: 5
   attackWaitTime: 1.2
   runawayTime: 0.8
   projectileName: Prefabs/Attack/SpawnExplosion

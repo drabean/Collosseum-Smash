@@ -97,7 +97,8 @@ MonoBehaviour:
   type: 1
   Target: {fileID: 0}
   difficulty: 2
-  attackRange: 5
+  isSuperarmor: 0
+  attackRange: 4
   attackWaitTime: 0.7
   runawayTime: 1
   projectileName: Prefabs/Attack/Bone

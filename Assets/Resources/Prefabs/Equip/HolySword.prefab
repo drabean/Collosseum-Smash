@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  reqCombo: 5
+  reqCombo: 3
   curIcon: {fileID: 0}

@@ -5277,8 +5277,8 @@ MonoBehaviour:
   aim: {fileID: 7506382718630923063}
   hit: {fileID: 7506382718595836755}
   isDead: 0
-  maxHP: 0
-  curHP: 0
+  maxHP: 3
+  curHP: 3
   moveSpeed: 2.5
   aimRange: 1
   spriteGroup: {fileID: 7506382718443161740}
@@ -5289,7 +5289,12 @@ MonoBehaviour:
     STR: 3
     VIT: 3
     SPD: 3
+  findRange: 6
+  attackRange: 1
   testMode: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!95 &7506382718595836758
 Animator:
   serializedVersion: 5
@@ -5392,7 +5397,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7506382718630923063}
   - component: {fileID: 7506382718630923062}
-  - component: {fileID: 7506382718630923057}
   m_Layer: 11
   m_Name: Aim
   m_TagString: Untagged
@@ -5467,23 +5471,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7506382718630923057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7506382718630923060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ed22b22dfd2f148b93c4bd406dbb0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 65536
-  detectionRadius: 0.8
-  owner: {fileID: 7506382718595836753}
 --- !u!1001 &7506382717012583431
 PrefabInstance:
   m_ObjectHideFlags: 0

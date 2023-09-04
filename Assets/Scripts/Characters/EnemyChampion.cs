@@ -103,7 +103,7 @@ public class EnemyChampion : Enemy
     //타겟을 향해서 이동하는 stste
     IEnumerator co_Chase(IEnumerator nextMove = null)
     {
-        moveSpeed = 4f;
+        moveSpeed = 6f;
         while (Vector3.Distance(transform.position, Target.transform.position) >= pat1Range)
         {
             moveTowardTarget(Target.transform.position);

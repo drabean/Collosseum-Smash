@@ -21,7 +21,7 @@ public class ModuleAttack : MonoBehaviour
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
         {
-            character.onHit(transform, dmg, StunTIme);
+            character.onHit(ownerTr, dmg, StunTIme);
 
             if (cantPenetrate)
             {

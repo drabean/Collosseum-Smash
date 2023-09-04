@@ -37,7 +37,10 @@ public class Player : CharacterBase
     #region 플레이어 
     public STATUS _stat;
     //TODO: 공격범위 조절 추가 (지금은 X)
+    public float findRange;        
+    public float attackRange;
 
+    Transform target;
     /// <summary>
     /// stat을 기반으로 실제 적용시키는 함수
     /// </summary>
@@ -50,7 +53,7 @@ public class Player : CharacterBase
     }
     #endregion
 
-    #region Events ( 아이템 등에서 활용)
+    #region Events 
     public Action actionSmash;
     void invokeOnSmash() { actionSmash?.Invoke(); }
     public Action onMovement;
@@ -101,24 +104,71 @@ public class Player : CharacterBase
         {
             this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
             if (inputVec != null) lastVec = this.inputVec;
-            //if (Input.GetKey(KeyCode.Space)) attack();
-            if (isInAttackRange) attack();
         }
+
+        //수동조작모드
         if (inputVec != Vector3.zero)
         {
             moveToDir(inputVec);
             return;
-        }
+        }//자동조작모드
         else
         {
-            anim.SetBool("isMoving", false);
+            findTarget();
+
+            if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태.
+            else
+            {
+                if(Vector2.Distance(transform.position, target.position) > attackRange)
+                {
+                    if(!commandLock) moveTowardTarget(target.position);
+                }
+                else
+                {
+                    setDir(target.position - transform.position); //Target을 바라본 뒤 공격
+                    attack();
+                }
+            }
+
+
             return;
         }
     }
+    [SerializeField] LayerMask layer;
+    void findTarget()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 10.0f, Vector3.forward, 0f,layer);
+
+        if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
+        {
+            target = null;
+            return;
+        }
+        else
+        {
+            target = hits[0].transform;
+
+            float minLength = Vector3.Distance(transform.position, hits[0].transform.position);
+            target = hits[0].transform;
+            //가장 멀리있는 Enemy 찾기
+            for (int i = 1; i < hits.Length; i++)
+            {
+                //TODO: 더 빠르고 효율적인 코드 찾아보기
+                float dist = Vector3.Distance(transform.position, hits[i].transform.position);
+                if (dist < minLength)
+                {
+                    target = hits[i].transform;
+                    minLength = dist;
+                }
+            }
+        }
+    }
+
+
+
     void attack()
     {
         if (commandLock) return;
-
 
         anim.SetTrigger("doAttack");
     }
