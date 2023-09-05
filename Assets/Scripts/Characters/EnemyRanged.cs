@@ -70,6 +70,7 @@ public class EnemyRanged : Enemy
 
     void shootProjectile()
     {
+        if (isDead) return;
         curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
         curProjectile.Shoot(transform.position, aim.transform.position);
     }

@@ -52,7 +52,7 @@ public class Enemy : CharacterBase
         isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
 
-        Vector3 hitVec = (attackerPos.position - transform.position).normalized;
+        Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec);
         hit.DmgTxt(combo);
@@ -87,7 +87,7 @@ public class Enemy : CharacterBase
         anim.SetBool("isReady", false);
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
 
-        Vector3 hitVec = (attackerPos.position - transform.position).normalized;
+        Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.1f);
         hit.HitEffect(hitVec);
         if (!isSuperarmor) hit.DmgTxt("stun");

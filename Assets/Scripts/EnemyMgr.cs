@@ -51,7 +51,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         {
             if (totalCount <= 0)
             {
-                curDifficulty += 4;
+                curDifficulty += 1;
                 yield return StartCoroutine(spawnEnemy(true, true));      
             }
             yield return null;

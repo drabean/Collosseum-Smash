@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5875922ad6ef36409d85691b01448eb
+guid: a6d9b5ebe99368b4e8643913cfa630b4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_0
+      name: Ible_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ca88ef5f23592e4b8c56b254b85f314
-      internalID: -908362063
+      spriteID: e84dcd8e0558ede4f97693636d6d3b15
+      internalID: 809114795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_1
+      name: Ible_1
       rect:
         serializedVersion: 2
         x: 20
@@ -164,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c97d9470afeaaa549a4adb5dbb487c68
-      internalID: -646723728
+      spriteID: 75a25d564e1a9cc4a8261372f64b1f89
+      internalID: 400980442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_2
+      name: Ible_2
       rect:
         serializedVersion: 2
         x: 0
@@ -185,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31663f511f6fda84cad4e3541fd4c5e4
-      internalID: -1810156277
+      spriteID: 7b11c3019cb96724b8d8158f587c8e47
+      internalID: 1684470872
       vertices: []
       indices: 
       edges: []
@@ -202,9 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Idle_0: -908362063
-      Idle_1: -646723728
-      Idle_2: -1810156277
+      Ible_0: 809114795
+      Ible_1: 400980442
+      Ible_2: 1684470872
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

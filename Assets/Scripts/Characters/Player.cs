@@ -116,7 +116,7 @@ public class Player : CharacterBase
         {
             findTarget();
 
-            if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태.
+            if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
                 if(Vector2.Distance(transform.position, target.position) > attackRange)
@@ -175,10 +175,17 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Attack/AllyMeleeAttack").GetComponent<ModuleAttack>();
-        atk.transform.position = aim.position;
-        atk.transform.rotation = (aim.position - transform.position).ToQuaternion();
-        atk.ownerTr = transform;
+        //ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Attack/AllyMeleeAttack").GetComponent<ModuleAttack>();
+        //atk.transform.position = aim.position;
+        //atk.transform.rotation = (aim.position - transform.position).ToQuaternion();
+        //atk.ownerTr = transform;
+        if ( target.TryGetComponent<CharacterBase>(out CharacterBase cb))
+        {
+            //Status 적용
+            cb.onHit(transform, 1.0f);
+        }
+
+
         invokeOnAttack();
     }
 
