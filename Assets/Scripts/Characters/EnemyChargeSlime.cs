@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCharge : Enemy
+public class EnemyChargeSlime : Enemy
 {
     [Header("돌진형")]
     public float chargeRange;//돌진거리
@@ -10,10 +10,16 @@ public class EnemyCharge : Enemy
     public float chargeTime;//돌진시간
     public float waitBeforeTime;//돌진 전 대기시간
     public float waitAfterTime;//돌진후대기시간
+    public string attackName;
 
     public override void StartAI()
     {
         StartCoroutine(co_Chase());
+    }
+
+    private void Awake()
+    {
+        evnt.attack += onAttack;
     }
 
     protected virtual IEnumerator co_Chase()
@@ -34,7 +40,9 @@ public class EnemyCharge : Enemy
         Vector3 chargeDestination = transform.position + chargeDir * chargeRange;
 
         setDir(chargeDir);
-        curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
+        //curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
+        curAttackWarning = GameMgr.Inst.AttackEffectCircle(chargeDestination, 1f, waitBeforeTime);
+
 
         yield return new WaitForSeconds(waitBeforeTime);
 
@@ -53,5 +61,11 @@ public class EnemyCharge : Enemy
         yield return new WaitForSeconds(waitAfterTime);
 
         StartCoroutine(co_Chase());
+    }
+
+    void onAttack()
+    {
+        GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
+        attackEffect.transform.position = transform.position;
     }
 }

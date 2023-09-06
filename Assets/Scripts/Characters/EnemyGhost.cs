@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGhost : EnemyCharge
+public class EnemyGhost : EnemyChargeSlime
 {
     [Header("GHOstÀü¿ë")]
     public float attackWaitTime;

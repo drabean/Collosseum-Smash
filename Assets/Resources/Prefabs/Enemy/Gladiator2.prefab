@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 8533509118144780456}
   - component: {fileID: 8533509118144780463}
   - component: {fileID: 2395189305512581027}
-  - component: {fileID: 8533509118144780455}
   m_Layer: 16
   m_Name: Gladiator2
   m_TagString: Untagged
@@ -314,18 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 0}
---- !u!114 &8533509118144780455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8533509118144780462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8533509118529484677
 GameObject:
   m_ObjectHideFlags: 0
