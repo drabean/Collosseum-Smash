@@ -8,7 +8,7 @@ public class Projectile : Attack
     public float lifeTime;
     public bool isRotate;
 
-    Vector3 moveVec;
+    public Vector3 moveVec;
 
     public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
     {

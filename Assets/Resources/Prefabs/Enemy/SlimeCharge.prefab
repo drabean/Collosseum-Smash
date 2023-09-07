@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1620728181462010667}
   - component: {fileID: -4394521948981522571}
   - component: {fileID: 6477649793272274088}
-  - component: {fileID: 2091972671}
   m_Layer: 16
   m_Name: SlimeCharge
   m_TagString: Untagged
@@ -216,18 +215,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2091972671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620728181462010664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1620728181686597899

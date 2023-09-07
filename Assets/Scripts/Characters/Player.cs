@@ -107,7 +107,7 @@ public class Player : CharacterBase
         }
 
         //수동조작모드
-        if (inputVec != Vector3.zero)
+        if (inputVec != Vector3.zero && !commandLock)
         {
             moveToDir(inputVec);
             return;

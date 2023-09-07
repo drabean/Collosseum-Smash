@@ -24,7 +24,7 @@ public class EnemyChampion : Enemy
     public float pat1WaitAfterTime;
     public int pat1RepeatTime;
 
-    [Header("원거리")]
+    [Header("패턴2")]
     public float pat2Range;
     public string pat2AtkName;
     public float pat2WaitTime;

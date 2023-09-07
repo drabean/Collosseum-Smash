@@ -37,7 +37,7 @@ public class EnemyMelee: Enemy
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, attackWidth, 1.0f);
+        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, attackWidth, attackWaitTime);
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
 

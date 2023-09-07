@@ -7,13 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BombGoblin
-  m_Controller: {fileID: 9100000, guid: a727ff4e5721dff48987ff342515cc20, type: 2}
-  m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 3d033d5887c5cac4a8086b837e8aebb0, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: ae710429119a1154fafce6c9c54c2b96, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: c6aebd424dd8a1d469b819be2f7ba917, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: bccea27f39c4aed44b1103f408e40b77, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 057c2f0449724bd40b7b1e79a243a2a0, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 557b926f0be74f1469816b516e0d41f8, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: d30535f53117f4d4fa4ca6046b076acc, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 1afbf55ebe9cf5e4fbf7c7fee3798251, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4b457045817063e4b917769aba5cb6f1, type: 2}
+  m_Clips: []
