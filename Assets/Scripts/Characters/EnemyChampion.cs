@@ -7,8 +7,7 @@ public class EnemyChampion : Enemy
     [SerializeField] Transform spriteGroup;
 
 
-
-    //공격 후, 플레이어에게 공격 기회를 주는 시간. (탈진 시간)
+    //공격 후 탈진시간
     public float fatigueTime;
     //탈진까지 필요한 공격 횟수
     public int attackCount;
@@ -81,14 +80,14 @@ public class EnemyChampion : Enemy
                     break;
             }
         }
-        else // 패턴 준비가 안되었으므로, 그냥 이동.
+        else // 연속 공격 끝난 후 그로기
         {
             attackCountLeft = attackCount;
-            StartCoroutine(cofatigue());
+            StartCoroutine(coFatigue());
         }
     }
 
-    IEnumerator cofatigue()
+    IEnumerator coFatigue()
     {
         anim.SetBool("isFatigue", true);
         yield return new WaitForSeconds(fatigueTime);
