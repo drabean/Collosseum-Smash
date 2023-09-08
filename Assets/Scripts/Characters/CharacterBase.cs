@@ -27,6 +27,7 @@ public class CharacterBase : MonoBehaviour
     public float curHP;
     public float moveSpeed;
     public float aimRange;
+    public float size;
     #endregion
 
     /// <summary>

@@ -41,6 +41,7 @@ public class Player : CharacterBase
     public float attackRange;
 
     Transform target;
+    float targetSize;
     /// <summary>
     /// stat을 기반으로 실제 적용시키는 함수
     /// </summary>
@@ -119,7 +120,7 @@ public class Player : CharacterBase
             if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
-                if(Vector2.Distance(transform.position, target.position) > attackRange)
+                if(Vector2.Distance(transform.position, target.position) > attackRange + targetSize)
                 {
                     if(!commandLock) moveTowardTarget(target.position);
                 }
@@ -137,7 +138,7 @@ public class Player : CharacterBase
     [SerializeField] LayerMask layer;
     void findTarget()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 10.0f, Vector3.forward, 0f,layer);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, findRange, Vector3.forward, 0f,layer);
 
         if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
         {
@@ -162,6 +163,8 @@ public class Player : CharacterBase
                 }
             }
         }
+
+        targetSize = target.GetComponent<CharacterBase>().size;
     }
 
 
