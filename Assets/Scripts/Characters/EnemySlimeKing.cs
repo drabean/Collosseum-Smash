@@ -26,7 +26,9 @@ public class EnemySlimeKing : Enemy
 
     [Header("ÆÐÅÏ3")]
     public float pat3WaitAfterTIme;
-    public int pat3Count;
+
+    int patternCount = 3;
+    int patternCountLeft = 3;
 
 
     protected override void setDir(Vector3 dir)
@@ -36,13 +38,12 @@ public class EnemySlimeKing : Enemy
         aim.transform.localPosition = dir * aimRange;
     }
 
-    int patternCount;
     private void Awake()
     {
         evnt.attack += onAttack1;
         evnt.attack2 += onAttack2;
 
-        patternCount = pat3Count;
+        patternCountLeft = Random.Range(2, patternCount + 1);
     }
 
     public override void  StartAI()
@@ -72,25 +73,20 @@ public class EnemySlimeKing : Enemy
             yield return null;
         }
 
-        if (patternCount >= 0)
+        switch(patternCountLeft)
         {
-            patternCount--;
-            int patternIndex = Random.Range(0, 2);
-            switch (patternIndex)
-            {
-                case 0:/*
-                    StartCoroutine(co_Pat1());
-                    break;
-                    */
-                case 1:
-                    StartCoroutine(co_Pat1());
-                    break;
-            }
-        }
-        else
-        {
-            patternCount = pat3Count;
-            StartCoroutine(co_Pat3());
+            case > 1:
+                patternCountLeft--;
+                StartCoroutine(co_Pat1());
+                break;
+            case 1:
+                patternCountLeft--;
+                StartCoroutine(co_Pat2());
+                break;
+            case 0:
+                patternCountLeft = Random.Range(2, patternCount+1);
+                StartCoroutine(co_Pat3());
+                break;
         }
     }
 
@@ -120,6 +116,7 @@ public class EnemySlimeKing : Enemy
         while (timeLeft >= 0)
         {
             moveTowardTarget(destination);
+            setDir();
             timeLeft -= Time.deltaTime;
             yield return null;
         }
