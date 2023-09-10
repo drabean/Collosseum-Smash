@@ -797,8 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e77ef65cfe1514fa301aa1c5738479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: {x: -4, y: -1, z: 0}
-  max: {x: 4, y: 3, z: 0}
+  min: {x: -3, y: -1, z: 0}
+  max: {x: 3, y: 3, z: 0}
   shakeX:
     serializedVersion: 2
     m_Curve:
@@ -984,7 +984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &653598102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fb7ecfe23a4d46a1ae21b5fa053d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curDifficulty: 5
+  curDifficulty: 0
   normalEnemy:
   - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
   - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
@@ -1009,6 +1009,7 @@ MonoBehaviour:
   - {fileID: 466920636}
   - {fileID: 626450869}
   player: {fileID: 621608754}
+  isTest: 1
 --- !u!4 &653598103
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,11 +1038,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.31
+      value: -5.42
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.75
+      value: -2.79
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31875,7 +31876,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2869148251091920527}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.58, y: 1.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32022,11 +32023,21 @@ MonoBehaviour:
   eye: {fileID: 516134438}
   eyeTr: {fileID: 516134437}
   pat1Width: 0
-  pat1AtkName: 
-  pat1WaitTime: 0
+  pat1AtkName: Prefabs/Attack/SlimeKingAttack1
+  pat1WaitBeforeTIme: 0.5
+  pat1WaitAfterTime: 1.5
+  pat1IntervalTime: 0.5
+  pat1RepeatTime: 3
   pat2Range: 0
   pat2AtkName: 
-  pat2Duration: 5
+  pat2Duration: 3
+  pat2WaitAfterTime: 1.5
+  pat3WaitAfterTIme: 2
+  pat3Count: 0
+  EnemyPrefabs:
+  - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
+  - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
+  - {fileID: 7308975240347374949, guid: 45a89c5b346d5c44c8647225e4c7f8ab, type: 3}
 --- !u!114 &2869148251091920530
 MonoBehaviour:
   m_ObjectHideFlags: 0

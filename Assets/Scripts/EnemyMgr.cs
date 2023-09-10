@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
@@ -18,14 +19,16 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     public Transform[] spawnArea = new Transform[2];
 
-    List<Vector2> spawnPoints;
+    List<Vector2> spawnPoints  = new List<Vector2>();
+    List<Vector2> cornerPoints = new List<Vector2>();
     int spawnAreaNum = 8;
 
+    public Vector2 getRandomPos() { return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)]; }
+    public List<Vector2> getCornerPos() { return cornerPoints; }
     public Player player;
 
     protected void Awake()
     {
-        spawnPoints = new List<Vector2>();
         float xDif = (spawnArea[1].transform.position.x - spawnArea[0].transform.position.x) / spawnAreaNum;
         float yDif = (spawnArea[1].transform.position.y - spawnArea[0].transform.position.y) / spawnAreaNum;
 
@@ -34,15 +37,25 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         {
             for (int j = 0; j <= spawnAreaNum; j++)
             {
-                spawnPoints.Add(Vector2.right * (spawnArea[0].transform.position.x + (xDif) * i) + Vector2.up * (spawnArea[0].transform.position.y + (yDif) * j));
+                int cornerCount = 0;
+
+                Vector2 point = Vector2.right * (spawnArea[0].transform.position.x + (xDif) * i) + Vector2.up * (spawnArea[0].transform.position.y + (yDif) * j);
+                spawnPoints.Add(point);
+
+                if (i == 1 || i == spawnAreaNum-1) cornerCount++;
+                if (j == 1 || j == spawnAreaNum-1) cornerCount++;
+
+                if (cornerCount == 2) cornerPoints.Add(point);
             }
         }
 
     }
+    public bool isTest;
+
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2.0f);
-        StartCoroutine(co_SpawnRoutine());
+        if(!isTest)StartCoroutine(co_SpawnRoutine());
     }
 
     IEnumerator co_SpawnRoutine()
@@ -103,7 +116,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         {
             if (spawnList.Count == 0) break;            //몬스터가 소환될 위치가 더이상 없다면, 소환 중지.
             totalCount++;
-            Vector2 tempVec = spawnList[Random.Range(0, spawnList.Count)];
+            Vector2 tempVec = spawnList[UnityEngine.Random.Range(0, spawnList.Count)];
             spawnList.Remove(tempVec);
             StartCoroutine(co_SpawnEnemy(total[i], tempVec));
         }
@@ -112,24 +125,28 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     Enemy getNormal()
     {
-        return normalEnemy[Random.Range(0, normalEnemy.Count)];
+        return normalEnemy[UnityEngine.Random.Range(0, normalEnemy.Count)];
     }
     Enemy getSpecial()
     {
-        return specialEnemy[Random.Range(0, specialEnemy.Count)];
+        return specialEnemy[UnityEngine.Random.Range(0, specialEnemy.Count)];
     }
     Enemy getRanged()
     {
-        return rangedEnemy[Random.Range(0, rangedEnemy.Count)];
+        return rangedEnemy[UnityEngine.Random.Range(0, rangedEnemy.Count)];
     }
 
-    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position)
+    public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
     {
-        GameObject warning = DictionaryPool.Inst.Pop("Prefabs/Warning");
+        StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption));
+    }
+    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    {
+        GameMgr.Inst.AttackEffectCircle(position, 1.0f, 1.0f);
+        Poolable warning = DictionaryPool.Inst.Pop("Prefabs/Warning").GetComponent<Poolable>();
         warning.transform.position = position;
-
+        warning.Push(1.0f);
         yield return new WaitForSeconds(1.0f);
-        warning.GetComponent<Poolable>().Push();
 
         GameObject smoke = DictionaryPool.Inst.Pop("Prefabs/Smoke");
         smoke.transform.position = position;
@@ -140,8 +157,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         spawnedEnemy.StartAI();
 
         spawnedEnemy.onDeath += () => onEnemyDie();
-
-        
+        if(deadOption != null) spawnedEnemy.onDeath += deadOption;
     }
 
     #region 난이도 관련

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : Attack
+public class SpawnAttack : Attack
 {
     public string SpawnName;
 

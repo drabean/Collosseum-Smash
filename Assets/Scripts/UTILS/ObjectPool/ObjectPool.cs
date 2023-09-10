@@ -58,11 +58,17 @@ public class ObjectPool
     /// <param name="obj"></param>
     public void Push(GameObject obj)
     {
+        if (!obj.activeInHierarchy) return;      //이미 반환된 오브젝트를 한번더 반환하는 상황 막음
         obj.gameObject.SetActive(false);
         if (ObjectPoolHolder == null) ObjectPoolHolder = new GameObject("Holder");
 
         obj.transform.SetParent(ObjectPoolHolder.transform, false);
         _stack.Push(obj.GetComponent<Poolable>());
+    }
+
+    public int GetCount()
+    {
+        return _stack.Count;
     }
 }
 

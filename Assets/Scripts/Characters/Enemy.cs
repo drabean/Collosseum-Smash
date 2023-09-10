@@ -55,7 +55,7 @@ public class Enemy : CharacterBase
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec);
-        hit.DmgTxt(combo);
+        hit.DmgTxt("Smash!");
 
         Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/HitBackParticle").transform;
         hitBackParticle.SetParent(transform, false);
@@ -119,7 +119,10 @@ public class Enemy : CharacterBase
         anim.SetBool("isReady", false);
         anim.Play("Idle");
     }
-
+    protected virtual void setDir()
+    {
+        setDir((Target.transform.position - transform.position).normalized);
+    }
 
     [ContextMenu("StartAction")]
     public void StartAction()
