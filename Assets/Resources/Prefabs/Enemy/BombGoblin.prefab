@@ -71,8 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 0
   dmg: 0
   ownerTr: {fileID: 0}
@@ -141,9 +140,11 @@ MonoBehaviour:
   curHP: 1
   moveSpeed: 1.3
   aimRange: 0.5
+  size: 0.5
   type: 2
   Target: {fileID: 0}
   difficulty: 2
+  isSuperarmor: 0
 --- !u!212 &6028886635807258629
 SpriteRenderer:
   m_ObjectHideFlags: 0

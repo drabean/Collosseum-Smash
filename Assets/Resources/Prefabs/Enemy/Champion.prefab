@@ -5211,11 +5211,10 @@ GameObject:
   - component: {fileID: 793671581856987527}
   - component: {fileID: 793671581856987520}
   - component: {fileID: 793671581856987525}
-  - component: {fileID: 793671581856987524}
   - component: {fileID: 793671581856987579}
   - component: {fileID: 793671581856987578}
   - component: {fileID: 793671581856987577}
-  - component: {fileID: 793671581856987521}
+  - component: {fileID: 1208784552465399519}
   m_Layer: 16
   m_Name: Champion
   m_TagString: Untagged
@@ -5266,27 +5265,31 @@ MonoBehaviour:
   curHP: 20
   moveSpeed: 4
   aimRange: 0.8
+  size: 0.25
   type: 0
   Target: {fileID: 0}
   difficulty: 0
   isSuperarmor: 1
+  patterns:
+  - range: 1
+    width: 1
+    waitBeforeTime: 0.15
+    waitAfterTime: 0.35
+    intervalTime: 0.3
+    repeatTIme: 3
+    duration: 0
+    prefabName: Prefabs/Attack/SmashEffect
+  - range: 3
+    width: 0
+    waitBeforeTime: 0.5
+    waitAfterTime: 0.7
+    intervalTime: 0.3
+    repeatTIme: 3
+    duration: 0
+    prefabName: Prefabs/Attack/ThrowingSpear
+  patternCount: 3
   spriteGroup: {fileID: 793671581856987527}
   fatigueTime: 3
-  attackCount: 3
-  pat1Range: 1
-  pat1Width: 1
-  pat1AtkName: Prefabs/Attack/SmashEffect
-  pat1WaitTime: 0.15
-  pat1IntervalTime: 0.3
-  pat1WaitAfterTime: 0.35
-  pat1RepeatTime: 3
-  pat2Range: 3
-  pat2AtkName: Prefabs/Attack/ThrowingSpear
-  pat2WaitTime: 0.5
-  pat2IntervalTime: 0.3
-  pat2WaitAfterTime: 0.7
-  pat2RepeatTime: 3
-  projectileName: Prefabs/Attack/ThrowingSpear
 --- !u!95 &793671581856987525
 Animator:
   serializedVersion: 5
@@ -5308,32 +5311,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &793671581856987524
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793671581856987576}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.125}
-    oldSize: {x: 1.25, y: 1.25}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.3125}
-  m_EdgeRadius: 0
 --- !u!50 &793671581856987579
 Rigidbody2D:
   serializedVersion: 4
@@ -5379,18 +5356,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &793671581856987521
-MonoBehaviour:
+--- !u!58 &1208784552465399519
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793671581856987576}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &793671582358629100
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,8 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 0
   dmg: 0
   ownerTr: {fileID: 0}
@@ -119,11 +118,11 @@ GameObject:
   - component: {fileID: 8023907101193040440}
   - component: {fileID: 5058226412308680613}
   - component: {fileID: 5058226412308680612}
-  - component: {fileID: 5058226412308680539}
   - component: {fileID: 5058226412308680538}
   - component: {fileID: 482493321585631620}
   - component: {fileID: 6644338803689578930}
   - component: {fileID: 1987792271}
+  - component: {fileID: 877707638211401502}
   m_Layer: 16
   m_Name: Ghost
   m_TagString: Untagged
@@ -172,14 +171,17 @@ MonoBehaviour:
   curHP: 1.5
   moveSpeed: 4
   aimRange: 0
+  size: 0
   type: 2
   Target: {fileID: 0}
   difficulty: 2
+  isSuperarmor: 0
   chargeRange: 5
   chargeStartRange: 3.5
   chargeTime: 0.25
   waitBeforeTime: 0.8
   waitAfterTime: 1.3
+  attackName: 
   attackWaitTime: 1.2
 --- !u!212 &5058226412308680613
 SpriteRenderer:
@@ -254,32 +256,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &5058226412308680539
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5058226412308680537}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.15}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 1.25, y: 1.25}
-    newSize: {x: 1.25, y: 1.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.3}
-  m_EdgeRadius: 0
 --- !u!114 &5058226412308680538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +314,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 5480902431784323254}
+--- !u!58 &877707638211401502
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5058226412308680537}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &5480902431784323255
 GameObject:
   m_ObjectHideFlags: 0

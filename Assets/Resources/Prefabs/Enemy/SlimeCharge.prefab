@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 1620728181462010843}
   - component: {fileID: 1620728181462010836}
   - component: {fileID: 1620728181462010837}
-  - component: {fileID: 1620728181462010666}
   - component: {fileID: 1620728181462010667}
   - component: {fileID: -4394521948981522571}
   - component: {fileID: 6477649793272274088}
+  - component: {fileID: 6032936229770116340}
   m_Layer: 16
   m_Name: SlimeCharge
   m_TagString: Untagged
@@ -63,6 +63,7 @@ MonoBehaviour:
   curHP: 2
   moveSpeed: 0.9
   aimRange: 0.6
+  size: 0
   type: 2
   Target: {fileID: 0}
   difficulty: 2
@@ -71,7 +72,7 @@ MonoBehaviour:
   chargeStartRange: 2.5
   chargeTime: 0.25
   waitBeforeTime: 0.7
-  waitAfterTime: 1
+  waitAfterTime: 0.2
   attackName: Prefabs/Attack/SlimeExplosion
 --- !u!212 &1620728181462010836
 SpriteRenderer:
@@ -146,32 +147,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1620728181462010666
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620728181462010664}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.0625}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.25}
-  m_EdgeRadius: 0
 --- !u!114 &1620728181462010667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &6032936229770116340
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620728181462010664}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!1 &1620728181686597899
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,33 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySlimeKing : Enemy
+public class EnemySlimeKing : EnemyBoss
 {
     bool isImmune;
     [Header("컴포넌트 참조")]
     [SerializeField] SpriteRenderer eye;
     [SerializeField] Transform eyeTr;
-
-    [Header("패턴1")]
-    public float pat1Width;//공격 이펙트 타격판정 너비
-    public string pat1AtkName;
-    public float pat1WaitBeforeTIme;
-    public float pat1WaitAfterTime;
-
-    public float pat1IntervalTime;
-    public int pat1RepeatTime;
-
-    [Header("패턴2")]
-    public float pat2Range;
-    public string pat2AtkName;
-    public float pat2Duration;
-    public float pat2WaitAfterTime;
-
-    [Header("패턴3")]
-    public float pat3WaitAfterTIme;
-
-    int patternCount = 3;
-    int patternCountLeft = 3;
 
 
     protected override void setDir(Vector3 dir)
@@ -51,6 +30,24 @@ public class EnemySlimeKing : Enemy
         StartCoroutine(co_Idle());
     }
 
+    protected override void selectPattern()
+    {
+        switch (patternCountLeft)
+        {
+            case > 1:
+                patternCountLeft--;
+                StartCoroutine(co_Pat1());
+                break;
+            case 1:
+                patternCountLeft--;
+                StartCoroutine(co_Pat2());
+                break;
+            case 0:
+                patternCountLeft = Random.Range(2, patternCount + 1);
+                StartCoroutine(co_Pat3());
+                break;
+        }
+    }
     IEnumerator co_Wait(float timeleft)
     {
         while(timeleft >= 0)
@@ -73,41 +70,27 @@ public class EnemySlimeKing : Enemy
             yield return null;
         }
 
-        switch(patternCountLeft)
-        {
-            case > 1:
-                patternCountLeft--;
-                StartCoroutine(co_Pat1());
-                break;
-            case 1:
-                patternCountLeft--;
-                StartCoroutine(co_Pat2());
-                break;
-            case 0:
-                patternCountLeft = Random.Range(2, patternCount+1);
-                StartCoroutine(co_Pat3());
-                break;
-        }
+        selectPattern();
     }
 
     IEnumerator co_Pat1()
     {
-        for(int i = 0; i < pat1RepeatTime; i++)
+        for(int i = 0; i < patterns[0].repeatTIme; i++)
         {
             setDir();
             yield return StartCoroutine(co_Move(Target.transform.position));
-            yield return new WaitForSeconds(pat1IntervalTime);
+            yield return new WaitForSeconds(patterns[0].intervalTime);
         }
 
-        yield return co_Wait(pat1WaitAfterTime);
+        yield return co_Wait(patterns[0].waitAfterTime);
         StartCoroutine(co_Idle());
     }
 
     IEnumerator co_Move(Vector3 destination)
     {
-        GameMgr.Inst.AttackEffectCircle(destination + Vector3.up * 0.5f, 2.3f, pat1WaitBeforeTIme + 0.5f);
+        GameMgr.Inst.AttackEffectCircle(destination + Vector3.up * 0.5f, 2.3f, patterns[0].waitBeforeTime + 0.5f);
 
-        yield return new WaitForSeconds(pat1WaitBeforeTIme);
+        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         anim.SetBool("isMoving", true);
         float timeLeft = 0.5f;
 
@@ -126,7 +109,7 @@ public class EnemySlimeKing : Enemy
     void onAttack1()
     {
         GameMgr.Inst.Shake(0.4f, 20, 0.15f, 0, true);
-        GameObject attackEffect = DictionaryPool.Inst.Pop(pat1AtkName);
+        GameObject attackEffect = DictionaryPool.Inst.Pop(patterns[0].prefabName);
         attackEffect.transform.position = transform.position + Vector3.up * 0.5f;
     }
 
@@ -138,9 +121,9 @@ public class EnemySlimeKing : Enemy
         yield return co_Wait(1.0f);
         onAttack1();
 
-        float timeLeft = pat2Duration;
+        float timeLeft = patterns[1].duration;
         anim.SetBool("isShaking", true);
-        GameMgr.Inst.Shake(pat2Duration, 20, 0.08f, 0, true);
+        GameMgr.Inst.Shake(patterns[1].duration, 20, 0.08f, 0, true);
         while(timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
@@ -148,7 +131,7 @@ public class EnemySlimeKing : Enemy
         }
         anim.SetBool("isShaking", false);
 
-        yield return co_Wait(pat2WaitAfterTime);
+        yield return co_Wait(patterns[1].waitAfterTime);
 
         StartCoroutine(co_Idle());
     }
@@ -208,7 +191,7 @@ public class EnemySlimeKing : Enemy
 
         anim.SetBool("isImmune", false);
         isImmune = false;
-        yield return new WaitForSeconds(pat3WaitAfterTIme);
+        yield return new WaitForSeconds(patterns[2].waitAfterTime);
 
         StartCoroutine(co_Idle());
     }

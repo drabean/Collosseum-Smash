@@ -18,6 +18,7 @@ public class Player : CharacterBase
     [SerializeField] Transform spriteGroup;
     [SerializeField] ParticleSystem particle;
     public IconHolder iconHolder;
+    GameObject targetIcon;
     #endregion
 
 
@@ -96,11 +97,13 @@ public class Player : CharacterBase
         }
         
         setStatus();
+        if (targetIcon == null) targetIcon = Instantiate(Resources.Load<GameObject>("Prefabs/targetIcon"));
     }
 
     private void Update()
     {
-
+        findTarget();
+        updateTargetIcon();
         if (testMode)
         {
             this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
@@ -115,8 +118,6 @@ public class Player : CharacterBase
         }//자동조작모드
         else
         {
-            findTarget();
-
             if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
@@ -149,13 +150,12 @@ public class Player : CharacterBase
         {
             target = hits[0].transform;
 
-            float minLength = Vector3.Distance(transform.position, hits[0].transform.position);
+            float minLength = Vector3.Distance(transform.position, hits[0].point);
             target = hits[0].transform;
-            //가장 멀리있는 Enemy 찾기
+            //가장 가까이 있는 적 찾아보기
             for (int i = 1; i < hits.Length; i++)
             {
-                //TODO: 더 빠르고 효율적인 코드 찾아보기
-                float dist = Vector3.Distance(transform.position, hits[i].transform.position);
+                float dist = Vector3.Distance(transform.position, hits[i].point);
                 if (dist < minLength)
                 {
                     target = hits[i].transform;
@@ -168,7 +168,18 @@ public class Player : CharacterBase
     }
 
 
-
+    void updateTargetIcon()
+    {
+        if(target == null)
+        {
+            targetIcon.SetActive(false);
+        }
+        else
+        {
+            targetIcon.SetActive(true);
+            targetIcon.transform.position = target.position;
+        }
+    }
     void attack()
     {
         if (commandLock) return;
@@ -178,10 +189,6 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        //ModuleAttack atk = DictionaryPool.Inst.Pop("Prefabs/Attack/AllyMeleeAttack").GetComponent<ModuleAttack>();
-        //atk.transform.position = aim.position;
-        //atk.transform.rotation = (aim.position - transform.position).ToQuaternion();
-        //atk.ownerTr = transform;
         if ( target.TryGetComponent<CharacterBase>(out CharacterBase cb))
         {
             //Status 적용
@@ -250,7 +257,6 @@ public class Player : CharacterBase
     /// <param name="isMelee"></param>
     public void HitSuccess()
     {
-        int curCombo = combo.increaseCombo();
         invokeOnSmash();
     }
 }

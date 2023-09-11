@@ -302,19 +302,33 @@ MonoBehaviour:
   Target: {fileID: 0}
   difficulty: 0
   isSuperarmor: 1
+  patterns:
+  - range: 0
+    width: 0
+    waitBeforeTime: 0.5
+    waitAfterTime: 1.5
+    intervalTime: 0.5
+    repeatTIme: 3
+    duration: 0
+    prefabName: Prefabs/Attack/SlimeKingAttack1
+  - range: 0
+    width: 0
+    waitBeforeTime: 0
+    waitAfterTime: 1.5
+    intervalTime: 0
+    repeatTIme: 0
+    duration: 3
+    prefabName: 
+  - range: 0
+    width: 0
+    waitBeforeTime: 0
+    waitAfterTime: 3
+    intervalTime: 0
+    repeatTIme: 0
+    duration: 0
+    prefabName: 
   eye: {fileID: 2290225377588249073}
   eyeTr: {fileID: 2290225377588249074}
-  pat1Width: 0
-  pat1AtkName: Prefabs/Attack/SlimeKingAttack1
-  pat1WaitBeforeTIme: 0.5
-  pat1WaitAfterTime: 1.5
-  pat1IntervalTime: 0.5
-  pat1RepeatTime: 3
-  pat2Range: 0
-  pat2AtkName: 
-  pat2Duration: 3
-  pat2WaitAfterTime: 1.5
-  pat3WaitAfterTIme: 2
   EnemyPrefabs:
   - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
   - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}

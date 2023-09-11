@@ -10,8 +10,6 @@ public class ModuleHit : MonoBehaviour
 
     //GameObject[] hitEffect = new GameObject[2];
 
-
-
     public void Awake()
     {
         sps = GetComponentsInChildren<SpriteRenderer>();
@@ -21,20 +19,22 @@ public class ModuleHit : MonoBehaviour
 
     #region HitEffect
 
-    public void HitEffect(Vector3 hitVec)
-    {;
+    public void HitEffect(Vector3 hitVec, float size)
+    {
+        //공격 받은 방향으로 HitEffect
         GameObject hitEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/HitEffect");
-        hitEffect.transform.position = transform.position;
+        hitEffect.transform.position = transform.position - (hitVec) * size;
         hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
         hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
 
         hitEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/HitEffect2");
-        hitEffect.transform.position = transform.position;
+        hitEffect.transform.position = transform.position - (hitVec) * size;
         hitEffect.transform.rotation = (hitVec * (-1)).ToQuaternion();
         hitEffect.transform.localScale = Vector3.one * Random.Range(1f, 1.5f);
 
+        //공격 방향으로 피격 파티클
         hitEffect = DictionaryPool.Inst.Pop("Prefabs/Particle/HitParticle");
-        hitEffect.transform.position = transform.position;
+        hitEffect.transform.position = transform.position + (hitVec) * size;
         hitEffect.transform.rotation = (hitVec).ToQuaternion();
         hitEffect.GetComponent<ParticleSystem>().Play();
         hitEffect.GetComponent<Poolable>().Push(0.5f);

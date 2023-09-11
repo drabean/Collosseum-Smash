@@ -54,7 +54,7 @@ public class Enemy : CharacterBase
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
-        hit.HitEffect(hitVec);
+        hit.HitEffect(hitVec, size);
         hit.DmgTxt("Smash!");
 
         Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/HitBackParticle").transform;
@@ -89,7 +89,7 @@ public class Enemy : CharacterBase
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.1f);
-        hit.HitEffect(hitVec);
+        hit.HitEffect(hitVec, size);
         if (!isSuperarmor) hit.DmgTxt("stun");
         GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
 

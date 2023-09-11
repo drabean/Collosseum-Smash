@@ -2,46 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChampion : Enemy
+public class EnemyChampion : EnemyBoss
 {
     [SerializeField] Transform spriteGroup;
 
-
-    //공격 후 탈진시간
     public float fatigueTime;
-    //탈진까지 필요한 공격 횟수
-    public int attackCount;
-    //
-    int attackCountLeft;
-
-    [Header("패턴1")]
-    public float pat1Range;//공격 이펙트 소환지점
-    public float pat1Width;//공격 이펙트 타격판정 너비
-    public string pat1AtkName;
-    public float pat1WaitTime;
-    public float pat1IntervalTime;
-    public float pat1WaitAfterTime;
-    public int pat1RepeatTime;
-
-    [Header("패턴2")]
-    public float pat2Range;
-    public string pat2AtkName;
-    public float pat2WaitTime;
-    public float pat2IntervalTime;
-    public float pat2WaitAfterTime;
-    public int pat2RepeatTime;
-
-
-
 
     #region Override
     private void Awake()
     {
         evnt.attack = doPat1;
         evnt.attack2 = doPat2;
-        projectile = Resources.Load<Attack>(projectileName);
+        projectile = Resources.Load<Attack>(patterns[1].prefabName);
 
-        attackCountLeft = attackCount;
+        patternCountLeft = patternCount;
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
@@ -56,54 +30,54 @@ public class EnemyChampion : Enemy
     /// <summary>
     /// 다음 행동을 결정
     /// </summary>
-    void selectNextMove()
+    protected override void selectPattern()
     {
-        if(attackCountLeft > 0)
+        if(patternCountLeft > 0)
         {
-            attackCountLeft--;
+            patternCountLeft--;
 
             int selecter = Random.Range(0, 4);
 
             switch(selecter)
             {
                 case 0:
-                    StartCoroutine(co_Chase(co_Pat1()));
+                    StartCoroutine(co_Chase(co_Pat1())); // 추격 후 근접공격
                     break;
                 case 1:
-                    StartCoroutine(co_Runaway(co_Pat2()));
+                    StartCoroutine(co_Runaway(co_Pat2())); // 도주 후 원거리 공격
                     break;
                 case 2:
-                    StartCoroutine(co_Wander(co_Chase(co_Pat1())));
+                    StartCoroutine(co_Wander(co_Chase(co_Pat1()))); // 측면 이동 - 추격 후 근접공격
                     break;    
                 case 3:
-                    StartCoroutine(co_Wander(co_Pat2()));
+                    StartCoroutine(co_Wander(co_Pat2())); // 측면이동 후 원거리공격
                     break;
             }
         }
         else // 연속 공격 끝난 후 그로기
         {
-            attackCountLeft = attackCount;
+            patternCountLeft = patternCount;
             StartCoroutine(coFatigue());
         }
     }
 
-    IEnumerator coFatigue()
+    IEnumerator coFatigue() // 그로기 상태
     {
         anim.SetBool("isFatigue", true);
         yield return new WaitForSeconds(fatigueTime);
         anim.SetBool("isFatigue", false);
-        selectNextMove();
+        selectPattern();
     }
 
     #endregion
 
     #region 이동
 
-    //타겟을 향해서 이동하는 stste
+    //타겟을 향해서 이동 (추적)
     IEnumerator co_Chase(IEnumerator nextMove = null)
     {
         moveSpeed = 6f;
-        while (Vector3.Distance(transform.position, Target.transform.position) >= pat1Range)
+        while (Vector3.Distance(transform.position, Target.transform.position) >= patterns[0].range)
         {
             moveTowardTarget(Target.transform.position);
             yield return null;
@@ -111,9 +85,9 @@ public class EnemyChampion : Enemy
         moveTowardTarget(Target.transform.position);
 
         if (nextMove != null) StartCoroutine(nextMove);
-        else selectNextMove();
+        else selectPattern();
     }
-    //타겟의 반대방향으로 이동하는 state
+    //타겟의 반대방향으로 이동 (도주)
     IEnumerator co_Runaway(IEnumerator nextMove = null)
     {
         moveSpeed = 2f;
@@ -127,9 +101,9 @@ public class EnemyChampion : Enemy
         }
 
         if (nextMove != null) StartCoroutine(nextMove);
-        else selectNextMove();
+        else selectPattern();
     }
-    //Target을 중심으로 좌 우 중 랜덤한 방향으로 돌아서 이동하는 state
+    //Target을 중심으로 측면으로 이동
     IEnumerator co_Wander(IEnumerator nextMove = null)
     {
         moveSpeed = 4f;
@@ -148,73 +122,71 @@ public class EnemyChampion : Enemy
 
 
         if (nextMove != null) StartCoroutine(nextMove);
-        else selectNextMove();
+        else selectPattern();
     }
     #endregion
-    //patttern1 state
+    //Patterm1 - 근접공격
     IEnumerator co_Pat1(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, pat1Width, pat1WaitTime);
-        yield return new WaitForSeconds(pat1WaitTime);
+        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, patterns[0].width, patterns[0].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         anim.SetBool("isReady", false);
 
 
-        for(int i = 0; i < pat1RepeatTime; i++)
+        for(int i = 0; i < patterns[0].repeatTIme; i++)
         {
             anim.SetTrigger("doAttack");
-            yield return new WaitForSeconds(pat1IntervalTime);
+            yield return new WaitForSeconds(patterns[0].intervalTime);
         }
-        yield return new WaitForSeconds(pat1WaitAfterTime);
+        yield return new WaitForSeconds(patterns[0].waitAfterTime);
 
         if (nextMove != null) StartCoroutine(nextMove);
-        else selectNextMove();
+        else selectPattern();
     }
 
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
-        ModuleAttack atk = DictionaryPool.Inst.Pop(pat1AtkName).GetComponent<ModuleAttack>();
+        ModuleAttack atk = DictionaryPool.Inst.Pop(patterns[0].prefabName).GetComponent<ModuleAttack>();
         atk.transform.position = aim.position;
         atk.ownerTr = transform;
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
         GameMgr.Inst.Shake(0.1f, 40, 0.2f);
     }
-    //Pattern2 state
+    //Pattern2 - 투창공격
     IEnumerator co_Pat2(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
 
-        curAttackWarning = projectile.ShowWarning(transform.position, Target.transform.position, pat2WaitTime);
+        curAttackWarning = projectile.ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
         setDir((Target.transform.position - transform.position).normalized);
 
-        yield return new WaitForSeconds(pat2WaitTime);
+        yield return new WaitForSeconds(patterns[1].waitBeforeTime);
         anim.SetBool("isReady", false);
 
 
-        for (int i = 0; i < pat1RepeatTime; i++)
+        for (int i = 0; i < patterns[1].repeatTIme; i++)
         {
             anim.SetTrigger("doThrow");
             setDir((Target.transform.position - transform.position).normalized);
-            yield return new WaitForSeconds(pat2IntervalTime);
+            yield return new WaitForSeconds(patterns[1].intervalTime);
         }
-        yield return new WaitForSeconds(pat2WaitAfterTime);
+        yield return new WaitForSeconds(patterns[1].waitAfterTime);
 
         if (nextMove != null) StartCoroutine(nextMove);
-        else selectNextMove();
+        else selectPattern();
     }
-
+    //
     Attack projectile;
-    public string projectileName;
 
-    Attack curProjectile;
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat2()
     {
-        curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
+        Attack curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
         curProjectile.Shoot(transform.position, aim.transform.position);
     }
 }

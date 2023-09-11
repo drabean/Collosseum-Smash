@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 8582889309136983009}
   - component: {fileID: 8582889309136982993}
   - component: {fileID: 8582889309136983011}
-  - component: {fileID: 8582889309136983020}
   - component: {fileID: 8582889309136983021}
   - component: {fileID: 8582889309136983022}
   - component: {fileID: 8582889309136983023}
   - component: {fileID: 8582889309136983016}
+  - component: {fileID: 1833978379090939468}
   m_Layer: 16
   m_Name: Gladiator
   m_TagString: Untagged
@@ -147,6 +147,7 @@ MonoBehaviour:
   curHP: 2
   moveSpeed: 2.5
   aimRange: 0.8
+  size: 0.25
   type: 0
   Target: {fileID: 0}
   difficulty: 1
@@ -177,32 +178,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &8582889309136983020
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8582889309136983017}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.1}
-    oldSize: {x: 1.25, y: 1.25}
-    newSize: {x: 1.25, y: 1.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.3125}
-  m_EdgeRadius: 0
 --- !u!50 &8582889309136983021
 Rigidbody2D:
   serializedVersion: 4
@@ -300,6 +275,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1833978379090939468
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8582889309136983017}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &8582889309823679682
 GameObject:
   m_ObjectHideFlags: 0

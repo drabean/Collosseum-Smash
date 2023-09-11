@@ -7,7 +7,7 @@ using System;
 public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
     public float curDifficulty;
-
+    public List<Enemy> enemyLists = new List<Enemy>();
     float specialEnemyMaxCount => curDifficulty / 10f;
     float rangedEnemyMaxCount => curDifficulty / 10f;
 
@@ -40,11 +40,11 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 int cornerCount = 0;
 
                 Vector2 point = Vector2.right * (spawnArea[0].transform.position.x + (xDif) * i) + Vector2.up * (spawnArea[0].transform.position.y + (yDif) * j);
-                spawnPoints.Add(point);
 
                 if (i == 1 || i == spawnAreaNum-1) cornerCount++;
                 if (j == 1 || j == spawnAreaNum-1) cornerCount++;
 
+                if (cornerCount == 1) spawnPoints.Add(point);
                 if (cornerCount == 2) cornerPoints.Add(point);
             }
         }
@@ -79,7 +79,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         float spawnDifficulty = curDifficulty;
         Enemy temp;
 
-        UIMgr.Inst.progress.showDifficulty((int)spawnDifficulty);
+        //UIMgr.Inst.progress.showDifficulty((int)spawnDifficulty);
         if (isSpawnRanged)
         {
             for (int i = totalCount; i < rangedEnemyMaxCount; i++)
