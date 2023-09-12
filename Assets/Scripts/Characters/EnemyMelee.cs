@@ -22,6 +22,7 @@ public class EnemyMelee: Enemy
     }
     IEnumerator co_Chase()
     {
+        if (isDead) yield break;
         while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
         {
             moveTowardTarget(Target.transform.position);
@@ -34,6 +35,7 @@ public class EnemyMelee: Enemy
 
     IEnumerator co_Atk()
     {
+        if (isDead) yield break;
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);

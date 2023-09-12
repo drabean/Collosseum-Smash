@@ -72,7 +72,7 @@ MonoBehaviour:
   chargeStartRange: 2.5
   chargeTime: 0.25
   waitBeforeTime: 0.7
-  waitAfterTime: 0.2
+  waitAfterTime: 0.9
   attackName: Prefabs/Attack/SlimeExplosion
 --- !u!212 &1620728181462010836
 SpriteRenderer:

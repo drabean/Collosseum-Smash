@@ -317,7 +317,7 @@ MonoBehaviour:
     waitAfterTime: 1.5
     intervalTime: 0
     repeatTIme: 0
-    duration: 3
+    duration: 5
     prefabName: 
   - range: 0
     width: 0
@@ -327,6 +327,7 @@ MonoBehaviour:
     repeatTIme: 0
     duration: 0
     prefabName: 
+  patternCount: 3
   eye: {fileID: 2290225377588249073}
   eyeTr: {fileID: 2290225377588249074}
   EnemyPrefabs:

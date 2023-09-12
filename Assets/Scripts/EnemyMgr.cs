@@ -6,32 +6,29 @@ using System;
 
 public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
-    public float curDifficulty;
-    public List<Enemy> enemyLists = new List<Enemy>();
-    float specialEnemyMaxCount => curDifficulty / 10f;
-    float rangedEnemyMaxCount => curDifficulty / 10f;
+    public StageInfo info;
 
-    int totalCount = 0;
-
-    [SerializeField] List<Enemy> normalEnemy;
-    [SerializeField] List<Enemy> rangedEnemy;
-    [SerializeField] List<Enemy> specialEnemy;
-
+    /// <summary>
+    /// 스테이지의 범위. 0: min, 1: max
+    /// </summary>
     public Transform[] spawnArea = new Transform[2];
 
     List<Vector2> spawnPoints  = new List<Vector2>();
     List<Vector2> cornerPoints = new List<Vector2>();
+
     int spawnAreaNum = 8;
 
+    public Player player;
+    #region 외부 접근용 유틸 함수
     public Vector2 getRandomPos() { return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)]; }
     public List<Vector2> getCornerPos() { return cornerPoints; }
-    public Player player;
+    #endregion
 
     protected void Awake()
     {
+        //스테이지 범위와 spawnAreaNum을 기반으로, 적이 소환될 수 있는 위치들을 계산하여 초기화 해줌.
         float xDif = (spawnArea[1].transform.position.x - spawnArea[0].transform.position.x) / spawnAreaNum;
         float yDif = (spawnArea[1].transform.position.y - spawnArea[0].transform.position.y) / spawnAreaNum;
-
 
         for (int i = 0; i <= spawnAreaNum; i++)
         {
@@ -50,96 +47,41 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         }
 
     }
-    public bool isTest;
 
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(2.0f);
-        if(!isTest)StartCoroutine(co_SpawnRoutine());
+        yield return null;
     }
 
-    IEnumerator co_SpawnRoutine()
+
+    public List<Vector2> GetSpawnPoints(int num)
     {
-        while (true)
+        List<Vector2> points = new List<Vector2>();
+        for (int i = 0; i < num + 2; i++)
         {
-            if (totalCount <= 0)
-            {
-                curDifficulty += 1;
-                yield return StartCoroutine(spawnEnemy(true, true));      
-            }
-            yield return null;
+            if (i < 4) points.Add(cornerPoints[i]);
+            else points.Add(spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)]);
         }
+        return points;
     }
-
-    IEnumerator spawnEnemy(bool isSpawnRanged = false, bool isSpawnSpecial = false)
-    {
-        //이 루틴에서 소환할 모든 적을 담는 리스트
-        List<Enemy> total = new List<Enemy>();
-
-        float spawnDifficulty = curDifficulty;
-        Enemy temp;
-
-        //UIMgr.Inst.progress.showDifficulty((int)spawnDifficulty);
-        if (isSpawnRanged)
-        {
-            for (int i = totalCount; i < rangedEnemyMaxCount; i++)
-            {
-                temp = getRanged();
-                spawnDifficulty -= temp.difficulty;
-                total.Add(temp);
-            }
-        }
-        if (isSpawnSpecial)
-        {
-            for (int i = totalCount; i < specialEnemyMaxCount; i++)
-            {
-                temp = getSpecial();
-                spawnDifficulty -= temp.difficulty;
-                total.Add(temp);
-            }
-        }
-        for (int i = totalCount; i < spawnDifficulty; i++) total.Add(getNormal());  // 남은 Count만큼 일반 적 소환
-
-        List<Vector2> spawnList = spawnPoints.ToList();
-
-        for (int i = 0; i < spawnPoints.Count; i++)
-        {
-            //플레이어에서 가까운 위치의 소환좌표들을 제외시켜줌
-            if (Vector2.Distance(spawnPoints[i], player.transform.position) <= 6)
-            {
-                spawnList.Remove(spawnPoints[i]);
-            }
-        }
-
-        yield return new WaitForSeconds(1.0f);
-        for (int i = 0; i < total.Count; i++)
-        {
-            if (spawnList.Count == 0) break;            //몬스터가 소환될 위치가 더이상 없다면, 소환 중지.
-            totalCount++;
-            Vector2 tempVec = spawnList[UnityEngine.Random.Range(0, spawnList.Count)];
-            spawnList.Remove(tempVec);
-            StartCoroutine(co_SpawnEnemy(total[i], tempVec));
-        }
-    }
-
-
-    Enemy getNormal()
-    {
-        return normalEnemy[UnityEngine.Random.Range(0, normalEnemy.Count)];
-    }
-    Enemy getSpecial()
-    {
-        return specialEnemy[UnityEngine.Random.Range(0, specialEnemy.Count)];
-    }
-    Enemy getRanged()
-    {
-        return rangedEnemy[UnityEngine.Random.Range(0, rangedEnemy.Count)];
-    }
-
+    /// <summary>
+    /// 적을 소환함
+    /// </summary>
+    /// <param name="enemyPrefab">소환할 적 프리팹</param>
+    /// <param name="position">소환할 위치</param>
+    /// <param name="deadOption">사망시 호출될 추가 함수 (옵션)</param>
     public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
     {
         StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption));
     }
+
+    /// <summary>
+    /// 적 소환 코루틴
+    /// </summary>
+    /// <param name="enemyPrefab"></param>
+    /// <param name="position"></param>
+    /// <param name="deadOption"></param>
+    /// <returns></returns>
     IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
     {
         GameMgr.Inst.AttackEffectCircle(position, 1.0f, 1.0f);
@@ -156,17 +98,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         spawnedEnemy.Target = player;
         spawnedEnemy.StartAI();
 
-        spawnedEnemy.onDeath += () => onEnemyDie();
         if(deadOption != null) spawnedEnemy.onDeath += deadOption;
     }
 
-    #region 난이도 관련
-
-    void onEnemyDie()
-    {
-        totalCount--;
-    }
-
-    #endregion
 }
 

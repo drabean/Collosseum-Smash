@@ -102,6 +102,8 @@ public class Player : CharacterBase
 
     private void Update()
     {
+        if (isDead) return;
+
         findTarget();
         updateTargetIcon();
         if (testMode)
@@ -219,7 +221,13 @@ public class Player : CharacterBase
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
         if (isInvincible) return;
-        StartCoroutine(co_Invincible(invokeOnHit(false)));
+
+        if (curHP <= 1)
+        {
+            isDead = true;
+            UIMgr.Inst.progress.Die();
+        }
+            StartCoroutine(co_Invincible(invokeOnHit(false)));
     }
 
     /// <summary>

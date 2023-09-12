@@ -11,14 +11,14 @@ public class EquipWeapon : Equip
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        owner.actionSmash += countAttack;
+        owner.onAttack += countAttack;
         countLeft = reqCombo;
     }
 
     public override void onUnEquip(Player player)
     {
         // owner.onCombo -= smash;
-        owner.actionSmash -= countAttack;
+        owner.onAttack -= countAttack;
     }
 
     //적을 처치 했을 때 호출

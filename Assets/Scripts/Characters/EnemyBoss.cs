@@ -46,4 +46,10 @@ public class EnemyBoss : Enemy
     /// </summary>
     protected virtual void selectPattern() { }
 
+
+    public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.3F)
+    {
+        base.onHit(attackerPos, dmg, stunTime);
+        UIMgr.Inst.progress.SetBossHP(curHP, maxHP); Debug.Log(curHP);
+    }
 }

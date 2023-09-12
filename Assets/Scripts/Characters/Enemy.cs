@@ -51,7 +51,7 @@ public class Enemy : CharacterBase
     {
         isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
-
+        stopAction();
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec, size);

@@ -13,6 +13,84 @@ public class GameMgr : MonoSingleton<GameMgr>
         Pool_attackWarningLinear = new ObjectPool("Prefabs/AttackWarningLinear");
         Pool_attackWarningCircle = new ObjectPool("Prefabs/AttackWarningCircle");
     }
+
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1.0f);
+        GameLogic();
+    }
+    StageInfo info;
+
+
+    [ContextMenu("A")]
+    public void GameLogic()
+    {
+        info = Resources.Load<StageInfo>("StageInfo/Slime");
+        StartCoroutine(co_GameLogic());
+    }
+
+    //임시변수
+    int dif = 4;
+    int stageCount = 0;
+
+    int curEnemyCount = 0;
+
+    IEnumerator co_GameLogic()
+    {
+        while(true)
+        {
+            if(curEnemyCount  == 0)
+            {
+                if (stageCount <= 2)
+                {
+                    stageCount++;
+                    curEnemyCount += dif;
+                    spawnNormalEnemies(dif);
+                    UIMgr.Inst.progress.setEnemyLeft(curEnemyCount);
+                }
+                else
+                {
+                    curEnemyCount++;
+                    spawnBossEnemy();
+                }
+
+            }
+            yield return null;
+        }
+    }
+
+
+    void spawnNormalEnemies(int spawnNum)
+    {
+        List<Vector2> enemiesSpawnPoint = EnemyMgr.Inst.GetSpawnPoints(spawnNum);
+
+        for (int i = 0; i < spawnNum; i++)
+        {
+            Enemy enem2Spwn;
+            if (i < info.enemy.Count) enem2Spwn = info.enemy[i];
+            else enem2Spwn = info.enemy[Random.Range(0, info.enemy.Count)];
+
+            EnemyMgr.Inst.SpawnEnemy(enem2Spwn, enemiesSpawnPoint[i], onNormalEnemyDie);
+        }
+
+    }
+    void onNormalEnemyDie()
+    {
+        curEnemyCount--;
+        UIMgr.Inst.progress.setEnemyLeft(curEnemyCount);
+    }
+
+    void spawnBossEnemy()
+    {
+        EnemyMgr.Inst.SpawnEnemy(info.Boss, Vector3.zero, onBossDie);
+    }
+    void onBossDie()
+    {
+        UIMgr.Inst.progress.Clear();
+    }
+
+    #region 유틸 함수들
     int score = 0;
     public void addScore(int score)
     {
@@ -20,6 +98,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         UIMgr.Inst.score.Set(this.score);
 
     }
+
 
     /// <summary>
     /// 카메라를 일정 시간동안 흔듭니다.
@@ -91,4 +170,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         return temp;
     }
+
+    #endregion
 }
