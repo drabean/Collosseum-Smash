@@ -78,7 +78,7 @@ public class Enemy : CharacterBase
         Destroy(gameObject);
     }
 
-    float KnockBackPower = 2f;
+    float KnockBackPower = 0.3f;
 
     public void Hit(Transform attackerPos, float dmg, float stunTime = 0.3f)
     {
@@ -95,12 +95,13 @@ public class Enemy : CharacterBase
 
         if (!isSuperarmor)
         {
-            stopAction();
+            //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
-            StopAllCoroutines();
-            StartCoroutine(co_Stun(stunTime));
+            //StopAllCoroutines();
+            //StartCoroutine(co_Stun(stunTime));
         }
     }
+
     IEnumerator co_Stun(float stunTime)
     {
         GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/StunEffect");
