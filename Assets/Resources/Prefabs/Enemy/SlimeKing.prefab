@@ -305,8 +305,8 @@ MonoBehaviour:
   patterns:
   - range: 0
     width: 0
-    waitBeforeTime: 0.5
-    waitAfterTime: 1.5
+    waitBeforeTime: 0.8
+    waitAfterTime: 2
     intervalTime: 0.5
     repeatTIme: 3
     duration: 0
@@ -314,10 +314,10 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0
-    waitAfterTime: 1.5
+    waitAfterTime: 2.5
     intervalTime: 0
     repeatTIme: 0
-    duration: 5
+    duration: 6
     prefabName: 
   - range: 0
     width: 0

@@ -181,7 +181,7 @@ public class EnemySlimeKing : EnemyBoss
         for (int i = 0; i < 4; i++)
         {
             spawnedEnemyCount++;
-            EnemyMgr.Inst.SpawnEnemy(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)], cornerPoints[i], enemyDeadOption);
+            EnemyMgr.Inst.SpawnEnemy(EnemyPrefabs[i % 3], cornerPoints[i], enemyDeadOption);
             yield return null;
         }
         while(spawnedEnemyCount > 0)

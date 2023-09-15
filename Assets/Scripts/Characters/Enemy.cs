@@ -88,7 +88,7 @@ public class Enemy : CharacterBase
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
-        hit.FlashWhite(0.1f);
+        hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
         if (!isSuperarmor) hit.DmgTxt("stun");
         GameMgr.Inst.Shake(0.15f, 20f, 0.15f);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Equip : MonoBehaviour
 {
+    public string Description;
+
     public  Player owner;
 
     public virtual void onEquip(Player player)

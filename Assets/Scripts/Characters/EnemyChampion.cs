@@ -13,6 +13,7 @@ public class EnemyChampion : EnemyBoss
     {
         evnt.attack = doPat1;
         evnt.attack2 = doPat2;
+        evnt.attack3 = doPat3;
         projectile = Resources.Load<Attack>(patterns[1].prefabName);
 
         patternCountLeft = patternCount;
@@ -23,45 +24,62 @@ public class EnemyChampion : EnemyBoss
 
     public override void StartAI()
     {
-        StartCoroutine(co_Chase(co_Pat1()));
+        selectPattern();
     }
 
+    bool toglePat;
 
     /// <summary>
     /// 다음 행동을 결정
     /// </summary>
     protected override void selectPattern()
     {
-        if(patternCountLeft > 0)
+        if(patternCountLeft > 1)
         {
+            toglePat = !toglePat;
             patternCountLeft--;
 
-            int selecter = Random.Range(0, 4);
-
-            switch(selecter)
+            int selecter = Random.Range(0, 2);
+            if (toglePat)
             {
-                case 0:
-                    StartCoroutine(co_Chase(co_Pat1())); // 추격 후 근접공격
-                    break;
-                case 1:
-                    StartCoroutine(co_Runaway(co_Pat2())); // 도주 후 원거리 공격
-                    break;
-                case 2:
-                    StartCoroutine(co_Wander(co_Chase(co_Pat1()))); // 측면 이동 - 추격 후 근접공격
-                    break;    
-                case 3:
-                    StartCoroutine(co_Wander(co_Pat2())); // 측면이동 후 원거리공격
-                    break;
+                switch (selecter)
+                {
+                    case 0:
+                        StartCoroutine(co_Chase(co_Pat1())); // 추격 후 근접공격
+                        break;
+                    case 1:
+                        StartCoroutine(co_Wander(co_Chase(co_Pat1()))); // 측면 이동 - 추격 후 근접공격
+                        break;
+
+                }
             }
+            else
+            {
+                switch (selecter)
+                {
+                    case 0:
+                        StartCoroutine(co_Runaway(co_Pat2())); // 도주 후 원거리 공격
+                        break;
+                    case 1:
+                        StartCoroutine(co_Wander(co_Pat2())); // 측면이동 후 원거리공격
+                        break;
+                }
+            }
+            
+        }
+        else if(patternCountLeft == 1)
+        {
+            patternCountLeft--;
+            StartCoroutine(co_Pat3());
         }
         else // 연속 공격 끝난 후 그로기
         {
             patternCountLeft = patternCount;
-            StartCoroutine(coFatigue());
+            StartCoroutine(co_Fatigue());
         }
     }
 
-    IEnumerator coFatigue() // 그로기 상태
+    IEnumerator co_Fatigue() // 그로기 상태
     {
         anim.SetBool("isFatigue", true);
         yield return new WaitForSeconds(fatigueTime);
@@ -189,4 +207,32 @@ public class EnemyChampion : EnemyBoss
         Attack curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
         curProjectile.Shoot(transform.position, aim.transform.position);
     }
+
+    IEnumerator co_Pat3()
+    {
+        anim.SetTrigger("doShout");
+        yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+        curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, 1.0f);
+        yield return new WaitForSeconds(0.5f);
+        spawnCompanion();
+        yield return new WaitForSeconds(patterns[2].waitAfterTime);
+
+        selectPattern();
+    }
+
+    //실제 공격을 하는 함수. (Animation Event를 통해 호출)
+    void doPat3()
+    {
+        DictionaryPool.Inst.Pop("Prefabs/Attack/ShoutEffect").transform.position = transform.position + Vector3.up * 0.3f;
+        GameMgr.Inst.Shake(0.4f, 20, 0.15f, 0, true);
+
+    }
+
+    void spawnCompanion()
+    {
+        Enemy enemyPrefab = Resources.Load<Enemy>(patterns[2].prefabName);
+        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, EnemyMgr.Inst.getRandomPos());
+        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, EnemyMgr.Inst.getRandomPos());
+    }
+
 }

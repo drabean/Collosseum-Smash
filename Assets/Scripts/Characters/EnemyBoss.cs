@@ -50,6 +50,6 @@ public class EnemyBoss : Enemy
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.3F)
     {
         base.onHit(attackerPos, dmg, stunTime);
-        UIMgr.Inst.progress.SetBossHP(curHP, maxHP); Debug.Log(curHP);
+        UIMgr.Inst.progress.SetBossHP(curHP, maxHP);
     }
 }

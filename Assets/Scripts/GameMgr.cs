@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
@@ -18,67 +19,54 @@ public class GameMgr : MonoSingleton<GameMgr>
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.0f);
+        StageData.Inst.selectStage();
+        info = StageData.Inst.curStageInfo;
         GameLogic();
     }
     StageInfo info;
 
 
-    [ContextMenu("A")]
+    Coroutine curSpawnRoutine;
+    Enemy curSpawnedEnemy;
+
     public void GameLogic()
     {
-        info = Resources.Load<StageInfo>("StageInfo/Slime");
-        StartCoroutine(co_GameLogic());
+        if(curSpawnRoutine != null)StopCoroutine(curSpawnRoutine);
+        curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine(info.enemy[0]));
+        spawnBossEnemy();
     }
+
 
     //임시변수
     int dif = 4;
     int stageCount = 0;
 
+
+
+
+    Coroutine curNormalEnemyRoutine;
+
     int curEnemyCount = 0;
-
-    IEnumerator co_GameLogic()
+    WaitForSeconds wait01 = new WaitForSeconds(1.0f);
+    IEnumerator normalEnemySpawnRoutine(Enemy enem2Spwn)
     {
-        while(true)
+        while (true)
         {
-            if(curEnemyCount  == 0)
+            while (curEnemyCount != 0)
             {
-                if (stageCount <= 2)
-                {
-                    stageCount++;
-                    curEnemyCount += dif;
-                    spawnNormalEnemies(dif);
-                    UIMgr.Inst.progress.setEnemyLeft(curEnemyCount);
-                }
-                else
-                {
-                    curEnemyCount++;
-                    spawnBossEnemy();
-                }
-
+                yield return null;
             }
-            yield return null;
+
+            yield return wait01;
+            EnemyMgr.Inst.SpawnEnemy(enem2Spwn, EnemyMgr.Inst.getRandomPos(), onNormalEnemyDie);
+            curEnemyCount++;
         }
     }
 
 
-    void spawnNormalEnemies(int spawnNum)
-    {
-        List<Vector2> enemiesSpawnPoint = EnemyMgr.Inst.GetSpawnPoints(spawnNum);
-
-        for (int i = 0; i < spawnNum; i++)
-        {
-            Enemy enem2Spwn;
-            if (i < info.enemy.Count) enem2Spwn = info.enemy[i];
-            else enem2Spwn = info.enemy[Random.Range(0, info.enemy.Count)];
-
-            EnemyMgr.Inst.SpawnEnemy(enem2Spwn, enemiesSpawnPoint[i], onNormalEnemyDie);
-        }
-
-    }
     void onNormalEnemyDie()
     {
         curEnemyCount--;
-        UIMgr.Inst.progress.setEnemyLeft(curEnemyCount);
     }
 
     void spawnBossEnemy()
@@ -87,7 +75,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void onBossDie()
     {
-        UIMgr.Inst.progress.Clear();
+        SceneManager.LoadScene("Main");
     }
 
     #region 유틸 함수들

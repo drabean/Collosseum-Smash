@@ -8,12 +8,9 @@ public class Poolable : MonoBehaviour
     public Action<GameObject> ActionPush;
     public Action ActionPop;
 
-    WaitForSeconds wait;
     IEnumerator co_PushAfterTime(float time)
     {
-        if (wait == null) wait = new WaitForSeconds(time);
-
-        yield return wait;
+        yield return new WaitForSeconds(time);
 
         Push();
     }

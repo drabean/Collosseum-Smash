@@ -22,7 +22,6 @@ public class EnemyRanged : Enemy
     {
         StartCoroutine(co_Chase());
     }
-
     IEnumerator co_Chase()
     {
         while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
