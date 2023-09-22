@@ -34,6 +34,7 @@ public class Enemy : CharacterBase
         if (isDead) return;
         curHP -= dmg;
 
+        SoundMgr.Inst.Play("Hit");
 
         if (curHP <= 0)
         {
@@ -92,7 +93,6 @@ public class Enemy : CharacterBase
         hit.HitEffect(hitVec, size);
         if (!isSuperarmor) hit.DmgTxt("stun");
         GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
-
         if (!isSuperarmor)
         {
             //stopAction();

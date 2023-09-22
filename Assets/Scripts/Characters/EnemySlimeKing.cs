@@ -91,6 +91,7 @@ public class EnemySlimeKing : EnemyBoss
         GameMgr.Inst.AttackEffectCircle(destination + Vector3.up * 0.5f, 2.3f, patterns[0].waitBeforeTime + 0.5f);
 
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
+        SoundMgr.Inst.Play("Jump");
         anim.SetBool("isMoving", true);
         float timeLeft = 0.5f;
 
@@ -139,6 +140,8 @@ public class EnemySlimeKing : EnemyBoss
     int attack2Count = 0;
     void onAttack2()
     {
+        SoundMgr.Inst.Play("Throw");
+
         ++attack2Count;
         attack2Count %= 2;
         StartCoroutine(co_attack2("Prefabs/Attack/SlimeExplosion", "Prefabs/Attack/SlimeExplosionBall"));
@@ -147,6 +150,7 @@ public class EnemySlimeKing : EnemyBoss
 
     IEnumerator co_attack2(string attackName, string effectName)
     {
+        //날아가는 슬라임 볼 생성
         Vector3 attackPos = EnemyMgr.Inst.getRandomPos();
         Projectile tempObj = DictionaryPool.Inst.Pop(effectName).GetComponent<Projectile>();
         tempObj.transform.position = transform.position;
@@ -157,6 +161,7 @@ public class EnemySlimeKing : EnemyBoss
 
         GameMgr.Inst.AttackEffectCircle(attackPos, 1.125f, 0.75f);
         yield return new WaitForSeconds(0.75f);
+        //실제 공격 (폭팔) 생성
         GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
         attackEffect.transform.position = attackPos;
     }

@@ -11,8 +11,6 @@ public class ModuleAttack : MonoBehaviour
     public Transform ownerTr;
 
 
-
-
     private void Start()
     {
         if (ownerTr == null) ownerTr = transform;

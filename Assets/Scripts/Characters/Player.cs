@@ -186,6 +186,7 @@ public class Player : CharacterBase
     {
         if (commandLock) return;
 
+        SoundMgr.Inst.Play("Attack");
         anim.SetTrigger("doAttack");
     }
 
@@ -222,6 +223,7 @@ public class Player : CharacterBase
     {
         if (isInvincible) return;
 
+        SoundMgr.Inst.Play("PlayerHit");
         if (curHP <= 1)
         {
             isDead = true;
@@ -242,7 +244,7 @@ public class Player : CharacterBase
 
         GameMgr.Inst.Shake(0.15f, 50f, 0.12f);
         GameMgr.Inst.Zoom(0.15f, 0.98f);
-        GameMgr.Inst.SlowTime(0.5f, 0.2f);
+        GameMgr.Inst.SlowTime(0.3f, 0.3f);
 
         UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
@@ -256,6 +258,7 @@ public class Player : CharacterBase
     void onMove()
     {
         particle.Play();
+        SoundMgr.Inst.Play("Step");
         invokeOnMovement();
     }
 

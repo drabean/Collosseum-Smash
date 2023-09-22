@@ -11,6 +11,7 @@ public class EnemyChargeSlime : Enemy
     public float waitBeforeTime;//돌진 전 대기시간
     public float waitAfterTime;//돌진후대기시간
     public string attackName;
+    public string SFXName;
 
     public override void StartAI()
     {
@@ -50,7 +51,7 @@ public class EnemyChargeSlime : Enemy
 
         float chargeTimeLeft = chargeTime;
         anim.SetTrigger("doCharge");
-
+        SoundMgr.Inst.Play(SFXName);
         while(chargeTimeLeft >= 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, chargeDestination, chargeRange * (1/chargeTime) * Time.deltaTime);

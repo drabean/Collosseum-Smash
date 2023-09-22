@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXName: Impact

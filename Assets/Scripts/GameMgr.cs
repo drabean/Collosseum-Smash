@@ -33,6 +33,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         if(curSpawnRoutine != null)StopCoroutine(curSpawnRoutine);
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine(info.enemy[0]));
+        SoundMgr.Inst.PlayBGM("Temp");
         spawnBossEnemy();
     }
 

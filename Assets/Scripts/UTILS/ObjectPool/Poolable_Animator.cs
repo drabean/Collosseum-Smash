@@ -5,9 +5,16 @@ using UnityEngine;
 public class Poolable_Animator : Poolable
 {
     Animator anim;
+    public string SFXName;
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        ActionPop += () => { anim.SetTrigger("Awake"); };
+        ActionPop += onPop;
+    }
+
+    void onPop()
+    {
+        anim.SetTrigger("Awake");
+        if (SFXName != "") SoundMgr.Inst.Play(SFXName);
     }
 }

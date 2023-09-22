@@ -71,10 +71,11 @@ MonoBehaviour:
   isSuperarmor: 0
   chargeRange: 2.5
   chargeStartRange: 2.5
-  chargeTime: 0.25
+  chargeTime: 0.4
   waitBeforeTime: 0.7
   waitAfterTime: 1.3
   attackName: Prefabs/Attack/SlimeExplosion
+  SFXName: Jump2
 --- !u!212 &1620728181462010836
 SpriteRenderer:
   m_ObjectHideFlags: 0
