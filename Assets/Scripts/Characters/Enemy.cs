@@ -39,8 +39,7 @@ public class Enemy : CharacterBase
         if (curHP <= 0)
         {
             Target.HitSuccess();
-            stopAction();
-            StartCoroutine(co_Smash(attackerPos, Target.combo.GetCombo()));
+            smash(attackerPos);
         }
         else
         {
@@ -48,11 +47,16 @@ public class Enemy : CharacterBase
         }
     }
 
-    IEnumerator co_Smash(Transform attackerPos, int combo)
+    protected virtual void smash(Transform attackerPos)
+    {
+        stopAction();
+        StartCoroutine(co_Smash(attackerPos));
+    }
+
+    protected virtual IEnumerator co_Smash(Transform attackerPos)
     {
         isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
-        stopAction();
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec, size);
@@ -63,7 +67,7 @@ public class Enemy : CharacterBase
         hitBackParticle.transform.rotation = (hitVec * (-1)).ToQuaternion();
 
         hit.FlashWhite(0.1f);
-        GameMgr.Inst.Shake(0.2f, 20f, 0.2f);
+        GameMgr.Inst.MainCam.Shake(0.2f, 20f, 0.2f, 0);
         GameMgr.Inst.SlowTime(0.1f, 0.2f);
         Destroy(GetComponent<Collider2D>());
 
@@ -81,7 +85,7 @@ public class Enemy : CharacterBase
 
     float KnockBackPower = 0.3f;
 
-    public void Hit(Transform attackerPos, float dmg, float stunTime = 0.3f)
+    protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.3f)
     {
 
         anim.SetBool("isMoving", false);
@@ -92,12 +96,11 @@ public class Enemy : CharacterBase
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
         if (!isSuperarmor) hit.DmgTxt("stun");
-        GameMgr.Inst.Shake(0.15f, 20f, 0.15f);
+        GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
         if (!isSuperarmor)
         {
             //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
-            //StopAllCoroutines();
             //StartCoroutine(co_Stun(stunTime));
         }
     }
@@ -119,10 +122,32 @@ public class Enemy : CharacterBase
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);
         anim.Play("Idle");
+
+        StopAllCoroutines();
     }
     protected virtual void setDir()
     {
         setDir((Target.transform.position - transform.position).normalized);
+    }
+
+
+    /// <summary>
+    /// 사망 연출 없이, 그냥 삭제
+    /// </summary>
+    public void Despawn()
+    {
+        StartCoroutine(co_Despawn());
+    }
+
+    IEnumerator co_Despawn()
+    {
+        isDead = true;
+
+        hit.FlashWhite(0.1f);
+        Destroy(GetComponent<Collider2D>());
+
+        yield return new WaitForSecondsRealtime(0.15f);
+        Destroy(gameObject);
     }
 
     [ContextMenu("StartAction")]

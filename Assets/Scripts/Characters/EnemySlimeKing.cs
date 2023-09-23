@@ -109,7 +109,7 @@ public class EnemySlimeKing : EnemyBoss
 
     void onAttack1()
     {
-        GameMgr.Inst.Shake(0.4f, 20, 0.15f, 0, true);
+        GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0f);
         GameObject attackEffect = DictionaryPool.Inst.Pop(patterns[0].prefabName);
         attackEffect.transform.position = transform.position + Vector3.up * 0.5f;
     }
@@ -124,7 +124,7 @@ public class EnemySlimeKing : EnemyBoss
 
         float timeLeft = patterns[1].duration;
         anim.SetBool("isShaking", true);
-        GameMgr.Inst.Shake(patterns[1].duration, 20, 0.08f, 0, true);
+        GameMgr.Inst.MainCam.Shake(patterns[1].duration, 20, 0.08f, 0, true);
         while(timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
@@ -218,5 +218,11 @@ public class EnemySlimeKing : EnemyBoss
         {
             base.onHit(attackerPos, dmg, stunTime);
         }
+    }
+
+    protected override void stopAction()
+    {
+        base.stopAction();
+        anim.SetBool("isShaking", false);
     }
 }

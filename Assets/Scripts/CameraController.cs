@@ -14,9 +14,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] AnimationCurve shakeY;
 
     //다른 진동에 의해 덮어쓰여지면 안되는 진동.
-    bool isLocked;
+    bool isShakeLocked;
     //진동, 회전등의 연출일떄 true. 
     bool isShaking;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
@@ -25,11 +26,13 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         camOriginSize = cam.orthographicSize;
-        if (target == null) target = GameObject.FindObjectOfType<Player>().transform;
+        baseTarget = GameObject.FindObjectOfType<Player>().transform;
+        if (target == null) target = baseTarget;
     }
 
     #region 추적
     [SerializeField] Transform target;
+    Transform baseTarget;
     [SerializeField] Vector3 offset;
 
 
@@ -60,17 +63,17 @@ public class CameraController : MonoBehaviour
     /// <param name="shakeSpeed">초당  흔드는 횟수</param>
     /// <param name="xPower"></param>
     /// <param name="yPower"></param>
-    public void Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced)
+    public void Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced = false)
     {
-        if (isLocked) return;
+        if (isShakeLocked) return;
         StopAllCoroutines();
         StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower, isForced));
     }
-    IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced)
+    IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced = false)
     {
         isShaking = true;
         float timer = 0;
-        if (isForced) isLocked = true;
+        if (isForced) isShakeLocked = true;
         while (timer <= duration)
         {
             float x = shakeX.Evaluate(timer * shakeSpeed) * xPower;
@@ -83,7 +86,7 @@ public class CameraController : MonoBehaviour
             yield return null;
         }
 
-        if (isForced) isLocked = false;
+        if (isForced) isShakeLocked = false;
         isShaking = false;
     }
 
@@ -126,5 +129,15 @@ public class CameraController : MonoBehaviour
         }
 
         cam.orthographicSize = camOriginSize;
+    }
+
+    public void changeTarget(Transform followTarget)
+    {
+        target = followTarget;
+    }
+
+    public void changeTargetToDefault()
+    {
+        target = baseTarget;
     }
 }

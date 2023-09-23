@@ -172,7 +172,7 @@ public class EnemyChampion : EnemyBoss
         atk.ownerTr = transform;
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
-        GameMgr.Inst.Shake(0.1f, 40, 0.2f);
+        GameMgr.Inst.MainCam.Shake(0.1f, 40, 0.2f, 0f);
     }
     //Pattern2 - 투창공격
     IEnumerator co_Pat2(IEnumerator nextMove = null)
@@ -224,7 +224,7 @@ public class EnemyChampion : EnemyBoss
     void doPat3()
     {
         DictionaryPool.Inst.Pop("Prefabs/Attack/ShoutEffect").transform.position = transform.position + Vector3.up * 0.3f;
-        GameMgr.Inst.Shake(0.4f, 20, 0.15f, 0, true);
+        GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0, true);
 
     }
 

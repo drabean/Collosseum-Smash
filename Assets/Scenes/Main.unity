@@ -841,10 +841,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519420032}
+  - component: {fileID: 519420033}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
@@ -1237,11 +1237,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.42
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.79
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836752, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16526,7 +16526,7 @@ GameObject:
   - component: {fileID: 1089279276}
   - component: {fileID: 1089279275}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16544,6 +16544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211ea8230103a604a82bf37d7ea1af33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCam: {fileID: 0}
 --- !u!4 &1089279276
 Transform:
   m_ObjectHideFlags: 0

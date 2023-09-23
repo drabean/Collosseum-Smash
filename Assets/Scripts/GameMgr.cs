@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
-    CameraController m_mainCam;
+    public CameraController MainCam;
 
     protected void Awake()
     {
-        m_mainCam = Camera.main.GetComponent<CameraController>();
+        MainCam = Camera.main.GetComponent<CameraController>();
 
         Pool_attackWarningLinear = new ObjectPool("Prefabs/AttackWarningLinear");
         Pool_attackWarningCircle = new ObjectPool("Prefabs/AttackWarningCircle");
@@ -27,7 +27,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 
     Coroutine curSpawnRoutine;
-    Enemy curSpawnedEnemy;
 
     public void GameLogic()
     {
@@ -39,13 +38,10 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 
     //임시변수
-    int dif = 4;
-    int stageCount = 0;
+    //int dif = 4;
+    //int stageCount = 0;
 
 
-
-
-    Coroutine curNormalEnemyRoutine;
 
     int curEnemyCount = 0;
     WaitForSeconds wait01 = new WaitForSeconds(1.0f);
@@ -64,6 +60,21 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
 
+    public void stopSpawningNormalEnemy()
+    {
+        StopCoroutine(curSpawnRoutine);
+
+        Enemy[] spawnedEnemies = GameObject.FindObjectsOfType<Enemy>();
+
+        for(int i = 0; i  < spawnedEnemies.Length; i++)
+        {
+            if(!spawnedEnemies[i].CompareTag("Boss"))
+            {
+                spawnedEnemies[i].Despawn();
+            }
+        }
+
+    }
 
     void onNormalEnemyDie()
     {
@@ -76,6 +87,12 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void onBossDie()
     {
+        StartCoroutine(co_BossDie());
+    }
+
+    IEnumerator co_BossDie()
+    {
+        yield return new WaitForSeconds(10.0f);
         SceneManager.LoadScene("Main");
     }
 
@@ -88,47 +105,30 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     }
 
-
-    /// <summary>
-    /// 카메라를 일정 시간동안 흔듭니다.
-    /// </summary>
-    /// <param name="duration"></param>
-    /// <param name="shakeSpeed"></param>
-    /// <param name="xPower"></param>
-    /// <param name="yPower"></param>
-    public void Shake(float duration, float shakeSpeed, float xPower, float yPower = 0, bool isForced = false)
-    {
-        m_mainCam.Shake(duration, shakeSpeed, xPower, yPower, isForced);
-    }
-
-    /// <summary>
-    /// 카메라를 일정 시간동안 확대합니다.
-    /// </summary>
-    /// <param name="duration">확대 후 원래대로 돌아 올 때 까지의 시간</param>
-    /// <param name="power">확대 비율 (%)</param>
-    public void Zoom(float duration, float power)
-    {
-        m_mainCam.Zoom(duration, power);
-    }
-
-
+    Coroutine curSlowtimeCoroutine;
+    bool slowTimeLock;
     /// <summary>
     /// 일정 시간동안 시간 배율을 조절합니다.
     /// </summary>
     /// <param name="time"> 배율을 조절하는 시간 </param>
     /// <param name="amount"> 시간 배율 </param>
-    public void SlowTime(float time, float amount)
+    public void SlowTime(float time, float amount, bool isSlowTimeLocked = false)
     {
-        StartCoroutine(co_SlowTime(time, amount));
+        if (slowTimeLock) return;
+        if(curSlowtimeCoroutine != null)StopCoroutine(curSlowtimeCoroutine);// 이전에 실행되고 있었던 시간 멈춤 코루틴 중지
+
+        curSlowtimeCoroutine = StartCoroutine(co_SlowTime(time, amount));
     }
 
-    IEnumerator co_SlowTime(float time, float amount)
+    IEnumerator co_SlowTime(float time, float amount, bool isSlowTimeLocked = false)
     {
         Time.timeScale = amount;
 
+        slowTimeLock= isSlowTimeLocked;
         yield return new WaitForSecondsRealtime(time);
 
         Time.timeScale = 1;
+        slowTimeLock = false;
     }
 
 

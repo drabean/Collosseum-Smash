@@ -52,4 +52,35 @@ public class EnemyBoss : Enemy
         base.onHit(attackerPos, dmg, stunTime);
         UIMgr.Inst.progress.SetBossHP(curHP, maxHP);
     }
+
+    int explosionRepeatTime = 10;
+
+
+    protected override IEnumerator co_Smash(Transform attackerPos)
+    {
+        GameMgr.Inst.stopSpawningNormalEnemy();
+        GameMgr.Inst.MainCam.changeTarget(transform);
+        //죽은 적을 다시 공격하는 것을 막기 위해, 콜라이더 없애줌
+        Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+        if(cols.Length != 0)
+        {
+            foreach(Collider2D col in cols)
+            {
+                Destroy(col);
+            }
+        }
+
+        GameMgr.Inst.SlowTime(3f, 0.3f, true);
+        //여기서 적 사망 연출
+        for(int i = 0; i < explosionRepeatTime; i++)
+        {
+            hit.FlashWhite(0.1f);
+            GameObject temp = DictionaryPool.Inst.Pop("Prefabs/Effect/ExplosionEffect");
+            temp.transform.position = transform.position + Vector3.right *  Random.Range(-size, size) + Vector3.up * Random.Range(-size, size);
+            yield return new WaitForSecondsRealtime(0.3f);
+        }
+
+        yield return base.co_Smash(attackerPos);
+        GameMgr.Inst.MainCam.changeTargetToDefault();
+    }
 }

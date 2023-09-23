@@ -18,7 +18,7 @@ public class Player : CharacterBase
     [SerializeField] Transform spriteGroup;
     [SerializeField] ParticleSystem particle;
     public IconHolder iconHolder;
-    GameObject targetIcon;
+    TargetIcon targetIcon;
     #endregion
 
 
@@ -97,7 +97,8 @@ public class Player : CharacterBase
         }
         
         setStatus();
-        if (targetIcon == null) targetIcon = Instantiate(Resources.Load<GameObject>("Prefabs/targetIcon"));
+        if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
+        targetIcon.Owner = transform;
     }
 
     private void Update()
@@ -174,12 +175,14 @@ public class Player : CharacterBase
     {
         if(target == null)
         {
-            targetIcon.SetActive(false);
+            targetIcon.Target = null;
+            targetIcon.curTargetingPosition = transform.position;
+            targetIcon.gameObject.SetActive(false);
         }
         else
         {
-            targetIcon.SetActive(true);
-            targetIcon.transform.position = target.position;
+            targetIcon.gameObject.SetActive(true);
+            targetIcon.Target = target;
         }
     }
     void attack()
@@ -242,8 +245,8 @@ public class Player : CharacterBase
         isInvincible = true;
         if(!resisted) curHP--;
 
-        GameMgr.Inst.Shake(0.15f, 50f, 0.12f);
-        GameMgr.Inst.Zoom(0.15f, 0.98f);
+        GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
+        GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
         GameMgr.Inst.SlowTime(0.3f, 0.3f);
 
         UIMgr.Inst.hp.Set((int)curHP);

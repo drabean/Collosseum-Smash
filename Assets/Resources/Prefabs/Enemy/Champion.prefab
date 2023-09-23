@@ -5217,7 +5217,7 @@ GameObject:
   - component: {fileID: 1208784552465399519}
   m_Layer: 16
   m_Name: Champion
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5297,7 +5297,7 @@ MonoBehaviour:
     prefabName: Prefabs/Enemy/Gladiator2
   patternCount: 3
   spriteGroup: {fileID: 793671581856987527}
-  fatigueTime: 8
+  fatigueTime: 12
 --- !u!95 &793671581856987525
 Animator:
   serializedVersion: 5

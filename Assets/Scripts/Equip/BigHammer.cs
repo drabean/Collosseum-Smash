@@ -9,7 +9,7 @@ public class BigHammer : EquipWeapon
     protected override void specialAttack()
     {
         base.specialAttack();
-        GameMgr.Inst.Shake(0.7f, 9f, 0.2f, 0f, true);
+        GameMgr.Inst.MainCam.Shake(0.7f, 9f, 0.2f, 0f, true);
         //CircleCast를 통해 주변 모든 Enemy Layer 오브젝트 검색
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 20.0f, Vector3.forward, 0f, layer);
 

@@ -84,7 +84,7 @@ public class ModuleHit : MonoBehaviour
             sps[i].material = whiteMat;
         }
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
 
         for (int i = 0; i < sps.Length; i++)
         {
