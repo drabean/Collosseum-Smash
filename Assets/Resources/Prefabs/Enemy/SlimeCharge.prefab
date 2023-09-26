@@ -64,7 +64,7 @@ MonoBehaviour:
   curHP: 2
   moveSpeed: 2
   aimRange: 0.6
-  size: 0
+  size: 0.2
   type: 2
   Target: {fileID: 0}
   difficulty: 2

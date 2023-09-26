@@ -190,6 +190,7 @@ public class Player : CharacterBase
         if (commandLock) return;
 
         SoundMgr.Inst.Play("Attack");
+        GlobalEvent.Inst.AttackEvent();
         anim.SetTrigger("doAttack");
     }
 

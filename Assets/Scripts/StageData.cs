@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 스테이지를 지나면서 삭제되지 않는 데이터 클래스
+/// 현재캐릭터, 장비, 다음스테이지, 관객 수 등을 관리
+/// </summary>
 public class StageData : MonoSingleton<StageData>
 {
     public StageInfo curStageInfo;
 
     public List<Equip> equips;
 
+    public int audC = 5;
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -28,5 +33,5 @@ public class StageData : MonoSingleton<StageData>
         }
 
         stageIndex++;
-    }
+        stageIndex %= 2;    }
 }

@@ -34,7 +34,6 @@ public class Enemy : CharacterBase
         if (isDead) return;
         curHP -= dmg;
 
-        SoundMgr.Inst.Play("Hit");
 
         if (curHP <= 0)
         {
@@ -50,6 +49,7 @@ public class Enemy : CharacterBase
     protected virtual void smash(Transform attackerPos)
     {
         stopAction();
+        SoundMgr.Inst.Play("Smash");
         StartCoroutine(co_Smash(attackerPos));
     }
 
@@ -65,6 +65,8 @@ public class Enemy : CharacterBase
         Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/HitBackParticle").transform;
         hitBackParticle.SetParent(transform, false);
         hitBackParticle.transform.rotation = (hitVec * (-1)).ToQuaternion();
+        var mainModule = hitBackParticle.GetComponent<ParticleSystem>().main;
+        mainModule.startSize = size;
 
         hit.FlashWhite(0.1f);
         GameMgr.Inst.MainCam.Shake(0.2f, 20f, 0.2f, 0);
@@ -87,6 +89,7 @@ public class Enemy : CharacterBase
 
     protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.3f)
     {
+        SoundMgr.Inst.Play("Hit");
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);

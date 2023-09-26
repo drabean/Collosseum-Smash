@@ -15,7 +15,6 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     List<Vector2> spawnPoints  = new List<Vector2>();
     List<Vector2> cornerPoints = new List<Vector2>();
-
     int spawnAreaNum = 8;
 
     public Player player;

@@ -74,12 +74,13 @@ public class EnemyBoss : Enemy
         //여기서 적 사망 연출
         for(int i = 0; i < explosionRepeatTime; i++)
         {
-            hit.FlashWhite(0.1f);
+            hit.FlashWhite(0.2f);
             GameObject temp = DictionaryPool.Inst.Pop("Prefabs/Effect/ExplosionEffect");
             temp.transform.position = transform.position + Vector3.right *  Random.Range(-size, size) + Vector3.up * Random.Range(-size, size);
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
+        SoundMgr.Inst.Play("Smash");
         yield return base.co_Smash(attackerPos);
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }

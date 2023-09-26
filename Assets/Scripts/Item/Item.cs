@@ -7,6 +7,13 @@ public class Item : MonoBehaviour
 {
     public Action onAcquire;
     void InvokeOnAcquire() { onAcquire?.Invoke(); }
+    protected Animator anim;
+   [SerializeField]SpriteRenderer sp;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,10 +31,12 @@ public class Item : MonoBehaviour
 
     IEnumerator co_AcquireItem()
     {
-        GetComponent<SpriteRenderer>().material = Resources.Load<Material>("Materials/FlashWhite");
+        Material origin = sp.material;
+        sp.material = Resources.Load<Material>("Materials/FlashWhite");
         InvokeOnAcquire();
 
         yield return new WaitForSeconds(0.2f);
-        Destroy(gameObject);
+        sp.material = origin;
+        GetComponent<Poolable>().Push();
     }
 }

@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
-    public CameraController MainCam;
-
+    [HideInInspector]public CameraController MainCam;
+    [HideInInspector] public List<Audience> audiences;
+    [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
     protected void Awake()
     {
         MainCam = Camera.main.GetComponent<CameraController>();
@@ -30,19 +31,52 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     public void GameLogic()
     {
+        spawnAudiences();
+
         if(curSpawnRoutine != null)StopCoroutine(curSpawnRoutine);
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine(info.enemy[0]));
-        SoundMgr.Inst.PlayBGM("Temp");
+        SoundMgr.Inst.PlayBGM("BGM");
         spawnBossEnemy();
     }
 
 
+    #region 관객 로직
+    void spawnAudiences()
+    {
+        int count = StageData.Inst.audC;
+        Audience audiencePrefab = Resources.Load<Audience>("Prefabs/Audience/Audience");
+        for(int i = 0; i < count; i++)
+        {
+            Transform point = audiencesPoint[Random.Range(0, audiencesPoint.Count)];
+            audiencesPoint.Remove(point);
+
+            audiences.Add(Instantiate<Audience>(audiencePrefab, point.position, Quaternion.identity));
+        }
+    }
+
+    void coinToss()
+    {
+        audiences[Random.Range(0, audiences.Count)].throwCoin();
+    }
+
+    public void actionOnSmash()
+    {
+        coinToss();
+    }
+
+    public void actionOnBossKill()
+    {
+        foreach(Audience aud in audiences)
+        {
+            aud.onEnemyKill();
+        }
+    }
+    #endregion
+
     //임시변수
     //int dif = 4;
     //int stageCount = 0;
-
-
-
+    #region 소환로직
     int curEnemyCount = 0;
     WaitForSeconds wait01 = new WaitForSeconds(1.0f);
     IEnumerator normalEnemySpawnRoutine(Enemy enem2Spwn)
@@ -88,14 +122,19 @@ public class GameMgr : MonoSingleton<GameMgr>
     void onBossDie()
     {
         StartCoroutine(co_BossDie());
+
+        actionOnBossKill();
     }
 
     IEnumerator co_BossDie()
     {
-        yield return new WaitForSeconds(10.0f);
+        actionOnBossKill();
+        yield return new WaitForSeconds(8.0f);
         SceneManager.LoadScene("Main");
     }
 
+
+#endregion
     #region 유틸 함수들
     int score = 0;
     public void addScore(int score)
