@@ -18,6 +18,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     int spawnAreaNum = 8;
 
     public Player player;
+    public bool canSpawnEnemy = true;
+
     #region 외부 접근용 유틸 함수
     public Vector2 getRandomPos() { return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)]; }
     public List<Vector2> getCornerPos() { return cornerPoints; }
@@ -71,6 +73,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <param name="deadOption">사망시 호출될 추가 함수 (옵션)</param>
     public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
     {
+        canSpawnEnemy = true;
         StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption));
     }
 
@@ -93,11 +96,54 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         smoke.transform.position = position;
         smoke.GetComponent<Poolable>().Push(2.0f);
 
+        if (!canSpawnEnemy) yield break;
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
         spawnedEnemy.Target = player;
         spawnedEnemy.StartAI();
 
         if(deadOption != null) spawnedEnemy.onDeath += deadOption;
+    }
+
+    public void SpawnBossEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    {
+        StartCoroutine(co_spawnBoss(enemyPrefab, position, deadOption));
+    }
+
+    IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    {
+        GameMgr.Inst.removeAllNormalEnemies();
+        GameObject camTarget = new GameObject();
+        camTarget.transform.position = position;
+
+        GameMgr.Inst.MainCam.changeTarget(camTarget.transform);
+
+        yield return new WaitForSeconds(1.0f);
+
+        Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
+
+        spawnedEnemy.Target = player;
+        if (deadOption != null) spawnedEnemy.onDeath += deadOption;
+
+        Collider2D[] cols = spawnedEnemy.GetComponentsInChildren<Collider2D>();
+        if (cols.Length != 0)
+        {
+            foreach (Collider2D col in cols)
+            {
+                col.enabled = false;
+            }
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        if (cols.Length != 0)
+        {
+            foreach (Collider2D col in cols)
+            {
+                col.enabled = true;
+            }
+        }
+
+        spawnedEnemy.StartAI();
+        GameMgr.Inst.MainCam.changeTargetToDefault();
     }
 
 }

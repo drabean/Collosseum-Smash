@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
   m_Name: Champion
   m_EditorClassIdentifier: 
-  enemy:
+  Enemies:
   - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}
   - {fileID: 8533509118144780453, guid: 0c53d11e1e2dd66438315734c4b2fc76, type: 3}
   Boss: {fileID: 793671581856987520, guid: 415ae9a29fa846a4ab1b1e8c2eecc0cf, type: 3}
+  maxKill: 10
   StageDeco: {fileID: 0}

@@ -12,7 +12,6 @@ public class StageData : MonoSingleton<StageData>
 
     public List<Equip> equips;
 
-    public int audC = 5;
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

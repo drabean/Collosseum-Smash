@@ -12,18 +12,18 @@ public class UIProgressCanvas : MonoBehaviour
     [SerializeField] GameObject GroupDemo;
     [SerializeField] GameObject GroupDie;
 
-    [SerializeField]  TextMeshProUGUI enemyLeft;
-    [SerializeField] Image HPBar;
+    [SerializeField] Image EnemyProgressBar;
+    [SerializeField] Image BossHPBar;
 
     public void HideAll()
     {
         GroupNormal.SetActive(false);
         GroupBoss.SetActive(false);
     }
-    public void setEnemyLeft(int num) 
+    public void SetProgress(int curCount, int maxCount) 
     {
         if (!GroupNormal.activeInHierarchy) ShowNormalUI();
-        enemyLeft.text = num.ToString(); 
+        EnemyProgressBar.fillAmount =  (float) curCount / maxCount; 
     }
     public void ShowNormalUI()
     {
@@ -34,7 +34,7 @@ public class UIProgressCanvas : MonoBehaviour
     public void SetBossHP(float  curHp, float maxHP) 
     {
         if (!GroupBoss.activeInHierarchy) ShowBossUI();
-        HPBar.fillAmount = (float) curHp / maxHP; 
+        BossHPBar.fillAmount = (float) curHp / maxHP; 
     }
     public void ShowBossUI()
     {

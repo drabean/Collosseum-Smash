@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ENEMYTYPE
-{
-    NORMAL,
-    RANGED,
-    SPECIAL
-}
 public class Enemy : CharacterBase
 {
-    public ENEMYTYPE type;
 
     [Header("Àû")]
     public Player Target;

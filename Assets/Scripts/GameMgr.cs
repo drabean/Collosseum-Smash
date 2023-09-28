@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
-    [HideInInspector]public CameraController MainCam;
-    [HideInInspector] public List<Audience> audiences;
-    [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
+    [HideInInspector] public CameraController MainCam;
+    //   [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
     protected void Awake()
     {
         MainCam = Camera.main.GetComponent<CameraController>();
@@ -22,87 +21,95 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSeconds(1.0f);
         StageData.Inst.selectStage();
         info = StageData.Inst.curStageInfo;
-        GameLogic();
+        StartNormalStage();
     }
     StageInfo info;
-
-
     Coroutine curSpawnRoutine;
-
-    public void GameLogic()
+    int maxCount = 3; // 소환 될 수 있는 최대 마리수
+    int progressCount = 0; //
+    public void StartNormalStage()
     {
-        spawnAudiences();
+        Init();
 
-        if(curSpawnRoutine != null)StopCoroutine(curSpawnRoutine);
-        curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine(info.enemy[0]));
+        if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
+        UIMgr.Inst.progress.ShowNormalUI();
+        curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
         SoundMgr.Inst.PlayBGM("BGM");
-        spawnBossEnemy();
     }
-
-
-    #region 관객 로직
-    void spawnAudiences()
+    void startBossStage()
     {
-        int count = StageData.Inst.audC;
-        Audience audiencePrefab = Resources.Load<Audience>("Prefabs/Audience/Audience");
-        for(int i = 0; i < count; i++)
+
+        GameMgr.Inst.removeAllNormalEnemies();
+        UIMgr.Inst.progress.ShowBossUI();
+        EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.zero, onBossDie);
+
+    }
+    List<int> curSpawnedEnemies; // 현재 소환 될 수 있는 적들의 index
+
+    void Init()
+    {
+        curSpawnedEnemies = new List<int>();
+        for (int i = 1; i < info.Enemies.Count; i++)
         {
-            Transform point = audiencesPoint[Random.Range(0, audiencesPoint.Count)];
-            audiencesPoint.Remove(point);
-
-            audiences.Add(Instantiate<Audience>(audiencePrefab, point.position, Quaternion.identity));
+            curSpawnedEnemies.Add(i);
         }
+        Debug.Log(curSpawnedEnemies.Count);
     }
 
-    void coinToss()
-    {
-        audiences[Random.Range(0, audiences.Count)].throwCoin();
-    }
-
-    public void actionOnSmash()
-    {
-        coinToss();
-    }
-
-    public void actionOnBossKill()
-    {
-        foreach(Audience aud in audiences)
-        {
-            aud.onEnemyKill();
-        }
-    }
-    #endregion
 
     //임시변수
     //int dif = 4;
     //int stageCount = 0;
     #region 소환로직
+
+    /// <summary>
+    /// 현재 소환 가능한 적의 index를 반환
+    /// </summary>
+    /// <returns></returns>
+    int getIndexToSpawn()
+    {
+        if (curSpawnedEnemies.Count == 0) return 0;
+        else
+        {
+            int idx2Spwn = curSpawnedEnemies[Random.Range(0, curSpawnedEnemies.Count)];
+            curSpawnedEnemies.Remove(idx2Spwn);
+            return idx2Spwn;
+        }
+    }
     int curEnemyCount = 0;
-    WaitForSeconds wait01 = new WaitForSeconds(1.0f);
-    IEnumerator normalEnemySpawnRoutine(Enemy enem2Spwn)
+    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.5f);
+    IEnumerator normalEnemySpawnRoutine()
     {
         while (true)
         {
-            while (curEnemyCount != 0)
+            while (curEnemyCount >= maxCount)
             {
                 yield return null;
             }
 
-            yield return wait01;
-            EnemyMgr.Inst.SpawnEnemy(enem2Spwn, EnemyMgr.Inst.getRandomPos(), onNormalEnemyDie);
+            yield return waitForEnemySpawn;
+
+            int idx2Spwn = getIndexToSpawn();
+            EnemyMgr.Inst.SpawnEnemy(info.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), () => onNormalEnemyDie(idx2Spwn));
             curEnemyCount++;
         }
     }
 
-    public void stopSpawningNormalEnemy()
+
+
+    /// <summary>
+    /// 현재 소환되어있는 모든 일반 적을 없애버리고, 일반 적의 소환을 막음
+    /// </summary>
+    public void removeAllNormalEnemies()
     {
         StopCoroutine(curSpawnRoutine);
+        EnemyMgr.Inst.canSpawnEnemy = false;
 
         Enemy[] spawnedEnemies = GameObject.FindObjectsOfType<Enemy>();
 
-        for(int i = 0; i  < spawnedEnemies.Length; i++)
+        for (int i = 0; i < spawnedEnemies.Length; i++)
         {
-            if(!spawnedEnemies[i].CompareTag("Boss"))
+            if (!spawnedEnemies[i].CompareTag("Boss"))
             {
                 spawnedEnemies[i].Despawn();
             }
@@ -110,31 +117,31 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     }
 
-    void onNormalEnemyDie()
+
+    /// <summary>
+    /// 적이 죽을떄 호출 될 함수.
+    /// </summary>
+    /// <param name="index">해당 적의 StageInfo에서의 index </param>
+    void onNormalEnemyDie(int index)
     {
         curEnemyCount--;
+        if (index != 0) curSpawnedEnemies.Add(index);
+
+        progressCount++;
+        UIMgr.Inst.progress.SetProgress(progressCount, info.maxKill);
+        if (progressCount >= info.maxKill)
+        {
+            startBossStage();
+        }
     }
 
-    void spawnBossEnemy()
-    {
-        EnemyMgr.Inst.SpawnEnemy(info.Boss, Vector3.zero, onBossDie);
-    }
     void onBossDie()
     {
-        StartCoroutine(co_BossDie());
 
-        actionOnBossKill();
-    }
-
-    IEnumerator co_BossDie()
-    {
-        actionOnBossKill();
-        yield return new WaitForSeconds(8.0f);
-        SceneManager.LoadScene("Main");
     }
 
 
-#endregion
+    #endregion
     #region 유틸 함수들
     int score = 0;
     public void addScore(int score)
@@ -154,7 +161,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     public void SlowTime(float time, float amount, bool isSlowTimeLocked = false)
     {
         if (slowTimeLock) return;
-        if(curSlowtimeCoroutine != null)StopCoroutine(curSlowtimeCoroutine);// 이전에 실행되고 있었던 시간 멈춤 코루틴 중지
+        if (curSlowtimeCoroutine != null) StopCoroutine(curSlowtimeCoroutine);// 이전에 실행되고 있었던 시간 멈춤 코루틴 중지
 
         curSlowtimeCoroutine = StartCoroutine(co_SlowTime(time, amount));
     }
@@ -163,7 +170,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         Time.timeScale = amount;
 
-        slowTimeLock= isSlowTimeLocked;
+        slowTimeLock = isSlowTimeLocked;
         yield return new WaitForSecondsRealtime(time);
 
         Time.timeScale = 1;
@@ -185,7 +192,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         return temp;
     }
 
-   // SpriteRenderer attackWarningCircle;
+    // SpriteRenderer attackWarningCircle;
     ObjectPool Pool_attackWarningCircle;
     public GameObject AttackEffectCircle(Vector3 startPos, float range, float time)
     {
