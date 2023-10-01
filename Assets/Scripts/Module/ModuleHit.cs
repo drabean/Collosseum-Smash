@@ -48,10 +48,13 @@ public class ModuleHit : MonoBehaviour
     {
         //TextMeshPro dmgTxt = Instantiate(_dmgTxt, transform.position + Vector3.up * 0.8f, Quaternion.identity);
         GameObject dmgTxt = DictionaryPool.Inst.Pop("Prefabs/DmgTxt");
+        dmgTxt.GetComponent<DmgTxt>().Show(combo.ToString(), transform.position);
+            /*
         dmgTxt.transform.position = transform.position + Vector3.up * 0.8f;
         dmgTxt.GetComponent<TextMeshPro>().text = combo + "combo!";
         dmgTxt.GetComponent<TextMeshPro>().color = Color.white;
-        DictionaryPool.Inst.Push(dmgTxt.gameObject, 0.2f);
+            */
+       // DictionaryPool.Inst.Push(dmgTxt.gameObject, 0.5f);
 
     }
 
@@ -59,11 +62,14 @@ public class ModuleHit : MonoBehaviour
     {
         //TextMeshPro dmgTxt = Instantiate(_dmgTxt, transform.position + Vector3.up * 0.8f, Quaternion.identity);
         GameObject dmgTxt = DictionaryPool.Inst.Pop("Prefabs/DmgTxt");
+        //GameObject dmgTxt = DictionaryPool.Inst.Pop("Prefabs/DmgTxt");
+        dmgTxt.GetComponent<DmgTxt>().Show(txt, transform.position);
+        /*
         dmgTxt.transform.position = transform.position + Vector3.up * 0.8f;
         dmgTxt.GetComponent<TextMeshPro>().text = txt;
         dmgTxt.GetComponent<TextMeshPro>().color = Color.yellow;
-        DictionaryPool.Inst.Push(dmgTxt.gameObject, 0.2f);
-
+        */
+       // DictionaryPool.Inst.Push(dmgTxt.gameObject, 0.2f);
     }
 
     #endregion

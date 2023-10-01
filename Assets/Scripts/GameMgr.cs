@@ -16,11 +16,13 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
 
 
+    public bool isTest;
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.0f);
         StageData.Inst.selectStage();
         info = StageData.Inst.curStageInfo;
+        if (isTest) yield break;
         StartNormalStage();
     }
     StageInfo info;
@@ -38,11 +40,18 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void startBossStage()
     {
+        StartCoroutine(co_StartBossStage());
+    }
+
+    IEnumerator co_StartBossStage()
+    {
 
         GameMgr.Inst.removeAllNormalEnemies();
-        UIMgr.Inst.progress.ShowBossUI();
-        EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.zero, onBossDie);
 
+        UIMgr.Inst.progress.HideAll();
+        EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.up, onBossDie);
+        yield return new WaitForSeconds(1f);
+        UIMgr.Inst.progress.ShowBossUI();
     }
     List<int> curSpawnedEnemies; // 현재 소환 될 수 있는 적들의 index
 
@@ -57,9 +66,6 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
 
 
-    //임시변수
-    //int dif = 4;
-    //int stageCount = 0;
     #region 소환로직
 
     /// <summary>
@@ -138,7 +144,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     void onBossDie()
     {
 
+        SceneManager.LoadScene("Main");
     }
+    
 
 
     #endregion

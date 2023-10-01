@@ -15,5 +15,5 @@ public class UIMgr : MonoBehaviour
     public UIHPCanvavs hp;
     public UIControlCanvas joystick;
     public UIProgressCanvas progress;
-    public AtkBtn atkBtn;
+    public UIItemDescriptionCanvas itemDescription;
 }

@@ -132,8 +132,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 col.enabled = false;
             }
         }
-
-        yield return new WaitForSeconds(1.5f);
+        spawnedEnemy.hit.FlashWhite(1);
+        yield return new WaitForSeconds(2f);
         if (cols.Length != 0)
         {
             foreach (Collider2D col in cols)

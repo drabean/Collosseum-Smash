@@ -86,12 +86,11 @@ public class Enemy : CharacterBase
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", false);
-        if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
-        if (!isSuperarmor) hit.DmgTxt("stun");
+        //if (!isSuperarmor) hit.DmgTxt("stun");
         GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
         if (!isSuperarmor)
         {

@@ -36,7 +36,7 @@ public class Player : CharacterBase
     #endregion
 
     #region 플레이어 
-    public STATUS _stat;
+    public STATUS stat;
     //TODO: 공격범위 조절 추가 (지금은 X)
     public float findRange;        
     public float attackRange;
@@ -48,8 +48,8 @@ public class Player : CharacterBase
     /// </summary>
     void setStatus()
     {
-        moveSpeed = 2f + (_stat.SPD * 0.5f);
-        maxHP = _stat.VIT + 1;
+        moveSpeed = 2f + (stat.SPD * 0.5f);
+        maxHP = stat.VIT + 1;
         curHP = maxHP;
         UIMgr.Inst.hp.Set((int)curHP);
     }
@@ -79,7 +79,6 @@ public class Player : CharacterBase
     [HideInInspector] public Combo combo = new Combo();
 
 
-    public bool testMode;
     private void Awake()
     {
         evnt.moveEffect = onMove;
@@ -90,12 +89,8 @@ public class Player : CharacterBase
 
     private void Start()
     {
-        if (!testMode)
-        {
-            UIMgr.Inst.joystick.setTarget(GetInput);
-            //UIMgr.Inst.atkBtn.setTarget(attack);
-        }
-        
+        UIMgr.Inst.joystick.setTarget(GetInput);
+
         setStatus();
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
@@ -107,11 +102,6 @@ public class Player : CharacterBase
 
         findTarget();
         updateTargetIcon();
-        if (testMode)
-        {
-            this.inputVec = (Vector3.right * Input.GetAxisRaw("Horizontal") + Vector3.up * Input.GetAxisRaw("Vertical")).normalized;
-            if (inputVec != null) lastVec = this.inputVec;
-        }
 
         //수동조작모드
         if (inputVec != Vector3.zero && !commandLock)
@@ -248,7 +238,7 @@ public class Player : CharacterBase
 
         GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
         GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
-        GameMgr.Inst.SlowTime(0.3f, 0.3f);
+        GameMgr.Inst.SlowTime(0.3f, 0.3f, true);
 
         UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);

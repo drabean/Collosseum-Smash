@@ -12,7 +12,7 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
 
     public Transform aim;
-    [SerializeField] protected ModuleHit hit;
+    public ModuleHit hit;
     #endregion
 
     #region 상태변수

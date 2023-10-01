@@ -47,6 +47,7 @@ public class EnemyRanged : Enemy
         anim.SetBool("isReady", false);
 
         anim.SetTrigger("doAttack");
+        SoundMgr.Inst.Play("Throw");
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(co_Runaway());
     }

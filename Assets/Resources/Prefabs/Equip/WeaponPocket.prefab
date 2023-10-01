@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34935f276550bec4d945a0c189faf3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 63a0132a1993ad049a949fff547d51f4, type: 3}
+  Description: This is Weapon Pocket
   owner: {fileID: 0}
   spawnWaitTIme: 6

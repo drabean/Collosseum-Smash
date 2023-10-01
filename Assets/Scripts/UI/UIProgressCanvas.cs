@@ -17,8 +17,8 @@ public class UIProgressCanvas : MonoBehaviour
 
     public void HideAll()
     {
-        GroupNormal.SetActive(false);
-        GroupBoss.SetActive(false);
+        if(GroupNormal.activeInHierarchy) GroupNormal.GetComponent<ModuleUI>().FadeOut(0.5f);
+        if(GroupBoss.activeInHierarchy) GroupBoss.GetComponent<ModuleUI>().FadeOut(0.5f);
     }
     public void SetProgress(int curCount, int maxCount) 
     {
@@ -27,8 +27,7 @@ public class UIProgressCanvas : MonoBehaviour
     }
     public void ShowNormalUI()
     {
-        GroupBoss.SetActive(false);
-        GroupNormal.SetActive(true);
+        GroupNormal.GetComponent<ModuleUI>().FadeIn(0.5f);
     }
 
     public void SetBossHP(float  curHp, float maxHP) 
@@ -38,8 +37,7 @@ public class UIProgressCanvas : MonoBehaviour
     }
     public void ShowBossUI()
     {
-        GroupNormal.SetActive(false);
-        GroupBoss.SetActive(true);
+        GroupBoss.GetComponent<ModuleUI>().FadeIn(0.5f);
     }
 
     public void Clear()
