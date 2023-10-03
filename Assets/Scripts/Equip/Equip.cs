@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class Equip : MonoBehaviour
 {
     public Sprite ItemSprite;
+    public string itemName;
+    [TextArea]
     public string Description;
 
     public  Player owner;
@@ -21,13 +23,6 @@ public abstract class Equip : MonoBehaviour
     }
 
     public abstract void onUnEquip(Player player);
-
-
-    private void Start()
-    {
-        owner = GameObject.FindObjectOfType<Player>();
-        onEquip(owner);
-    }
 
 
 }

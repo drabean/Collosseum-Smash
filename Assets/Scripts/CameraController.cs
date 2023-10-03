@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour
 
     //다른 진동에 의해 덮어쓰여지면 안되는 진동.
     bool isShakeLocked;
-    //진동, 회전등의 연출일떄 true. 
-    bool isShaking;
+
+    bool targetLock;
 
     private void Awake()
     {
@@ -39,8 +39,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-
-       if(!isShaking) transform.position = Vector3.Lerp(transform.position, clampVector(target.transform.position) + offset, 0.2f);
+        if (targetLock) return;
+            
+         transform.position = Vector3.Lerp(transform.position, clampVector(target.transform.position) + offset, 0.2f);
        //if(!isShaking) transform.position = target.position + offset;
     }
 
@@ -71,7 +72,6 @@ public class CameraController : MonoBehaviour
     }
     IEnumerator co_Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced = false)
     {
-        isShaking = true;
         float timer = 0;
         if (isForced) isShakeLocked = true;
         while (timer <= duration)
@@ -87,7 +87,6 @@ public class CameraController : MonoBehaviour
         }
 
         if (isForced) isShakeLocked = false;
-        isShaking = false;
     }
 
 
@@ -131,6 +130,11 @@ public class CameraController : MonoBehaviour
         cam.orthographicSize = camOriginSize;
     }
 
+    public void lockPos(Vector3 pos)
+    {
+        targetLock = true;
+        transform.position = pos;
+    }
     public void changeTarget(Transform followTarget)
     {
         target = followTarget;

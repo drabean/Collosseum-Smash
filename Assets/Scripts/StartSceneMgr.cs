@@ -8,7 +8,8 @@ public class StartSceneMgr : MonoBehaviour
     public void BtnStart()
     {
         Debug.Log("START");
-        SceneManager.LoadScene("Main");
+        //SceneManager.LoadScene("Main");
+        LoadSceneMgr.LoadSceneAsync("Main");
     }
 
     public void BtnOption()

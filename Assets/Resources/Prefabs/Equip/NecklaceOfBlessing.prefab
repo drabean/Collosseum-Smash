@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7d85e411123da47964dcbaec7039fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 0}
+  Description: DEX increases by 2, but STR decreases by 1
   owner: {fileID: 0}
   Cooltime: 10
   curIcon: {fileID: 0}

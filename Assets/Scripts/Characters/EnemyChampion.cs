@@ -204,6 +204,7 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat2()
     {
+        SoundMgr.Inst.Play("Throw");
         Attack curProjectile = Instantiate<Attack>(projectile, transform.position, Quaternion.identity);
         curProjectile.Shoot(transform.position, aim.transform.position);
     }
@@ -211,6 +212,7 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Pat3()
     {
         anim.SetTrigger("doShout");
+        SoundMgr.Inst.Play("Impact");
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
         curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, 1.0f);
         yield return new WaitForSeconds(0.5f);

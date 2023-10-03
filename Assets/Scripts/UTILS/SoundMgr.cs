@@ -74,4 +74,9 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         BGMPlayer.Play();
     }
 
+
+    public void StopBGM()
+    {
+        BGMPlayer.Stop();
+    }
 }

@@ -33,6 +33,7 @@ public class Player : CharacterBase
     public bool isInAttackRange = false;
     bool isInvincible = false;
     bool commandLock = false;
+    bool isAutoMove = false;
     #endregion
 
     #region 플레이어 
@@ -98,7 +99,8 @@ public class Player : CharacterBase
 
     private void Update()
     {
-        if (isDead) return;
+        if (isDead) return; // 사망 상태일때 아무것도 못하도록
+        if (isAutoMove) return; // 연출 단계에서 플레이어의 조작 없이 이동할때.
 
         findTarget();
         updateTargetIcon();
@@ -195,7 +197,24 @@ public class Player : CharacterBase
 
         invokeOnAttack();
     }
-
+    
+    public void AutoMove(Vector3 destination)
+    {
+        StartCoroutine(co_AutoMove(destination));
+    }
+    IEnumerator co_AutoMove(Vector3 destination)
+    {
+        isAutoMove = true;
+        float originMoveSpd = moveSpeed;
+        moveSpeed = 3.0f;
+        while(Vector3.Distance(transform.position, destination) >= 0.1f)
+        {
+            moveTowardTarget(destination);
+            yield return null;
+        }
+        isAutoMove = false;
+        moveSpeed = originMoveSpd;
+    }
     public void GetInput(Vector2 inputVec)
     {
         this.inputVec = inputVec;
@@ -220,12 +239,17 @@ public class Player : CharacterBase
         SoundMgr.Inst.Play("PlayerHit");
         if (curHP <= 1)
         {
-            isDead = true;
-            UIMgr.Inst.progress.Die();
+            die();
         }
-            StartCoroutine(co_Invincible(invokeOnHit(false)));
+        StartCoroutine(co_Invincible(invokeOnHit(false)));
     }
-
+    void die()
+    {
+        SoundMgr.Inst.StopBGM();
+        isDead = true;
+        anim.SetBool("isMoving", false);
+        UIMgr.Inst.progress.Die();
+    }
     /// <summary>
     /// 데미지를 입히고, 무적시간을 부여하며 연출을 해주는 코루틴
     /// </summary>

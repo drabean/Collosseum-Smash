@@ -6,9 +6,9 @@ using System;
 public class Item : MonoBehaviour
 {
     public Action onAcquire;
-    void InvokeOnAcquire() { onAcquire?.Invoke(); }
+    protected void InvokeOnAcquire() { onAcquire?.Invoke(); }
     protected Animator anim;
-   [SerializeField]SpriteRenderer sp;
+   [SerializeField]protected SpriteRenderer sp;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -29,7 +29,7 @@ public class Item : MonoBehaviour
         Debug.Log("GotItem!");
     }
 
-    IEnumerator co_AcquireItem()
+    protected virtual IEnumerator co_AcquireItem()
     {
         Material origin = sp.material;
         sp.material = Resources.Load<Material>("Materials/FlashWhite");

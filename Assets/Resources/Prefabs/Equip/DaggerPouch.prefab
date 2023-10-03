@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8983244711704413952}
   - component: {fileID: 350244522285536300}
   m_Layer: 11
-  m_Name: WeaponPocket
+  m_Name: DaggerPouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34935f276550bec4d945a0c189faf3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: 63a0132a1993ad049a949fff547d51f4, type: 3}
-  Description: This is Weapon Pocket
+  ItemSprite: {fileID: 21300000, guid: 8a04946b959a21a4d80e35db9fdfb2d1, type: 3}
+  itemName: DaggerPouch
+  Description: Summons a throwing dagger at a random location.
   owner: {fileID: 0}
   spawnWaitTIme: 6

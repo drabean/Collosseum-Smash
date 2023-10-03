@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 /// <summary>
@@ -11,6 +12,8 @@ public class ItemEquipHolder : MonoBehaviour
     public Equip equip;
 
     [SerializeField] SpriteRenderer sp;
+
+    public Action onAcquire;
     /// <summary>
     /// 임시로 Start에서 처리
     /// </summary>
@@ -20,23 +23,8 @@ public class ItemEquipHolder : MonoBehaviour
     }
     public void SetItem(Equip equip)
     {
+        this.equip = equip;
+
         sp.sprite = equip.ItemSprite;
-    }
-    public void ShowDescription()
-    {
-        UIMgr.Inst.itemDescription.ShowDescription(equip.Description);
-    }
-    public void GetItem()
-    {
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player")) ShowDescription();
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player")) UIMgr.Inst.itemDescription.HideDescription();
     }
 }

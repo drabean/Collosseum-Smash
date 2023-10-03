@@ -1,42 +1,44 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LoadingSceneMgr : MonoSingleton<LoadingSceneMgr>
+public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
 {
+    static string nextSceneName;
+    AsyncOperation operation;
 
-    public void LoadNextSceneAsync(string sceneName)
-    {
-        StartCoroutine(LoadSceneAsync(sceneName));
+    private void Start()
+    { 
+        StartCoroutine(co_AsyncLoading());
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+
+    /// <summary>
+    /// 이 함수를 실행함으로서 LoadScene을 불러오고, LoadScene의 Start에서 다음 씬을 비동기 로딩함.
+    /// </summary>
+    /// <param name="sceneName"></param>
+    public static void LoadSceneAsync(string sceneName)
     {
-        // 로딩 애니메이션을 활성화 또는 보여줍니다.
+        nextSceneName = sceneName;
+        SceneManager.LoadScene("Loading");
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+    }
+    IEnumerator co_AsyncLoading()
+    {
+        Time.timeScale = 1;
 
-        asyncOperation.allowSceneActivation = false;
+        operation = SceneManager.LoadSceneAsync(nextSceneName);
 
-        while (!asyncOperation.isDone)
+        while (!operation.isDone) // 로딩 완료까지 대기
         {
-            // 로딩 진행 상황에 따라 로딩바 업데이트 또는 진행 상황을 표시하는 다른 UI 업데이트를 수행합니다.
-
-            // 예를 들어, loadingBar.fillAmount = progress;와 같은 방법으로 로딩바 업데이트 가능
-
-            if (asyncOperation.progress >= 0.9f)
-            {
-                // 로딩이 완료되었을 때
-                asyncOperation.allowSceneActivation = true;
-
-                // 로딩 애니메이션을 비활성화 또는 숨깁니다.
-
-                // 원하는 UI 업데이트를 수행합니다.
-
-                // 예를 들어, loadingText.text = "로딩 완료";와 같은 방법으로 텍스트 업데이트 가능
-            }
-
             yield return null;
         }
+        Debug.Log("여긴왔네");
+        //최소대기시간
+        yield return new WaitForSeconds(1.0f);
+        operation.allowSceneActivation = true;
+
     }
 }

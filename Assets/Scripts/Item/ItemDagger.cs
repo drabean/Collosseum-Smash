@@ -19,7 +19,6 @@ public class ItemDagger : Item
         if (hits.Length == 0)
         {
             target = player.aim;
-            return;
         }
         else
         {
@@ -41,5 +40,14 @@ public class ItemDagger : Item
 
         Attack dagger = Instantiate<Attack>(DaggerPrefab);
         dagger.Shoot(transform.position, target.position);
+    }
+    protected override IEnumerator co_AcquireItem()
+    {
+        Material origin = sp.material;
+        sp.material = Resources.Load<Material>("Materials/FlashWhite");
+
+        yield return new WaitForSeconds(0.2f);
+        InvokeOnAcquire();
+        sp.material = origin;
     }
 }

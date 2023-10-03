@@ -38,6 +38,8 @@ public class NecklaceOfBlessing : Equip
 
     private void Update()
     {
+        if (owner == null) return;
+
         cooltimeLeft -= Time.deltaTime;
 
         if (cooltimeLeft <= 0)

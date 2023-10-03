@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87add0fa250fb404fafbb33c41d11c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: 63a0132a1993ad049a949fff547d51f4, type: 3}
-  Description: This Is ThunderStep
+  ItemSprite: {fileID: 21300000, guid: ccf373ac3c77cfa45805c1199b02c248, type: 3}
+  itemName: ThunderStep
+  Description: "\rThunder crashes along your path."
   owner: {fileID: 0}
   cooltime: 0.5
   lastEffectedTime: 0

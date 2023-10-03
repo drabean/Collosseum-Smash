@@ -7,6 +7,10 @@ public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
     //   [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
+
+    public List<Equip> equipPool;
+    Player player;
+    
     protected void Awake()
     {
         MainCam = Camera.main.GetComponent<CameraController>();
@@ -19,9 +23,11 @@ public class GameMgr : MonoSingleton<GameMgr>
     public bool isTest;
     private IEnumerator Start()
     {
+        Time.timeScale = 1;
+        player = GameObject.FindObjectOfType<Player>();
         yield return new WaitForSeconds(1.0f);
-        StageData.Inst.selectStage();
-        info = StageData.Inst.curStageInfo;
+        GameData.Inst.selectStage();
+        info = GameData.Inst.curStageInfo;
         if (isTest) yield break;
         StartNormalStage();
     }
@@ -62,7 +68,6 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             curSpawnedEnemies.Add(i);
         }
-        Debug.Log(curSpawnedEnemies.Count);
     }
 
 
@@ -143,12 +148,61 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     void onBossDie()
     {
-
-        SceneManager.LoadScene("Main");
+        StartCoroutine(co_SpawnItems());
+        UIMgr.Inst.progress.HideAll();
     }
     
+    IEnumerator co_SpawnItems()
+    {
+        yield return new WaitForSeconds(1.0f);
 
+        MainCam.lockPos(Vector3.forward * -1);
+        player.AutoMove(Vector3.up * -5);
 
+        yield return new WaitForSeconds(3.0f);
+        spawnItems();
+    }
+    Equip getRandomItem()
+    {
+        Equip equip = equipPool[Random.Range(0, equipPool.Count)];
+        equipPool.Remove(equip);
+        return equip;
+    }
+
+    public ItemEquipHolder holder;
+    List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>();
+    [ContextMenu("SpawnITem")]
+    void spawnItems()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            Equip e2s = getRandomItem();
+            ItemEquipHolder h = Instantiate<ItemEquipHolder>(holder);
+            h.SetItem(e2s);
+            h.transform.position = Vector3.right * (-4 + 4 * i) + Vector3.up * 3f;
+            h.onAcquire = onAcqureEquip;
+            h.GetComponent<ModuleHit>().FlashWhite(0.2f);
+
+            DictionaryPool.Inst.Pop("Prefabs/Smoke").transform.position = h.transform.position;
+            curEquips.Add(h);
+        }
+    }
+
+    void onAcqureEquip()
+    {
+        for(int i = 0; i < curEquips.Count; i++)
+        {
+            Destroy(curEquips[i].gameObject);
+        }
+
+        StartCoroutine(co_ToNextScene());
+    }
+
+    IEnumerator co_ToNextScene()
+    {
+        yield return new WaitForSeconds(3.0f);
+        LoadSceneMgr.LoadSceneAsync("Main");
+    }
     #endregion
     #region 유틸 함수들
     int score = 0;
