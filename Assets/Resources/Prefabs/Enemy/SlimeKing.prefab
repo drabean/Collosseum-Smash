@@ -320,19 +320,19 @@ MonoBehaviour:
     prefabName: 
   - range: 0
     width: 0
-    waitBeforeTime: 0
-    waitAfterTime: 3
+    waitBeforeTime: 1.5
+    waitAfterTime: 2
     intervalTime: 0
-    repeatTIme: 0
+    repeatTIme: 5
     duration: 0
     prefabName: 
   patternCount: 3
   eye: {fileID: 2290225377588249073}
   eyeTr: {fileID: 2290225377588249074}
-  EnemyPrefabs:
-  - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
-  - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
+  mobs:
   - {fileID: 7308975240347374949, guid: 45a89c5b346d5c44c8647225e4c7f8ab, type: 3}
+  - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}
+  pat3Atk: {fileID: 8004586913590602197, guid: 021517b279ad00b4495c7fd3dd96d3cc, type: 3}
 --- !u!95 &4042474324043264338
 Animator:
   serializedVersion: 5

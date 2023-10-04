@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5223888905987727674}
   - component: {fileID: 1718171003743467889}
   m_Layer: 0
-  m_Name: Frame
+  m_Name: Pedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 3508570296583084241}
   - component: {fileID: 888641386728382330}
   - component: {fileID: 4289704415405075813}
+  - component: {fileID: 1659868335729218310}
   m_Layer: 0
   m_Name: ItemEquipHolder
   m_TagString: Untagged
@@ -187,6 +188,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1659868335729218310
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571059624833280760}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2625d35b9b6678147ada365b35c96f8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4301162790028283827
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +220,7 @@ GameObject:
   - component: {fileID: 8649007571290111738}
   - component: {fileID: 8575449212282256091}
   m_Layer: 0
-  m_Name: sp
+  m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
