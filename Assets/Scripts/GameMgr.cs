@@ -164,6 +164,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     Equip getRandomItem()
     {
+        if (equipPool.Count == 0) return null;
         Equip equip = equipPool[Random.Range(0, equipPool.Count)];
         equipPool.Remove(equip);
         return equip;
@@ -177,6 +178,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         for(int i = 0; i < 3; i++)
         {
             Equip e2s = getRandomItem();
+            if (e2s == null) return;
             ItemEquipHolder h = Instantiate<ItemEquipHolder>(holder);
             h.SetItem(e2s);
             h.transform.position = Vector3.right * (-4 + 4 * i) + Vector3.up * 3f;

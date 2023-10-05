@@ -320,7 +320,7 @@ MonoBehaviour:
     prefabName: 
   - range: 0
     width: 0
-    waitBeforeTime: 1.5
+    waitBeforeTime: 1
     waitAfterTime: 2
     intervalTime: 0
     repeatTIme: 5

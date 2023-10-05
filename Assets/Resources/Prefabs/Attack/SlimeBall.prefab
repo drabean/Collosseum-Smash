@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  lifeTime: 6
+  lifeTime: 4
   isRotate: 0
   moveVec: {x: 0, y: 0, z: 0}
 --- !u!58 &5532716062038612690

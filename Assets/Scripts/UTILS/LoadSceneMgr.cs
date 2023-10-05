@@ -27,17 +27,14 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     }
     IEnumerator co_AsyncLoading()
     {
+        SoundMgr.Inst.Play("LoadScene");
         Time.timeScale = 1;
 
         operation = SceneManager.LoadSceneAsync(nextSceneName);
 
-        while (!operation.isDone) // 로딩 완료까지 대기
-        {
-            yield return null;
-        }
-        Debug.Log("여긴왔네");
-        //최소대기시간
-        yield return new WaitForSeconds(1.0f);
+        operation.allowSceneActivation = false;
+
+        yield return new WaitForSeconds(0.5f);
         operation.allowSceneActivation = true;
 
     }

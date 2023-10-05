@@ -94,7 +94,7 @@ public class EnemyChampion : EnemyBoss
     //타겟을 향해서 이동 (추적)
     IEnumerator co_Chase(IEnumerator nextMove = null)
     {
-        moveSpeed = 6f;
+        moveSpeed = 5f;
         while (Vector3.Distance(transform.position, Target.transform.position) >= patterns[0].range)
         {
             moveTowardTarget(Target.transform.position);
