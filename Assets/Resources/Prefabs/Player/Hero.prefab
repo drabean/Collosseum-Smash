@@ -5285,9 +5285,9 @@ MonoBehaviour:
   iconHolder: {fileID: 2144557893}
   isInAttackRange: 0
   _stat:
-    STR: 0
-    VIT: 0
-    SPD: 0
+    STR: 3
+    VIT: 3
+    SPD: 3
   findRange: 5
   attackRange: 1.3
   layer:

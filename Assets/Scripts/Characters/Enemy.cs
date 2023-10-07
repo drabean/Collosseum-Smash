@@ -80,7 +80,7 @@ public class Enemy : CharacterBase
 
     float KnockBackPower = 0.3f;
 
-    protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.3f)
+    protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         SoundMgr.Inst.Play("Hit");
 
@@ -96,10 +96,15 @@ public class Enemy : CharacterBase
         {
             //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
-            if(stunTime != 0) StartCoroutine(co_Stun(stunTime));
+            if (stunTime >= 0.1f) stun(stunTime);
         }
     }
 
+    void stun(float stunTime)
+    {
+        StopAllCoroutines();
+        StartCoroutine(co_Stun(stunTime));
+    }
     IEnumerator co_Stun(float stunTime)
     {
         GameObject stunEffect = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/StunEffect");

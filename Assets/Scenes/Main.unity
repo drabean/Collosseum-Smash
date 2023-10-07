@@ -4308,18 +4308,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
-      propertyPath: _stat.SPD
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
-      propertyPath: _stat.STR
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
-      propertyPath: _stat.VIT
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836778, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_Name
       value: Hero

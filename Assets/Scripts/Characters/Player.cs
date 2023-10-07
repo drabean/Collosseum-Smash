@@ -78,7 +78,7 @@ public class Player : CharacterBase
     /// </summary>
     public void SetStatus()
     {
-        moveSpeed = 2f + (_stat.SPD * 0.5f); Debug.Log(_stat.SPD);
+        moveSpeed = 2f + (_stat.SPD * 0.5f); 
         maxHP = _stat.VIT + 1;
         curHP = maxHP;
         UIMgr.Inst.hp.Set((int)curHP);

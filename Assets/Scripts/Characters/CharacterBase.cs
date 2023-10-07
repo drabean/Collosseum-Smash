@@ -36,8 +36,8 @@ public class CharacterBase : MonoBehaviour
     /// <param name="attackerPos"></param>
     /// <param name="dmg"></param>
     /// <param name="isStun"></param>
-    /// <param name="stunTIme"></param>
-    public virtual void onHit(Transform attackerPos, float dmg, float stunTIme = 0.2f)
+    /// <param name="stunTime"></param>
+    public virtual void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
 
     }

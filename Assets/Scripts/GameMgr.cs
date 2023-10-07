@@ -149,6 +149,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     void onBossDie()
     {
         StartCoroutine(co_SpawnItems());
+
+        removeAllNormalEnemies();
         UIMgr.Inst.progress.HideAll();
     }
     
