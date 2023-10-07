@@ -90,13 +90,13 @@ public class Enemy : CharacterBase
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
-        //if (!isSuperarmor) hit.DmgTxt("stun");
+        hit.DmgTxt(((int)dmg).ToString());
         GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
         if (!isSuperarmor)
         {
             //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
-            //StartCoroutine(co_Stun(stunTime));
+            if(stunTime != 0) StartCoroutine(co_Stun(stunTime));
         }
     }
 

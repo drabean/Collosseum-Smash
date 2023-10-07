@@ -2915,6 +2915,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &128240192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128240194}
+  - component: {fileID: 128240193}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &128240193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128240192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7322926559e1b714ca84919a297b3685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curStageInfo: {fileID: 0}
+  equips:
+  - {fileID: 5335362955118307588, guid: 955884fd234370e4e9b6a70b35d96363, type: 3}
+  - {fileID: 564290443338043671, guid: bd2a3a1840f3e604181524d6db88091c, type: 3}
+--- !u!4 &128240194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128240192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.620174, y: -2.004135, z: -0.034911867}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258061172
 GameObject:
   m_ObjectHideFlags: 0
@@ -4260,6 +4308,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
+      propertyPath: _stat.SPD
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
+      propertyPath: _stat.STR
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7506382718595836753, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
+      propertyPath: _stat.VIT
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7506382718595836778, guid: 21eac3fe601b15e448725dc3f6207636, type: 3}
       propertyPath: m_Name
       value: Hero
@@ -5240,6 +5300,9 @@ MonoBehaviour:
   - {fileID: 3692075376427074323, guid: ddbb2cd9d581ecc4bb2232243edfe280, type: 3}
   - {fileID: 8838980308127134284, guid: 53ba6f4caf7c0bf45bb1eecd9b824481, type: 3}
   - {fileID: 350244522285536300, guid: b2e02b3506b2bc24594ba2e0ca0e80f9, type: 3}
+  - {fileID: 7942782225100048731, guid: 4b2f7ed253f96914185374fbf3acba29, type: 3}
+  - {fileID: 5511724447748460336, guid: 60d7776765ad53d4b966500c386ea053, type: 3}
+  - {fileID: 5335362955118307588, guid: 955884fd234370e4e9b6a70b35d96363, type: 3}
   isTest: 0
   holder: {fileID: 888641386728382330, guid: ce6123f8c934af143905e014b228d435, type: 3}
 --- !u!4 &1089279276

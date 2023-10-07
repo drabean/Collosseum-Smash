@@ -45,7 +45,7 @@ public class EnemyChampion : EnemyBoss
                 switch (selecter)
                 {
                     case 0:
-                        StartCoroutine(co_Chase(co_Pat1())); // 추격 후 근접공격
+                        StartCoroutine(co_Runaway(co_Chase(co_Pat1()))); // 추격 후 근접공격
                         break;
                     case 1:
                         StartCoroutine(co_Wander(co_Chase(co_Pat1()))); // 측면 이동 - 추격 후 근접공격

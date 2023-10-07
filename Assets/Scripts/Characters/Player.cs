@@ -6,6 +6,12 @@ using System;
 [System.Serializable]
 public class STATUS
 {
+    public STATUS(int STR, int VIT, int SPD)
+    {
+        this.STR = STR;
+        this.VIT = VIT;
+        this.SPD = SPD;
+    }
     public int STR;
     public int VIT;
     public int SPD;
@@ -37,20 +43,43 @@ public class Player : CharacterBase
     #endregion
 
     #region 플레이어 
-    public STATUS stat;
-    //TODO: 공격범위 조절 추가 (지금은 X)
+    /// <summary>
+    /// 현재 스탯
+    /// </summary>
+    public STATUS Stat
+    {
+        get { return _stat; }
+        set
+        {
+            _stat = value;
+
+            SetStatus();
+        }
+    }
+   [SerializeField] STATUS _stat;
+
+
+
+    /// <summary>
+    /// 적을 인식할 수 있는 최대범위
+    /// </summary>
     public float findRange;        
+    /// <summary>
+    /// 공격 사거리
+    /// </summary>
     public float attackRange;
 
     Transform target;
     float targetSize;
+
+
     /// <summary>
     /// stat을 기반으로 실제 적용시키는 함수
     /// </summary>
-    void setStatus()
+    public void SetStatus()
     {
-        moveSpeed = 2f + (stat.SPD * 0.5f);
-        maxHP = stat.VIT + 1;
+        moveSpeed = 2f + (_stat.SPD * 0.5f); Debug.Log(_stat.SPD);
+        maxHP = _stat.VIT + 1;
         curHP = maxHP;
         UIMgr.Inst.hp.Set((int)curHP);
     }
@@ -75,6 +104,8 @@ public class Player : CharacterBase
     public Action onAttack;
     void invokeOnAttack() { onAttack?.Invoke(); }
 
+    public Action onMovementStop;
+    void invokeOnMovementStop() { onMovementStop?.Invoke(); }
     #endregion
 
     [HideInInspector] public Combo combo = new Combo();
@@ -91,10 +122,14 @@ public class Player : CharacterBase
     private void Start()
     {
         UIMgr.Inst.joystick.setTarget(GetInput);
-
-        setStatus();
+        SetStatus();
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
+
+        foreach (Equip e in  GameData.Inst.equips)
+        {
+            Instantiate<Equip>(e).onEquip(this);
+        }
     }
 
     private void Update()
@@ -113,6 +148,7 @@ public class Player : CharacterBase
         }//자동조작모드
         else
         {
+            invokeOnMovementStop();
             if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
@@ -191,7 +227,7 @@ public class Player : CharacterBase
         if ( target.TryGetComponent<CharacterBase>(out CharacterBase cb))
         {
             //Status 적용
-            cb.onHit(transform, 1.0f);
+            cb.onHit(transform, Stat.STR);
         }
 
 

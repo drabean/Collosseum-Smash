@@ -26,7 +26,7 @@ public class DmgTxt : MonoBehaviour
     }
     IEnumerator co_DmgTxt()
     {
-        float xDir = Random.Range(-0.3f, 0.3f);
+        float xDir = Random.Range(-1f, 1f);
 
         float timeLeft = 0.0f;
 

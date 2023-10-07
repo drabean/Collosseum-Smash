@@ -80,7 +80,7 @@ public class EnemySlimeKing : EnemyBoss
         }
 
         yield return co_Wait(patterns[0].waitAfterTime);
-        EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position);
+        EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos());
         StartCoroutine(co_Idle());
     }
 
@@ -184,7 +184,7 @@ public class EnemySlimeKing : EnemyBoss
             Instantiate<Attack>(pat3Atk, transform.position, Quaternion.identity).Shoot(transform.position, targetPos);
         }
 
-        EnemyMgr.Inst.SpawnEnemy(mobs[1], transform.position);
+        EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
         StartCoroutine(co_Idle(patterns[2].waitAfterTime));
     }
 

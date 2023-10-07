@@ -5261,12 +5261,11 @@ MonoBehaviour:
   aim: {fileID: 793671580796740060}
   hit: {fileID: 793671581856987577}
   isDead: 0
-  maxHP: 20
-  curHP: 20
+  maxHP: 60
+  curHP: 60
   moveSpeed: 4
   aimRange: 0.8
   size: 0.25
-  type: 0
   Target: {fileID: 0}
   difficulty: 0
   isSuperarmor: 1

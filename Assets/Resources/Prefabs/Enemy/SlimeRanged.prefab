@@ -220,17 +220,16 @@ MonoBehaviour:
   aim: {fileID: 7308975239693990470}
   hit: {fileID: 7308975240347374952}
   isDead: 0
-  maxHP: 2
-  curHP: 2
+  maxHP: 5
+  curHP: 5
   moveSpeed: 1.5
   aimRange: 1
   size: 0.3
-  type: 1
   Target: {fileID: 0}
   difficulty: 2
   isSuperarmor: 0
   attackRange: 5
-  attackWaitTime: 0.7
+  attackWaitTime: 0.9
   runawayTime: 1
   projectileName: Prefabs/Attack/SlimeBall
 --- !u!95 &7308975240347374948

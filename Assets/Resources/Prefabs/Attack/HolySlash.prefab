@@ -50,6 +50,7 @@ MonoBehaviour:
   moveSpeed: 15
   lifeTime: 6
   isRotate: 1
+  moveVec: {x: 0, y: 0, z: 0}
 --- !u!58 &7791499892758347744
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,9 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
   StunTIme: 1
-  isMelee: 0
   cantPenetrate: 0
-  dmg: 1
+  dmg: 3
   ownerTr: {fileID: 0}
