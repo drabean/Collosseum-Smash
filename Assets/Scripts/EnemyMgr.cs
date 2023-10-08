@@ -118,6 +118,14 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         GameMgr.Inst.MainCam.changeTarget(camTarget.transform);
 
         yield return new WaitForSeconds(1.0f);
+        GameMgr.Inst.MainCam.Shake(0.2f, 20f, 0.2f, 0);
+        SoundMgr.Inst.Play("Swoosh");
+        yield return new WaitForSeconds(1.0f);
+        GameMgr.Inst.MainCam.Shake(0.2f, 20f, 0.2f, 0);
+        SoundMgr.Inst.Play("Swoosh");
+        yield return new WaitForSeconds(1.0f);
+        GameMgr.Inst.MainCam.Shake(0.3f, 20f, 0.2f, 0);
+        SoundMgr.Inst.Play("Impact");
 
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
 
@@ -132,8 +140,9 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 col.enabled = false;
             }
         }
-        spawnedEnemy.hit.FlashWhite(1);
-        yield return new WaitForSeconds(2f);
+        spawnedEnemy.hit.FlashWhite(0.5f);
+        yield return new WaitForSeconds(1.0f);
+
         if (cols.Length != 0)
         {
             foreach (Collider2D col in cols)

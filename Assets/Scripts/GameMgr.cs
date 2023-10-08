@@ -8,7 +8,6 @@ public class GameMgr : MonoSingleton<GameMgr>
     [HideInInspector] public CameraController MainCam;
     //   [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
 
-    public List<Equip> equipPool;
     Player player;
     
     protected void Awake()
@@ -17,6 +16,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         Pool_attackWarningLinear = new ObjectPool("Prefabs/AttackWarningLinear");
         Pool_attackWarningCircle = new ObjectPool("Prefabs/AttackWarningCircle");
+
+        holder = Resources.Load<ItemEquipHolder>("Prefabs/ItemEquipHolder");
     }
 
 
@@ -25,7 +26,12 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         Time.timeScale = 1;
         player = GameObject.FindObjectOfType<Player>();
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
+
+        UIMgr.Inst.progress.ShowStageStart();
+
+        yield return new WaitForSeconds(2.0f);
+        UIMgr.Inst.progress.HideAll();
         GameData.Inst.selectStage();
         info = GameData.Inst.curStageInfo;
         if (isTest) yield break;
@@ -39,10 +45,10 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         Init();
 
+        SoundMgr.Inst.PlayBGM(info.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
-        SoundMgr.Inst.PlayBGM("BGM");
     }
     void startBossStage()
     {
@@ -139,6 +145,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (index != 0) curSpawnedEnemies.Add(index);
 
         progressCount++;
+        if (progressCount == info.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
+
         UIMgr.Inst.progress.SetProgress(progressCount, info.maxKill);
         if (progressCount >= info.maxKill)
         {
@@ -149,8 +157,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     void onBossDie()
     {
         StartCoroutine(co_SpawnItems());
-
-        removeAllNormalEnemies();
+        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut(2.0f));
         UIMgr.Inst.progress.HideAll();
     }
     
@@ -166,14 +173,14 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     Equip getRandomItem()
     {
-        if (equipPool.Count == 0) return null;
-        Equip equip = equipPool[Random.Range(0, equipPool.Count)];
-        equipPool.Remove(equip);
+        if (ItemMgr.Inst.equipPool.Count == 0) return null;
+        Equip equip = ItemMgr.Inst.getRandomEquip();
         return equip;
     }
 
-    public ItemEquipHolder holder;
-    List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>();
+    ItemEquipHolder holder;
+    List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>(); //풀에서 꺼내서 현재 스테이지에 배치된 아이템들.
+
     [ContextMenu("SpawnITem")]
     void spawnItems()
     {
@@ -186,16 +193,17 @@ public class GameMgr : MonoSingleton<GameMgr>
             h.transform.position = Vector3.right * (-4 + 4 * i) + Vector3.up * 3f;
             h.onAcquire = onAcqureEquip;
             h.GetComponent<ModuleHit>().FlashWhite(0.2f);
-
+            h.index = i;
             DictionaryPool.Inst.Pop("Prefabs/Smoke").transform.position = h.transform.position;
             curEquips.Add(h);
         }
     }
 
-    void onAcqureEquip()
+    void onAcqureEquip(int index)
     {
         for(int i = 0; i < curEquips.Count; i++)
         {
+            if (i != index) ItemMgr.Inst.equipPool.Add(curEquips[i].equip);
             Destroy(curEquips[i].gameObject);
         }
 

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 0}
+  itemName: 
   Description: DEX increases by 2, but STR decreases by 1
   owner: {fileID: 0}
   Cooltime: 10

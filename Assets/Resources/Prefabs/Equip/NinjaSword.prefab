@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb702078da7cf604291e1481365778f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 0}
+  itemName: 
+  Description: 
   owner: {fileID: 0}
   reqCombo: 6
   curIcon: {fileID: 0}

@@ -9,7 +9,7 @@ public class ItemAcquire : MonoBehaviour
 
     public void GetItem()
     {
-        owner.onAcquire?.Invoke();
+        owner.onAcquire?.Invoke(owner.index);
         SoundMgr.Inst.Play("GetItem");
         GameData.Inst.equips.Add(owner.equip);
         Equip curEq = Instantiate<Equip>(owner.equip);

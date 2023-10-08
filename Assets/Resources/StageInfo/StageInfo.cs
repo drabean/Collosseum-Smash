@@ -13,5 +13,6 @@ public class StageInfo : ScriptableObject
     public Enemy Boss;
     public int maxKill;
 
+    public AudioClip BGM;
     public GameObject StageDeco;
 }

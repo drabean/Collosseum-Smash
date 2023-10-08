@@ -70,8 +70,38 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
 
         BGMPlayer.Stop();
+        BGMPlayer.volume = 1;
         BGMPlayer.clip = clip;
         BGMPlayer.Play();
+    }
+
+    public void PlayBGM(AudioClip clip)
+    {
+        if (BGMPlayer == null)
+        {
+            GameObject temp = new GameObject();
+            temp.transform.SetParent(transform);
+            BGMPlayer = temp.AddComponent<AudioSource>();
+            BGMPlayer.loop = true;
+        }
+
+        BGMPlayer.Stop();
+        BGMPlayer.volume = 1;
+        BGMPlayer.clip = clip;
+        BGMPlayer.Play();
+    }
+
+    public IEnumerator co_BGMFadeOut(float duration = 1)
+    {
+        float progress = 1f;
+
+        while(progress >= 0)
+        {
+            BGMPlayer.volume = progress;
+            progress -= Time.deltaTime / duration;
+            yield return null;
+        }
+        BGMPlayer.Stop();
     }
 
 

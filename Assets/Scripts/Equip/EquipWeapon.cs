@@ -26,7 +26,6 @@ public class EquipWeapon : Equip
     {
         if (curIcon != null) return;
         countLeft--;
-
         if (countLeft <= 0)
         {
             //다음 공격에 specialAttack을 체인함
@@ -43,5 +42,6 @@ public class EquipWeapon : Equip
         owner.onAttack -= specialAttack;
         owner.iconHolder.removeIcon(curIcon.transform);
         curIcon?.Push();
+        curIcon = null;
     }
 }

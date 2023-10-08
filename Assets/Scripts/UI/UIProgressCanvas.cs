@@ -7,6 +7,7 @@ using TMPro;
 
 public class UIProgressCanvas : MonoBehaviour
 {
+    [SerializeField] GameObject GroupStageStart;
     [SerializeField] GameObject GroupBoss;
     [SerializeField] GameObject GroupNormal;
     [SerializeField] GameObject GroupDemo;
@@ -17,8 +18,15 @@ public class UIProgressCanvas : MonoBehaviour
 
     public void HideAll()
     {
+        GroupStageStart.SetActive(false);
         if(GroupNormal.activeInHierarchy) GroupNormal.GetComponent<ModuleUI>().FadeOut(0.5f);
         if(GroupBoss.activeInHierarchy) GroupBoss.GetComponent<ModuleUI>().FadeOut(0.5f);
+    }
+
+    public void ShowStageStart()
+    {
+        GroupStageStart.SetActive(true);
+        SoundMgr.Inst.Play("StageStart");
     }
     public void SetProgress(int curCount, int maxCount) 
     {

@@ -58,6 +58,8 @@ public class EnemyBoss : Enemy
 
     protected override IEnumerator co_Smash(Transform attackerPos)
     {
+        GameMgr.Inst.removeAllNormalEnemies();
+
         GameMgr.Inst.MainCam.changeTarget(transform);
         //죽은 적을 다시 공격하는 것을 막기 위해, 콜라이더 없애줌
         Collider2D[] cols = GetComponentsInChildren<Collider2D>();

@@ -19,7 +19,7 @@ public abstract class Equip : MonoBehaviour
     public virtual void onEquip(Player player)
     {
         owner = player;
-        transform.parent = owner.transform;
+        transform.SetParent(owner.transform, false);
     }
 
     public abstract void onUnEquip(Player player);
