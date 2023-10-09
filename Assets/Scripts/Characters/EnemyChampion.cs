@@ -6,8 +6,6 @@ public class EnemyChampion : EnemyBoss
 {
     [SerializeField] Transform spriteGroup;
 
-    public float fatigueTime;
-
     #region Override
     private void Awake()
     {
@@ -82,7 +80,15 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Fatigue() // 그로기 상태
     {
         anim.SetBool("isFatigue", true);
-        yield return new WaitForSeconds(fatigueTime);
+
+        float timeLeft = patterns[2].waitAfterTime;
+        subHP = maxHP / 4;
+        while (subHP >= 0 && timeLeft >= 0)
+        {
+            timeLeft -= Time.deltaTime;
+
+            yield return null;
+        }
         anim.SetBool("isFatigue", false);
         selectPattern();
     }
@@ -109,7 +115,7 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Runaway(IEnumerator nextMove = null)
     {
         moveSpeed = 2f;
-        float runTimeLeft = 0.4f;
+        float runTimeLeft = 1f;
 
         while (runTimeLeft >= 0)
         {
@@ -217,8 +223,6 @@ public class EnemyChampion : EnemyBoss
         curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, 1.0f);
         yield return new WaitForSeconds(0.5f);
         spawnCompanion();
-        yield return new WaitForSeconds(patterns[2].waitAfterTime);
-
         selectPattern();
     }
 

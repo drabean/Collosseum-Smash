@@ -5289,14 +5289,13 @@ MonoBehaviour:
   - range: 1.5
     width: 0
     waitBeforeTime: 1
-    waitAfterTime: 0.7
+    waitAfterTime: 10
     intervalTime: 0.3
     repeatTIme: 3
     duration: 0
     prefabName: Prefabs/Enemy/Gladiator2
-  patternCount: 3
+  patternCount: 4
   spriteGroup: {fileID: 793671581856987527}
-  fatigueTime: 12
 --- !u!95 &793671581856987525
 Animator:
   serializedVersion: 5

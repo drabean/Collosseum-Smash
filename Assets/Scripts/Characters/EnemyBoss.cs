@@ -46,9 +46,14 @@ public class EnemyBoss : Enemy
     /// </summary>
     protected virtual void selectPattern() { }
 
+    /// <summary>
+    /// 상태 확인용으로 서브로 사용하는 HP
+    /// </summary>
+    protected float subHP = 0;
 
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.3F)
     {
+        subHP -= dmg;
         base.onHit(attackerPos, dmg, stunTime);
         UIMgr.Inst.progress.SetBossHP(curHP, maxHP);
     }
