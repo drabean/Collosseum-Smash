@@ -5288,7 +5288,7 @@ MonoBehaviour:
     prefabName: Prefabs/Attack/ThrowingSpear
   - range: 1.5
     width: 0
-    waitBeforeTime: 1
+    waitBeforeTime: 1.5
     waitAfterTime: 10
     intervalTime: 0.3
     repeatTIme: 3

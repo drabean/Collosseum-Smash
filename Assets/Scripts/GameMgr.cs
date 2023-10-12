@@ -24,6 +24,10 @@ public class GameMgr : MonoSingleton<GameMgr>
     public bool isTest;
     private IEnumerator Start()
     {
+        if (isTest) yield break;
+        GameData.Inst.selectStage();
+        info = GameData.Inst.curStageInfo;
+
         Time.timeScale = 1;
         player = GameObject.FindObjectOfType<Player>();
         yield return new WaitForSeconds(2.0f);
@@ -32,15 +36,14 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         yield return new WaitForSeconds(2.0f);
         UIMgr.Inst.progress.HideAll();
-        GameData.Inst.selectStage();
-        info = GameData.Inst.curStageInfo;
-        if (isTest) yield break;
         StartNormalStage();
     }
     StageInfo info;
     Coroutine curSpawnRoutine;
     int maxCount = 3; // 소환 될 수 있는 최대 마리수
     int progressCount = 0; //
+    bool isBossSpawned;
+
     public void StartNormalStage()
     {
         Init();
@@ -52,6 +55,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void startBossStage()
     {
+        if (isBossSpawned) return;
+        isBossSpawned = true;
         StartCoroutine(co_StartBossStage());
     }
 

@@ -7,7 +7,6 @@ public class UIRetryBtn : MonoBehaviour
 {
     public void onPress()
     {
-        Debug.Log("ASD");
         SceneManager.LoadScene("Main");
     }
 }

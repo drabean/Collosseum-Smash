@@ -27,6 +27,13 @@ public class RingOfWind : Equip
     void windBuf()
     {
         if (isBufOn) return;
+        else
+        {
+            lastEffectedTime = Time.time;
+            isBufOn = true;
+        }
+
+        if (Time.time - lastEffectedTime <= 3.0f) return;
 
         //버프아이콘 활성화 처리
         if (curIcon == null)
@@ -37,7 +44,6 @@ public class RingOfWind : Equip
 
         owner.Stat.SPD+=1;
         owner.SetStatus();
-        isBufOn = true;
     }
 
     void windBufStop()

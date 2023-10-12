@@ -15,6 +15,7 @@ public class StartSceneMgr : MonoBehaviour
     public void BtnOption()
     {
         Debug.Log("OpenOption");
+        LoadSceneMgr.LoadSceneAsync("Tutorial");
     }
 
     public void Btn_Exit()

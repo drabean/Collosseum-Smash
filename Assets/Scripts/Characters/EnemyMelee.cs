@@ -11,6 +11,8 @@ public class EnemyMelee: Enemy
     public float attackWaitTime;
     public float attackAfterWaitTime;
 
+    public bool doAttackSpin;
+
     private void Awake()
     {
         evnt.attack = doAttack;
@@ -52,8 +54,8 @@ public class EnemyMelee: Enemy
     {
         GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
         attackEffect.transform.position = aim.position;
-        attackEffect.GetComponent<SpriteRenderer>().flipX = sp.flipX;
-        
+        if(doAttackSpin)attackEffect.transform.rotation = (aim.position - transform.position).ToQuaternion();
+        else attackEffect.GetComponent<SpriteRenderer>().flipX = sp.flipX;
     }
 
 

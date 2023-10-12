@@ -305,7 +305,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0.8
-    waitAfterTime: 2
+    waitAfterTime: 1
     intervalTime: 0.4
     repeatTIme: 3
     duration: 0
@@ -313,15 +313,15 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0
-    waitAfterTime: 2.5
+    waitAfterTime: 1.5
     intervalTime: 0
     repeatTIme: 0
     duration: 6
     prefabName: 
   - range: 0
     width: 0
-    waitBeforeTime: 1
-    waitAfterTime: 2
+    waitBeforeTime: 1.5
+    waitAfterTime: 1
     intervalTime: 0
     repeatTIme: 5
     duration: 0

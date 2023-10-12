@@ -125,11 +125,13 @@ public class EnemySlimeKing : EnemyBoss
         float timeLeft = patterns[1].duration;
         anim.SetBool("isShaking", true);
         GameMgr.Inst.MainCam.Shake(patterns[1].duration, 20, 0.08f, 0, true);
+        isImmune = true;
         while(timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
             yield return null;
         }
+        isImmune = false;
         anim.SetBool("isShaking", false);
 
         yield return co_Wait(patterns[1].waitAfterTime);
@@ -171,13 +173,17 @@ public class EnemySlimeKing : EnemyBoss
         List<Vector3> targetPositions = new List<Vector3>();
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
 
+        targetPositions.Add(Target.transform.position);
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
             Vector3 targetPos = transform.position + Vector3.right * Random.Range(-1.0f, 1.0f) + Vector3.up * Random.Range(-1.0f, 1.0f);
             targetPositions.Add(targetPos);
-            pat3Atk.ShowWarning(transform.position, targetPos, patterns[2].waitBeforeTime);
         }
 
+        for (int i = 0; i < targetPositions.Count; i++)
+        {
+            pat3Atk.ShowWarning(transform.position, targetPositions[i], patterns[2].waitBeforeTime);
+        }
         yield return co_Move(transform.position);
         foreach(Vector3 targetPos in targetPositions)
         {
@@ -192,7 +198,7 @@ public class EnemySlimeKing : EnemyBoss
     {
         if(isImmune)
         {
-            hit.DmgTxt("IMMUNE!");
+            base.onHit(attackerPos, 1, stunTime);
             hit.FlashWhite(0.1f);
             return;
         }

@@ -219,8 +219,8 @@ public class EnemyChampion : EnemyBoss
     {
         anim.SetTrigger("doShout");
         SoundMgr.Inst.Play("Impact");
+        curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, patterns[2].waitBeforeTime);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, 1.0f);
         yield return new WaitForSeconds(0.5f);
         spawnCompanion();
         selectPattern();

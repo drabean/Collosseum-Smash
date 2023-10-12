@@ -100,7 +100,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
         spawnedEnemy.Target = player;
         spawnedEnemy.StartAI();
-
+        
         if(deadOption != null) spawnedEnemy.onDeath += deadOption;
     }
 
