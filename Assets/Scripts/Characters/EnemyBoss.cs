@@ -51,7 +51,7 @@ public class EnemyBoss : Enemy
     /// </summary>
     protected float subHP = 0;
 
-    public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.3F)
+    public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         subHP -= dmg;
         base.onHit(attackerPos, dmg, stunTime);

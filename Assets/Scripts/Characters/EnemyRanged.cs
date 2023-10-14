@@ -80,7 +80,7 @@ public class EnemyRanged : Enemy
         dir = dir.normalized;
         anim.SetFloat("dirX", dir.x);
         anim.SetFloat("dirY", dir.y);
-        if (dir.x != 0) sp.flipX = dir.x < 0 ? true : false;
+        if (dir.x != 0 && sp != null) sp.flipX = dir.x < 0 ? true : false;
         aim.transform.position = Target.transform.position;
     }
 }

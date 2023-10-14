@@ -107,6 +107,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 
     public void StopBGM()
     {
+        if (BGMPlayer != null) return;
         BGMPlayer.Stop();
     }
 }

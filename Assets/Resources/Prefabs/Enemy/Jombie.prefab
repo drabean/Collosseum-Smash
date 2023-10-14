@@ -63,14 +63,16 @@ MonoBehaviour:
   curHP: 2
   moveSpeed: 3
   aimRange: 0.8
-  type: 0
+  size: 0
   Target: {fileID: 0}
   difficulty: 1
+  isSuperarmor: 0
   attackRange: 0.8
   attackWidth: 0.5
   attackName: Prefabs/Attack/ClawEffect
   attackWaitTime: 0.4
   attackAfterWaitTime: 1.2
+  doAttackSpin: 0
 --- !u!95 &2420703359672377543
 Animator:
   serializedVersion: 5
@@ -81,7 +83,7 @@ Animator:
   m_GameObject: {fileID: 2420703359672377549}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1c1ef15ae5be39a48abefb9ebd6af631, type: 2}
+  m_Controller: {fileID: 22100000, guid: 5806e98f1b98cbc459904082cb9fb521, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

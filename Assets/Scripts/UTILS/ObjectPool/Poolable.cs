@@ -7,6 +7,7 @@ public class Poolable : MonoBehaviour
 {
     public Action<GameObject> ActionPush;
     public Action ActionPop;
+    public float autoPushTime = 0;
 
     IEnumerator co_PushAfterTime(float time)
     {
@@ -27,6 +28,7 @@ public class Poolable : MonoBehaviour
     public void Pop()
     {
         ActionPop?.Invoke();
+        if (autoPushTime != 0) Push(autoPushTime);
     }
 }
 

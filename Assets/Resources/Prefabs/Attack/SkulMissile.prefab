@@ -4894,6 +4894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2deb8444e5eab4d8c592c39f9afc8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPushTime: 0
 --- !u!1 &8016185043827885666
 GameObject:
   m_ObjectHideFlags: 0
@@ -4942,10 +4943,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  lifeTime: 6
+  moveSpeed: 7
+  lifeTime: 4
   isRotate: 0
+  warningRadius: 0.2
   moveVec: {x: 0, y: 0, z: 0}
+  sp: {fileID: 3822820413111682035}
 --- !u!58 &5654884979837089003
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -50,6 +50,9 @@ MonoBehaviour:
   moveSpeed: 9
   lifeTime: 6
   isRotate: 1
+  warningRadius: 0.5
+  moveVec: {x: 0, y: 0, z: 0}
+  sp: {fileID: 0}
 --- !u!212 &1256957296205520661
 SpriteRenderer:
   m_ObjectHideFlags: 0

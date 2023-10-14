@@ -8,11 +8,13 @@ public class Projectile : Attack
     public float lifeTime;
     public bool isRotate;
 
+    public float warningRadius = 0.7f;
     public Vector3 moveVec;
+    [SerializeField]    SpriteRenderer sp;
 
     public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
     {
-        curWarning = GameMgr.Inst.AttackEffectLinear(startPos, startPos + (targetPos - startPos).normalized * (moveSpeed * lifeTime), 0.7f, time);
+        curWarning = GameMgr.Inst.AttackEffectLinear(startPos, startPos + (targetPos - startPos).normalized * (moveSpeed * lifeTime), warningRadius, time);
         return curWarning;
     }
 
@@ -20,7 +22,7 @@ public class Projectile : Attack
     {
         transform.position = startPos;
         moveVec = (targetPos - startPos).normalized;
-        GetComponent<SpriteRenderer>().flipX = (moveVec.x < 0);
+        if(sp != null) sp.flipX = (moveVec.x < 0);
         if(moveVec == Vector3.zero)
         {
             //Debug.Log("잘못된 방향입니다.");//00으로 발사시 가만히 잇는 현상 방지.

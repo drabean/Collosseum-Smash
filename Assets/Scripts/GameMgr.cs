@@ -124,7 +124,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// </summary>
     public void removeAllNormalEnemies()
     {
-        StopCoroutine(curSpawnRoutine);
+        if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
+
         EnemyMgr.Inst.canSpawnEnemy = false;
 
         Enemy[] spawnedEnemies = GameObject.FindObjectsOfType<Enemy>();
