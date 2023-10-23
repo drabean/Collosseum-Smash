@@ -71,7 +71,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <param name="enemyPrefab">소환할 적 프리팹</param>
     /// <param name="position">소환할 위치</param>
     /// <param name="deadOption">사망시 호출될 추가 함수 (옵션)</param>
-    public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
         canSpawnEnemy = true;
         StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption));
@@ -84,7 +84,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <param name="position"></param>
     /// <param name="deadOption"></param>
     /// <returns></returns>
-    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
         GameMgr.Inst.AttackEffectCircle(position, 1.0f, 1.0f);
         Poolable warning = DictionaryPool.Inst.Pop("Prefabs/Warning").GetComponent<Poolable>();
@@ -104,12 +104,12 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         if(deadOption != null) spawnedEnemy.onDeath += deadOption;
     }
 
-    public void SpawnBossEnemy(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    public void SpawnBossEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
         StartCoroutine(co_spawnBoss(enemyPrefab, position, deadOption));
     }
 
-    IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position, Action deadOption = null)
+    IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
         GameMgr.Inst.removeAllNormalEnemies();
         GameObject camTarget = new GameObject();

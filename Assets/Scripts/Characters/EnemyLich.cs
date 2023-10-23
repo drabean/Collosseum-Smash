@@ -7,8 +7,12 @@ public class EnemyLich : EnemyBoss
     public List<Vector3> tpVecs = new List<Vector3>();
     public List<Enemy> mobs = new List<Enemy>();
     int curPosIdx = 3;
-
+    public TargetedProjecitile lichSoul;
     public Vector3 groggyVec;
+
+    int patIdx;
+
+
     public override void StartAI()
     {
         StartCoroutine(co_SpawnRoutine());
@@ -20,16 +24,33 @@ public class EnemyLich : EnemyBoss
     {
         //int nextPatIdx = Random.Range(0, 2);
 
-        StartCoroutine(co_Pat3());
+        patIdx += Random.Range(0, 2);
+        patIdx %= 3;
 
+        switch(patIdx)
+        {
+            case 0:
+                StartCoroutine(co_Pat1());
+                break;
+            case 1:
+                StartCoroutine(co_Pat2());
+                break;
+            case 2:
+                StartCoroutine(co_Pat3());
+                break;
+        }
     }
 
-    float pat1WaitTIme = 0.5f;
+    #region Patterns
+
+    float pat1WaitTIme = 0.7f;
     IEnumerator co_Pat1()
     {
+        teleport(3);
+
         Attack atk = Resources.Load<Attack>(patterns[0].prefabName);
 
-            yield return new WaitForSeconds(patterns[0].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
 
         for (int i = 0; i < patterns[0].repeatTIme; i++)
         {
@@ -123,7 +144,7 @@ public class EnemyLich : EnemyBoss
             startVec.Add(pat3Vecs[positionIdx] + dif * i);
             endVec.Add(Target.transform.position);
 
-            atk.ShowWarning(pat3Vecs[positionIdx] + dif * i, Target.transform.position, 0.4f);
+            atk.ShowWarning(pat3Vecs[positionIdx] + dif * i, Target.transform.position, patterns[2].intervalTime * patterns[2].repeatTIme + patterns[2].waitBeforeTime);
 
             GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
             LichParticle.transform.position = startVec[i];
@@ -145,6 +166,8 @@ public class EnemyLich : EnemyBoss
         yield return new WaitForSeconds(patterns[2].waitAfterTime);
         selectNextPattern();
     }
+
+    #endregion
 
     void teleport(int idx = -1)
     {
@@ -171,19 +194,27 @@ public class EnemyLich : EnemyBoss
     {
         while(true)
         {
-            if(curEnemyCount < 3)
+            if(curEnemyCount < 2)
             {
                 curEnemyCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
+                EnemyMgr.Inst.SpawnEnemy(mobs[Random.Range(0, mobs.Count)], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
             }
             yield return null;
         }
     }
 
-    void enemyDeadOption()
+    void enemyDeadOption(Vector3 pos)
+    {
+        //  this.onHit(transform, 1.0f, 0.0f);
+        TargetedProjecitile tp =  Instantiate(lichSoul);
+        tp.Shoot(pos, this.gameObject);
+        tp.onTouch += onLichSoulHit;
+        curEnemyCount--;
+    }
+
+    void onLichSoulHit()
     {
         this.onHit(transform, 1.0f, 0.0f);
-        curEnemyCount--;
     }
 
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)

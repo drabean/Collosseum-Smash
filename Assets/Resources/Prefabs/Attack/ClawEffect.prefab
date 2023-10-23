@@ -122,8 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
@@ -139,6 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPushTime: 0
+  SFXName: Swoosh
 --- !u!114 &8863150477875782468
 MonoBehaviour:
   m_ObjectHideFlags: 0

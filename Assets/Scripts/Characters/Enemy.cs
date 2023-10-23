@@ -13,8 +13,8 @@ public class Enemy : CharacterBase
     public bool isSuperarmor;
 
     #region delegate
-    public Action onDeath;
-    protected void invokeOnDeath() { onDeath?.Invoke(); }
+    public Action<Vector3> onDeath;
+    protected void invokeOnDeath(Vector3 pos) { onDeath?.Invoke(pos); }
     public Action onSpawn;
     #endregion
 
@@ -70,7 +70,7 @@ public class Enemy : CharacterBase
 
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
-        invokeOnDeath();
+        invokeOnDeath(transform.position);
         yield return new WaitForSeconds(1.5f);
 
         //TODO: 각종 오브젝트들 풀 반환 해야함

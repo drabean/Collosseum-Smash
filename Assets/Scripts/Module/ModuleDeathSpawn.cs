@@ -17,7 +17,7 @@ public class ModuleDeathSpawn : MonoBehaviour
         enem.onDeath += spawnOnDeath;
     }
 
-    void spawnOnDeath()
+    void spawnOnDeath(Vector3 pos)
     {
         Instantiate(prefab, transform.position, Quaternion.identity);
     }

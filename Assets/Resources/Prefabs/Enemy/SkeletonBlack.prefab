@@ -59,15 +59,15 @@ MonoBehaviour:
   aim: {fileID: 4299250764577412298}
   hit: {fileID: 4299250763888376804}
   isDead: 0
-  maxHP: 9
-  curHP: 9
-  moveSpeed: 1
+  maxHP: 5
+  curHP: 5
+  moveSpeed: 4
   aimRange: 1
   size: 0
   Target: {fileID: 0}
   difficulty: 1
   isSuperarmor: 0
-  attackRange: 1.5
+  attackRange: 0.8
   attackWidth: 1
   attackName: Prefabs/Attack/ClawEffect
   attackWaitTime: 0.6

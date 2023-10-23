@@ -22,11 +22,15 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 
     public bool isTest;
+    public StageInfo testStage;
+
     private IEnumerator Start()
     {
         if (isTest) yield break;
         GameData.Inst.selectStage();
-        info = GameData.Inst.curStageInfo;
+        //테스트를 위한 임의 스테이지 지정
+        if (testStage != null) info = testStage;
+        else info = GameData.Inst.curStageInfo;
 
         Time.timeScale = 1;
         player = GameObject.FindObjectOfType<Player>();
@@ -112,7 +116,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             yield return waitForEnemySpawn;
 
             int idx2Spwn = getIndexToSpawn();
-            EnemyMgr.Inst.SpawnEnemy(info.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), () => onNormalEnemyDie(idx2Spwn));
+            EnemyMgr.Inst.SpawnEnemy(info.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn));
             curEnemyCount++;
         }
     }
@@ -160,7 +164,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
 
-    void onBossDie()
+    void onBossDie(Vector3 pos)
     {
         StartCoroutine(co_SpawnItems());
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut(2.0f));

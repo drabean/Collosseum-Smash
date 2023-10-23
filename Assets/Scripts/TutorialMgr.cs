@@ -69,7 +69,7 @@ public class TutorialMgr : MonoBehaviour
         TMP_Tutorial.text = "Release joystick to move \ntoward enemy and attack.";
     }
 
-    void checkP2()
+    void checkP2(Vector3 pos)
     {
         p2Count++;
         UIMgr.Inst.progress.SetProgress((int)p2Count, 2); ;
@@ -99,7 +99,7 @@ public class TutorialMgr : MonoBehaviour
 
         TMP_Tutorial.text = "Red area warn enemy's attack.\n Avoid it and smash enemy.";
     }
-    void checkP3()
+    void checkP3(Vector3 pos)
     {
         p3Count++;
         UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
