@@ -94,7 +94,7 @@ MonoBehaviour:
   curHP: 2
   moveSpeed: 1.5
   aimRange: 1
-  size: 0
+  size: 0.2
   Target: {fileID: 0}
   difficulty: 2
   isSuperarmor: 0

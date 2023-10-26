@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4386642271621334929}
   - component: {fileID: 4386642271621334930}
   - component: {fileID: 4386642271621334931}
-  - component: {fileID: 4386642271621334937}
   m_Layer: 16
   m_Name: Lich
   m_TagString: Boss
@@ -53,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d842f81885147e343a2c424f096123a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sp: {fileID: 0}
+  sp: {fileID: 8215834989909441965}
   anim: {fileID: 4386642271621334943}
   evnt: {fileID: 4386642271621334930}
   rb: {fileID: 4386642271621334929}
@@ -92,7 +91,7 @@ MonoBehaviour:
     intervalTime: 0.1
     repeatTIme: 5
     duration: 0
-    prefabName: Prefabs/Attack/BoneSpear
+    prefabName: Prefabs/Attack/BoneSpear_Long
   patternCount: 10
   tpVecs:
   - {x: -7, y: 7, z: 0}
@@ -148,8 +147,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.28}
-    oldSize: {x: 1.25, y: 1.5625}
-    newSize: {x: 1.25, y: 1.25}
+    oldSize: {x: 1.875, y: 1.5625}
+    newSize: {x: 1.875, y: 1.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -200,18 +199,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4386642271621334937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4386642271621334933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4386642272341584062
@@ -5226,12 +5213,12 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1544572093, guid: ffec8a36bbaaa824ebaa93443957563b, type: 3}
+  m_Sprite: {fileID: -1742325052, guid: ffec8a36bbaaa824ebaa93443957563b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 1.5625}
+  m_Size: {x: 1.875, y: 1.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

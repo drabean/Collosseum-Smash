@@ -6,13 +6,33 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 {
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);       
+        DontDestroyOnLoad(gameObject);  
+        
+        GameObject BGM = new GameObject();
+        BGM.transform.SetParent(transform);
+        BGM.name = "BGMPlayer";
+        BGMPlayer = BGM.AddComponent<AudioSource>();
+        BGMPlayer.loop = true;
+
+        GameObject Intro = new GameObject();
+        Intro.transform.SetParent(transform);
+        Intro.name = "IntroPlayer";
+        IntroPlayer = BGM.AddComponent<AudioSource>();
+
+        for(int i = 0; i < 3; i++)
+        {
+            GameObject temp = new GameObject();
+            temp.transform.SetParent(transform);
+            AudioSource audio = temp.AddComponent<AudioSource>();
+            SFXPlayers.Add(audio);
+        }
+
     }
 
     Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
     List<AudioSource> SFXPlayers = new List<AudioSource>();
     AudioSource BGMPlayer;
-
+    AudioSource IntroPlayer;
     public void Play(string name)
     {
         AudioClip clip;
@@ -50,14 +70,6 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     }
     public void PlayBGM(string name)
     {
-        if(BGMPlayer == null)
-        {
-            GameObject temp = new GameObject();
-            temp.transform.SetParent(transform);
-            BGMPlayer = temp.AddComponent<AudioSource>();
-            BGMPlayer.loop = true;
-        }
-
         AudioClip clip;
         if (sounds.ContainsKey(name))
         {
@@ -75,22 +87,30 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         BGMPlayer.Play();
     }
 
-    public void PlayBGM(AudioClip clip)
+    public void PlayBGM(AudioClip Intro, AudioClip BGM)
     {
-        if (BGMPlayer == null)
-        {
-            GameObject temp = new GameObject();
-            temp.transform.SetParent(transform);
-            BGMPlayer = temp.AddComponent<AudioSource>();
-            BGMPlayer.loop = true;
-        }
+        StartCoroutine(co_PlayBGM(Intro, BGM));
 
-        BGMPlayer.Stop();
-        BGMPlayer.volume = 1;
-        BGMPlayer.clip = clip;
-        BGMPlayer.Play();
     }
 
+    public IEnumerator co_PlayBGM(AudioClip Intro, AudioClip BGM)
+    {
+        BGMPlayer.Stop();
+        if (Intro != null)
+        {
+            IntroPlayer.clip = Intro;
+
+            IntroPlayer.Play();
+            while(IntroPlayer.isPlaying)
+            {
+                yield return null;
+            }
+        }
+
+        BGMPlayer.volume = 1;
+        BGMPlayer.clip = BGM;
+        BGMPlayer.Play();
+    }
     public IEnumerator co_BGMFadeOut(float duration = 1)
     {
         float progress = 1f;

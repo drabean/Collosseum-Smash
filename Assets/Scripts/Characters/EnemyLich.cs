@@ -15,15 +15,25 @@ public class EnemyLich : EnemyBoss
 
     public override void StartAI()
     {
+        GetComponent<Collider2D>().enabled = false;
         StartCoroutine(co_SpawnRoutine());
-        selectNextPattern();
+        StartCoroutine(co_Idle(1.5f));
+    }
+    IEnumerator co_Idle(float time = 1.5f)
+    {
+        float timeLeft = time;
+
+        while (timeLeft >= 0)
+        {
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+
+        selectPattern();
     }
 
-
-    void selectNextPattern()
+    protected override void selectPattern()
     {
-        //int nextPatIdx = Random.Range(0, 2);
-
         patIdx += Random.Range(0, 2);
         patIdx %= 3;
 
@@ -48,10 +58,14 @@ public class EnemyLich : EnemyBoss
     {
         teleport(3);
 
+
         Attack atk = Resources.Load<Attack>(patterns[0].prefabName);
 
+        anim.SetBool("isAtk1Ready", true);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
 
+        anim.SetBool("isAtk1Ready", false);
+        anim.SetTrigger("doAtk1");
         for (int i = 0; i < patterns[0].repeatTIme; i++)
         {
             Vector3[] positions = new Vector3[4];
@@ -96,7 +110,7 @@ public class EnemyLich : EnemyBoss
         }
 
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
-        selectNextPattern();
+        selectPattern();
     }
 
     float skulMissileWaitTIme = 0.3f;
@@ -105,9 +119,15 @@ public class EnemyLich : EnemyBoss
         Attack atk = Resources.Load<Attack>(patterns[1].prefabName);
 
         teleport();
+
+        anim.SetBool("isAtk2Ready", true);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
+        anim.SetBool("isAtk1Ready", false);
+
         for (int i = 0; i < patterns[1].repeatTIme; i++)
         {
+            anim.SetTrigger("doAtk2");
+            sp.flipX = !sp.flipX;
             Vector3 targetVec = Target.transform.position + Random.Range(-patterns[1].range, patterns[1].range) * Vector3.right + Random.Range(-patterns[1].range, patterns[1].range) * Vector3.up;
             atk.ShowWarning(transform.position, targetVec, skulMissileWaitTIme);
             //각 공격들의 발사 / 목표 위치 계산
@@ -120,7 +140,7 @@ public class EnemyLich : EnemyBoss
         }
 
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
-        selectNextPattern();
+        selectPattern();
     }
 
 
@@ -139,6 +159,8 @@ public class EnemyLich : EnemyBoss
 
         Vector3 dif = (pat3Vecs[positionIdx] - pat3Vecs[(++positionIdx) % 4])/patterns[2].repeatTIme;
 
+        yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+        anim.SetBool("isAtk3Ready", true);
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
             startVec.Add(pat3Vecs[positionIdx] + dif * i);
@@ -152,7 +174,9 @@ public class EnemyLich : EnemyBoss
 
             yield return new WaitForSeconds(patterns[2].intervalTime);
         }
-        yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+        anim.SetBool("isAtk3Ready", false);
+        anim.SetTrigger("doAtk3");
+        yield return new WaitForSeconds(pat3WaitTime);
 
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
@@ -164,7 +188,7 @@ public class EnemyLich : EnemyBoss
             yield return new WaitForSeconds(patterns[2].intervalTime);
         }
         yield return new WaitForSeconds(patterns[2].waitAfterTime);
-        selectNextPattern();
+        selectPattern();
     }
 
     #endregion
@@ -227,6 +251,10 @@ public class EnemyLich : EnemyBoss
     {
         Debug.Log("G");
         StopAllCoroutines();
+        anim.SetBool("isAtk1Ready", false);
+        anim.SetBool("isAtk2Ready", false);
+        anim.SetBool("isAtk3Ready", false);
+        anim.SetBool("isGroggy", true);
         GameMgr.Inst.removeAllNormalEnemies();
 
         GetComponent<Collider2D>().enabled = true;

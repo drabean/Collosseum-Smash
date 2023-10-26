@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
   m_Name: Lich
   m_EditorClassIdentifier: 
-  Enemies: []
-  Boss: {fileID: 0}
-  maxKill: 0
-  BGM: {fileID: 0}
+  Enemies:
+  - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
+  - {fileID: 4299250763888376794, guid: c46624e5829de464aa935cf638c12652, type: 3}
+  Boss: {fileID: 4386642271621334936, guid: 12f4670c66e4df5499e6b93f220780ec, type: 3}
+  maxKill: 1
+  BGM: {fileID: 8300000, guid: 8b91c2e10d30e324b930abfe215d768e, type: 3}
   StageDeco: {fileID: 0}

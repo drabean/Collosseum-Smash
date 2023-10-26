@@ -52,7 +52,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         Init();
 
-        SoundMgr.Inst.PlayBGM(info.BGM);
+        SoundMgr.Inst.PlayBGM(info.Intro, info.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
