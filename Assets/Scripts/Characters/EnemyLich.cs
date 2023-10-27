@@ -17,7 +17,7 @@ public class EnemyLich : EnemyBoss
     {
         GetComponent<Collider2D>().enabled = false;
         StartCoroutine(co_SpawnRoutine());
-        StartCoroutine(co_Idle(1.5f));
+        StartCoroutine(co_Idle(0.7f));
     }
     IEnumerator co_Idle(float time = 1.5f)
     {
@@ -37,6 +37,8 @@ public class EnemyLich : EnemyBoss
         patIdx += Random.Range(0, 2);
         patIdx %= 3;
 
+        //testcode
+        patIdx = 1;
         switch(patIdx)
         {
             case 0:
@@ -134,9 +136,10 @@ public class EnemyLich : EnemyBoss
             yield return new WaitForSeconds(skulMissileWaitTIme);
             GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
             SoundMgr.Inst.Play("Throw");
+            yield return new WaitForSeconds(0.06f);
             Instantiate<Attack>(atk).Shoot(transform.position, targetVec);
 
-            yield return new WaitForSeconds(patterns[1].intervalTime);
+            yield return new WaitForSeconds(patterns[1].intervalTime - 0.06f);
         }
 
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
@@ -154,13 +157,13 @@ public class EnemyLich : EnemyBoss
         int positionIdx = Random.Range(0, 3);
 
         teleport(3);
+        anim.SetBool("isAtk3Ready", true);
         List<Vector3> startVec = new List<Vector3>();
         List<Vector3> endVec = new List<Vector3>();
 
         Vector3 dif = (pat3Vecs[positionIdx] - pat3Vecs[(++positionIdx) % 4])/patterns[2].repeatTIme;
 
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
-        anim.SetBool("isAtk3Ready", true);
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
             startVec.Add(pat3Vecs[positionIdx] + dif * i);
@@ -204,6 +207,7 @@ public class EnemyLich : EnemyBoss
         {
             curPosIdx = idx;
         }
+        anim.SetTrigger("doTeleport");
         GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
         LichParticle.transform.position = transform.position;
         LichParticle.GetComponent<ParticleSystem>().Play();
@@ -243,12 +247,14 @@ public class EnemyLich : EnemyBoss
 
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
-        if (curHP == 2) groggy();
+        if (curHP == 3) groggy();
         base.onHit(attackerPos, dmg, stunTime);
     }
 
     void groggy()
     {
+        GameMgr.Inst.SlowTime(0.4f, 0.2f, true);
+
         Debug.Log("G");
         StopAllCoroutines();
         anim.SetBool("isAtk1Ready", false);
@@ -260,5 +266,4 @@ public class EnemyLich : EnemyBoss
         GetComponent<Collider2D>().enabled = true;
         transform.position = groggyVec;
     }
-
 }

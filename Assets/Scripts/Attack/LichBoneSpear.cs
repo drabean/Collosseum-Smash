@@ -26,13 +26,15 @@ public class LichBoneSpear : Attack
         for (int j = 0; j < 4; j++)
         {
             GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
-            LichParticle.transform.position = startPos + positions[j];
+            LichParticle.transform.position = targetPos + positions[j];
             LichParticle.GetComponent<ParticleSystem>().Play();
         }
         Instantiate<Attack>(BoneSpear).Shoot(targetPos + positions[0], targetPos + positions[2]);
         Instantiate<Attack>(BoneSpear).Shoot(targetPos + positions[2], targetPos + positions[0]);
         Instantiate<Attack>(BoneSpear).Shoot(targetPos + positions[1], targetPos + positions[3]);
         Instantiate<Attack>(BoneSpear).Shoot(targetPos + positions[3], targetPos + positions[1]);
+
+        Destroy(gameObject);
 
     }
     public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)

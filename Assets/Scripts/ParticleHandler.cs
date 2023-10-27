@@ -5,13 +5,14 @@ using UnityEngine;
 public class ParticleHandler : MonoBehaviour
 {
     [SerializeField] ParticleSystem particle;
-    public void Play()
+    public void PlayParticle()
     {
         particle.Play();
     }
 
-    public void Stop()
+    public void StopParticle()
     {
+        Debug.Log("STOP");
         particle.Stop();
     }
 }

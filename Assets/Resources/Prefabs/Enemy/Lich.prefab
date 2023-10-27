@@ -59,8 +59,8 @@ MonoBehaviour:
   aim: {fileID: 4386642272341584061}
   hit: {fileID: 4386642271621334931}
   isDead: 0
-  maxHP: 30
-  curHP: 30
+  maxHP: 20
+  curHP: 20
   moveSpeed: 0
   aimRange: 0
   size: 0.5
@@ -70,24 +70,24 @@ MonoBehaviour:
   patterns:
   - range: 3
     width: 0
-    waitBeforeTime: 0.7
-    waitAfterTime: 5
+    waitBeforeTime: 2
+    waitAfterTime: 3
     intervalTime: 0.7
     repeatTIme: 3
     duration: 0
     prefabName: Prefabs/Attack/BoneSpear
   - range: 2
     width: 0
-    waitBeforeTime: 1
-    waitAfterTime: 4
-    intervalTime: 0.3
-    repeatTIme: 6
+    waitBeforeTime: 2
+    waitAfterTime: 3
+    intervalTime: 0.2
+    repeatTIme: 4
     duration: 0
     prefabName: Prefabs/Attack/SkulMissile
   - range: 2
     width: 0
-    waitBeforeTime: 0.3
-    waitAfterTime: 5
+    waitBeforeTime: 2
+    waitAfterTime: 3
     intervalTime: 0.1
     repeatTIme: 5
     duration: 0
@@ -422,7 +422,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

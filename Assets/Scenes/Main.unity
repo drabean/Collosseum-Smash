@@ -5231,7 +5231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1089279275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5245,7 +5245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCam: {fileID: 0}
-  isTest: 0
+  isTest: 1
   testStage: {fileID: 11400000, guid: 01bd465495fb4334388a59b855c6be6f, type: 2}
 --- !u!4 &1089279276
 Transform:
