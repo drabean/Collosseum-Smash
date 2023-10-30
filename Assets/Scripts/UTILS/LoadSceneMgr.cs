@@ -9,8 +9,20 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     static string nextSceneName;
     AsyncOperation operation;
 
+    public CanvasGroup LoadingPanel;
+    float loadingWaitTIme = 1.0f;
+
+    
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+    }
+    
+
     private void Start()
     { 
+        //SingleTone을 통해 LoadScene을 불러오고, LoadScene의 Start 함수에서 씬 전환을 실행해줌.
         StartCoroutine(co_AsyncLoading());
     }
 
@@ -22,7 +34,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     public static void LoadSceneAsync(string sceneName)
     {
         nextSceneName = sceneName;
-        SceneManager.LoadScene("Loading");
+        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
 
     }
     IEnumerator co_AsyncLoading()
@@ -30,12 +42,46 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
         SoundMgr.Inst.Play("LoadScene");
         Time.timeScale = 1;
 
-        operation = SceneManager.LoadSceneAsync(nextSceneName);
+        // Fade In 효과 실행
+        yield return StartCoroutine(Fade(0.3f, true));
 
+        // 비동기 씬 로딩을 시작합니다.
+        operation = SceneManager.LoadSceneAsync(nextSceneName);
         operation.allowSceneActivation = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
+
+        // 화면을 가린 동안 로딩 패널이 표시되었을 것이므로 이 시점에서 로딩 패널을 숨깁니다.
+
         operation.allowSceneActivation = true;
 
+        // Fade Out 효과 실행
+        yield return StartCoroutine(Fade(0.3f, false));
+        Destroy(gameObject);
     }
+
+    #region Fade
+    //ver1. Fade In / Fade Out
+    /// <summary>
+    /// Fade In / Fade Out을 관리하는 함수
+    /// </summary>
+    /// <param name="duration">Fade에 걸리는 시간</param>
+    /// <param name="isIn"> True일시 Fade In, False일시 Fade Out</param>
+    /// <returns></returns>
+    IEnumerator Fade(float duration, bool isIn)
+    {
+        float progress = 0;
+
+        while(progress<=1)
+        {
+            if(isIn) LoadingPanel.alpha = progress;
+            else LoadingPanel.alpha = 1 - progress;
+            progress += Time.deltaTime / duration;
+
+            yield return null;
+        }
+
+    }
+
+    #endregion
 }
