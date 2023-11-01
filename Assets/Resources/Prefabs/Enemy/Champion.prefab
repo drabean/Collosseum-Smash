@@ -5293,8 +5293,11 @@ MonoBehaviour:
     intervalTime: 0.3
     repeatTIme: 3
     duration: 0
-    prefabName: Prefabs/Enemy/Gladiator2
+    prefabName: Prefabs/Enemy/ShoutEffect
   patternCount: 4
+  mobs:
+  - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}
+  - {fileID: 8533509118144780453, guid: 0c53d11e1e2dd66438315734c4b2fc76, type: 3}
   spriteGroup: {fileID: 793671581856987527}
 --- !u!95 &793671581856987525
 Animator:

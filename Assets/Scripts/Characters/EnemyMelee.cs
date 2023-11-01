@@ -8,6 +8,7 @@ public class EnemyMelee: Enemy
     public float attackRange;//공격 이펙트 소환지점
     public float attackWidth;//공격 이펙트 타격판정 너비
     public string attackName;
+    Attack attack;
     public float attackWaitTime;
     public float attackAfterWaitTime;
 
@@ -16,6 +17,7 @@ public class EnemyMelee: Enemy
     private void Awake()
     {
         evnt.attack = doAttack;
+        attack = Resources.Load<Attack>(attackName);
     }
 
     public override void StartAI()
@@ -41,7 +43,7 @@ public class EnemyMelee: Enemy
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, attackWidth, attackWaitTime);
+        curAttackWarning = attack.ShowWarning(transform.position, aim.position, attackWaitTime);
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
 
@@ -52,10 +54,10 @@ public class EnemyMelee: Enemy
 
     void doAttack()
     {
-        GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
-        attackEffect.transform.position = aim.position;
-        if(doAttackSpin)attackEffect.transform.rotation = (aim.position - transform.position).ToQuaternion();
-        else attackEffect.GetComponent<SpriteRenderer>().flipX = sp.flipX;
+        Attack temp = Instantiate(attack);
+        temp.Shoot(transform.position, aim.position);
+        if(doAttackSpin) temp.transform.rotation = (aim.position - transform.position).ToQuaternion();
+        else temp.GetComponent<SpriteRenderer>().flipX = sp.flipX;
     }
 
 

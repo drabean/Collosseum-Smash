@@ -6,6 +6,8 @@ public class EnemyChampion : EnemyBoss
 {
     [SerializeField] Transform spriteGroup;
 
+    Attack[] attacks = new Attack[3];
+
     #region Override
     private void Awake()
     {
@@ -15,6 +17,8 @@ public class EnemyChampion : EnemyBoss
         projectile = Resources.Load<Attack>(patterns[1].prefabName);
 
         patternCountLeft = patternCount;
+        attacks[0]= Resources.Load<Attack>(patterns[0].prefabName);
+        attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
     }
 
     Vector3 minVec = new Vector3(-1, 1, 1);
@@ -154,7 +158,8 @@ public class EnemyChampion : EnemyBoss
     {
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, patterns[0].width, patterns[0].waitBeforeTime);
+       // curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, patterns[0].width, patterns[0].waitBeforeTime);
+        curAttackWarning = attacks[0].ShowWarning(transform.position, aim.position, patterns[0].waitBeforeTime);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         anim.SetBool("isReady", false);
 
@@ -173,9 +178,7 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
-        ModuleAttack atk = DictionaryPool.Inst.Pop(patterns[0].prefabName).GetComponent<ModuleAttack>();
-        atk.transform.position = aim.position;
-        atk.ownerTr = transform;
+        Instantiate(attacks[0]).Shoot(transform.position, aim.position);
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
         GameMgr.Inst.MainCam.Shake(0.1f, 40, 0.2f, 0f);
@@ -229,16 +232,15 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat3()
     {
-        DictionaryPool.Inst.Pop("Prefabs/Attack/ShoutEffect").transform.position = transform.position + Vector3.up * 0.3f;
+        Instantiate(attacks[2]).Shoot(transform.position, transform.position + Vector3.up * 0.3f);
         GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0, true);
 
     }
 
     void spawnCompanion()
     {
-        Enemy enemyPrefab = Resources.Load<Enemy>(patterns[2].prefabName);
-        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, EnemyMgr.Inst.getRandomPos());
-        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, EnemyMgr.Inst.getRandomPos());
+        EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos());
+        EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
     }
 
 }

@@ -20,6 +20,7 @@ public class Projectile : Attack
 
     public override void Shoot(Vector3 startPos, Vector3 targetPos)
     {
+        if (SFXName != "") SoundMgr.Inst.Play(SFXName);
         transform.position = startPos;
         moveVec = (targetPos - startPos).normalized;
         if(sp != null) sp.flipX = (moveVec.x < 0);

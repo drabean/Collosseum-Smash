@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8371020159691667862}
+  - component: {fileID: -3817861107968905882}
   - component: {fileID: 4544046583111951137}
   - component: {fileID: 5772445171906357194}
   - component: {fileID: 5847000805320792564}
   - component: {fileID: 4276340385324046624}
   - component: {fileID: 6226703509943149120}
-  - component: {fileID: 6581269011306745179}
   m_Layer: 17
   m_Name: SlimeExplosion
   m_TagString: Untagged
@@ -37,6 +37,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3817861107968905882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4288050258666285610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528208051ac3bdb4182f7c93d170261d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXName: SlimeExplosion
+  range: 1.125
 --- !u!114 &4544046583111951137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,16 +168,3 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
---- !u!114 &6581269011306745179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4288050258666285610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SFXName: SlimeExplosion

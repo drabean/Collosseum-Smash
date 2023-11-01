@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1811298285318587836}
+  - component: {fileID: -8677080096644097596}
   - component: {fileID: 1811298285318587839}
   - component: {fileID: 1811298285318587837}
   - component: {fileID: 1811298285318587776}
-  - component: {fileID: 1811298285318587777}
   - component: {fileID: 8863150477875782468}
   - component: {fileID: 7066934350734680193}
   m_Layer: 17
@@ -37,6 +37,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8677080096644097596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811298285318587838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528208051ac3bdb4182f7c93d170261d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXName: Swoosh
+  range: 0.5
 --- !u!212 &1811298285318587839
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -126,20 +140,6 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
---- !u!114 &1811298285318587777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811298285318587838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPushTime: 0
-  SFXName: Swoosh
 --- !u!114 &8863150477875782468
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,6 +46,11 @@ public class Enemy : CharacterBase
         StartCoroutine(co_Smash(attackerPos));
     }
 
+    /// <summary>
+    /// 체력이 0이 되었을 때, 사망 연출
+    /// </summary>
+    /// <param name="attackerPos"></param>
+    /// <returns></returns>
     protected virtual IEnumerator co_Smash(Transform attackerPos)
     {
         isDead = true;

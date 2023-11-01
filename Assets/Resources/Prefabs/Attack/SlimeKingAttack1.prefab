@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5141912185214561873}
+  - component: {fileID: -3982098959810722094}
   - component: {fileID: 900677950201820390}
   - component: {fileID: 7164017358449471501}
   - component: {fileID: 7085521040866594355}
   - component: {fileID: 587991829062668007}
   - component: {fileID: 7285093851066250631}
-  - component: {fileID: 7504464636461243036}
   m_Layer: 17
   m_Name: SlimeKingAttack1
   m_TagString: Untagged
@@ -37,6 +37,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3982098959810722094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644680388751015405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528208051ac3bdb4182f7c93d170261d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXName: Impact
+  range: 2.3
 --- !u!114 &900677950201820390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,16 +168,3 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
---- !u!114 &7504464636461243036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644680388751015405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SFXName: Impact

@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyLich : EnemyBoss
 {
     public List<Vector3> tpVecs = new List<Vector3>();
-    public List<Enemy> mobs = new List<Enemy>();
     int curPosIdx = 3;
     public TargetedProjecitile lichSoul;
     public Vector3 groggyVec;

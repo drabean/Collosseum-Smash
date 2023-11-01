@@ -50,7 +50,10 @@ public class EnemyBoss : Enemy
     /// 상태 확인용으로 서브로 사용하는 HP
     /// </summary>
     protected float subHP = 0;
-
+    /// <summary>
+    /// 소환할 잡몹들
+    /// </summary>
+    public List<Enemy> mobs = new List<Enemy>();
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         subHP -= dmg;

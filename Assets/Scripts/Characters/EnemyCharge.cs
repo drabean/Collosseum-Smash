@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChargeSlime : Enemy
+public class EnemyCharge : Enemy
 {
     [Header("돌진형")]
     public float chargeRange;//돌진거리
@@ -10,8 +10,12 @@ public class EnemyChargeSlime : Enemy
     public float chargeTime;//돌진시간
     public float waitBeforeTime;//돌진 전 대기시간
     public float waitAfterTime;//돌진후대기시간
+    public float attackColRange;
+
     public string attackName;
     public string SFXName;
+
+    Attack attack;
 
     public override void StartAI()
     {
@@ -21,6 +25,7 @@ public class EnemyChargeSlime : Enemy
     private void Awake()
     {
         evnt.attack += onAttack;
+        attack = Resources.Load<Attack>(attackName);
     }
 
     protected virtual IEnumerator co_Chase()
@@ -42,7 +47,7 @@ public class EnemyChargeSlime : Enemy
 
         setDir(chargeDir);
         //curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
-        curAttackWarning = GameMgr.Inst.AttackEffectCircle(chargeDestination, 1f, waitBeforeTime);
+        curAttackWarning = attack.ShowWarning(transform.position, aim.position, waitBeforeTime);
 
 
         yield return new WaitForSeconds(waitBeforeTime);
@@ -66,7 +71,6 @@ public class EnemyChargeSlime : Enemy
 
     void onAttack()
     {
-        GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
-        attackEffect.transform.position = transform.position;
+        Instantiate(attack).Shoot(transform.position, transform.position);
     }
 }

@@ -49,7 +49,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
         operation = SceneManager.LoadSceneAsync(nextSceneName);
         operation.allowSceneActivation = false;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(loadingWaitTIme);
 
         // 화면을 가린 동안 로딩 패널이 표시되었을 것이므로 이 시점에서 로딩 패널을 숨깁니다.
 

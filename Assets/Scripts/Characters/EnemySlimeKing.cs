@@ -9,7 +9,8 @@ public class EnemySlimeKing : EnemyBoss
     [SerializeField] SpriteRenderer eye;
     [SerializeField] Transform eyeTr;
 
-    public List<Enemy> mobs = new List<Enemy>();
+    Attack[] attacks = new Attack[6];
+
     protected override void setDir(Vector3 dir)
     {
         eye.sortingOrder = dir.y < 0 ? 1 : -1;
@@ -23,6 +24,14 @@ public class EnemySlimeKing : EnemyBoss
         evnt.attack2 += onAttack2;
 
         patternCountLeft = Random.Range(2, patternCount + 1);
+
+        attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
+        attacks[1] = Resources.Load<Attack>(patterns[2].prefabName);
+        attacks[2] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosion");
+        attacks[3] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBall");
+        attacks[4] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionGreen");
+        attacks[5] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBallGreen");
+
     }
 
     public override void  StartAI()
@@ -86,7 +95,7 @@ public class EnemySlimeKing : EnemyBoss
 
     IEnumerator co_Move(Vector3 destination)
     {
-        GameMgr.Inst.AttackEffectCircle(destination + Vector3.up * 0.5f, 2.3f, patterns[0].waitBeforeTime + 0.5f);
+        attacks[0].ShowWarning(destination + Vector3.up * 0.5f, destination + Vector3.up * 0.5f, patterns[0].waitBeforeTime + 0.5f);
 
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         SoundMgr.Inst.Play("Jump");
@@ -108,8 +117,7 @@ public class EnemySlimeKing : EnemyBoss
     void onAttack1()
     {
         GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0f);
-        GameObject attackEffect = DictionaryPool.Inst.Pop(patterns[0].prefabName);
-        attackEffect.transform.position = transform.position + Vector3.up * 0.5f;
+        Instantiate(attacks[0]).Shoot(transform.position + Vector3.up * 0.5f, transform.position + Vector3.up * 0.5f);
     }
 
     IEnumerator co_Pat2()
@@ -145,29 +153,26 @@ public class EnemySlimeKing : EnemyBoss
         SoundMgr.Inst.Play("Throw");
 
       
-        StartCoroutine(co_attack2("Prefabs/Attack/SlimeExplosion", "Prefabs/Attack/SlimeExplosionBall"));
-        StartCoroutine(co_attack2("Prefabs/Attack/SlimeExplosionGreen", "Prefabs/Attack/SlimeExplosionBallGreen"));
+        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3]));
+        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5]));
     }
 
-    IEnumerator co_attack2(string attackName, string effectName)
+    IEnumerator co_attack2(Impact slimeExplosion, Projectile slimeBall)
     {
         //날아가는 슬라임 볼 생성
         Vector3 attackPos = EnemyMgr.Inst.getRandomPos();
-        Projectile tempObj = DictionaryPool.Inst.Pop(effectName).GetComponent<Projectile>();
+        Projectile tempObj = Instantiate(slimeBall);
         tempObj.transform.position = transform.position;
         tempObj.moveSpeed = Vector3.Distance(transform.position, attackPos) / 0.75f;
-
         tempObj.Shoot(transform.position, attackPos);
 
-
-        GameMgr.Inst.AttackEffectCircle(attackPos, 1.125f, 0.75f);
+        slimeExplosion.ShowWarning(transform.position, attackPos, 0.75f);
         yield return new WaitForSeconds(0.75f);
         //실제 공격 (폭팔) 생성
-        GameObject attackEffect = DictionaryPool.Inst.Pop(attackName);
-        attackEffect.transform.position = attackPos;
+
+        Instantiate(slimeExplosion).Shoot(transform.position, attackPos);
     }
 
-    public Attack pat3Atk;
     IEnumerator co_Pat3()
     {
         List<Vector3> targetPositions = new List<Vector3>();
@@ -182,12 +187,12 @@ public class EnemySlimeKing : EnemyBoss
 
         for (int i = 0; i < targetPositions.Count; i++)
         {
-            pat3Atk.ShowWarning(transform.position, targetPositions[i], patterns[2].waitBeforeTime);
+            attacks[1].ShowWarning(transform.position, targetPositions[i], patterns[2].waitBeforeTime);
         }
         yield return co_Move(transform.position);
         foreach(Vector3 targetPos in targetPositions)
         {
-            Instantiate<Attack>(pat3Atk, transform.position, Quaternion.identity).Shoot(transform.position, targetPos);
+            Instantiate(attacks[1], transform.position, Quaternion.identity).Shoot(transform.position, targetPos);
         }
 
         EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
