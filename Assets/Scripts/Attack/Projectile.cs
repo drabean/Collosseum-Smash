@@ -14,7 +14,8 @@ public class Projectile : Attack
 
     public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
     {
-        curWarning = GameMgr.Inst.AttackEffectLinear(startPos, startPos + (targetPos - startPos).normalized * (moveSpeed * lifeTime), warningRadius, time);
+        float tempSpd = moveSpeed == 0 ? 30 : moveSpeed; // 움직이지 않는 투사체를 위한 값 조절
+        curWarning = GameMgr.Inst.AttackEffectLinear(startPos, startPos + (targetPos - startPos).normalized * (tempSpd * lifeTime), warningRadius, time);
         return curWarning;
     }
 
