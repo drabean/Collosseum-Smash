@@ -10,6 +10,8 @@ public class EnemyKingBlock : EnemyBoss
 
     public SubBlock[] subBlocks = new SubBlock[2];
 
+    [SerializeField] private SpriteRenderer face;
+
     private void Awake()
     {
         evnt.attack += onAttack1;

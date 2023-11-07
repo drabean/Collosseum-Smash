@@ -124,6 +124,8 @@ public class SubBlock : Enemy
     public IEnumerator co_Fire1(float duration)
     {
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
+        anim.SetBool("isPat2", true);
+
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
         float startTime = Time.time;
@@ -138,10 +140,11 @@ public class SubBlock : Enemy
             yield return new WaitForSeconds(missileWaitTime);
             GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
             Instantiate(attacks[1]).Shoot(firePos.position, targetVec);
+            anim.SetTrigger("doPat2");
 
             yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
         }
-
+        anim.SetBool("isPat2", false);
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 
@@ -154,6 +157,8 @@ public class SubBlock : Enemy
     public IEnumerator co_Fire2(float duration)
     {
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
+        anim.SetBool("isPat2", true);
+
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
         float startTime = Time.time;
@@ -169,12 +174,14 @@ public class SubBlock : Enemy
                 GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
                 SoundMgr.Inst.Play("Throw");
                 Instantiate<Attack>(attacks[1]).Shoot(firePos.position, targetVec);
+                anim.SetTrigger("doPat2");
             }
             yield return new WaitForSeconds(missileWaitTime + rapidWaitTime * patterns[2].repeatTIme);
 
             yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
         }
 
+        anim.SetBool("isPat2", false);
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4432736917588910787}
   - component: {fileID: 4432736917588910786}
   m_Layer: 16
-  m_Name: Eye
+  m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,12 +106,12 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7a6c23be1d5fb2544bebef1cd821f4f1, type: 3}
+  m_Sprite: {fileID: -1378001070, guid: da9b8b910c91a2e44b234ff4dbcca649, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.6875, y: 0.6875}
+  m_Size: {x: 1.25, y: 1.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -512,7 +512,7 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1775683016, guid: 119ad91178331444a94ea426eca65c2f, type: 3}
+  m_Sprite: {fileID: 1338080153, guid: ba6490a3a409c0e47b51e24a3e3039fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
