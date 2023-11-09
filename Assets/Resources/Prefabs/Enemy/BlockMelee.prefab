@@ -158,7 +158,7 @@ MonoBehaviour:
   waitBeforeTime: 0.8
   waitAfterTime: 3
   attackColRange: 0
-  attackName: Prefabs/Attack/BlockImpact
+  attackName: Prefabs/Attack/BlockImpactSmall
   SFXName: Jump2
 --- !u!212 &6787935353413353402
 SpriteRenderer:

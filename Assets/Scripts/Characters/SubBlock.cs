@@ -43,8 +43,9 @@ public class SubBlock : Enemy
     IEnumerator co_Destroy()
     {
         GetComponent<Collider2D>().enabled = false;
-        hit.FlashWhite(0.5f);
+        hit.FlashWhite(1.0f);
         yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
 
     }
 
