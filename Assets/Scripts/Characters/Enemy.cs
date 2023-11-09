@@ -11,7 +11,6 @@ public class Enemy : CharacterBase
 
     public float difficulty;
     public bool isSuperarmor;
-
     #region delegate
     public Action<Vector3> onDeath;
     protected void invokeOnDeath(Vector3 pos) { onDeath?.Invoke(pos); }
@@ -31,6 +30,7 @@ public class Enemy : CharacterBase
         if (curHP <= 0)
         {
             Target.HitSuccess();
+            isDead = true;
             smash(attackerPos);
         }
         else
@@ -53,7 +53,6 @@ public class Enemy : CharacterBase
     /// <returns></returns>
     protected virtual IEnumerator co_Smash(Transform attackerPos)
     {
-        isDead = true;
         GameMgr.Inst.addScore((int)difficulty);
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 

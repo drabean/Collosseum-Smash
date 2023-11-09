@@ -10,7 +10,11 @@ public class EnemyKingBlock : EnemyBoss
 
     public SubBlock[] subBlocks = new SubBlock[2];
 
-    [SerializeField] private SpriteRenderer face;
+    public List<SpriteRenderer> faceSprites = new List<SpriteRenderer>();
+    public List<Color> faceColors = new List<Color>();
+
+    public System.Action faceChangeAction;
+    int patIdx;
 
     private void Awake()
     {
@@ -20,21 +24,32 @@ public class EnemyKingBlock : EnemyBoss
 
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
+
+        faceChangeAction += () => { anim.SetTrigger("doFaceChange"); };
      
     }
 
     public override void StartAI()
     {
+        StartCoroutine(co_Move(Vector3.up * 4.5f));
         //여기서 SubBlock들 소환
         StartCoroutine(co_Idle());
 
-        
+        subBlocks[0] = Instantiate(subBlockPrefab);
+        subBlocks[0].Spawn();
+        subBlocks[0].transform.position = Vector3.right * -6.5f;  
         subBlocks[0].Init(this, Target);
+        
+        subBlocks[1] = Instantiate(subBlockPrefab);
+        subBlocks[1].Spawn();
+        subBlocks[1].transform.position = Vector3.right * 6.5f;
         subBlocks[1].Init(this, Target);
+        subBlocks[1].transform.localScale = Vector3.right * (-1) + Vector3.up + Vector3.forward;
     }
 
     IEnumerator co_Idle(float time = 1.5f)
     {
+        changeFaceColor(0);
         float timeLeft = time;
 
         while (timeLeft >= 0)
@@ -50,12 +65,35 @@ public class EnemyKingBlock : EnemyBoss
 
     protected override void selectPattern()
     {
-        StartCoroutine(co_Pat2());
+        patIdx += Random.Range(1, 3);
+        patIdx %= 3;
+
+        switch (patIdx)
+        {
+            case 0:
+                StartCoroutine(co_Pat1());
+                break;
+            case 1:
+                StartCoroutine(co_Pat2());
+                break;
+            case 2:
+                StartCoroutine(co_Pat3());
+                break;
+        }
     }
     protected override void setDir(Vector3 dir)
     {
         dir = dir.normalized;
         aim.transform.localPosition = dir * aimRange;
+    }
+
+    void changeFaceColor(int colorIdx)
+    {
+        faceChangeAction?.Invoke();
+        foreach (SpriteRenderer sp in faceSprites)
+        {
+            sp.color = faceColors[colorIdx];
+        }
     }
 
     #region 이동
@@ -81,6 +119,8 @@ public class EnemyKingBlock : EnemyBoss
     #region Pat1
     IEnumerator co_Pat1()
     {
+        changeFaceColor(1);
+
         Vector3 originVec = transform.position;
 
         setDir();
@@ -127,6 +167,7 @@ public class EnemyKingBlock : EnemyBoss
     #region pat2
     IEnumerator co_Pat2()
     {
+        changeFaceColor(2);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
         int blockSwitch = Random.Range(0, 2);
 
@@ -134,7 +175,9 @@ public class EnemyKingBlock : EnemyBoss
         StartCoroutine(subBlocks[++blockSwitch % 2].co_Fire2(patterns[1].duration));
 
         yield return new WaitForSeconds(patterns[1].duration);
-        StartCoroutine(co_Idle(patterns[1].waitAfterTime));
+        yield return new WaitForSeconds(patterns[1].waitAfterTime);
+
+        StartCoroutine(co_Idle());
     }
     #endregion
 
@@ -142,6 +185,7 @@ public class EnemyKingBlock : EnemyBoss
 
     IEnumerator co_Pat3()
     {
+        changeFaceColor(2);
         //어느 블럭에서 레이저를 발사 할 지 정하는 변수
         int blockSwitch = Random.Range(0, 3);
 
@@ -150,21 +194,25 @@ public class EnemyKingBlock : EnemyBoss
             switch(blockSwitch)
             {
                 case 0:
-                    yield return StartCoroutine(co_Laser()); // 본체블럭 발사
+                    StartCoroutine(co_Laser()); // 본체블럭 발사
                     break;
                 case 1:
-                    yield return StartCoroutine(subBlocks[0].co_Laser()); // 서브블럭 1 발사
+                    StartCoroutine(subBlocks[0].co_Laser()); // 서브블럭 1 발사
                     break;     
                 case 2:
-                    yield return StartCoroutine(subBlocks[1].co_Laser()); // 서브블럭 2 발사
+                    StartCoroutine(subBlocks[1].co_Laser()); // 서브블럭 2 발사
                     break;
             }
 
             blockSwitch += Random.Range(1, 3); // 다음 발사할 블록을 랜덤으로 지정
             blockSwitch %= 3;
+
+            yield return new WaitForSeconds(patterns[2].intervalTime);
         }
 
-        StartCoroutine(co_Idle(patterns[2].waitAfterTime));
+        yield return new WaitForSeconds(patterns[2].waitAfterTime);
+
+        StartCoroutine(co_Idle());
     }
     IEnumerator co_Laser()
     {
@@ -173,9 +221,20 @@ public class EnemyKingBlock : EnemyBoss
         yield return StartCoroutine(co_Move(Vector3.right * Target.transform.position.x + Vector3.up * transform.position.y));
         attacks[2].ShowWarning(transform.position, targetVec, patterns[2].waitBeforeTime);
 
+        anim.SetBool("isPat3", true);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
 
         Instantiate(attacks[2]).Shoot(transform.position,targetVec);
+        GameMgr.Inst.MainCam.Shake(2.0f, 15, 0.08f, 0f);
+        yield return new WaitForSeconds(patterns[2].duration);
+        anim.SetBool("isPat3", false);
+    }
+
+    protected override IEnumerator co_Smash(Transform attackerPos)
+    {
+        subBlocks[0].Destroy();
+        subBlocks[1].Destroy();
+        return base.co_Smash(attackerPos);
     }
     #endregion
 }

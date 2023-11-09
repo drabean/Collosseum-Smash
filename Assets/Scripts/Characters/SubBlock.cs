@@ -14,9 +14,11 @@ public class SubBlock : Enemy
     public EnemyKingBlock Owner;
 
     Attack[] attacks = new Attack[6];
-
+    [SerializeField] SpriteRenderer face;
+    [SerializeField] Transform LaserPos;
     float xPos;
     float[] yRange = new float[] { 2.8f, -5.6f };
+
 
     private void Awake()
     {
@@ -27,12 +29,34 @@ public class SubBlock : Enemy
         attacks[2] = Resources.Load<Attack>(patterns[3].prefabName);
 
     }
+    //소환 연출 (본체에서 호출)
+    public void Spawn()
+    {
+        hit.FlashWhite(0.5f);
+    }
+    //제거 연출 (본체에서 호출)
+    public void Destroy()
+    {
+        StartCoroutine(co_Destroy());
+    }
+
+    IEnumerator co_Destroy()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        hit.FlashWhite(0.5f);
+        yield return new WaitForSeconds(0.5f);
+
+    }
+
+
 
     public void Init(EnemyKingBlock Owner, Player target)
     {
         this.Owner = Owner;
         Target = target;
         xPos = transform.position.x;
+        Owner.faceSprites.Add(face);
+        Owner.faceChangeAction += () => { anim.SetTrigger("doFaceChange"); };
     }
     protected override void setDir(Vector3 dir)
     {
@@ -194,11 +218,15 @@ public class SubBlock : Enemy
         Vector3 targetVec = Target.transform.position;
 
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Target.transform.position.y));
-        attacks[2].ShowWarning(transform.position, targetVec, patterns[3].waitBeforeTime);
+        attacks[2].ShowWarning(LaserPos.position, LaserPos.position.x * (-1) * Vector3.right + LaserPos.position.y * Vector3.up, patterns[3].waitBeforeTime);
 
+        anim.SetBool("isPat3", true);
         yield return new WaitForSeconds(patterns[3].waitBeforeTime);
 
-        Instantiate(attacks[2]).Shoot(transform.position, targetVec);
+        Instantiate(attacks[2]).Shoot(LaserPos.position, LaserPos.position.x * (-1) * Vector3.right + LaserPos.position.y * Vector3.up);
+        GameMgr.Inst.MainCam.Shake(2.0f, 15, 0.08f, 0f);
+        yield return new WaitForSeconds(patterns[3].duration);
+        anim.SetBool("isPat3", false);
     }
 
     #endregion

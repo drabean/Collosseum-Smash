@@ -36,8 +36,7 @@ public class EnemyLich : EnemyBoss
         patIdx += Random.Range(0, 2);
         patIdx %= 3;
 
-        //testcode
-        patIdx = 1;
+
         switch(patIdx)
         {
             case 0:
@@ -241,7 +240,7 @@ public class EnemyLich : EnemyBoss
 
     void onLichSoulHit()
     {
-        this.onHit(transform, 1.0f, 0.0f);
+        onHit(transform, 1.0f, 0.0f);
     }
 
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
