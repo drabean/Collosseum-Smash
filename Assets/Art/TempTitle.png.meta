@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68c3439cf6a475541bdd5f708399d2b0
+guid: f6944fa2a2a397447a0a15adce9fa985
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -127,112 +127,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Cheer_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 30
-        width: 20
-        height: 30
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06666667}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8a4a249b22916a44940167e3318b428
-      internalID: -1380266272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cheer_1
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 30
-        width: 20
-        height: 30
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06666667}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5aab13522da306c4386bb22bf850512c
-      internalID: -85006325
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cheer_2
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 30
-        width: 20
-        height: 30
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06666667}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c38b2dc69cfdf84997f5678063b374d
-      internalID: 2144649723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cheer_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 20
-        height: 30
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06666667}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9aee98306aec94944aaa29237f184dc7
-      internalID: -628989472
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cheer_4
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 0
-        width: 20
-        height: 30
-      alignment: 9
-      pivot: {x: 0.5, y: 0.06666667}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27a2a7979c60fe94db0080c96459f2d3
-      internalID: -1183988460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -243,12 +138,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Cheer_0: -1380266272
-      Cheer_1: -85006325
-      Cheer_2: 2144649723
-      Cheer_3: -628989472
-      Cheer_4: -1183988460
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

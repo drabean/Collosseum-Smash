@@ -81,7 +81,6 @@ public class Player : CharacterBase
         moveSpeed = 2f + (_stat.SPD * 0.5f); 
         maxHP = _stat.VIT + 1;
         if(curHP > maxHP)curHP = maxHP;
-        UIMgr.Inst.hp.Set((int)curHP);
     }
     #endregion
 
@@ -121,11 +120,11 @@ public class Player : CharacterBase
 
     private void Start()
     {
-        UIMgr.Inst.joystick.setTarget(GetInput);
         SetStatus();
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
         targetIcon.gameObject.SetActive(false);
+
         foreach (Equip e in  GameData.Inst.equips)
         {
             Instantiate<Equip>(e).onEquip(this);
@@ -166,6 +165,12 @@ public class Player : CharacterBase
 
             return;
         }
+    }
+
+    public void AttachUI()
+    {
+        UIMgr.Inst.hp.Set((int)curHP);
+        UIMgr.Inst.joystick.setTarget(GetInput);
     }
     [SerializeField] LayerMask layer;
     void findTarget()

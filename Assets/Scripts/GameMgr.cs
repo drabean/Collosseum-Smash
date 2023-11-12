@@ -34,6 +34,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         Time.timeScale = 1;
         player = GameObject.FindObjectOfType<Player>();
+
+        player.AttachUI();
         yield return new WaitForSeconds(2.0f);
 
         UIMgr.Inst.progress.ShowStageStart();
