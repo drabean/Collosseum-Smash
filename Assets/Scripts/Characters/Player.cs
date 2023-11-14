@@ -247,7 +247,7 @@ public class Player : CharacterBase
     {
         isAutoMove = true;
         float originMoveSpd = moveSpeed;
-        moveSpeed = 3.0f;
+        moveSpeed = 5.0f;
         while(Vector3.Distance(transform.position, destination) >= 0.1f)
         {
             moveTowardTarget(destination);

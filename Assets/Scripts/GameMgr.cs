@@ -26,7 +26,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     private IEnumerator Start()
     {
-        if (isTest) yield break;
         GameData.Inst.selectStage();
         //테스트를 위한 임의 스테이지 지정
         if (testStage != null) info = testStage;
@@ -36,6 +35,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         player = GameObject.FindObjectOfType<Player>();
 
         player.AttachUI();
+        if (isTest) yield break;
         yield return new WaitForSeconds(2.0f);
 
         UIMgr.Inst.progress.ShowStageStart();
@@ -178,9 +178,9 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSeconds(1.0f);
 
         MainCam.lockPos(Vector3.forward * -1);
-        player.AutoMove(Vector3.up * -5);
+        player.AutoMove(Vector3.up * -6.4f);
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         spawnItems();
     }
     Equip getRandomItem()
@@ -194,15 +194,19 @@ public class GameMgr : MonoSingleton<GameMgr>
     List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>(); //풀에서 꺼내서 현재 스테이지에 배치된 아이템들.
 
     [ContextMenu("SpawnITem")]
+    void testSpawnItem()
+    {
+        StartCoroutine(co_SpawnItems());
+    }
     void spawnItems()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             Equip e2s = getRandomItem();
             if (e2s == null) return;
             ItemEquipHolder h = Instantiate<ItemEquipHolder>(holder);
             h.SetItem(e2s);
-            h.transform.position = Vector3.right * (-4 + 4 * i) + Vector3.up * 3f;
+            h.transform.position = Vector3.right * (-4 + 4 * i) + Vector3.up * -1.5f;
             h.onAcquire = onAcqureEquip;
             h.GetComponent<ModuleHit>().FlashWhite(0.2f);
             h.index = i;

@@ -111,7 +111,9 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
     IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
+        //소환 연출중에 캐릭터가 죽는걸 방지하기 위해 모든 일반적을 없애줌
         GameMgr.Inst.removeAllNormalEnemies();
+        //카메라 위치 고정을 위한 임시 오브젝트 생성
         GameObject camTarget = new GameObject();
         camTarget.transform.position = position;
 
@@ -153,6 +155,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
         spawnedEnemy.StartAI();
         GameMgr.Inst.MainCam.changeTargetToDefault();
+        Destroy(camTarget);
     }
 
 }
