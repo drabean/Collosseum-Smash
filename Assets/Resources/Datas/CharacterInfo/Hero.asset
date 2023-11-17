@@ -16,5 +16,9 @@ MonoBehaviour:
   playerItems:
   - {fileID: 207602437149872462, guid: bd93e7e5852421e45936e9e4cad44020, type: 3}
   - {fileID: 26743846382771554, guid: 5e2c4b1a63b431f4c8457abf48f81fde, type: 3}
-  name: Hero
+  characterName: Hero
   description: This is Hero Description
+  stat:
+    STR: 3
+    VIT: 3
+    SPD: 3

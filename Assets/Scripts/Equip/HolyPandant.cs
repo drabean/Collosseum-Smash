@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NecklaceOfBlessing : Equip
+public class HolyPandant : Equip
 {
     public float Cooltime;
     float cooltimeLeft = 0;

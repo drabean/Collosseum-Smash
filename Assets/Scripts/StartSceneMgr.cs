@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneMgr : MonoBehaviour
 {
+    [SerializeField] GameObject CharacterSelectGroup;
+
+    private void Awake()
+    {
+        if(!LoadedData.Inst.isDataLoaded) LoadedData.Inst.LoadData();
+    }
     public void BtnStart()
     {
         Debug.Log("START");
@@ -21,5 +27,11 @@ public class StartSceneMgr : MonoBehaviour
     public void Btn_Exit()
     {
         Application.Quit();
+    }
+
+    public void Btn_CharacterChange()
+    {
+        CharacterSelectGroup.SetActive(true);
+        UICharacterSelectCanvas.Inst.OpenCharacterSelect(0);
     }
 }

@@ -8,8 +8,9 @@ public class CharacterInfo : ScriptableObject
 {
     public Player playerPrefab;
     public List<Equip> playerItems;
-    public string name;
+    public string characterName;
     public string description;
+    public STATUS stat;
 
 
 }

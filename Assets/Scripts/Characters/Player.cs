@@ -121,6 +121,7 @@ public class Player : CharacterBase
     private void Start()
     {
         SetStatus();
+        targetIcon = GameObject.FindObjectOfType<TargetIcon>();
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
         targetIcon.gameObject.SetActive(false);

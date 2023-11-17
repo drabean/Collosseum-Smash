@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public Vector3 min;
     public Vector3 max;
+    public bool useRangeLock;
     Camera cam;
 
     //X¹æÇâ Shake°ª Curve
