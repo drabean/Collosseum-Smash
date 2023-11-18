@@ -8,21 +8,14 @@ public class UIEquipHolder : MonoBehaviour
     Equip equip;
 
     [SerializeField] Image itemImage;
-    public  string description;
 
     public void SetEquip(Equip equip)
     {
         this.equip = equip;
         itemImage.sprite = equip.ItemSprite;
-        description = equip.Description;
     }
-    public void ShowDescription()
+    public void ShowItemDescription()
     {
-
-    }
-
-    public void HideDescription()
-    {
-
+        StartSceneMgr.Inst.ShowItemDescription(equip);
     }
 }

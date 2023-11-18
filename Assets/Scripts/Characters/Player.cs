@@ -85,13 +85,18 @@ public class Player : CharacterBase
     #endregion
 
     #region Events 
+    //적을 처치했을 때 호출
     public Action actionSmash;
-    void invokeOnSmash() { actionSmash?.Invoke(); }
-    public Action onMovement;
-    void invokeOnMovement() { onMovement?.Invoke(); }
+    public void InvokeOnSmash() { actionSmash?.Invoke(); }
 
+    //이동 중에 호출
+    public Action onMovement;
+    public void InvokeOnMovement() { onMovement?.Invoke(); }
+
+
+    //피격 시 호출
     public Func<bool, bool> actionHit;
-    bool invokeOnHit(bool resisted)
+    public bool InvokeOnHit(bool resisted)
     {
         if (actionHit == null)
             return false;
@@ -99,12 +104,13 @@ public class Player : CharacterBase
             return actionHit(resisted);
     }
 
-
+    //공격 시 호출
     public Action onAttack;
-    void invokeOnAttack() { onAttack?.Invoke(); }
+    public void InvokeOnAttack() { onAttack?.Invoke(); }
 
+    //이동 중지 시 호출
     public Action onMovementStop;
-    void invokeOnMovementStop() { onMovementStop?.Invoke(); }
+    public void InvokeOnMovementStop() { onMovementStop?.Invoke(); }
     #endregion
 
     [HideInInspector] public Combo combo = new Combo();
@@ -125,11 +131,6 @@ public class Player : CharacterBase
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
         targetIcon.gameObject.SetActive(false);
-
-        foreach (Equip e in  GameData.Inst.equips)
-        {
-            Instantiate<Equip>(e).onEquip(this);
-        }
     }
 
     private void Update()
@@ -148,7 +149,7 @@ public class Player : CharacterBase
         }//자동조작모드
         else
         {
-            invokeOnMovementStop();
+            InvokeOnMovementStop();
             if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
@@ -237,7 +238,7 @@ public class Player : CharacterBase
         }
 
 
-        invokeOnAttack();
+        InvokeOnAttack();
     }
     
     public void AutoMove(Vector3 destination)
@@ -283,7 +284,7 @@ public class Player : CharacterBase
         {
             die();
         }
-        StartCoroutine(co_Invincible(invokeOnHit(false)));
+        StartCoroutine(co_Invincible(InvokeOnHit(false)));
     }
     void die()
     {
@@ -319,15 +320,6 @@ public class Player : CharacterBase
     {
         particle.Play();
         SoundMgr.Inst.Play("Step");
-        invokeOnMovement();
-    }
-
-    /// <summary>
-    /// 적을 타격 성공 했을 때, 호출
-    /// </summary>
-    /// <param name="isMelee"></param>
-    public void HitSuccess()
-    {
-        invokeOnSmash();
+        InvokeOnMovement();
     }
 }

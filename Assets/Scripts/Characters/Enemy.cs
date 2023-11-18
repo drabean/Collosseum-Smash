@@ -29,7 +29,7 @@ public class Enemy : CharacterBase
 
         if (curHP <= 0)
         {
-            Target.HitSuccess();
+            if(Target != null) Target.InvokeOnSmash();
             isDead = true;
             smash(attackerPos);
         }
@@ -41,6 +41,7 @@ public class Enemy : CharacterBase
 
     protected virtual void smash(Transform attackerPos)
     {
+        isDead = true;
         stopAction();
         SoundMgr.Inst.Play("Smash");
         StartCoroutine(co_Smash(attackerPos));
@@ -98,7 +99,6 @@ public class Enemy : CharacterBase
         GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
         if (!isSuperarmor)
         {
-            //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
             if (stunTime >= 0.1f) stun(stunTime);
         }

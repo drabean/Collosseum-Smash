@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 323c44bba5cdfb54698082dae8593185, type: 3}
-  itemName: 
+  itemName: Single Edge Sword
   Description: 
   owner: {fileID: 0}
   reqCombo: 6

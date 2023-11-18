@@ -12,7 +12,6 @@ public class EnemyDoll : Enemy
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec, size);
-        hit.DmgTxt("Smash!");
 
         Transform hitBackParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/HitBackParticle").transform;
         hitBackParticle.SetParent(transform, false);

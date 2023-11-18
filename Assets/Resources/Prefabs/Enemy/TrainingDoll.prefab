@@ -41,14 +41,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1451265242180528406}
   - component: {fileID: 1699492139657176133}
-  - component: {fileID: 3422136221613691035}
   - component: {fileID: 1451265242180528404}
   - component: {fileID: 1451265242180528411}
   - component: {fileID: 1451265242180528410}
   - component: {fileID: 1451265242180528409}
   - component: {fileID: 1451265242180528408}
   - component: {fileID: 1451265242180528415}
-  - component: {fileID: 1451265242180528412}
   m_Layer: 16
   m_Name: TrainingDoll
   m_TagString: Untagged
@@ -96,33 +94,6 @@ MonoBehaviour:
   curHP: 1
   moveSpeed: 0
   aimRange: 0
-  size: 0.3
-  Target: {fileID: 0}
-  difficulty: 0
-  isSuperarmor: 0
---- !u!114 &3422136221613691035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451265242180528414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c05401be231314e4db8fbb3681bf15ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sp: {fileID: 1451265242180528415}
-  anim: {fileID: 1451265242180528404}
-  evnt: {fileID: 1451265242180528409}
-  rb: {fileID: 1451265242180528410}
-  aim: {fileID: 1451265242180528406}
-  hit: {fileID: 1451265242180528408}
-  isDead: 0
-  maxHP: 9
-  curHP: 9
-  moveSpeed: 0
-  aimRange: 1
   size: 0.3
   Target: {fileID: 0}
   difficulty: 0
@@ -271,18 +242,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1451265242180528412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451265242180528414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5286316235844577897
 GameObject:
   m_ObjectHideFlags: 0

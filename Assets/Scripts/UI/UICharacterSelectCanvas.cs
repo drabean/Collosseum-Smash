@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UICharacterSelectCanvas : MonoSingleton<UICharacterSelectCanvas>
+public class UICharacterSelectCanvas : MonoBehaviour
 {
     [SerializeField] GameObject GroupCharacterSelect;
 
@@ -14,14 +14,7 @@ public class UICharacterSelectCanvas : MonoSingleton<UICharacterSelectCanvas>
     [SerializeField] UIEquipHolder[] equips;
     public CharacterInfo info;
 
-    GameObject equipHolderPrefab;
-
     int curIdx = 0;
-
-    private void Awake()
-    {
-        equipHolderPrefab = Resources.Load<GameObject>("Prefabs/UI/EquipHolder");
-    }
 
     public void OpenCharacterSelect(int idx)
     {
@@ -62,25 +55,27 @@ public class UICharacterSelectCanvas : MonoSingleton<UICharacterSelectCanvas>
 
         curPlayer = Instantiate(info.playerPrefab, playerSpawnPos.position, Quaternion.identity).gameObject;
 
-        StartCoroutine(co_SpawnNextBot());
+        curSpawnRoutine = StartCoroutine(co_SpawnBotCoroutine());
     }
 
-    WaitForSeconds botSpawnWait = new WaitForSeconds(3.0f);
+    WaitForSeconds botSpawnWait = new WaitForSeconds(1.5f);
 
 
-    void onBotKill(Vector3 hitPos)
+
+    IEnumerator co_SpawnBotCoroutine()
     {
-        curSpawnRoutine = StartCoroutine(co_SpawnNextBot());
-    }
+        while (true)
+        {
+            if (curDoll == null)
+            {
+                yield return botSpawnWait;
+                botSpawnIdx++;
+                botSpawnIdx %= botSpawnPos.Count;
 
-    IEnumerator co_SpawnNextBot()
-    {
-        yield return botSpawnWait;
-        botSpawnIdx++;
-        botSpawnIdx %= botSpawnPos.Count;
-
-        curDoll = Instantiate(botPrefab, botSpawnPos[botSpawnIdx].position, Quaternion.identity);
-        curDoll.onDeath += onBotKill;
+                curDoll = Instantiate(botPrefab, botSpawnPos[botSpawnIdx].position, Quaternion.identity);
+            }
+            yield return null;
+        }
     }
     void Show()
     {

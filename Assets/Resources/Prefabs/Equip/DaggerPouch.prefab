@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 8a04946b959a21a4d80e35db9fdfb2d1, type: 3}
-  itemName: DaggerPouch
+  itemName: Dagger Pouch
   Description: Summons a throwing dagger at a random location.
   owner: {fileID: 0}
   spawnWaitTIme: 6

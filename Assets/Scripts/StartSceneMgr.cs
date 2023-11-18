@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartSceneMgr : MonoBehaviour
+public class StartSceneMgr : MonoSingleton<StartSceneMgr>
 {
-    [SerializeField] GameObject CharacterSelectGroup;
+    [SerializeField] UICharacterSelectCanvas CharacterSelectGroup;
+    [SerializeField] UIItemDescriptionPanel ItemDescription;
+
 
     private void Awake()
     {
@@ -31,7 +33,13 @@ public class StartSceneMgr : MonoBehaviour
 
     public void Btn_CharacterChange()
     {
-        CharacterSelectGroup.SetActive(true);
-        UICharacterSelectCanvas.Inst.OpenCharacterSelect(0);
+        CharacterSelectGroup.gameObject.SetActive(true);
+        CharacterSelectGroup.OpenCharacterSelect(0);
+    }
+
+    public void ShowItemDescription(Equip equip)
+    {
+        ItemDescription.ShowPanel(equip);
+        ItemDescription.gameObject.SetActive(true);
     }
 }

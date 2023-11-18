@@ -8,7 +8,7 @@ public class DescriptionArea : MonoBehaviour
 
     public void ShowDescription()
     {
-        UIMgr.Inst.itemDescription.ShowDescription(owner.equip.itemName, owner.equip.Description);
+        UIMgr.Inst.itemDescription.ShowDescription(owner.equip);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

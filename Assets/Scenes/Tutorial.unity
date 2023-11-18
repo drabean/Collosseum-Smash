@@ -3009,8 +3009,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: tutorialText
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
-  m_sharedMaterial: {fileID: -6208690387942919651, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f9ee44601b0cf904da569a64a0d962ee, type: 2}
+  m_sharedMaterial: {fileID: -6208690387942919651, guid: f9ee44601b0cf904da569a64a0d962ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3099,7 +3099,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6208690387942919651, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
+  - {fileID: -6208690387942919651, guid: f9ee44601b0cf904da569a64a0d962ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4059,6 +4059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainCam: {fileID: 0}
   isTest: 1
+  testStage: {fileID: 0}
 --- !u!4 &517564148
 Transform:
   m_ObjectHideFlags: 0
@@ -4163,7 +4164,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 13.333333
+  orthographic size: 13.571428
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4208,6 +4209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min: {x: -2, y: -2, z: 0}
   max: {x: 2, y: 3, z: 0}
+  useRangeLock: 0
   shakeX:
     serializedVersion: 2
     m_Curve:
