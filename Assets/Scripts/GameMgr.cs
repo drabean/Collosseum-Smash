@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
-    //   [SerializeField] List<Transform> audiencesPoint = new List<Transform>();
+    public runData curRunData;
 
     Player player;
     
@@ -26,15 +26,31 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     private IEnumerator Start()
     {
+        //데이터 불러오기
+        curRunData = UTILS.GetRunData();
+
+        //플레이어 생성 및 설정 동기화
+        player = Instantiate(LoadedData.Inst.getCharacterInfoByID(curRunData.characterInfoIdx).playerPrefab);
+        player.transform.position = Vector3.up * -3f;
+        player.AttachUI();
+        MainCam.SetBaseTarget(player.transform);
+        EnemyMgr.Inst.player = player;
+
+        //플레이어 아이템 장착
+        for(int i = 0; i < curRunData.item.Count; i++)
+        {
+            Instantiate(LoadedData.Inst.getEquipByID(curRunData.item[i])).onEquip(player);
+        }
+
+        //스테이지 로딩
         GameData.Inst.selectStage();
         //테스트를 위한 임의 스테이지 지정
         if (testStage != null) info = testStage;
-        else info = GameData.Inst.curStageInfo;
+        else info = LoadedData.Inst.stageInfos[curRunData.nextStage];
 
         Time.timeScale = 1;
-        player = GameObject.FindObjectOfType<Player>();
 
-        player.AttachUI();
+
         if (isTest) yield break;
         yield return new WaitForSeconds(2.0f);
 
@@ -43,6 +59,11 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSeconds(2.0f);
         UIMgr.Inst.progress.HideAll();
         StartNormalStage();
+    }
+
+    void getNextStage()
+    {
+
     }
     StageInfo info;
     Coroutine curSpawnRoutine;
@@ -228,7 +249,10 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     IEnumerator co_ToNextScene()
     {
+        curRunData.clearedStages.Add(curRunData.nextStage);
+        curRunData.nextStage = 1;
         yield return new WaitForSeconds(3.0f);
+        UTILS.SaveRunData(curRunData);
         LoadSceneMgr.LoadSceneAsync("Main");
     }
     #endregion

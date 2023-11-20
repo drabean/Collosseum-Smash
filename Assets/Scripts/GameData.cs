@@ -10,8 +10,6 @@ public class GameData : MonoSingleton<GameData>
 {
     public StageInfo curStageInfo;
 
-    public List<Equip> equips = new List<Equip>();
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);

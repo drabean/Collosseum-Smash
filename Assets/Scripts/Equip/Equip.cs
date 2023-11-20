@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Equip : MonoBehaviour
 {
+    public int ID;
+
     public Sprite ItemSprite;
     public string itemName;
     [TextArea]

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
   m_Name: testData
   m_EditorClassIdentifier: 
+  stageIndex: -1
   Enemies:
   - {fileID: 2420703359672377589, guid: ba6aa93594ac3d24f9f88062fee10b85, type: 3}
   Boss: {fileID: 4042474324043264326, guid: bcf093a1c097b6f4599f5e645aa5e829, type: 3}

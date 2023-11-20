@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd57b0aaa41bdc844be28e66b3e5f4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 4
   ItemSprite: {fileID: 21300000, guid: 99bebdad91ef15d45a5d281f4b2dc8a5, type: 3}
   itemName: HolySword
   Description: "\rFires sword energy every 3 times it attacks."

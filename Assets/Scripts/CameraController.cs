@@ -27,8 +27,6 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         camOriginSize = cam.orthographicSize;
-        baseTarget = GameObject.FindObjectOfType<Player>().transform;
-        if (target == null) target = baseTarget;
     }
 
     #region ÃßÀû
@@ -42,7 +40,7 @@ public class CameraController : MonoBehaviour
     {
         if (targetLock) return;
             
-         transform.position = Vector3.Lerp(transform.position, clampVector(target.transform.position) + offset, 0.2f);
+         if(target != null)transform.position = Vector3.Lerp(transform.position, clampVector(target.transform.position) + offset, 0.2f);
        //if(!isShaking) transform.position = target.position + offset;
     }
 
@@ -143,6 +141,12 @@ public class CameraController : MonoBehaviour
 
     public void changeTargetToDefault()
     {
+        target = baseTarget;
+    }
+
+    public void SetBaseTarget(Transform baseTarget)
+    {
+        this.baseTarget = baseTarget;
         target = baseTarget;
     }
 }

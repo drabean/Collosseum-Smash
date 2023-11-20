@@ -8,7 +8,6 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] UICharacterSelectCanvas CharacterSelectGroup;
     [SerializeField] UIItemDescriptionPanel ItemDescription;
 
-
     private void Awake()
     {
         if(!LoadedData.Inst.isDataLoaded) LoadedData.Inst.LoadData();
@@ -17,7 +16,13 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     {
         Debug.Log("START");
         //SceneManager.LoadScene("Main");
-        LoadSceneMgr.LoadSceneAsync("Main");
+        //runData = new runData()
+        //UTILS.SaveRunData();
+
+        CharacterSelectGroup.gameObject.SetActive(true);
+        CharacterSelectGroup.OpenCharacterSelect(0);
+
+      //  LoadSceneMgr.LoadSceneAsync("Main");
     }
 
     public void BtnOption()
@@ -29,12 +34,6 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     public void Btn_Exit()
     {
         Application.Quit();
-    }
-
-    public void Btn_CharacterChange()
-    {
-        CharacterSelectGroup.gameObject.SetActive(true);
-        CharacterSelectGroup.OpenCharacterSelect(0);
     }
 
     public void ShowItemDescription(Equip equip)

@@ -14,7 +14,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     [SerializeField] UIEquipHolder[] equips;
     public CharacterInfo info;
 
-    int curIdx = 0;
+    public int curIdx = 0;
 
     public void OpenCharacterSelect(int idx)
     {
@@ -85,9 +85,9 @@ public class UICharacterSelectCanvas : MonoBehaviour
         changePlayer();
         characterName.text = info.characterName;
         description.text = info.description;
-        stats[0].SetStat(info.stat.STR);
-        stats[1].SetStat(info.stat.VIT);
-        stats[2].SetStat(info.stat.SPD);
+        stats[0].SetStat(info.playerPrefab.Stat.STR);
+        stats[1].SetStat(info.playerPrefab.Stat.VIT);
+        stats[2].SetStat(info.playerPrefab.Stat.SPD);
 
         for (int i = 0; i < 2; i++)
         {
@@ -105,6 +105,20 @@ public class UICharacterSelectCanvas : MonoBehaviour
         curIdx++;
         curIdx %= LoadedData.Inst.characterInfos.Length;
         Show();
+    }
+
+    public void Btn_StartGame()
+    {
+        runData data = new runData(curIdx, 0, new List<int>(), new List<int>());
+        info = LoadedData.Inst.characterInfos[curIdx];
+
+        for (int i = 0; i < info.playerItems.Count; i++)
+        {
+            data.item.Add(info.playerItems[i].ID);
+        }
+        UTILS.SaveRunData(data);
+
+        LoadSceneMgr.LoadSceneAsync("Main");
     }
     #endregion
 

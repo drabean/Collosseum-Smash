@@ -11,7 +11,7 @@ public class ItemAcquire : MonoBehaviour
     {
         owner.onAcquire?.Invoke(owner.index);
         SoundMgr.Inst.Play("GetItem");
-        GameData.Inst.equips.Add(owner.equip);
+        GameMgr.Inst.curRunData.item.Add(owner.equip.ID);
         Equip curEq = Instantiate<Equip>(owner.equip);
 
         curEq.onEquip(GameObject.FindObjectOfType<Player>());

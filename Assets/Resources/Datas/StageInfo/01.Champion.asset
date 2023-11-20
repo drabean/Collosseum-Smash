@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
-  m_Name: Champion
+  m_Name: 01.Champion
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}

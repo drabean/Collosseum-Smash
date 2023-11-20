@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
-  m_Name: Block
+  m_Name: 02.Block
   m_EditorClassIdentifier: 
+  stageIndex: 2
   Enemies:
   - {fileID: 6787935353413353397, guid: 8ba1f2e3fa1656e4fb8265af4b0e0c61, type: 3}
   - {fileID: 4689563923806523696, guid: a5941502edbea64489fa299615fe326b, type: 3}
