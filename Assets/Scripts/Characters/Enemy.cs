@@ -147,7 +147,7 @@ public class Enemy : CharacterBase
     {
         isDead = true;
 
-        hit.FlashWhite(0.1f);
+        hit.FlashWhite(0.3f);
         Destroy(GetComponent<Collider2D>());
 
         yield return new WaitForSecondsRealtime(0.15f);

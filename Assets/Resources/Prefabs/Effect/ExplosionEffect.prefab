@@ -57,7 +57,7 @@ Animator:
   m_GameObject: {fileID: 1062290868216608965}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2600da266dcb1244aea4b035e4d9f10, type: 2}
+  m_Controller: {fileID: 9100000, guid: fc8b42ea51c54a24eb3e580f79ed0d18, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -132,4 +132,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPushTime: 0
   SFXName: Impact

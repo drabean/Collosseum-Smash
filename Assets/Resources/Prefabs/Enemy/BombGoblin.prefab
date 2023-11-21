@@ -141,10 +141,12 @@ MonoBehaviour:
   moveSpeed: 1.3
   aimRange: 0.5
   size: 0.5
-  type: 2
   Target: {fileID: 0}
   difficulty: 2
   isSuperarmor: 0
+  attackWaitTime: 0.5
+  explosionRange: 1.3
+  Explosion: {fileID: 1062290868216608965, guid: a358c5d236e3a144b9e1ce38d82deb22, type: 3}
 --- !u!212 &6028886635807258629
 SpriteRenderer:
   m_ObjectHideFlags: 0

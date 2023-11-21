@@ -23,11 +23,17 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     public bool isTest;
     public StageInfo testStage;
+    public runData testRunData;
 
     private IEnumerator Start()
     {
+        if (isTest)
+        {
+            LoadedData.Inst.LoadData();
+            curRunData = new runData();
+        }
         //데이터 불러오기
-        curRunData = UTILS.GetRunData();
+        else curRunData = UTILS.GetRunData();
 
         //플레이어 생성 및 설정 동기화
         player = Instantiate(LoadedData.Inst.getCharacterInfoByID(curRunData.characterInfoIdx).playerPrefab);
@@ -45,8 +51,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         //스테이지 로딩
         GameData.Inst.selectStage();
         //테스트를 위한 임의 스테이지 지정
-        if (testStage != null) info = testStage;
-        else info = LoadedData.Inst.stageInfos[curRunData.nextStage];
+        info = LoadedData.Inst.stageInfos[curRunData.nextStage];
 
         Time.timeScale = 1;
 
