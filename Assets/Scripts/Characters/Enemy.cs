@@ -29,7 +29,7 @@ public class Enemy : CharacterBase
 
         if (curHP <= 0)
         {
-            Target.HitSuccess();
+            if(Target != null) Target.InvokeOnSmash();
             isDead = true;
             smash(attackerPos);
         }
@@ -41,6 +41,7 @@ public class Enemy : CharacterBase
 
     protected virtual void smash(Transform attackerPos)
     {
+        isDead = true;
         stopAction();
         SoundMgr.Inst.Play("Smash");
         StartCoroutine(co_Smash(attackerPos));
@@ -84,12 +85,12 @@ public class Enemy : CharacterBase
 
     float KnockBackPower = 0.3f;
 
-    protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.0f)
+    protected virtual void Hit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         SoundMgr.Inst.Play("Hit");
 
-        anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", false);
+        if (anim != null) anim.SetBool("isMoving", false);
+        if (anim != null) anim.SetBool("isReady", false);
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.2f);
@@ -98,7 +99,6 @@ public class Enemy : CharacterBase
         GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
         if (!isSuperarmor)
         {
-            //stopAction();
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);
             if (stunTime >= 0.1f) stun(stunTime);
         }
@@ -123,9 +123,9 @@ public class Enemy : CharacterBase
     {
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
         //애니메이션 상태 Idle로 초기화
-        anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", false);
-        anim.Play("Idle");
+        if (anim != null)  anim.SetBool("isMoving", false);
+        if (anim != null)  anim.SetBool("isReady", false);
+        if (anim != null)  anim.Play("Idle");
 
         StopAllCoroutines();
     }
@@ -147,7 +147,7 @@ public class Enemy : CharacterBase
     {
         isDead = true;
 
-        hit.FlashWhite(0.1f);
+        hit.FlashWhite(0.3f);
         Destroy(GetComponent<Collider2D>());
 
         yield return new WaitForSecondsRealtime(0.15f);

@@ -308,7 +308,7 @@ MonoBehaviour:
     intervalTime: 0.4
     repeatTIme: 2
     duration: 0
-    prefabName: Prefabs/Attack/SlimeKingAttack1
+    prefabName: Prefabs/Attack/BlockImpact
   - range: 0
     width: 0
     waitBeforeTime: 0.3

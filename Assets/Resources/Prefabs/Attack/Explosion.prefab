@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7212670211599878939}
   - component: {fileID: 1037140710828526543}
   - component: {fileID: 7157773199469752495}
-  - component: {fileID: 7956004964577042356}
   m_Layer: 17
   m_Name: Explosion
   m_TagString: Untagged
@@ -129,7 +128,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062290868216608965}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -150,20 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
---- !u!114 &7956004964577042356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062290868216608965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

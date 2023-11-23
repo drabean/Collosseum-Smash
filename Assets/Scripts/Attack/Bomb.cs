@@ -10,7 +10,7 @@ public class Bomb : MonoBehaviour
     private void Awake()
     {
         Invoke("doExplode", explosionTime);
-        GameMgr.Inst.AttackEffectCircle(transform.position, 1.5f, explosionTime);
+        GameMgr.Inst.AttackEffectCircle(transform.position, 1.55f, explosionTime);
     }
     public void doExplode()
     {
@@ -19,7 +19,7 @@ public class Bomb : MonoBehaviour
 
     public void Explode()
     {
-        DictionaryPool.Inst.Pop("Prefabs/Effect/Explosion").transform.position = transform.position;
+        Instantiate(explosion, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }

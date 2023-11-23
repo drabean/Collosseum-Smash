@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
+  m_Name: 02.Block
+  m_EditorClassIdentifier: 
+  stageIndex: 2
+  Enemies:
+  - {fileID: 6787935353413353397, guid: 8ba1f2e3fa1656e4fb8265af4b0e0c61, type: 3}
+  - {fileID: 4689563923806523696, guid: a5941502edbea64489fa299615fe326b, type: 3}
+  - {fileID: 4208118671071598622, guid: dffdd6a8995b35640bb22fa2518ca04c, type: 3}
+  Boss: {fileID: 2734482238864720142, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+  maxKill: 20
+  Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
+  BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
+  StageDeco: {fileID: 0}
