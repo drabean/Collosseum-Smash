@@ -14,6 +14,8 @@ public class EnemyMelee: Enemy
 
     public bool doAttackSpin;
 
+    public bool isChasing;
+    
     private void Awake()
     {
         evnt.attack = doAttack;
@@ -22,24 +24,70 @@ public class EnemyMelee: Enemy
 
     public override void StartAI()
     {
-        StartCoroutine(co_Chase());
+        selectState();
     }
-    IEnumerator co_Chase()
+
+    void selectState()
     {
-        if (isDead) yield break;
-        while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
+        if (!checkOtherMeleeEnemy()) StartCoroutine(co_Chase(3.0f));
+        else StartCoroutine(co_Wander(1.5f));
+    }
+    IEnumerator co_Chase(float chaseTime)
+    {
+        isChasing = true;
+        while (chaseTime >= 0)
         {
+            if (isDead) yield break;
+            chaseTime -= Time.deltaTime;
+
             moveTowardTarget(Target.transform.position);
+
+            if (Vector3.Distance(transform.position, Target.transform.position) < attackRange)
+            {
+                yield return StartCoroutine(co_Atk());
+            }
             yield return null;
         }
-        moveTowardTarget(Target.transform.position);
+        isChasing = false;
+        selectState();
+    }
 
-        StartCoroutine(co_Atk());
+    /// <summary>
+    /// Target을 중심으로 측면 이동
+    /// </summary>
+    /// <param name="nextMove"></param>
+    /// <returns></returns>
+    IEnumerator co_Wander(float wanderTime)
+    {
+        bool isReversed = Random.Range(0, 2) == 0;//회전 방향을 정함
+
+        while (wanderTime >= 0)
+        {
+            if (isDead) yield break;
+            wanderTime -= Time.deltaTime;
+
+            Vector2 moveVec = (Target.transform.position - transform.position);
+            moveVec = Vector2.right * moveVec.y * (-1) + Vector2.up * moveVec.x;
+            if (isReversed) moveVec *= -1;
+            moveToDir(moveVec);
+
+            if (Vector3.Distance(transform.position, Target.transform.position) < attackRange)
+            {
+                yield return StartCoroutine(co_Atk());
+            }
+            yield return null;
+        }
+
+        anim.SetBool("isMoving", false);
+        yield return new WaitForSeconds(0.5f);
+        selectState();
     }
 
     IEnumerator co_Atk()
     {
         if (isDead) yield break;
+        //방향 조절
+        moveTowardTarget(Target.transform.position);
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
@@ -49,7 +97,6 @@ public class EnemyMelee: Enemy
 
         anim.SetTrigger("doAttack");
         yield return new WaitForSeconds(attackAfterWaitTime);
-        StartCoroutine(co_Chase());
     }
 
     void doAttack()
@@ -59,6 +106,40 @@ public class EnemyMelee: Enemy
         if(doAttackSpin) temp.transform.rotation = (aim.position - transform.position).ToQuaternion();
         else temp.GetComponent<SpriteRenderer>().flipX = sp.flipX;
     }
+
+
+    [SerializeField] LayerMask layer;
+    /// <summary>
+    ///  주변에 다른 EnemyMelee가 있는지 확인하고, 해당 적이 Chase 모드이면, 이 캐릭터는  직선 추격이 아닌, 주변 돌아다니는 움직임으로 전환함.
+    /// </summary>
+    /// <returns>Chase 모드인 다른 적이 있다면 true, 아니면 false</returns>
+    bool checkOtherMeleeEnemy()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 1, Vector3.forward, 0f, layer);
+
+        if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
+        {
+            Debug.Log("주위에 아무도 없음");
+            return false;
+        }
+        else
+        {
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if(hits[i].collider.TryGetComponent<EnemyMelee>(out EnemyMelee em))
+                {
+                    Debug.Log("Chase모드인애 발견!");
+                    Debug.Log(em.gameObject.name);
+                    if(em.isChasing) return true;
+                }
+                    
+            }
+        }
+
+        return false;
+    }
+
 
 
 }

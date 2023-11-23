@@ -7,6 +7,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
     public runData curRunData;
+    public bool isPlayerInstantiated;
 
     Player player;
     
@@ -47,9 +48,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             Instantiate(LoadedData.Inst.getEquipByID(curRunData.item[i])).onEquip(player);
         }
+        isPlayerInstantiated = true;
 
-        //스테이지 로딩
-        GameData.Inst.selectStage();
         //테스트를 위한 임의 스테이지 지정
         info = LoadedData.Inst.stageInfos[curRunData.nextStage];
 
@@ -63,12 +63,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         yield return new WaitForSeconds(2.0f);
         UIMgr.Inst.progress.HideAll();
+
         StartNormalStage();
-    }
-
-    void getNextStage()
-    {
-
     }
     StageInfo info;
     Coroutine curSpawnRoutine;

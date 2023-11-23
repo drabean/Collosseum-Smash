@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5309155296412603922}
   - component: {fileID: 1381109140487689771}
   m_Layer: 16
-  m_Name: BombGoblin
+  m_Name: GoblinBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   curHP: 1
   moveSpeed: 1.3
   aimRange: 0.5
-  size: 0.5
+  size: 0.3
   Target: {fileID: 0}
   difficulty: 2
   isSuperarmor: 0

@@ -11,8 +11,9 @@ public class TutorialMgr : MonoBehaviour
     Player player;
     public List<Enemy> TrainingBots = new List<Enemy>();
     public List<Transform> SpawnPoints = new List<Transform>();
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitUntil(()=>GameMgr.Inst.isPlayerInstantiated);
         player = GameObject.FindObjectOfType<Player>();
         SoundMgr.Inst.PlayBGM("Tutorial");
         startP1();

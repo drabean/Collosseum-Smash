@@ -86,6 +86,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <returns></returns>
     IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
     {
+        position = position.Clamp(spawnArea[0].position, spawnArea[1].position);
         GameMgr.Inst.AttackEffectCircle(position, 1.0f, 1.0f);
         Poolable warning = DictionaryPool.Inst.Pop("Prefabs/Warning").GetComponent<Poolable>();
         warning.transform.position = position;

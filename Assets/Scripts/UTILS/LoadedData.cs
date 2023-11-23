@@ -26,7 +26,7 @@ public class LoadedData : Singleton<LoadedData>
 
         foreach(Equip e in equips)
         {
-            Equips.Add(e.ID, e);
+            if(!Equips.ContainsKey(e.ID)) Equips.Add(e.ID, e);
         }
 
         isDataLoaded = true;

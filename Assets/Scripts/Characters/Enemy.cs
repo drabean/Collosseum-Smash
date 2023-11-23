@@ -85,12 +85,12 @@ public class Enemy : CharacterBase
 
     float KnockBackPower = 0.3f;
 
-    protected void Hit(Transform attackerPos, float dmg, float stunTime = 0.0f)
+    protected virtual void Hit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         SoundMgr.Inst.Play("Hit");
 
-        anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", false);
+        if (anim != null) anim.SetBool("isMoving", false);
+        if (anim != null) anim.SetBool("isReady", false);
 
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
         hit.FlashWhite(0.2f);
@@ -123,9 +123,9 @@ public class Enemy : CharacterBase
     {
         if (curAttackWarning != null) DictionaryPool.Inst.Push(curAttackWarning.gameObject);
         //애니메이션 상태 Idle로 초기화
-        anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", false);
-        anim.Play("Idle");
+        if (anim != null)  anim.SetBool("isMoving", false);
+        if (anim != null)  anim.SetBool("isReady", false);
+        if (anim != null)  anim.Play("Idle");
 
         StopAllCoroutines();
     }

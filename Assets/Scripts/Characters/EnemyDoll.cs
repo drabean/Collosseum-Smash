@@ -25,11 +25,19 @@ public class EnemyDoll : Enemy
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
         invokeOnDeath(Vector3.zero);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f); 
 
         //TODO: 각종 오브젝트들 풀 반환 해야함
         hitBackParticle.GetComponent<Poolable>().Push();
         Destroy(gameObject);
+    }
+
+    protected override void Hit(Transform attackerPos, float dmg, float stunTime = 0)
+    {
+        Vector3 hitVec = (transform.position - attackerPos.position).normalized;
+        hit.FlashWhite(0.2f);
+        hit.HitEffect(hitVec, size);
+        return;
     }
 
 }
