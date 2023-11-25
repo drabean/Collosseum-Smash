@@ -115,7 +115,7 @@ public class EnemyMelee: Enemy
     /// <returns>Chase 모드인 다른 적이 있다면 true, 아니면 false</returns>
     bool checkOtherMeleeEnemy()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 1, Vector3.forward, 0f, layer);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 2, Vector3.forward, 0f, layer);
 
         if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
         {
@@ -129,8 +129,6 @@ public class EnemyMelee: Enemy
             {
                 if(hits[i].collider.TryGetComponent<EnemyMelee>(out EnemyMelee em))
                 {
-                    Debug.Log("Chase모드인애 발견!");
-                    Debug.Log(em.gameObject.name);
                     if(em.isChasing) return true;
                 }
                     

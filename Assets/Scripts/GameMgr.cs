@@ -51,12 +51,11 @@ public class GameMgr : MonoSingleton<GameMgr>
         isPlayerInstantiated = true;
 
         //테스트를 위한 임의 스테이지 지정
-        info = LoadedData.Inst.stageInfos[curRunData.nextStage];
+        if (testStage == null) info = LoadedData.Inst.stageInfos[curRunData.nextStage];
+        else info = testStage;
 
         Time.timeScale = 1;
 
-
-        if (isTest) yield break;
         yield return new WaitForSeconds(2.0f);
 
         UIMgr.Inst.progress.ShowStageStart();

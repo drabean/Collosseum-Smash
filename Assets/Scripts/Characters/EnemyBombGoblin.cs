@@ -31,7 +31,8 @@ public class EnemyBombGoblin : Enemy
 
     IEnumerator co_Explode()
     {
-        hit.FlashWhite(1.0f);
+        hit.FlashWhite(2.0f);
+        moveSpeed *= 0.6f;
         yield return new WaitForSeconds(attackWaitTime);
         Instantiate(Explosion, transform.position, Quaternion.identity);
         Despawn();

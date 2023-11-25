@@ -5095,7 +5095,7 @@ MonoBehaviour:
   isDead: 0
   maxHP: 40
   curHP: 40
-  moveSpeed: 2.5
+  moveSpeed: 2
   aimRange: 0.8
   size: 0
   Target: {fileID: 0}
@@ -5110,6 +5110,14 @@ MonoBehaviour:
     repeatTIme: 0
     duration: 0
     prefabName: Prefabs/Attack/HammerImpact
+  - range: 0.7
+    width: 1
+    waitBeforeTime: 1
+    waitAfterTime: 0.5
+    intervalTime: 0
+    repeatTIme: 0
+    duration: 5
+    prefabName: 
   patternCount: 0
   mobs:
   - {fileID: 2615918146226860490, guid: ab6c15cd655f6ac4d8dd5de1ae3c7b12, type: 3}

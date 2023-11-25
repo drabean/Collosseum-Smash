@@ -4949,8 +4949,9 @@ MonoBehaviour:
     nextStage: 0
     item: 
     clearedStages: 
+  isPlayerInstantiated: 0
   isTest: 1
-  testStage: {fileID: 0}
+  testStage: {fileID: 11400000, guid: bf43cdf910459e74584d8605dee8e375, type: 2}
   testRunData:
     characterInfoIdx: 0
     nextStage: 0

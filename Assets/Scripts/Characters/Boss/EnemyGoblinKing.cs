@@ -22,19 +22,24 @@ public class EnemyGoblinKing : EnemyBoss
 
     public float SpawnCoolTime;
     float lastSpawnedTime;
-
+    bool usedSpawningBomb;
     IEnumerator co_Chase()
     {
         while(true)
         {
+            if (!usedSpawningBomb && (curHP / maxHP) <= 0.5f)
+            {
+                usedSpawningBomb = true;
+                yield return StartCoroutine(co_SpawnBombs());
+            }
+
             // 적 소환 가능 시간이 되었다면
-            if(Time.time - lastSpawnedTime >= SpawnCoolTime)
+            if (Time.time - lastSpawnedTime >= SpawnCoolTime)
             {
                 lastSpawnedTime = Time.time;
                 yield return StartCoroutine(co_SpawnMob());
 
             }
-
             moveTowardTarget(Target.transform.position);
 
             if(Vector3.Distance(transform.position, Target.transform.position) < patterns[0].range)
@@ -44,6 +49,28 @@ public class EnemyGoblinKing : EnemyBoss
             yield return null;
         }
 
+    }
+
+    IEnumerator co_SpawnBombs()
+    {
+        anim.SetTrigger("doSpawn");
+        yield return new WaitForSeconds(1.0f);
+
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[0], enemyDeadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[1], enemyDeadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[2], enemyDeadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[03], enemyDeadOption);
+
+        yield return new WaitForSeconds(patterns[1].waitAfterTime);
+
+        float runAwayTimeLeft = patterns[1].duration;
+
+        while (runAwayTimeLeft >= 0)
+        {
+            runAwayTimeLeft -= Time.deltaTime;
+            moveToDir( transform.position - Target.transform.position);
+            yield return null;
+        }
     }
     IEnumerator co_Atk()
     {
@@ -69,7 +96,6 @@ public class EnemyGoblinKing : EnemyBoss
         anim.SetTrigger("doSpawn");
 
         yield return new WaitForSeconds(3.0f);
-
     }
     void doAttack()
     {
