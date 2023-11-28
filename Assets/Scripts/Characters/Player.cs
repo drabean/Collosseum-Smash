@@ -279,20 +279,24 @@ public class Player : CharacterBase
     {
         if (isInvincible) return;
 
+        Vector3 hitVec = (transform.position - attackerPos.position).normalized;
+
         SoundMgr.Inst.Play("PlayerHit");
-        if (curHP <= 1)
+        bool resisted = InvokeOnHit(false);
+
+        hit.FlashWhite(0.2f);
+        hit.HitEffect(hitVec, size);
+
+        if (curHP <= 1 && !resisted)
         {
-            die();
+            StartCoroutine(co_Smash(hitVec));
         }
-        StartCoroutine(co_Invincible(InvokeOnHit(false)));
+        else
+        {
+            StartCoroutine(co_Invincible(resisted));
+        }
     }
-    void die()
-    {
-        SoundMgr.Inst.StopBGM();
-        isDead = true;
-        anim.SetBool("isMoving", false);
-        UIMgr.Inst.progress.Die();
-    }
+
     /// <summary>
     /// 데미지를 입히고, 무적시간을 부여하며 연출을 해주는 코루틴
     /// </summary>
@@ -311,15 +315,45 @@ public class Player : CharacterBase
         hit.FlashWhite(0.3f);
         hit.Togle(1.0f);
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
 
         isInvincible = false;
     }
+    IEnumerator co_Smash(Vector3 hitVec)
+    {
+        anim.SetBool("isMoving", false);
+        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
+        isDead = true;
 
+        GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
+        GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
+        GameMgr.Inst.SlowTime(0.3f, 0.3f, true);
+
+        UIMgr.Inst.hp.Set((int)curHP);
+        hit.FlashWhite(0.3f);
+        hit.Togle(1.0f);
+        Destroy(GetComponent<Collider2D>());
+
+        rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
+        rb.gravityScale = 1.0f;
+        yield return new WaitForSeconds(1.5f);
+        LoadSceneMgr.LoadSceneAsync("GameOver");
+    }
     void onMove()
     {
         particle.Play();
         SoundMgr.Inst.Play("Step");
         InvokeOnMovement();
     }
+
+    #region 게임 오버 씬 연출용 함수
+    public void StartDeadMotion()
+    {
+        anim.SetBool("isDead", true);
+    }
+    public void EndDeadMotion()
+    {
+        anim.SetBool("isDead", false);
+    }
+    #endregion
 }

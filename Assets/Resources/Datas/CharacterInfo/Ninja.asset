@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a520c66fcf9c3e54c991e8f586adebfb, type: 3}
   m_Name: Ninja
   m_EditorClassIdentifier: 
+  ID: 1
   playerPrefab: {fileID: 6671696160339347068, guid: 7f4324fc4369ef34f9677c238c39bce7, type: 3}
   playerItems:
   - {fileID: 9120242461795133801, guid: a67bedfe40f1a6f46b8f07b3bc769297, type: 3}
   - {fileID: 350244522285536300, guid: b2e02b3506b2bc24594ba2e0ca0e80f9, type: 3}
   characterName: Ninja
   description: this is Ninja Desc
-  stat:
-    STR: 2
-    VIT: 2
-    SPD: 4

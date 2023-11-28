@@ -1,4 +1,4 @@
-using System.Collections;
+using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -55,6 +55,7 @@ public class UTILS : MonoBehaviour
     /// <summary>
     /// 저장되어있는 RunData 삭제하기(reset)
     /// </summary>
+    [MenuItem("MyTools/DeleteRunData")]
     public static void DeleteRunData()
     {
         string persistentPath = Application.persistentDataPath;

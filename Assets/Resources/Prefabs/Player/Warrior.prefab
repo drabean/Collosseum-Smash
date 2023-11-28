@@ -5151,6 +5151,7 @@ MonoBehaviour:
   curHP: 0
   moveSpeed: 2.5
   aimRange: 1
+  size: 0.5
   spriteGroup: {fileID: 6244428598582629696}
   particle: {fileID: 6244428597540747844}
   iconHolder: {fileID: 704753947527491429}
@@ -5159,7 +5160,11 @@ MonoBehaviour:
     STR: 3
     VIT: 4
     SPD: 1
-  testMode: 0
+  findRange: 0
+  attackRange: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &6244428598672389786
 Animator:
   serializedVersion: 5

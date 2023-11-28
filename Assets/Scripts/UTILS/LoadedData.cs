@@ -9,7 +9,9 @@ public class LoadedData : Singleton<LoadedData>
 {
     public bool isDataLoaded = false;
 
-    public CharacterInfo[] characterInfos;
+    Dictionary<int, CharacterInfo> CharacterInfos = new Dictionary<int, CharacterInfo>();
+    public int characterInfosCount = 0;
+
     public StageInfo[] stageInfos;
 
     Dictionary<int, Equip> Equips = new Dictionary<int, Equip>();
@@ -20,13 +22,29 @@ public class LoadedData : Singleton<LoadedData>
 
     public void LoadData()
     {
-        characterInfos = Resources.LoadAll<CharacterInfo>(characterInfoPath);
+        CharacterInfo[] characterInfos = Resources.LoadAll<CharacterInfo>(characterInfoPath);
+
+        foreach(CharacterInfo c in characterInfos)
+        {
+            // if(characterInfos.)
+            if(!CharacterInfos.ContainsKey(c.ID))
+            {
+                Debug.Log(c);
+                Debug.Log(c.ID);
+                CharacterInfos.Add(c.ID, c);
+                characterInfosCount++;
+
+            }
+        }
         stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
         Equip[] equips = Resources.LoadAll<Equip>(equipPath);
 
         foreach(Equip e in equips)
         {
-            if(!Equips.ContainsKey(e.ID)) Equips.Add(e.ID, e);
+            if (!Equips.ContainsKey(e.ID))
+            {
+                Equips.Add(e.ID, e);
+            }
         }
 
         isDataLoaded = true;
@@ -34,7 +52,7 @@ public class LoadedData : Singleton<LoadedData>
 
     public CharacterInfo getCharacterInfoByID(int idx)
     {
-        return characterInfos[idx];
+        return CharacterInfos[idx];
     }
     public Equip getEquipByID(int ID)
     {

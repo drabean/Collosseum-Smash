@@ -5279,7 +5279,7 @@ MonoBehaviour:
   curHP: 4
   moveSpeed: 2.5
   aimRange: 1
-  size: 0
+  size: 0.5
   spriteGroup: {fileID: 7506382718443161740}
   particle: {fileID: 7506382717464192904}
   iconHolder: {fileID: 2144557893}

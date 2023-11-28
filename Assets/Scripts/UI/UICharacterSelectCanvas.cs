@@ -16,6 +16,11 @@ public class UICharacterSelectCanvas : MonoBehaviour
 
     public int curIdx = 0;
 
+    public void Init(int saveIdx)
+    {
+        curIdx = saveIdx;
+        Show();
+    }
     public void OpenCharacterSelect(int idx)
     {
         //TODO: Save에 저장된 마지막 플레이 캐릭터가 보이도록 함
@@ -27,7 +32,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
 
     public void CloseCharacterSelect()
     {
-        resetCharacterView();
+        //resetCharacterView();
 
         GroupCharacterSelect.SetActive(false);
     }
@@ -79,7 +84,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     }
     void Show()
     {
-        info = LoadedData.Inst.characterInfos[curIdx];
+        info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
 
         changePlayer();
@@ -103,14 +108,14 @@ public class UICharacterSelectCanvas : MonoBehaviour
     public void Btn_ChangeCharacter(bool isRight)
     {
         curIdx++;
-        curIdx %= LoadedData.Inst.characterInfos.Length;
+        curIdx %= LoadedData.Inst.characterInfosCount;
         Show();
     }
 
     public void Btn_StartGame()
     {
         runData data = new runData(curIdx, 0, new List<int>(), new List<int>());
-        info = LoadedData.Inst.characterInfos[curIdx];
+        info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)
         {
