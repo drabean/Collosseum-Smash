@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95e5ee88be77d1146bf27297e305207a
+guid: d2d6522dff092e642b7078e7a59362f1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attack_B_0
+      name: Attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d06ac12527ee564f9b3ed8e1abd0911
-      internalID: -379466032
+      spriteID: 97143c49b6af1e74fb4a48d88058b62c
+      internalID: 1022035389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_1
+      name: Attack_1
       rect:
         serializedVersion: 2
         x: 40
@@ -164,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e70fb388de3f4246970258a5d78135e
-      internalID: -832134392
+      spriteID: d831d8ee7be093a45addf1542beaae70
+      internalID: -2074718987
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_2
+      name: Attack_2
       rect:
         serializedVersion: 2
         x: 0
@@ -185,14 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c41a2528ecf88b4f8db32c98d5d9047
-      internalID: 1987688522
+      spriteID: cb35d9bbec1ea4145999b97ac1024a08
+      internalID: 116763935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_3
+      name: Attack_3
       rect:
         serializedVersion: 2
         x: 40
@@ -206,14 +206,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0dafd8fc3c124042a2ad83cb7e7ccbf
-      internalID: 1309932006
+      spriteID: f24ff7b6aa978a544a586e8042c7f6ed
+      internalID: 1985513465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_4
+      name: Attack_4
       rect:
         serializedVersion: 2
         x: 0
@@ -227,14 +227,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88445dae810eb8b498fea1e9ae53405a
-      internalID: -61246961
+      spriteID: 01e63ecd22392c04699bea99fa7c745d
+      internalID: -2020889213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_5
+      name: Attack_5
       rect:
         serializedVersion: 2
         x: 40
@@ -248,14 +248,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a858b723c75b184198e5f9368a4ec44
-      internalID: 2127829630
+      spriteID: e5ddfa01bb203a2459a7c9d14320f6c3
+      internalID: 1851649768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack_B_6
+      name: Attack_6
       rect:
         serializedVersion: 2
         x: 0
@@ -269,8 +269,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ff1a31ca8a0c7a49ad1aca7120b96a2
-      internalID: 216528191
+      spriteID: 502f58911a606b942815b99c5b849a8f
+      internalID: -1222859441
       vertices: []
       indices: 
       edges: []
@@ -286,13 +286,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attack_B_0: -379466032
-      Attack_B_1: -832134392
-      Attack_B_2: 1987688522
-      Attack_B_3: 1309932006
-      Attack_B_4: -61246961
-      Attack_B_5: 2127829630
-      Attack_B_6: 216528191
+      Attack_0: 1022035389
+      Attack_1: -2074718987
+      Attack_2: 116763935
+      Attack_3: 1985513465
+      Attack_4: -2020889213
+      Attack_5: 1851649768
+      Attack_6: -1222859441
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

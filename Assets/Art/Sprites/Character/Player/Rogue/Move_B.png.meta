@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e90cfb51179ecd84a9e13889f2b0a92a
+guid: 08e5e8bf24c90ac4c8debbc552a2bea3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -143,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bc979beb22141a4191a8b649cb47fb9
-      internalID: 451273797
+      spriteID: 6d574627b43e6374fb28168a4c02520c
+      internalID: -1752283886
       vertices: []
       indices: 
       edges: []
@@ -164,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 542dcf8615c7aa745bbb5dec626477ce
-      internalID: -88692793
+      spriteID: e8c41093204c0ac439be4f3e0dd4a459
+      internalID: -1555714661
       vertices: []
       indices: 
       edges: []
@@ -185,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e60d6263e20a94444af7a072dffe984c
-      internalID: 1736456497
+      spriteID: 8a4a6469a75fe664199611fb69efdad9
+      internalID: -463104503
       vertices: []
       indices: 
       edges: []
@@ -206,8 +206,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e79828e92149cee4c98acb709b28dc4f
-      internalID: -626600031
+      spriteID: 6c107b7c30d475d4aa5ee81cae0d9e52
+      internalID: -39152691
       vertices: []
       indices: 
       edges: []
@@ -227,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2abdaf7256faee439e60c1f759d1991
-      internalID: 507897004
+      spriteID: 0a45d5ef19815cd439072c309d3977ce
+      internalID: 2039127247
       vertices: []
       indices: 
       edges: []
@@ -244,11 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Move_B_0: 451273797
-      Move_B_1: -88692793
-      Move_B_2: 1736456497
-      Move_B_3: -626600031
-      Move_B_4: 507897004
+      Move_B_0: -1752283886
+      Move_B_1: -1555714661
+      Move_B_2: -463104503
+      Move_B_3: -39152691
+      Move_B_4: 2039127247
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
