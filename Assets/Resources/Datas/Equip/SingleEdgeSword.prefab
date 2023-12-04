@@ -47,10 +47,9 @@ MonoBehaviour:
   ID: 8
   ItemSprite: {fileID: 21300000, guid: 323c44bba5cdfb54698082dae8593185, type: 3}
   itemName: Single Edge Sword
-  Description: 
+  Description: when throwing item, throw additional daggers to enemies.
   owner: {fileID: 0}
-  reqCombo: 6
-  curIcon: {fileID: 0}
   layer:
     serializedVersion: 2
     m_Bits: 65536
+  daggerPrefab: {fileID: 9173400136024425868, guid: 84e8023b08ce1384d83d3c15e6c5df71, type: 3}

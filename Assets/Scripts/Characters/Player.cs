@@ -6,15 +6,17 @@ using System;
 [System.Serializable]
 public class STATUS
 {
-    public STATUS(int STR, int VIT, int SPD)
+    public STATUS(int STR, int VIT, int SPD, int ACC)
     {
         this.STR = STR;
         this.VIT = VIT;
         this.SPD = SPD;
+        this.ACC = ACC;
     }
     public int STR;
     public int VIT;
     public int SPD;
+    public int ACC;
 }
 
 public class Player : CharacterBase
@@ -69,9 +71,18 @@ public class Player : CharacterBase
     /// </summary>
     public float attackRange;
 
+
+    /// <summary>
+    /// 투척 사거리
+    /// </summary>
+    public float throwRange;
+
     Transform target;
     float targetSize;
 
+    #region 상태변수
+    public bool isHolding;
+    #endregion
 
     /// <summary>
     /// stat을 기반으로 실제 적용시키는 함수
@@ -85,16 +96,22 @@ public class Player : CharacterBase
     #endregion
 
     #region Events 
-    //적을 처치했을 때 호출
+    /// <summary>
+    /// 적 처치시
+    /// </summary>
     public Action actionSmash;
     public void InvokeOnSmash() { actionSmash?.Invoke(); }
 
-    //이동 중에 호출
+    /// <summary>
+    /// 이동 할 때
+    /// </summary>
     public Action onMovement;
     public void InvokeOnMovement() { onMovement?.Invoke(); }
 
 
-    //피격 시 호출
+    /// <summary>
+    /// 피격 시
+    /// </summary>
     public Func<bool, bool> actionHit;
     public bool InvokeOnHit(bool resisted)
     {
@@ -104,11 +121,20 @@ public class Player : CharacterBase
             return actionHit(resisted);
     }
 
-    //공격 시 호출
+    /// <summary>
+    /// 공격 시
+    /// </summary>
     public Action onAttack;
     public void InvokeOnAttack() { onAttack?.Invoke(); }
 
-    //이동 중지 시 호출
+    /// <summary>
+    /// 투척 시
+    /// </summary>
+    public Action onThrow;
+    public void InvokeOnThrow() { onThrow?.Invoke(); }
+    /// <summary>
+    /// 이동 중지 시
+    /// </summary>
     public Action onMovementStop;
     public void InvokeOnMovementStop() { onMovementStop?.Invoke(); }
     #endregion
@@ -120,6 +146,7 @@ public class Player : CharacterBase
     {
         evnt.moveEffect = onMove;
         evnt.attack = doAttack;
+        evnt.attack2 = throwItem;
         evnt.commandLockStart = () => commandLock = true;
         evnt.commandLockEnd = () => commandLock = false;
     }
@@ -153,14 +180,31 @@ public class Player : CharacterBase
             if(target == null) anim.SetBool("isMoving", false); // 범위 내에 타겟이 없다면 Idle상태로
             else
             {
-                if(Vector2.Distance(transform.position, target.position) > attackRange + targetSize)
+                if (commandLock) return;
+
+                if (!isHolding)
                 {
-                    if(!commandLock) moveTowardTarget(target.position);
+                    if (Vector2.Distance(transform.position, target.position) > attackRange + targetSize)
+                    {
+                        moveTowardTarget(target.position);
+                    }
+                    else
+                    {
+                        setDir(target.position - transform.position); //Target을 바라본 뒤 공격
+                        attack();
+                    }
                 }
                 else
                 {
-                    setDir(target.position - transform.position); //Target을 바라본 뒤 공격
-                    attack();
+                    if (Vector2.Distance(transform.position, target.position) > throwRange + targetSize)
+                    {
+                        moveTowardTarget(target.position);
+                    }
+                    else
+                    {
+                        setDir(target.position - transform.position); //Target을 바라본 뒤 공격
+                        doThrow();
+                    }
                 }
             }
 
@@ -208,6 +252,8 @@ public class Player : CharacterBase
 
     void updateTargetIcon()
     {
+        if (isDead) return;
+
         if(target == null)
         {
             targetIcon.Target = null;
@@ -220,10 +266,10 @@ public class Player : CharacterBase
             targetIcon.Target = target;
         }
     }
+
+    #region 공격
     void attack()
     {
-        if (commandLock) return;
-
         SoundMgr.Inst.Play("Attack");
         GlobalEvent.Inst.AttackEvent();
         anim.SetTrigger("doAttack");
@@ -240,7 +286,42 @@ public class Player : CharacterBase
 
         InvokeOnAttack();
     }
-    
+    #endregion
+    #region 투척
+    public Transform holdPos;
+    public HoldingItem curHoldingItem;
+    public void HoldItem(HoldingItem holdItem)
+    {
+        curHoldingItem = Instantiate(holdItem);
+        curHoldingItem.transform.parent = holdPos;
+        curHoldingItem.transform.localPosition = Vector3.zero;
+
+        holdStart();
+    }
+    void holdStart()
+    {
+        isHolding = true;
+        anim.SetBool("isHolding", true);
+    }
+
+    void doThrow()
+    {
+        SoundMgr.Inst.Play("Throw");
+        anim.SetBool("isHolding", false);
+        anim.SetTrigger("doThrow");
+    }
+    void throwItem()
+    {
+        isHolding = false;
+        InvokeOnThrow();
+        Projectile projectile = Instantiate(curHoldingItem.projectile);
+        projectile.Shoot(transform.position, target.position);
+        projectile.moduleAttack.dmg = Stat.STR + Stat.ACC;
+        Destroy(curHoldingItem.gameObject);
+        curHoldingItem = null;
+
+    }
+    #endregion
     public void AutoMove(Vector3 destination)
     {
         StartCoroutine(co_AutoMove(destination));
@@ -275,6 +356,7 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
+    #region 피격 관련
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
         if (isInvincible) return;
@@ -321,9 +403,10 @@ public class Player : CharacterBase
     }
     IEnumerator co_Smash(Vector3 hitVec)
     {
+        isDead = true;
+        Destroy(targetIcon.gameObject);
         anim.SetBool("isMoving", false);
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
-        isDead = true;
 
         GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
         GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
@@ -345,6 +428,7 @@ public class Player : CharacterBase
         SoundMgr.Inst.Play("Step");
         InvokeOnMovement();
     }
+    #endregion
 
     #region 게임 오버 씬 연출용 함수
     public void StartDeadMotion()

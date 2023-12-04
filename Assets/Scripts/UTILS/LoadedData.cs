@@ -29,8 +29,6 @@ public class LoadedData : Singleton<LoadedData>
             // if(characterInfos.)
             if(!CharacterInfos.ContainsKey(c.ID))
             {
-                Debug.Log(c);
-                Debug.Log(c.ID);
                 CharacterInfos.Add(c.ID, c);
                 characterInfosCount++;
 

@@ -4,35 +4,37 @@ using UnityEngine;
 
 public class DaggerPouch : Equip
 {
-    public float spawnWaitTIme = 6.0f;
+    public float spawnAreaSize = 3f;
 
-    Item daggerPrefab;
-    Item curDagger;
+    public int DaggerSpawnCount = 4;
+    int daggerSpawnCountLeft = 0;
+
+    public Item daggerPrefab;
 
     Transform[] spawnArea;
-
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        daggerPrefab = Resources.Load<Item>("Prefabs/Item/ItemDagger");
+        
+        daggerSpawnCountLeft = DaggerSpawnCount;
         spawnArea = EnemyMgr.Inst.spawnArea;
-
-        spawnNewDagger();
+        player.onAttack += spawnThrowingKnife;
     }
     public override void onUnEquip(Player player)
     {
-        Destroy(curDagger);
+        player.onAttack -= spawnThrowingKnife;
     }
 
+    void spawnThrowingKnife()
+    {
+        daggerSpawnCountLeft--;
 
-    void spawnNewDagger()
-    {
-        curDagger = Instantiate(daggerPrefab, Vector2.right * Random.Range(spawnArea[0].position.x, spawnArea[1].position.x) + Vector2.up * Random.Range(spawnArea[0].position.y, spawnArea[1].position.y), Quaternion.identity);
-        curDagger.onAcquire += reposition;
-    }
-    void reposition()
-    {
-        Debug.Log("ASD");
-        curDagger.gameObject.transform.position = Vector2.right * Random.Range(spawnArea[0].position.x, spawnArea[1].position.x) + Vector2.up * Random.Range(spawnArea[0].position.y, spawnArea[1].position.y);
+        if(daggerSpawnCountLeft <= 0)
+        {
+            Vector3 spawnPos = transform.position + Vector3.right * Random.Range(0, spawnAreaSize) + Vector3.up * Random.Range(0, spawnAreaSize);
+
+            Instantiate(daggerPrefab, spawnPos.Clamp(spawnArea[0].position, spawnArea[1].position), Quaternion.identity);
+            daggerSpawnCountLeft = DaggerSpawnCount;
+        }
     }
 }

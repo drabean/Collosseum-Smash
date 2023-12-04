@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NinjaSword : EquipWeapon
+public class NinjaSword : Equip
 {
     public LayerMask layer;
-    Attack daggerPrefab;
+    public Projectile daggerPrefab;
 
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        daggerPrefab = Resources.Load<Attack>("Prefabs/Attack/NinjaDagger");
+        player.onThrow += throwDagger;
     }
-    protected override void specialAttack()
+
+    public override void onUnEquip(Player player)
     {
-        base.specialAttack();
+    }
+
+    protected void throwDagger()
+    {
+
         //CircleCast를 통해 주변 모든 Enemy Layer 오브젝트 검색
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 4.0f, Vector3.forward, 0f, layer);
 

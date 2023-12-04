@@ -11,7 +11,7 @@ public class Projectile : Attack
     public float warningRadius = 0.7f;
     public Vector3 moveVec;
     [SerializeField]    SpriteRenderer sp;
-
+    public ModuleAttack moduleAttack;
     public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
     {
         float tempSpd = moveSpeed == 0 ? 30 : moveSpeed; // 움직이지 않는 투사체를 위한 값 조절

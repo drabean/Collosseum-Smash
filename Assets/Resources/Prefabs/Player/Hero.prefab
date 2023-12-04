@@ -5200,6 +5200,7 @@ Transform:
   m_Children:
   - {fileID: 7506382717936324557}
   - {fileID: 7506382717069672846}
+  - {fileID: 9000631741891292605}
   m_Father: {fileID: 7506382718595836752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5288,11 +5289,16 @@ MonoBehaviour:
     STR: 3
     VIT: 3
     SPD: 3
+    ACC: 2
   findRange: 5
   attackRange: 1.3
+  throwRange: 5
+  isHolding: 0
   layer:
     serializedVersion: 2
     m_Bits: 65536
+  holdPos: {fileID: 9000631741891292605}
+  curHoldingItem: {fileID: 0}
 --- !u!95 &7506382718595836758
 Animator:
   serializedVersion: 5
@@ -5415,4 +5421,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7506382718595836752}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8562879438547471915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9000631741891292605}
+  m_Layer: 11
+  m_Name: HoldPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9000631741891292605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562879438547471915}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7506382718443161740}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

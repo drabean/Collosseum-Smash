@@ -14,8 +14,16 @@ public class Item : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private IEnumerator Start()
+    {
+        Material origin = sp.material;
+        sp.material = Resources.Load<Material>("Materials/FlashWhite");
 
-    private void OnTriggerEnter2D(Collider2D collision)
+        yield return new WaitForSeconds(0.2f);
+        sp.material = origin;
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         Player target;
         if(collision.TryGetComponent<Player>(out target))
@@ -37,6 +45,6 @@ public class Item : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         sp.material = origin;
-        GetComponent<Poolable>().Push();
+        Destroy(gameObject);
     }
 }

@@ -31,7 +31,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (isTest)
         {
             LoadedData.Inst.LoadData();
-            curRunData = new runData();
+            curRunData = testRunData;
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
@@ -55,6 +55,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         else info = testStage;
 
         Time.timeScale = 1;
+
+        if (isTest) yield break;
 
         yield return new WaitForSeconds(2.0f);
 

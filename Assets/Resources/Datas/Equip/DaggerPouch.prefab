@@ -49,4 +49,6 @@ MonoBehaviour:
   itemName: Dagger Pouch
   Description: Summons a throwing dagger at a random location.
   owner: {fileID: 0}
-  spawnWaitTIme: 6
+  spawnAreaSize: 3
+  DaggerSpawnCount: 4
+  daggerPrefab: {fileID: 3860790137050885266, guid: f7e8bbc5441ac944ca38f7ca43bd3288, type: 3}
