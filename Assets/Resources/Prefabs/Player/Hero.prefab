@@ -5285,7 +5285,7 @@ MonoBehaviour:
   particle: {fileID: 7506382717464192904}
   iconHolder: {fileID: 2144557893}
   isInAttackRange: 0
-  _stat:
+  Stat:
     STR: 3
     VIT: 3
     SPD: 3

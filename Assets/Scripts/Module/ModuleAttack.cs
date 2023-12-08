@@ -10,18 +10,21 @@ public class ModuleAttack : MonoBehaviour
     public float dmg;
     public Transform ownerTr;
 
+    public int maxHit;
+    int curHit=0;
 
     private void Start()
     {
         if (ownerTr == null) ownerTr = transform;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
         {
             character.onHit(ownerTr, dmg, StunTIme);
+            curHit++;
 
-            if (cantPenetrate)
+            if(curHit >= maxHit)
             {
                 Destroy(gameObject);
             }

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   playerPrefab: {fileID: 6671696160339347068, guid: ae9bdeb3c4ff3db438e868b2cbdb4389, type: 3}
-  playerItems: []
+  playerItems:
+  - {fileID: 391648350762060583, guid: 665ee8052037cd741b7f676129f05e17, type: 3}
+  - {fileID: 441290244154711470, guid: 3cdc1149c9558a044a805d6c27f8701d, type: 3}
   characterName: Wizard
-  description: this is Rogue Desc
+  description: this is Wizard desc

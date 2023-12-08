@@ -45,20 +45,8 @@ public class Player : CharacterBase
     #endregion
 
     #region 플레이어 
-    /// <summary>
-    /// 현재 스탯
-    /// </summary>
-    public STATUS Stat
-    {
-        get { return _stat; }
-        set
-        {
-            _stat = value;
 
-            SetStatus();
-        }
-    }
-   [SerializeField] STATUS _stat;
+   public STATUS Stat;
 
 
 
@@ -89,9 +77,17 @@ public class Player : CharacterBase
     /// </summary>
     public void SetStatus()
     {
-        moveSpeed = 2f + (_stat.SPD * 0.5f); 
-        maxHP = _stat.VIT + 1;
+        moveSpeed = 2f + (Stat.SPD * 0.5f); 
+        maxHP = Stat.VIT + 1;
         if(curHP > maxHP)curHP = maxHP;
+        Debug.Log("STat Set!");
+
+    }
+
+    public void SetHPMax()
+    {
+        curHP = maxHP;
+        UIMgr.Inst.hp.Set((int)curHP);
     }
     #endregion
 

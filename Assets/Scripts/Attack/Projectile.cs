@@ -27,7 +27,7 @@ public class Projectile : Attack
         if(sp != null) sp.flipX = (moveVec.x < 0);
         if(moveVec == Vector3.zero)
         {
-            //Debug.Log("잘못된 방향입니다.");//00으로 발사시 가만히 잇는 현상 방지.
+            Debug.Log("잘못된 방향입니다.");//00으로 발사시 가만히 잇는 현상 방지.
             Destroy(gameObject);
             return;
         }

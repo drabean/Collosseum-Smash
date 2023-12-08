@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 807537498010272306}
-  - component: {fileID: 5105741563599481042}
+  - component: {fileID: 8155456317301673008}
   - component: {fileID: 3058482004337979577}
   - component: {fileID: 5838534464329648033}
   - component: {fileID: 8008399794119753035}
   - component: {fileID: 1092671457980380920}
-  m_Layer: 17
+  m_Layer: 12
   m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,13 +30,13 @@ Transform:
   m_GameObject: {fileID: 807537498010272304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5105741563599481042
+--- !u!114 &8155456317301673008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,12 +45,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 807537498010272304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bbe39e6c004dbd48a284e3a0101b6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  lifeTime: 6
+  SFXName: 
+  moveSpeed: 2
+  lifeTime: 10
   isRotate: 1
+  warningRadius: 0.7
+  moveVec: {x: 0, y: 0, z: 0}
+  sp: {fileID: 0}
+  moduleAttack: {fileID: 8008399794119753035}
+  col: {fileID: 3058482004337979577}
 --- !u!58 &3058482004337979577
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -64,9 +70,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.45, y: 0}
   serializedVersion: 2
-  m_Radius: 0.22
+  m_Radius: 0.7
 --- !u!212 &5838534464329648033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108,7 +114,7 @@ SpriteRenderer:
   m_SortingLayerID: -2131836661
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -397795570, guid: 19a2a27a0cb01174fbfcbf86a3cd8a3c, type: 3}
+  m_Sprite: {fileID: 1223333979, guid: 4ee13db889820df418a6b4d1210271bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,11 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 15
 --- !u!95 &1092671457980380920
 Animator:
   serializedVersion: 5

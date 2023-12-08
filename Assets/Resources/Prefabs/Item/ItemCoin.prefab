@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 582862904831302990}
   - component: {fileID: 8522252760596038181}
   - component: {fileID: 2032746068733247394}
-  - component: {fileID: -8422041999588714086}
   - component: {fileID: 2518192668756150729}
   m_Layer: 17
   m_Name: ItemCoin
@@ -154,18 +153,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8422041999588714086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9176158018200292092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2deb8444e5eab4d8c592c39f9afc8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2518192668756150729
 CircleCollider2D:
   m_ObjectHideFlags: 0

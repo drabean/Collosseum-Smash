@@ -4869,9 +4869,9 @@ MonoBehaviour:
   isTest: 1
   testStage: {fileID: 0}
   testRunData:
-    characterInfoIdx: 1
+    characterInfoIdx: 2
     nextStage: 0
-    item: 0200000008000000
+    item: 24270000
     clearedStages: 
 --- !u!4 &1089279276
 Transform:

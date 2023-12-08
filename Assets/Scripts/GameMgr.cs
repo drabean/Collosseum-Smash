@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
-    public runData curRunData;
+    [HideInInspector] public runData curRunData;
     public bool isPlayerInstantiated;
 
     Player player;

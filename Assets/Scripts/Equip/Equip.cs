@@ -22,6 +22,7 @@ public abstract class Equip : MonoBehaviour
     {
         owner = player;
         transform.SetParent(owner.transform, false);
+        transform.localPosition = Vector3.zero;
     }
 
     public abstract void onUnEquip(Player player);

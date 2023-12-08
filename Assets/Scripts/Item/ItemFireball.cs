@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDagger : Item
+public class ItemFireball : Item
 {
     public LayerMask layer;
-    Attack DaggerPrefab;
-    private void Awake()
-    {
-        DaggerPrefab = Resources.Load<Attack>("Prefabs/Attack/Dagger");
-    }
+    public Attack FireBallPrefab;
+
     protected override void onAcquired(Player player)
     {
         //CircleCast를 통해 주변 모든 Enemy Layer 오브젝트 검색
@@ -23,23 +20,23 @@ public class ItemDagger : Item
         else
         {
 
-            float maxLength = Vector3.Distance(transform.position, hits[0].transform.position);
+            float minLength = Vector3.Distance(transform.position, hits[0].transform.position);
             target = hits[0].transform;
-            //가장 멀리있는 Enemy 찾기
+            //가장 가까이 있는 Enemy 찾기
             for (int i = 1; i < hits.Length; i++)
             {
                 //TODO: 더 빠르고 효율적인 코드 찾아보기
                 float dist = Vector3.Distance(transform.position, hits[i].transform.position);
-                if (dist > maxLength)
+                if (dist < minLength)
                 {
                     target = hits[i].transform;
-                    maxLength = dist;
+                    minLength = dist;
                 }
             }
         }
 
-        Attack dagger = Instantiate<Attack>(DaggerPrefab);
-        dagger.Shoot(transform.position, target.position);
+        Attack Fireball = Instantiate(FireBallPrefab);
+        Fireball.Shoot(transform.position, target.position);
     }
     protected override IEnumerator co_AcquireItem()
     {
@@ -47,7 +44,7 @@ public class ItemDagger : Item
         sp.material = Resources.Load<Material>("Materials/FlashWhite");
 
         yield return new WaitForSeconds(0.2f);
-        InvokeOnAcquire();
         sp.material = origin;
+        Destroy(gameObject);
     }
 }
