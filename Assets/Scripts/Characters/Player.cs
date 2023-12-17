@@ -78,9 +78,9 @@ public class Player : CharacterBase
     public void SetStatus()
     {
         moveSpeed = 2f + (Stat.SPD * 0.5f); 
-        maxHP = Stat.VIT + 1;
+        maxHP = Stat.VIT + 2;
         if(curHP > maxHP)curHP = maxHP;
-        Debug.Log("STat Set!");
+        Debug.Log("Stat Set!");
 
     }
 
@@ -149,7 +149,6 @@ public class Player : CharacterBase
 
     private void Start()
     {
-        SetStatus();
         targetIcon = GameObject.FindObjectOfType<TargetIcon>();
         if (targetIcon == null) targetIcon = Instantiate(Resources.Load<TargetIcon>("Prefabs/targetIcon"));
         targetIcon.Owner = transform;
@@ -352,7 +351,14 @@ public class Player : CharacterBase
         aim.transform.localPosition = dir * aimRange;
     }
 
-    #region 피격 관련
+    #region 체력 관련
+    public void Heal(int amount)
+    {
+        curHP += amount;
+        if (curHP > maxHP) curHP = maxHP;
+
+        UIMgr.Inst.hp.Set((int)curHP);
+    }
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
         if (isInvincible) return;
@@ -365,14 +371,8 @@ public class Player : CharacterBase
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
 
-        if (curHP <= 1 && !resisted)
-        {
-            StartCoroutine(co_Smash(hitVec));
-        }
-        else
-        {
-            StartCoroutine(co_Invincible(resisted));
-        }
+        StartCoroutine(co_Invincible(resisted, hitVec));
+
     }
 
     /// <summary>
@@ -380,14 +380,14 @@ public class Player : CharacterBase
     /// </summary>
     /// <param name="resisted">아이템 등을 통한 저항에 성공했다면 false</param>
     /// <returns></returns>
-    IEnumerator co_Invincible(bool resisted)
+    IEnumerator co_Invincible(bool resisted, Vector3 hitVec)
     {
         isInvincible = true;
         if(!resisted) curHP--;
 
         GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
         GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
-        GameMgr.Inst.SlowTime(0.3f, 0.3f, true);
+        GameMgr.Inst.SlowTime(0.6f, 0.3f, true);
 
         UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
@@ -395,6 +395,10 @@ public class Player : CharacterBase
 
         yield return new WaitForSeconds(1.5f);
 
+        if(curHP <= 0)
+        {
+            StartCoroutine(co_Smash((hitVec)));
+        }
         isInvincible = false;
     }
     IEnumerator co_Smash(Vector3 hitVec)
@@ -408,7 +412,6 @@ public class Player : CharacterBase
         GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
         GameMgr.Inst.SlowTime(0.3f, 0.3f, true);
 
-        UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
         hit.Togle(1.0f);
         Destroy(GetComponent<Collider2D>());

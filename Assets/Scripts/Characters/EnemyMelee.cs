@@ -24,13 +24,14 @@ public class EnemyMelee: Enemy
 
     public override void StartAI()
     {
+        isChasing = false;
         selectState();
     }
 
     void selectState()
     {
-        if (!checkOtherMeleeEnemy()) StartCoroutine(co_Chase(3.0f));
-        else StartCoroutine(co_Wander(1.5f));
+        if (!checkOtherMeleeEnemy()) StartCoroutine(co_Chase(Random.Range(1.0f, 2.0f)));
+        else StartCoroutine(co_Wander(Random.Range(0.2f, 0.8f))); // 주변에 이미 Chase상태인 적이 있다면, 0.5초동안 위치를 재 조정 후에 추격.
     }
     IEnumerator co_Chase(float chaseTime)
     {
@@ -115,7 +116,7 @@ public class EnemyMelee: Enemy
     /// <returns>Chase 모드인 다른 적이 있다면 true, 아니면 false</returns>
     bool checkOtherMeleeEnemy()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 2, Vector3.forward, 0f, layer);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 1, Vector3.forward, 0f, layer);
 
         if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
         {

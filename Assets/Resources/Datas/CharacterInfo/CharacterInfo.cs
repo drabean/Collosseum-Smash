@@ -10,5 +10,6 @@ public class CharacterInfo : ScriptableObject
     public Player playerPrefab;
     public List<Equip> playerItems;
     public string characterName;
+    [TextArea]
     public string description;
 }

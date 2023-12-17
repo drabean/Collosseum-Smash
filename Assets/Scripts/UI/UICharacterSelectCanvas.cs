@@ -107,14 +107,20 @@ public class UICharacterSelectCanvas : MonoBehaviour
     /// <param name="isRight">true일시 idx++, false일시 idx--</param>
     public void Btn_ChangeCharacter(bool isRight)
     {
-        curIdx++;
+        if (isRight) curIdx++;
+        else curIdx--;
+
+        curIdx += LoadedData.Inst.characterInfosCount;
         curIdx %= LoadedData.Inst.characterInfosCount;
         Show();
     }
-
+    /// <summary>
+    /// 새로운 데이터를 생성 후 게임 시작
+    /// 버튼을 통해 호출
+    /// </summary>
     public void Btn_StartGame()
     {
-        runData data = new runData(curIdx, 0, new List<int>(), new List<int>());
+        runData data = new runData(curIdx, 0, new List<int>(), 0);
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)
@@ -123,6 +129,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
         }
         UTILS.SaveRunData(data);
 
+        resetCharacterView();
         LoadSceneMgr.LoadSceneAsync("Main");
     }
     #endregion

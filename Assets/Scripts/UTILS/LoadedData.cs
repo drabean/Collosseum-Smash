@@ -18,7 +18,7 @@ public class LoadedData : Singleton<LoadedData>
 
     string characterInfoPath = "Datas/CharacterInfo";
     string stageInfoPath = "Datas/StageInfo";
-    string equipPath = "Datas/Equip";
+    string equipPath = "Datas/EquipInfo";
 
     public void LoadData()
     {
@@ -26,22 +26,26 @@ public class LoadedData : Singleton<LoadedData>
 
         foreach(CharacterInfo c in characterInfos)
         {
-            // if(characterInfos.)
             if(!CharacterInfos.ContainsKey(c.ID))
             {
                 CharacterInfos.Add(c.ID, c);
                 characterInfosCount++;
-
             }
         }
-        stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
-        Equip[] equips = Resources.LoadAll<Equip>(equipPath);
 
-        foreach(Equip e in equips)
+        stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
+
+
+        EquipInfo[] equips = Resources.LoadAll<EquipInfo>(equipPath);
+
+        foreach(EquipInfo e in equips)
         {
-            if (!Equips.ContainsKey(e.ID))
+            foreach(Equip eq in e.list)
             {
-                Equips.Add(e.ID, e);
+                if (!Equips.ContainsKey(eq.ID))
+                {
+                    Equips.Add(eq.ID, eq);
+                }
             }
         }
 

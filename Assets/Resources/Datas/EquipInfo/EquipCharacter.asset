@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2813709b0125c4392199a06d1f13e7, type: 3}
+  m_Name: EquipCharacter
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 207602437149872462, guid: bd93e7e5852421e45936e9e4cad44020, type: 3}
+  - {fileID: 26743846382771554, guid: 5e2c4b1a63b431f4c8457abf48f81fde, type: 3}
+  - {fileID: 9120242461795133801, guid: a67bedfe40f1a6f46b8f07b3bc769297, type: 3}
+  - {fileID: 350244522285536300, guid: b2e02b3506b2bc24594ba2e0ca0e80f9, type: 3}
+  - {fileID: 391648350762060583, guid: 665ee8052037cd741b7f676129f05e17, type: 3}
+  - {fileID: 441290244154711470, guid: 3cdc1149c9558a044a805d6c27f8701d, type: 3}

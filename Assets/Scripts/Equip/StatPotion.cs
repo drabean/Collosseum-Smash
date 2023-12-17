@@ -14,20 +14,22 @@ public class StatPotion : Equip
         {
             case 0:
                 player.Stat.STR++;
+                player.SetStatus();
                 break;
             case 1:
                 player.Stat.SPD++;
+                player.SetStatus();
                 break;
             case 2:
                 player.Stat.VIT++;
+                player.SetStatus();
+                player.Heal(1);
                 break;
             case 3:
                 player.Stat.ACC++;
+                player.SetStatus();
                 break;
         }
-
-        player.SetStatus();
-        player.SetHPMax();
     }
 
     public override void onUnEquip(Player player)

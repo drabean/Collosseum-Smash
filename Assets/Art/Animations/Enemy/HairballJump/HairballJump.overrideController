@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HairballJump
+  m_Controller: {fileID: 9100000, guid: c3e0b16fec03e044d9e5d9b7fe58f3c7, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: fb4b11f2ce47b1147a85698a4f0b57ce, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9fbc92c5a2fd0e34ea13837d1afae3dc, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0e52d7ce6195e6b4a90491adfc7c4a02, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce63b9ba9280b2f498d87194f252f002, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dab90bdbfc6d65a4980c8555556d99ad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8f5a9086069d2d24d9739a07a6bbc81c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e4aff4b57469fa04d8fd9568c015e2df, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6bc4a0b7f9e1d654a85a7efbf087c704, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 18a77007f0ba19a468f2203f80be5b45, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e43c871010acf4648ad13b529da967c0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2564d2288322f724f8871976c277bf52, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9b55004428222464b85b815441d2af86, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9fac0ab48bd392940b33414524086cfa, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8960a65a6349fd446acb5dab678815ef, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3e8d198e668913e4c96db0a0dd63e135, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 520492247ea842a4c895e67af094ae81, type: 2}

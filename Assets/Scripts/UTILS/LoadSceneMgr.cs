@@ -10,7 +10,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     AsyncOperation operation;
 
     public CanvasGroup LoadingPanel;
-    float loadingWaitTIme = 1.0f;
+    float loadingWaitTIme = 2.0f;
 
     
     void Awake()
@@ -51,8 +51,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
 
         yield return new WaitForSeconds(loadingWaitTIme);
 
-        // 화면을 가린 동안 로딩 패널이 표시되었을 것이므로 이 시점에서 로딩 패널을 숨깁니다.
-
+      
         operation.allowSceneActivation = true;
 
         // Fade Out 효과 실행

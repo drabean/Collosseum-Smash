@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hairball
+  m_Controller: {fileID: 9100000, guid: 1c1ef15ae5be39a48abefb9ebd6af631, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 56bb61cdf7cc66f4a9945cbf8a18a0bd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fcb46738fd6f31946a396a64e3c365a4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3c05040945be1a24ab074233bebd9c3b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c57251f6e31dbd14eac4ef9ce30c9132, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: aa907c844a579784a80a14b79750dead, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f41569b809143284ea83c97613d582c9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e936dda642b4d6649ac1c54c53305c4c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 897471bdefe5b4e4aaa89d45d061a2cc, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 377efb239b1b5af47b2dadddfad63abb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 860dd5c2b2edf994baa4d05a448664c4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 831db54274c02f0448f1921a703f09f1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2d248af3fd859fb41b521bbc1259e118, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f135ca846fec42a47b9bf69a6a3bcbc3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 95f49ecb66923e441a7df0218ea39d6e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a33692431bbb6da449cc6f53a37b4c7a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d9ee695738ff32f47a5b5d663dd6106f, type: 2}

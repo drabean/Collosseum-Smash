@@ -36,8 +36,8 @@ public class EnemyGoblinKing : EnemyBoss
             // 적 소환 가능 시간이 되었다면
             if (Time.time - lastSpawnedTime >= SpawnCoolTime)
             {
-                lastSpawnedTime = Time.time;
                 yield return StartCoroutine(co_SpawnMob());
+                lastSpawnedTime = Time.time;
 
             }
             moveTowardTarget(Target.transform.position);

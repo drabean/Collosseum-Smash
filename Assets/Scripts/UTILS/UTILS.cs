@@ -74,16 +74,15 @@ public class UTILS : MonoBehaviour
 public class runData
 {
     public runData() { }
-    public runData(int characterInfoIdx, int nextStage, List<int> item, List<int> clearedStages)
+    public runData(int characterInfoIdx, int nextStage, List<int> item, int stageProgress)
     {
         this.characterInfoIdx = characterInfoIdx;
-        this.nextStage = nextStage;
         this.item = item;
-        this.clearedStages = clearedStages;
+        this.stageProgress = stageProgress;
     }
 
+    
     public int characterInfoIdx;
-    public int nextStage;
     public List<int> item = new List<int>();
-    public List<int> clearedStages = new List<int>();
+    public int stageProgress = 0;
 }

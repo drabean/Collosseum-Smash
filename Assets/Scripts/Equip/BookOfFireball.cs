@@ -32,7 +32,7 @@ public class BookOfFireball : Equip
             else
             {
                 yield return new WaitForSeconds(9.0f);
-                curItemFireball = Instantiate(curItemFireball, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
+                curItemFireball = Instantiate(ItemFireballPrefab, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
             }
 
         }

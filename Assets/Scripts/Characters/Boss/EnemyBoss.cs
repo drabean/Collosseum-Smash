@@ -90,7 +90,8 @@ public class EnemyBoss : Enemy
         }
 
         SoundMgr.Inst.Play("Smash");
-        yield return base.co_Smash(attackerPos);
+        
+        yield return base.co_Smash(GameMgr.Inst.player.transform);
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }
 }

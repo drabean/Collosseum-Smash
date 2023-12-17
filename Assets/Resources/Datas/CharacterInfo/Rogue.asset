@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 9120242461795133801, guid: a67bedfe40f1a6f46b8f07b3bc769297, type: 3}
   - {fileID: 350244522285536300, guid: b2e02b3506b2bc24594ba2e0ca0e80f9, type: 3}
   characterName: Rogue
-  description: this is Rogue Desc
+  description: A beginner in the shadows, Rogue swiftly moves and uses various thrown
+    weapons to suppress enemies

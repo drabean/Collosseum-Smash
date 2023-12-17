@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2813709b0125c4392199a06d1f13e7, type: 3}
+  m_Name: EquipPotion
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 3929003770926352516, guid: 90392fa1b970b954e8055ab534daabee, type: 3}
+  - {fileID: 2411247452017821389, guid: 6db5076c126a4a343a2817d1bfef73f1, type: 3}
+  - {fileID: 7536732220919384108, guid: d1ccb86b391430349a3b48b220718110, type: 3}
+  - {fileID: 424414243308523590, guid: dba52651f1853884c89e546c6becbfc8, type: 3}

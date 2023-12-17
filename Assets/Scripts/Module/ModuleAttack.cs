@@ -24,7 +24,7 @@ public class ModuleAttack : MonoBehaviour
             character.onHit(ownerTr, dmg, StunTIme);
             curHit++;
 
-            if(curHit >= maxHit)
+            if(curHit >= maxHit && maxHit != 0)
             {
                 Destroy(gameObject);
             }

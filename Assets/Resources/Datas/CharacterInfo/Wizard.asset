@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 391648350762060583, guid: 665ee8052037cd741b7f676129f05e17, type: 3}
   - {fileID: 441290244154711470, guid: 3cdc1149c9558a044a805d6c27f8701d, type: 3}
   characterName: Wizard
-  description: this is Wizard desc
+  description: Venturing into magic for the first time, Mage uses a wand and spellbook
+    for mystical powers.
