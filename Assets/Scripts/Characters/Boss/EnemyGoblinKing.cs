@@ -59,7 +59,7 @@ public class EnemyGoblinKing : EnemyBoss
         EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[0], enemyDeadOption);
         EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[1], enemyDeadOption);
         EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[2], enemyDeadOption);
-        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[03], enemyDeadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[3], enemyDeadOption);
 
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
 

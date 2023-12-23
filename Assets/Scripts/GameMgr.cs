@@ -63,14 +63,9 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (testStage == null) info = getStageData();
         else info = testStage;
 
-        if (testStage == null)
-        {
-            Debug.Log("Clear!");
-            //TODO: 여기에 클리어 연출을!
-        }
         Time.timeScale = 1;
 
-        if (isTest) yield break;
+        if (isTest && testStage == null) yield break;
 
         yield return new WaitForSeconds(2.0f);
 
