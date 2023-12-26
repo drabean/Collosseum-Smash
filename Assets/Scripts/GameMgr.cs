@@ -63,6 +63,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (testStage == null) info = getStageData();
         else info = testStage;
 
+        if(info.StageDeco != null) Instantiate(info.StageDeco, Vector3.zero, Quaternion.identity);
         Time.timeScale = 1;
 
         if (isTest && testStage == null) yield break;
@@ -94,7 +95,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     public void StartNormalStage()
     {
-        Init();
+        InitEnemyPool();
 
         SoundMgr.Inst.PlayBGM(info.Intro, info.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
@@ -102,7 +103,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
     }
 
-    void Init()
+    void InitEnemyPool()
     {
         enemiesCanBeSpawned = new List<int>();
         for (int i = 1; i < info.Enemies.Count; i++)
@@ -120,16 +121,21 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// <returns></returns>
     int getIndexToSpawn()
     {
-        if (enemiesCanBeSpawned.Count == 0) return 0;
+        if (enemiesCanBeSpawned.Count == 0) return 0; // 이 스테이지에서 소환할 수 있는 종류의 적이 더 없다면, 0 반환
+        else if(baseEnemyCount < 2) // 기본 근접 타입 적의 수를 언제나 2마리로 유지하기 위해, 0 반환
+        {
+            return 0;
+        }
         else
         {
-            int idx2Spwn = enemiesCanBeSpawned[Random.Range(0, enemiesCanBeSpawned.Count)];
+            int idx2Spwn = enemiesCanBeSpawned[Random.Range(0, enemiesCanBeSpawned.Count)]; // 소환 가능한 적 인덱스중 하나 반환
             enemiesCanBeSpawned.Remove(idx2Spwn);
             return idx2Spwn;
         }
     }
     int curEnemyCount = 0;
-    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.5f);
+    int baseEnemyCount = 0;
+    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(0.5f);
     IEnumerator normalEnemySpawnRoutine()
     {
         while (true)
@@ -142,6 +148,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             yield return waitForEnemySpawn;
 
             int idx2Spwn = getIndexToSpawn();
+            if (idx2Spwn == 0) baseEnemyCount++;
             EnemyMgr.Inst.SpawnEnemy(info.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn));
             curEnemyCount++;
         }
@@ -204,6 +211,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         curEnemyCount--;
         if (index != 0) enemiesCanBeSpawned.Add(index);
+        else baseEnemyCount--;
 
         progressCount++;
         if (progressCount == info.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
@@ -234,6 +242,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         spawnItems();
     }
 
+
+    #region 아이템 관련
     ItemEquipHolder holder;
     [SerializeField]ModuleHit DescriptionObject;
     List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>(); //풀에서 꺼내서 현재 스테이지에 배치된 아이템들.
@@ -278,6 +288,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         StartCoroutine(co_ToNextScene());
     }
+    #endregion
 
     IEnumerator co_ToNextScene()
     {

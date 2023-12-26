@@ -61,11 +61,12 @@ MonoBehaviour:
   isDead: 0
   maxHP: 2
   curHP: 2
-  moveSpeed: 4
+  moveSpeed: 3
+  moveSpeedCo: 1
   aimRange: 1
   size: 0.3
   Target: {fileID: 0}
-  difficulty: 1
+  isChasing: 0
   isSuperarmor: 0
   attackRange: 0.8
   attackWidth: 0.4
@@ -73,6 +74,9 @@ MonoBehaviour:
   attackWaitTime: 0.6
   attackAfterWaitTime: 0.7
   doAttackSpin: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &4299250763888376808
 Animator:
   serializedVersion: 5

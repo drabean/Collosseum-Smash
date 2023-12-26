@@ -13,8 +13,6 @@ public class EnemyMelee: Enemy
     public float attackAfterWaitTime;
 
     public bool doAttackSpin;
-
-    public bool isChasing;
     
     private void Awake()
     {

@@ -180,7 +180,8 @@ MonoBehaviour:
   isDead: 0
   maxHP: 50
   curHP: 50
-  moveSpeed: 2.5
+  moveSpeed: 4
+  moveSpeedCo: 1
   aimRange: 0.4
   size: 0.5
   Target: {fileID: 0}

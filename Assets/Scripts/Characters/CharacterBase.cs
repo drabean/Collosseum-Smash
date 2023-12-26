@@ -26,6 +26,7 @@ public class CharacterBase : MonoBehaviour
     public float maxHP;
     public float curHP;
     public float moveSpeed;
+    public float moveSpeedCo = 1;
     public float aimRange;
     public float size;
     #endregion
@@ -45,11 +46,11 @@ public class CharacterBase : MonoBehaviour
     /// 목표 지점으로 이동시키는 함수
     /// </summary>
     /// <param name="target"></param>
-    protected virtual void moveTowardTarget(Vector3 target)
+    protected virtual void moveTowardTarget(Vector3 target, bool useCoeffient = true)
     {
         Vector3 moveVec = (target - transform.position).normalized;
 
-        moveToDir(moveVec);
+        moveToDir(moveVec, useCoeffient);
     }
 
 
@@ -57,15 +58,16 @@ public class CharacterBase : MonoBehaviour
     /// 정규화된 벡터를 넣어 해당 방향으로 이동시키는 함수.
     /// </summary>
     /// <param name="dir"></param>
-    protected virtual void moveToDir(Vector3 dir)
+    protected virtual void moveToDir(Vector3 dir, bool useCoeffient = true)
     {
         if (dir.magnitude > 1) dir = dir.normalized;
 
         anim.SetBool("isMoving", true);
 
         setDir(dir);
-       // transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, moveSpeed * Time.deltaTime);
-        transform.position += dir * moveSpeed * Time.deltaTime;
+        // transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, moveSpeed * Time.deltaTime);
+
+        transform.position += dir * moveSpeed * (useCoeffient ? moveSpeedCo : 1) * Time.deltaTime;
     }
 
     protected virtual void setDir(Vector3 dir)

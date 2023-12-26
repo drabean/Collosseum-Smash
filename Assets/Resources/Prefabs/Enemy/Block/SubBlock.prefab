@@ -294,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4432736918336127234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.87, y: -0.96, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -328,10 +328,11 @@ MonoBehaviour:
   maxHP: 100
   curHP: 100
   moveSpeed: 0
+  moveSpeedCo: 1
   aimRange: 0
   size: 1.5
   Target: {fileID: 0}
-  difficulty: 0
+  isChasing: 0
   isSuperarmor: 1
   patterns:
   - range: 0
@@ -346,8 +347,8 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 0.8
     waitAfterTime: 1
-    intervalTime: 0.3
-    repeatTIme: 10
+    intervalTime: 0.4
+    repeatTIme: 8
     duration: 0
     prefabName: Prefabs/Attack/EnergyBolt
   - range: 0
@@ -362,7 +363,7 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 1
     waitAfterTime: 1.5
-    intervalTime: 1
+    intervalTime: 1.5
     repeatTIme: 0
     duration: 2
     prefabName: Prefabs/Attack/Laser

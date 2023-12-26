@@ -295,10 +295,11 @@ MonoBehaviour:
   maxHP: 10
   curHP: 10
   moveSpeed: 5
+  moveSpeedCo: 1
   aimRange: 1
   size: 1.5
   Target: {fileID: 0}
-  difficulty: 0
+  isChasing: 0
   isSuperarmor: 1
   patterns:
   - range: 0
@@ -321,13 +322,14 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 1
     waitAfterTime: 4
-    intervalTime: 2
+    intervalTime: 1.5
     repeatTIme: 4
     duration: 2
     prefabName: Prefabs/Attack/Laser
   patternCount: 0
   mobs: []
   subBlockPrefab: {fileID: 4432736918336127245, guid: 013f7549ea3126743b359eab2e223396, type: 3}
+  spikePrefab: {fileID: 0}
   subBlocks:
   - {fileID: 0}
   - {fileID: 0}

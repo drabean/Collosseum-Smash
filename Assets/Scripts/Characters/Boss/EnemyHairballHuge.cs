@@ -22,6 +22,8 @@ public class EnemyHairballHuge : EnemyBoss
     }
     public override void StartAI()
     {
+        SpawnMob(Random.Range(0, 3));
+        SpawnMob(Random.Range(0, 3));
         selectPattern();
     }
 
@@ -32,12 +34,12 @@ public class EnemyHairballHuge : EnemyBoss
         anim.SetBool("isMoving", false);
 
         //연속공격
-        if(patternCount >= 1)
+        if (patternCount >= 1)
         {
             patternCount--;
             //같은 패턴이 연속으로 나오지 않도록 조절.
-            lastPatIdx += Random.Range(1,3);
-            lastPatIdx %= 3;
+            lastPatIdx++;
+            lastPatIdx %= 2;
 
             switch(lastPatIdx)
             {
@@ -47,14 +49,11 @@ public class EnemyHairballHuge : EnemyBoss
                 case 1:
                     StartCoroutine(co_Pat2());
                     break;
-                case 2:
-                    StartCoroutine(co_Pat3());
-                    break;
             }
         }
         else
         {
-            patternCount = 4 +Random.Range(0, 3);
+            patternCount = 4 + Random.Range(0, 3);
 
             StartCoroutine(co_Fatigue(2.0f));
             //TODO: FATIQUEMOTION
@@ -93,7 +92,7 @@ public class EnemyHairballHuge : EnemyBoss
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = attacks[0].ShowWarning(transform.position, aim.position, patterns[0].waitBeforeTime);
+        curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, patterns[0].waitBeforeTime);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         anim.SetBool("isReady", false);
 
@@ -104,7 +103,8 @@ public class EnemyHairballHuge : EnemyBoss
     void doAttack()
     {
         Attack temp = Instantiate(attacks[0]);
-        temp.Shoot(transform.position, transform.position);
+        temp.Shoot(aim.position, aim.position);
+        transform.position += (aim.transform.position - transform.position).normalized * aimRange;
         temp.GetComponent<SpriteRenderer>().flipX = sp.flipX;
     }
 
@@ -116,6 +116,7 @@ public class EnemyHairballHuge : EnemyBoss
         Vector3 destination = Target.transform.position + Random.Range(patterns[1].range, -patterns[1].range) * Vector3.right + Random.Range(patterns[1].range, -patterns[1].range) * Vector3.up;
         destination = EnemyMgr.Inst.getClampedVec(destination);
 
+        setDir(destination - transform.position);
         yield return StartCoroutine(co_Jump(destination));
 
         anim.SetBool("isMoving", false);
@@ -131,11 +132,12 @@ public class EnemyHairballHuge : EnemyBoss
         anim.SetTrigger("doJump");
         float timeLeft = 0.5f;
 
-        moveSpeed = Vector3.Distance(destination, transform.position) / 0.5f;
+        float jumpSpeed = Vector3.Distance(destination, transform.position) / 0.5f;
 
         while (timeLeft >= 0)
         {
-            moveTowardTarget(destination);
+            // moveTowardTarget(destination);
+            transform.position = Vector3.MoveTowards(transform.position, destination, jumpSpeed  * Time.deltaTime);
             timeLeft -= Time.deltaTime;
             yield return null;
         }
@@ -185,6 +187,7 @@ public class EnemyHairballHuge : EnemyBoss
     IEnumerator co_Fatigue(float fatigueTime = 3.0f)
     {
         SpawnMob(Random.Range(0, 3));
+        SpawnMob(Random.Range(0, 3));
         anim.SetBool("isFatigue", true);
 
         float timeLeft = fatigueTime;
@@ -210,7 +213,7 @@ public class EnemyHairballHuge : EnemyBoss
         if (enemyCount >= maxEnemyCount) return;
 
         enemyCount++;
-        EnemyMgr.Inst.SpawnEnemy(mobs[idx], EnemyMgr.Inst.getRandomPos(), deadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[idx], EnemyMgr.Inst.getRandomPos(), deadOption);    
     }
     void deadOption(Vector3 hitVec)
     {

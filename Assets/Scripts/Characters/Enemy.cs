@@ -8,8 +8,8 @@ public class Enemy : CharacterBase
 
     [Header("Àû")]
     public Player Target;
+    public bool isChasing;
 
-    public float difficulty;
     public bool isSuperarmor;
     #region delegate
     public Action<Vector3> onDeath;
@@ -54,7 +54,6 @@ public class Enemy : CharacterBase
     /// <returns></returns>
     protected virtual IEnumerator co_Smash(Transform attackerPos)
     {
-        GameMgr.Inst.addScore((int)difficulty);
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         hit.HitEffect(hitVec, size);

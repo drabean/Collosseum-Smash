@@ -21,4 +21,4 @@ MonoBehaviour:
   maxKill: 16
   Intro: {fileID: 0}
   BGM: {fileID: 8300000, guid: 4116cef71557e4c49ae059a43150a37a, type: 3}
-  StageDeco: {fileID: 0}
+  StageDeco: {fileID: 3135240756263794171, guid: c88394153b0e8954fb86e728711ad1c7, type: 3}
