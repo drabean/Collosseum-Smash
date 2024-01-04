@@ -388,6 +388,11 @@ public class Player : CharacterBase
         GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
         GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
         GameMgr.Inst.SlowTime(0.6f, 0.3f, true);
+        if (curHP <= 0)
+        {
+            StartCoroutine(co_Smash((hitVec)));
+            yield break;
+        }
 
         UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
@@ -395,10 +400,6 @@ public class Player : CharacterBase
 
         yield return new WaitForSeconds(1.5f);
 
-        if(curHP <= 0)
-        {
-            StartCoroutine(co_Smash((hitVec)));
-        }
         isInvincible = false;
     }
     IEnumerator co_Smash(Vector3 hitVec)

@@ -18,7 +18,7 @@ public class UIGameOverCanvas : MonoBehaviour
             data = new runData(0, 0, new List<int>(), 0);
         }
 
-        player = Instantiate(LoadedData.Inst.getCharacterInfoByID(data.characterInfoIdx).playerPrefab, new Vector3(0,0,0), Quaternion.identity);
+        player = Instantiate(LoadedData.Inst.getCharacterInfoByID(data.characterInfoIdx).playerPrefab, new Vector3(0,2,0), Quaternion.identity);
         player.StartDeadMotion();
     }
 
@@ -43,6 +43,7 @@ public class UIGameOverCanvas : MonoBehaviour
 
     public void BtnEndStage()
     {
+        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 }

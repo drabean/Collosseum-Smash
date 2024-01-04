@@ -23,7 +23,6 @@ public class EnemyHairballHuge : EnemyBoss
     public override void StartAI()
     {
         SpawnMob(Random.Range(0, 3));
-        SpawnMob(Random.Range(0, 3));
         selectPattern();
     }
 
@@ -152,7 +151,7 @@ public class EnemyHairballHuge : EnemyBoss
     }
 
     #endregion
-    #region Pat3
+    #region Pat3 Lecacy
     protected IEnumerator co_Pat3()
     {
         anim.SetBool("isMoving", false);
@@ -186,7 +185,6 @@ public class EnemyHairballHuge : EnemyBoss
     #region Fatique
     IEnumerator co_Fatigue(float fatigueTime = 3.0f)
     {
-        SpawnMob(Random.Range(0, 3));
         SpawnMob(Random.Range(0, 3));
         anim.SetBool("isFatigue", true);
 

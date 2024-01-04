@@ -223,7 +223,7 @@ public class EnemyLich : EnemyBoss
             if(curEnemyCount < 2)
             {
                 curEnemyCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[Random.Range(0, mobs.Count)], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
+                EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
             }
             yield return null;
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Title화면에서 쓰기 위한, 행동 없이 피격모션만 보여주는 물체
+/// 피격 관련 액션만 필요하고 행동은 필요 없는 객체에 대한 스크립트.
 /// </summary>
 public class EnemyDoll : Enemy
 {

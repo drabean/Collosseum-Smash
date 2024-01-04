@@ -5279,6 +5279,7 @@ MonoBehaviour:
   maxHP: 0
   curHP: 0
   moveSpeed: 2.5
+  moveSpeedCo: 1
   aimRange: 1
   size: 0.5
   spriteGroup: {fileID: 7506382718443161740}
@@ -5287,7 +5288,7 @@ MonoBehaviour:
   isInAttackRange: 0
   Stat:
     STR: 3
-    VIT: 3
+    VIT: 1
     SPD: 3
     ACC: 2
   findRange: 5

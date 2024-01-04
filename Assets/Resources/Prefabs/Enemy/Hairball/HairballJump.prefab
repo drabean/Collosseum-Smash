@@ -227,14 +227,14 @@ MonoBehaviour:
   aimRange: 2.5
   size: 0.2
   Target: {fileID: 0}
-  difficulty: 2
+  isChasing: 0
   isSuperarmor: 0
   chargeRange: 2.5
   chargeStartRange: 2.5
   chargeTime: 0.4
   waitBeforeTime: 0.7
   waitAfterTime: 1.3
-  attackName: Prefabs/Attack/SlimeExplosion
+  attackName: Prefabs/Attack/BlockImpactSmall
   SFXName: Jump2
   isCharge: 0
 --- !u!212 &999269732158798077

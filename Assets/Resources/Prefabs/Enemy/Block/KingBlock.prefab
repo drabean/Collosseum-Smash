@@ -292,8 +292,8 @@ MonoBehaviour:
   aim: {fileID: 2734482238245154351}
   hit: {fileID: 2734482238864720129}
   isDead: 0
-  maxHP: 10
-  curHP: 10
+  maxHP: 120
+  curHP: 120
   moveSpeed: 5
   moveSpeedCo: 1
   aimRange: 1
@@ -316,20 +316,20 @@ MonoBehaviour:
     waitAfterTime: 4
     intervalTime: 1
     repeatTIme: 0
-    duration: 6
+    duration: 8
     prefabName: 
   - range: 0
     width: 0
     waitBeforeTime: 1
     waitAfterTime: 4
-    intervalTime: 1.5
-    repeatTIme: 4
-    duration: 2
+    intervalTime: 1.6
+    repeatTIme: 5
+    duration: 1.5
     prefabName: Prefabs/Attack/Laser
   patternCount: 0
   mobs: []
   subBlockPrefab: {fileID: 4432736918336127245, guid: 013f7549ea3126743b359eab2e223396, type: 3}
-  spikePrefab: {fileID: 0}
+  spikePrefab: {fileID: 1453726104565491051, guid: 9d1e6a5ffb7a6d74b8ad79f52f2bba4d, type: 3}
   subBlocks:
   - {fileID: 0}
   - {fileID: 0}

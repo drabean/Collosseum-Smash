@@ -12,7 +12,6 @@ public class ParticleHandler : MonoBehaviour
 
     public void StopParticle()
     {
-        Debug.Log("STOP");
         particle.Stop();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
@@ -30,7 +31,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     [Tooltip("if not null, testStage will be loaded instead of saved stage")]
     public StageInfo testStage;
 
+    [SerializeField] Enemy GongPrefab;
 
+    public TextMeshPro progressTMP;
     private IEnumerator Start()
     {
         if (isTest)
@@ -66,18 +69,24 @@ public class GameMgr : MonoSingleton<GameMgr>
         if(info.StageDeco != null) Instantiate(info.StageDeco, Vector3.zero, Quaternion.identity);
         Time.timeScale = 1;
 
+        //즉시 시작이 아닌, 별도 오브젝트를 공격함으로서 게임이 시작하도록 만듬.
+
         if (isTest && testStage == null) yield break;
 
-        yield return new WaitForSeconds(2.0f);
-
-        UIMgr.Inst.progress.ShowStageStart();
-
-        yield return new WaitForSeconds(2.0f);
-        UIMgr.Inst.progress.HideAll();
-
-        StartNormalStage();
+        spawnGong();
     }
 
+    void spawnGong()
+    {
+        Enemy Gong = Instantiate(GongPrefab);
+        Gong.transform.position = Vector3.up * 4;
+        //StartNormalStage();
+        Gong.onDeath += position =>
+        {
+            // 무명 함수 내부에서 StartStage() 함수 호출
+            StartCoroutine(StartNormalStage());
+        };
+    }
     StageInfo getStageData()
     {
         if(curRunData.stageProgress >= LoadedData.Inst.stageInfos.Length)
@@ -93,13 +102,19 @@ public class GameMgr : MonoSingleton<GameMgr>
     int progressCount = 0; //
     bool isBossSpawned;
 
-    public void StartNormalStage()
+    public IEnumerator StartNormalStage()
     {
+        UIMgr.Inst.progress.ShowStageStart();
+
+        yield return new WaitForSeconds(1.5f);
+        UIMgr.Inst.progress.HideAll();
+
         InitEnemyPool();
 
         SoundMgr.Inst.PlayBGM(info.Intro, info.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
+        progressTMP.text = progressCount + " / " + info.maxKill;
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
     }
 
@@ -166,9 +181,12 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         GameMgr.Inst.removeAllNormalEnemies();
 
+        progressTMP.text = "prepare your battle..";
+
         UIMgr.Inst.progress.HideAll();
         EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.up, onBossDie);
         yield return new WaitForSeconds(1f);
+        progressTMP.text = "";
         UIMgr.Inst.progress.ShowBossUI();
     }
     /// <summary>
@@ -217,6 +235,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (progressCount == info.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
 
         UIMgr.Inst.progress.SetProgress(progressCount, info.maxKill);
+        progressTMP.text = progressCount + " / " + info.maxKill;
         if (progressCount >= info.maxKill)
         {
             removeAllNormalEnemies();

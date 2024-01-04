@@ -3007,7 +3007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tutorialText
+  m_text: asdf
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f9ee44601b0cf904da569a64a0d962ee, type: 2}
   m_sharedMaterial: {fileID: -6208690387942919651, guid: f9ee44601b0cf904da569a64a0d962ee, type: 2}
@@ -4058,8 +4058,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCam: {fileID: 0}
+  curRunData:
+    characterInfoIdx: 0
+    item: 
+    stageProgress: 0
+  isPlayerInstantiated: 0
+  player: {fileID: 0}
   isTest: 1
+  testRunData:
+    characterInfoIdx: 0
+    item: 
+    stageProgress: 0
   testStage: {fileID: 0}
+  GongPrefab: {fileID: 0}
+  DescriptionObject: {fileID: 0}
 --- !u!4 &517564148
 Transform:
   m_ObjectHideFlags: 0
