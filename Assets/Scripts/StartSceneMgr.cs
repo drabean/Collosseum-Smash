@@ -11,13 +11,15 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] RectTransform ButtonHolder;
     [SerializeField] UIButton ButtonPrefab;
 
+    [HideInInspector] public SaveData saveData;
+
     private void Awake()
     {
         //Awake가 아닌, 다른 스크립트에서 일괄적으로 하도록 바뀌어야 함.
         if(!LoadedData.Inst.isDataLoaded) LoadedData.Inst.LoadData();
-
+        saveData = UTILS.LoadSaveData();
         //세이브 데이터 확인 및 배경 캐릭터 동기화
-        runData lastRunData = UTILS.GetRunData();
+        RunData lastRunData = UTILS.GetRunData();
 
         if(lastRunData != null)
         {

@@ -17,7 +17,7 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     /// 일반 아이템 풀 초기화
     /// </summary>
     /// <param name="data"></param>
-    public void InitNormalEquipPool(runData data)
+    public void InitNormalEquipPool(RunData data)
     {
         EquipInfo normalItems = Resources.Load<EquipInfo>("Datas/EquipInfo/EquipNormal");
         normalPool = new List<Equip>();

@@ -16,10 +16,13 @@ public class UICharacterSelectCanvas : MonoBehaviour
 
     public int curIdx = 0;
 
+
+    [SerializeField] GameObject LockGroup;
+    [SerializeField] TextMeshProUGUI TMPLockProgress;
+
     public void Init(int saveIdx)
     {
         curIdx = saveIdx;
-        Show();
     }
     public void OpenCharacterSelect(int idx)
     {
@@ -86,6 +89,14 @@ public class UICharacterSelectCanvas : MonoBehaviour
     {
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
+        if (curIdx > StartSceneMgr.Inst.saveData.ProgressLV)
+        {
+            LockGroup.SetActive(true);
+        }
+        else
+        {
+            LockGroup.SetActive(false);
+        }
 
         changePlayer();
         characterName.text = info.characterName;
@@ -98,6 +109,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
         {
             equips[i].SetEquip(info.playerItems[i]);
         }
+
     }
 
     /// <summary>
@@ -120,7 +132,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     /// </summary>
     public void Btn_StartGame()
     {
-        runData data = new runData(curIdx, 0, new List<int>(), 0);
+        RunData data = new RunData(curIdx, 0, new List<int>(), 0);
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)

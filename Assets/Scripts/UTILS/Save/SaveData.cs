@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SaveData : MonoBehaviour
+{
+    public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
+    public int ProgressLV;
+    public Dictionary<string, bool> achievements = new Dictionary<string, bool>(); // 클리어한 업적들에 대한 정보 저장.
+    public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
+}
+
+/*
+ * 업적 정보
+ * 00. Tutorial 클리어
+ * 10 ~ 19. 각 보스들 클리어
+ * 20 ~ 29. 각 캐릭터들로 게임 클리어
+ * 
+ * Exp 정보
+ * 스테이지 클리아마다 1 쌓임
+ * 경험치를 10 쌓을 때 마다, 새로운 캐릭터를 열어줌.
+ * Exp 정보 저장은 각각 사망시, 보스 처치 후 아이템 획득 후 등 Scene 전환 및 RunData의 갱신이 이루어지는 타이밍에 저장.
+ * Exp를 통한 해금은 어쩌구저쩌구
+ */

@@ -8,7 +8,7 @@ using TMPro;
 public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
-    [HideInInspector] public runData curRunData;
+    [HideInInspector] public RunData curRunData;
     public bool isPlayerInstantiated;
 
     public Player player;
@@ -27,7 +27,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     [Tooltip("isChecked, stage does not start. for test only")]
     public bool isTest;
     [Tooltip("testRunData for testMode.")]
-    public runData testRunData;
+    public RunData testRunData;
     [Tooltip("if not null, testStage will be loaded instead of saved stage")]
     public StageInfo testStage;
 
@@ -106,10 +106,11 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         UIMgr.Inst.progress.ShowStageStart();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.0f);
         UIMgr.Inst.progress.HideAll();
 
         InitEnemyPool();
+        yield return new WaitForSeconds(1.0f);
 
         SoundMgr.Inst.PlayBGM(info.Intro, info.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
