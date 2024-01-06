@@ -2967,7 +2967,7 @@ Transform:
   - {fileID: 755142809}
   - {fileID: 2069225054}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252675481
 GameObject:
@@ -4062,6 +4062,7 @@ MonoBehaviour:
     characterInfoIdx: 0
     item: 
     stageProgress: 0
+  curSaveData: {fileID: 0}
   isPlayerInstantiated: 0
   player: {fileID: 0}
   isTest: 1
@@ -4071,6 +4072,9 @@ MonoBehaviour:
     stageProgress: 0
   testStage: {fileID: 0}
   GongPrefab: {fileID: 0}
+  progressTMP: {fileID: 0}
+  TrainingBots: []
+  SpawnPoints: []
   DescriptionObject: {fileID: 0}
 --- !u!4 &517564148
 Transform:
@@ -4085,7 +4089,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:

@@ -2,14 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour
+public class SaveData
 {
     public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
     public int ProgressLV;
-    public Dictionary<string, bool> achievements = new Dictionary<string, bool>(); // 클리어한 업적들에 대한 정보 저장.
+    public List<int> Achievements = new List<int>();
     public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
-}
 
+    public bool checkAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
+    {
+        if (Achievements.Contains((int)achievement)) return true;
+        else return false;
+    }
+
+    public void ClearAchivement(ACHIEVEMENT achievement)
+    {
+        if (!Achievements.Contains((int)achievement))
+        {
+            Achievements.Add((int)achievement);
+        }
+    }
+}
+public enum ACHIEVEMENT
+{
+    TUTORIALCLEAR = 0,
+
+}
 /*
  * 업적 정보
  * 00. Tutorial 클리어

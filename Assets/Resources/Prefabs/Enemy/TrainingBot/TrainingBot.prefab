@@ -93,17 +93,21 @@ MonoBehaviour:
   maxHP: 9
   curHP: 9
   moveSpeed: 1
+  moveSpeedCo: 1
   aimRange: 1
   size: 0
   Target: {fileID: 0}
-  difficulty: 1
+  isChasing: 0
   isSuperarmor: 0
-  attackRange: 1.5
+  attackRange: 1.1
   attackWidth: 1
-  attackName: Prefabs/Attack/SlashEffect
-  attackWaitTime: 1
+  attackName: Prefabs/Attack/ClawEffect
+  attackWaitTime: 0.9
   attackAfterWaitTime: 1.5
   doAttackSpin: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &3932594245380771375
 Animator:
   serializedVersion: 5

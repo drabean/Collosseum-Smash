@@ -4173,7 +4173,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Smash to start
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51724af53729c6846963dc1e289185f6, type: 2}
   m_sharedMaterial: {fileID: -6208690387942919651, guid: 51724af53729c6846963dc1e289185f6, type: 2}
@@ -4850,7 +4850,7 @@ MonoBehaviour:
     stageProgress: 0
   isPlayerInstantiated: 0
   player: {fileID: 0}
-  isTest: 1
+  isTest: 0
   testRunData:
     characterInfoIdx: 0
     item: 
@@ -4858,6 +4858,10 @@ MonoBehaviour:
   testStage: {fileID: 11400000, guid: 0abc997ea953cd04abc46c30f1489fc2, type: 2}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
+  TrainingBots:
+  - {fileID: 994540626494633888, guid: 18aea684b678d0147bc9a3aa84b1d59a, type: 3}
+  - {fileID: 3932594245380771357, guid: dc59de0abc55a1046a5d366ed8633bd5, type: 3}
+  - {fileID: 811833523814136948, guid: 347d4c6a091757c46bca297a95882b1b, type: 3}
   DescriptionObject: {fileID: 968196007}
 --- !u!4 &1089279276
 Transform:
