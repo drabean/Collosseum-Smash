@@ -57,7 +57,7 @@ public class UTILS : MonoBehaviour
     /// <summary>
     /// 저장되어있는 RunData 삭제하기(reset)
     /// </summary>
-    [MenuItem("MyTools/DeleteRunData")]
+    //[MenuItem("MyTools/DeleteRunData")]
     public static void DeleteRunData()
     {
         string persistentPath = Application.persistentDataPath;
@@ -103,7 +103,7 @@ public class UTILS : MonoBehaviour
     /// <summary>
     /// 저장되어있는 SaveData 삭제하기(reset)
     /// </summary>
-    [MenuItem("MyTools/DeleteSaveData")]
+    //[MenuItem("MyTools/DeleteSaveData")]
     public static void DeleteSaveData()
     {
         string persistentPath = Application.persistentDataPath;

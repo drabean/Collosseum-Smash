@@ -76,13 +76,15 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if (isTest && testStage == null) yield break;
 
-
+        spawnGong();
+        /*
         if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
         else
         {
             //TUTORIAL START
             startTutorial();
         }
+        */
     }
     #region TUTORIAL
     public List<Enemy> TrainingBots = new List<Enemy>();
@@ -109,7 +111,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         player.onMovement += checkP1;
         UIMgr.Inst.progress.ShowNormalUI();
-        progressTMP.text = "Touch joystick to move.";
+        progressTMP.text = "Tilt joystick to move.";
     }
     void checkP1()
     {
@@ -170,7 +172,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         EnemyMgr.Inst.SpawnEnemy(TrainingBots[1], new Vector3(-2.5f, 1f, 0f), checkP3);
         EnemyMgr.Inst.SpawnEnemy(TrainingBots[2], new Vector3(2.5f, 1f, 0f), checkP3);
 
-        progressTMP.text = "Red area warn enemy's attack.\n Avoid it and smash enemy.";
+        progressTMP.text = "The enemy's attack locations are marked in red.\n Avoid the enemy's attack and counterattack!";
     }
     void checkP3(Vector3 pos)
     {

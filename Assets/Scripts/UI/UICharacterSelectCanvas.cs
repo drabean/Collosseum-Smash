@@ -89,7 +89,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     {
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
-        if (curIdx > StartSceneMgr.Inst.saveData.ProgressLV)
+        if (curIdx > StartSceneMgr.Inst.saveData.ProgressLV+1) // for Test. remove second when build
         {
             LockGroup.SetActive(true);
         }
