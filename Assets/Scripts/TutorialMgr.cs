@@ -7,24 +7,35 @@ using TMPro;
 
 public class TutorialMgr : MonoBehaviour
 {
-    public TextMeshPro TMP_Tutorial;
-    Player player;
+
     public List<Enemy> TrainingBots = new List<Enemy>();
-    public List<Transform> SpawnPoints = new List<Transform>();
-    private IEnumerator Start()
+
+    public Player player;
+    public TextMeshPro progressTMP;
+    public SaveData curSaveData;
+    public Item throwItem;
+
+    public void Init(Player player, TextMeshPro progressTMP, SaveData curSaveData)
     {
-        yield return new WaitUntil(()=>GameMgr.Inst.isPlayerInstantiated);
-        player = GameObject.FindObjectOfType<Player>();
-        SoundMgr.Inst.PlayBGM("Tutorial");
+        this.player = player;
+        this.progressTMP = progressTMP;
+        this.curSaveData = curSaveData;
+
+        TrainingBots.Add(Resources.Load<Enemy>("Prefabs/Enemy/TrainingBot/TrainingBotDoll"));
+        TrainingBots.Add(Resources.Load<Enemy>("Prefabs/Enemy/TrainingBot/TrainingBot"));
+        TrainingBots.Add(Resources.Load<Enemy>("Prefabs/Enemy/TrainingBot/TrainingBotRanged"));
+        throwItem = Resources.Load<Item>("Prefabs/Item/ItemThrowingDagger");
+    }
+    public void startTutorial()
+    {
         startP1();
     }
-
     IEnumerator co_NextPhase(Action next)
     {
         SoundMgr.Inst.Play("Success");
-        TMP_Tutorial.text = "Great!";
+        progressTMP.text = "Great!";
         yield return new WaitForSeconds(1.5f);
-        TMP_Tutorial.text = "Wait..";
+        progressTMP.text = "Wait..";
         yield return new WaitForSeconds(1.5f);
         next.Invoke();
     }
@@ -37,13 +48,13 @@ public class TutorialMgr : MonoBehaviour
     {
         player.onMovement += checkP1;
         UIMgr.Inst.progress.ShowNormalUI();
-        TMP_Tutorial.text = "Touch joystick to move.";
+        progressTMP.text = "Tilt joystick to move.";
     }
     void checkP1()
     {
         p1Count++;
-        UIMgr.Inst.progress.SetProgress((int)p1Count, 10); ;
-        if (p1Count >= 10)
+        UIMgr.Inst.progress.SetProgress((int)p1Count, 6); ;
+        if (p1Count >= 6)
         {
             endP1();
         }
@@ -58,16 +69,17 @@ public class TutorialMgr : MonoBehaviour
     }
     #endregion
     #region P2
+    //튜토리얼 공격
     int p2Count = 0;
     void startP2()
     {
         UIMgr.Inst.progress.SetProgress((int)p2Count, 2); ;
 
-        for (int i = 0; i < 2; i++)
-        {
-            EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], SpawnPoints[i].position, checkP2);
-        }
-        TMP_Tutorial.text = "Release joystick to move \ntoward enemy and attack.";
+
+        EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(2.0f, 1.0f, 0.0f), checkP2);
+        EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(-2.0f, 1.0f, 0.0f), checkP2);
+
+        progressTMP.text = "Release joystick to move \ntoward enemy and attack.";
     }
 
     void checkP2(Vector3 pos)
@@ -89,46 +101,86 @@ public class TutorialMgr : MonoBehaviour
 
 
     #region P3
+    //튜토리얼 투척
     int p3Count = 0;
 
     void startP3()
     {
         UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
+        Instantiate(throwItem, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity)
+            .onAcquire += () => EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 1.0f, 0.0f));
 
-        EnemyMgr.Inst.SpawnEnemy(TrainingBots[1], SpawnPoints[0].position, checkP3);
-        EnemyMgr.Inst.SpawnEnemy(TrainingBots[2], SpawnPoints[1].position, checkP3);
+     //   EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 1.0f, 0.0f), checkP2);
 
-        TMP_Tutorial.text = "Red area warn enemy's attack.\n Avoid it and smash enemy.";
-    }
-    void checkP3(Vector3 pos)
-    {
-        p3Count++;
-        UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
-
-        if (p3Count >= 2)
-        {
-            endP3();
-        }
+        player.onThrow += endP3;
+        progressTMP.text = "Pick up throwing Item, \n release Joystick to Throw!";
     }
 
     void endP3()
     {
         UIMgr.Inst.progress.HideAll();
-        StartCoroutine(co_ToMainScene());
+        player.onThrow -= endP3;
+        StartCoroutine(co_NextPhase(startP4));
     }
+
+    #endregion
+
+    #region P4
+    int p4Count = 0;
+
+    void startP4()
+    {
+        UIMgr.Inst.progress.SetProgress((int)p4Count, 2);
+
+        EnemyMgr.Inst.SpawnEnemy(TrainingBots[1], new Vector3(-2.5f, -2f, 0f), checkP4);
+        EnemyMgr.Inst.SpawnEnemy(TrainingBots[2], new Vector3(2.5f, -2f, 0f), checkP4);
+
+        progressTMP.text = "The enemy's attack locations \nare marked in red.\n Avoid the enemy's attack\n and counterattack!";
+    }
+    void checkP4(Vector3 pos)
+    {
+        p4Count++;
+        UIMgr.Inst.progress.SetProgress((int)p4Count, 2);
+
+        if (p4Count >= 2)
+        {
+            endP4();
+        }
+
+    }
+
+    void endP4()
+    {
+        UIMgr.Inst.progress.HideAll();
+        StartCoroutine(co_NextPhase(startP5));
+    }
+
+    #endregion   
+    #region P5
+    void startP5()
+    {
+        clearTutorial();
+
+        Enemy Gong = Instantiate(GameMgr.Inst.GongPrefab);
+        Gong.transform.position = Vector3.up * 4;
+        //StartNormalStage();
+        Gong.onDeath += position =>
+        {
+            // 무명 함수 내부에서 StartStage() 함수 호출
+            StartCoroutine(GameMgr.Inst.StartNormalStage());
+        };
+        progressTMP.text = "After Smashing Gong, enemies\nwill  begin to spawn.\n prepare your battle!";
+    }
+    
+
     #endregion
 
 
-    IEnumerator co_ToMainScene()
+    void clearTutorial()
     {
-        SoundMgr.Inst.Play("Success");
-        TMP_Tutorial.text = "Great!";
-        yield return new WaitForSeconds(1.5f);
-        TMP_Tutorial.text = "Prepare your battle...";
-        yield return new WaitForSeconds(3.0f);
+        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
+       // curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
 
-
-        SoundMgr.Inst.StopBGM();
-        LoadSceneMgr.LoadSceneAsync("Main");
+        //UTILS.SaveSaveData(curSaveData);
     }
 }

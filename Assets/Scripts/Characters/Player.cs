@@ -80,7 +80,6 @@ public class Player : CharacterBase
         moveSpeed = 2f + (Stat.SPD * 0.5f); 
         maxHP = Stat.VIT + 2;
         if(curHP > maxHP)curHP = maxHP;
-        Debug.Log("Stat Set!");
 
     }
 
@@ -404,6 +403,8 @@ public class Player : CharacterBase
     }
     IEnumerator co_Smash(Vector3 hitVec)
     {
+        UIMgr.Inst.hp.Set(0);
+
         isDead = true;
         Destroy(targetIcon.gameObject);
         anim.SetBool("isMoving", false);

@@ -3116,9 +3116,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -95889507
-  m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingLayerID: -1881923847
+  m_SortingLayer: 4
+  m_SortingOrder: -1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &313994890
 GameObject:
@@ -4123,7 +4123,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 25f00d2453edaf74483be5a49d39f2a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4850,18 +4850,14 @@ MonoBehaviour:
     stageProgress: 0
   isPlayerInstantiated: 0
   player: {fileID: 0}
-  isTest: 0
+  isTest: 1
   testRunData:
     characterInfoIdx: 0
     item: 
     stageProgress: 0
-  testStage: {fileID: 0}
+  testStage: {fileID: 11400000, guid: ffc5afc5871649d4db953708b60b96f5, type: 2}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
-  TrainingBots:
-  - {fileID: 994540626494633888, guid: 18aea684b678d0147bc9a3aa84b1d59a, type: 3}
-  - {fileID: 3932594245380771357, guid: dc59de0abc55a1046a5d366ed8633bd5, type: 3}
-  - {fileID: 811833523814136948, guid: 347d4c6a091757c46bca297a95882b1b, type: 3}
   DescriptionObject: {fileID: 968196007}
 --- !u!4 &1089279276
 Transform:
@@ -22631,9 +22627,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -95889507
-  m_SortingLayer: 2
-  m_SortingOrder: 4
+  m_SortingLayerID: -1881923847
+  m_SortingLayer: 4
+  m_SortingOrder: -1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2033463542
 GameObject:

@@ -10,6 +10,12 @@ public class UIItemDescriptionCanvas : MonoSingleton<UIItemDescriptionCanvas>
     public TextMeshPro TMPName;
     public TextMeshPro TMPDescription;
 
+    public void ShowDescription(string message)
+    {
+        GroupDescription.SetActive(true);
+        TMPDescription.text = message;
+    }
+
     public void ShowDescription(Equip equip)
     {
         GroupDescription.SetActive(true);

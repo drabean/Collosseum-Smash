@@ -90,8 +90,8 @@ MonoBehaviour:
   aim: {fileID: 3932594244995817741}
   hit: {fileID: 3932594245380771363}
   isDead: 0
-  maxHP: 9
-  curHP: 9
+  maxHP: 4
+  curHP: 4
   moveSpeed: 1
   moveSpeedCo: 1
   aimRange: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
   isSuperarmor: 0
   attackRange: 1.1
   attackWidth: 1
-  attackName: Prefabs/Attack/ClawEffect
+  attackName: Prefabs/Attack/HammerImpact
   attackWaitTime: 0.9
   attackAfterWaitTime: 1.5
   doAttackSpin: 1

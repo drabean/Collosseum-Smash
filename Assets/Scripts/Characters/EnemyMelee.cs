@@ -118,7 +118,7 @@ public class EnemyMelee: Enemy
 
         if (hits.Length == 0) //추적범위 내에 Target이 존재하지 않음
         {
-            Debug.Log("주위에 아무도 없음");
+          //  Debug.Log("주위에 아무도 없음");
             return false;
         }
         else

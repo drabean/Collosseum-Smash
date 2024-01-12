@@ -18,4 +18,6 @@ public class StageInfo : ScriptableObject
     public AudioClip Intro;
     public AudioClip BGM;
     public GameObject StageDeco;
+    [TextArea]
+    public string bossText;
 }

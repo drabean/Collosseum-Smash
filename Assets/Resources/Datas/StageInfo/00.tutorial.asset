@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
+  m_Name: 00.tutorial
+  m_EditorClassIdentifier: 
+  ID: 10100
+  Enemies:
+  - {fileID: 3932594245380771357, guid: dc59de0abc55a1046a5d366ed8633bd5, type: 3}
+  - {fileID: 811833523814136948, guid: 347d4c6a091757c46bca297a95882b1b, type: 3}
+  Boss: {fileID: 11029592527816433, guid: 07684a6c4a1bd794ca5bef022a782554, type: 3}
+  maxKill: 10
+  Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
+  BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
+  StageDeco: {fileID: 0}
+  bossText: "After Smashing enough enemy, \nstrong enemy will appear.\nSmash it to
+    clear stage!"

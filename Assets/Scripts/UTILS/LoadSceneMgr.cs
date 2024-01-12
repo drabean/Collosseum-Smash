@@ -71,7 +71,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     {
         float progress = 0;
 
-        while(progress<=1)
+        while(progress<1)
         {
             if(isIn) LoadingPanel.alpha = progress;
             else LoadingPanel.alpha = 1 - progress;

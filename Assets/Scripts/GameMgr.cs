@@ -34,7 +34,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     [Tooltip("if not null, testStage will be loaded instead of saved stage")]
     public StageInfo testStage;
 
-    [SerializeField] Enemy GongPrefab;
+    public Enemy GongPrefab;
 
     public TextMeshPro progressTMP;
     private IEnumerator Start()
@@ -76,132 +76,17 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if (isTest && testStage == null) yield break;
 
-        spawnGong();
-        /*
         if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
         else
         {
             //TUTORIAL START
-            startTutorial();
+            TutorialMgr tutorial =  gameObject.AddComponent<TutorialMgr>();
+            tutorial.Init(player, progressTMP, curSaveData);
+            tutorial.startTutorial();
         }
-        */
+        
     }
-    #region TUTORIAL
-    public List<Enemy> TrainingBots = new List<Enemy>();
-
-    void startTutorial()
-    {
-        startP1();
-    }
-    IEnumerator co_NextPhase(Action next)
-    {
-        SoundMgr.Inst.Play("Success");
-        progressTMP.text = "Great!";
-        yield return new WaitForSeconds(1.5f);
-        progressTMP.text = "Wait..";
-        yield return new WaitForSeconds(1.5f);
-        next.Invoke();
-    }
-
-
-    #region p1
-    int p1Count;
-    //튜토리얼 - 이동
-    void startP1()
-    {
-        player.onMovement += checkP1;
-        UIMgr.Inst.progress.ShowNormalUI();
-        progressTMP.text = "Tilt joystick to move.";
-    }
-    void checkP1()
-    {
-        p1Count++;
-        UIMgr.Inst.progress.SetProgress((int)p1Count, 10); ;
-        if (p1Count >= 8)
-        {
-            endP1();
-        }
-
-    }
-    void endP1()
-    {
-        player.onMovement -= checkP1;
-        UIMgr.Inst.progress.HideAll();
-
-        StartCoroutine(co_NextPhase(startP2));
-    }
-    #endregion
-    #region P2
-    int p2Count = 0;
-    void startP2()
-    {
-        UIMgr.Inst.progress.SetProgress((int)p2Count, 2); ;
-
-        for (int i = 0; i < 2; i++)
-        {
-            EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 1.0f, 0.0f), checkP2);
-        }
-        progressTMP.text = "Release joystick to move \ntoward enemy and attack.";
-    }
-
-    void checkP2(Vector3 pos)
-    {
-        p2Count++;
-        UIMgr.Inst.progress.SetProgress((int)p2Count, 2); ;
-        if (p2Count >= 2)
-        {
-            endP2();
-        }
-    }
-
-    void endP2()
-    {
-        UIMgr.Inst.progress.HideAll();
-        StartCoroutine(co_NextPhase(startP3));
-    }
-    #endregion
-
-
-    #region P3
-    int p3Count = 0;
-
-    void startP3()
-    {
-        UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
-
-        EnemyMgr.Inst.SpawnEnemy(TrainingBots[1], new Vector3(-2.5f, 1f, 0f), checkP3);
-        EnemyMgr.Inst.SpawnEnemy(TrainingBots[2], new Vector3(2.5f, 1f, 0f), checkP3);
-
-        progressTMP.text = "The enemy's attack locations are marked in red.\n Avoid the enemy's attack and counterattack!";
-    }
-    void checkP3(Vector3 pos)
-    {
-        p3Count++;
-        UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
-
-        if (p3Count >= 2)
-        {
-            endP3();
-        }
-    }
-
-    void endP3()
-    {
-        UIMgr.Inst.progress.HideAll();
-
-        clearTutorial();
-    }
-
-    void clearTutorial()
-    {
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
-        spawnGong();
-        curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
-        progressTMP.text = "After Smashing Gong, enemies will apear. \nafter smashing enough enemy, \nStrong enemy will apear.";
-    }
-    #endregion
-
-    #endregion
+ 
 
     void spawnGong()
     {
@@ -311,13 +196,14 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         GameMgr.Inst.removeAllNormalEnemies();
 
-        progressTMP.text = "prepare your battle..";
+        progressTMP.text = info.bossText;
 
         UIMgr.Inst.progress.HideAll();
         EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.up, onBossDie);
         yield return new WaitForSeconds(1f);
-        progressTMP.text = "";
         UIMgr.Inst.progress.ShowBossUI();
+        yield return new WaitForSeconds(1.5f);
+        progressTMP.text = "";
     }
     /// <summary>
     /// 현재 소환 가능한 몬스터들 Index
@@ -404,6 +290,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void spawnItems()
     {
+        UIMgr.Inst.itemDescription.ShowDescription("Select One!");
+
         DescriptionObject.gameObject.SetActive(true);
         DescriptionObject.FlashWhite(0.1f);
         for (int i = 0; i < 3; i++)
