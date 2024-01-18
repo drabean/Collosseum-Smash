@@ -101,7 +101,7 @@ MonoBehaviour:
   isSuperarmor: 0
   attackRange: 0.7
   attackWidth: 1
-  attackName: '        StartCoroutine(co_NextPhase(startP3));'
+  attackName: Prefabs/Attack/HammerImpact
   attackWaitTime: 0.8
   attackAfterWaitTime: 0.9
   doAttackSpin: 1

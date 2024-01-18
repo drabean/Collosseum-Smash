@@ -67,7 +67,7 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     /// <returns></returns>
     public Equip GetPotionEquip()
     {
-        if (potionPool.Count == 0) return null;
+        if (potionPool.Count == 0) return GetNormalEquip();
 
         Equip equip = potionPool[Random.Range(0, potionPool.Count)];
         potionPool.Remove(equip);

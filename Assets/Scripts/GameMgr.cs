@@ -66,16 +66,21 @@ public class GameMgr : MonoSingleton<GameMgr>
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(player);
         //테스트를 위한 임의 스테이지 지정
-        if (testStage == null) info = getStageData();
-        else info = testStage;
+        if (testStage == null) stageInfo = getStageData();
+        else stageInfo = testStage;
 
-        if(info.StageDeco != null) Instantiate(info.StageDeco, Vector3.zero, Quaternion.identity);
+        if(stageInfo.StageDeco != null) Instantiate(stageInfo.StageDeco, Vector3.zero, Quaternion.identity);
         Time.timeScale = 1;
 
         //즉시 시작이 아닌, 별도 오브젝트를 공격함으로서 게임이 시작하도록 만듬.
 
         if (isTest && testStage == null) yield break;
 
+        if(isTest)
+        {
+            spawnGong();
+            yield break;
+        }
         if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
         else
         {
@@ -110,12 +115,13 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
         return LoadedData.Inst.stageInfos[curRunData.stageProgress];
     }
-    StageInfo info;
+    StageInfo stageInfo;
     Coroutine curSpawnRoutine;
     int maxCount = 3; // 소환 될 수 있는 최대 마리수
     int progressCount = 0; //
     bool isBossSpawned;
-
+    int dropCount = 4; // 투척 아이템 소환 빈도
+    int curDropCount = 0;
     public IEnumerator StartNormalStage()
     {
         UIMgr.Inst.progress.ShowStageStart();
@@ -126,17 +132,17 @@ public class GameMgr : MonoSingleton<GameMgr>
         InitEnemyPool();
         yield return new WaitForSeconds(1.0f);
 
-        SoundMgr.Inst.PlayBGM(info.Intro, info.BGM);
+        SoundMgr.Inst.PlayBGM(stageInfo.Intro, stageInfo.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
-        progressTMP.text = progressCount + " / " + info.maxKill;
+        progressTMP.text = progressCount + " / " + stageInfo.maxKill;
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
     }
 
     void InitEnemyPool()
     {
         enemiesCanBeSpawned = new List<int>();
-        for (int i = 1; i < info.Enemies.Count; i++)
+        for (int i = 1; i < stageInfo.Enemies.Count; i++)
         {
             enemiesCanBeSpawned.Add(i);
         }
@@ -179,7 +185,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
             int idx2Spwn = getIndexToSpawn();
             if (idx2Spwn == 0) baseEnemyCount++;
-            EnemyMgr.Inst.SpawnEnemy(info.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn));
+
+            EnemyMgr.Inst.SpawnEnemy(stageInfo.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn));
             curEnemyCount++;
         }
     }
@@ -196,10 +203,10 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         GameMgr.Inst.removeAllNormalEnemies();
 
-        progressTMP.text = info.bossText;
+        progressTMP.text = stageInfo.bossText;
 
         UIMgr.Inst.progress.HideAll();
-        EnemyMgr.Inst.SpawnBossEnemy(info.Boss, Vector3.up, onBossDie);
+        EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, onBossDie);
         yield return new WaitForSeconds(1f);
         UIMgr.Inst.progress.ShowBossUI();
         yield return new WaitForSeconds(1.5f);
@@ -248,17 +255,28 @@ public class GameMgr : MonoSingleton<GameMgr>
         else baseEnemyCount--;
 
         progressCount++;
-        if (progressCount == info.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
+        if (progressCount == stageInfo.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
+        curDropCount++;
 
-        UIMgr.Inst.progress.SetProgress(progressCount, info.maxKill);
-        progressTMP.text = progressCount + " / " + info.maxKill;
-        if (progressCount >= info.maxKill)
+        if(curDropCount == dropCount)
+        {
+            curDropCount = 0;
+            SpawnThrowableItem();
+        }
+        UIMgr.Inst.progress.SetProgress(progressCount, stageInfo.maxKill);
+        progressTMP.text = progressCount + " / " + stageInfo.maxKill;
+        if (progressCount >= stageInfo.maxKill)
         {
             removeAllNormalEnemies();
             startBossStage();
         }
     }
 
+    public void SpawnThrowableItem()
+    {
+        Debug.Log("SPAWN");
+        Instantiate(stageInfo.ThrowItem, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
+    }
     void onBossDie(Vector3 pos)
     {
         StartCoroutine(co_SpawnItems());

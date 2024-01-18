@@ -21,3 +21,5 @@ MonoBehaviour:
   Intro: {fileID: 0}
   BGM: {fileID: 8300000, guid: 0d009cef059d18e46826374a59571944, type: 3}
   StageDeco: {fileID: 7439788287238324533, guid: 66728935e6a1b094291d78737b562906, type: 3}
+  bossText: "the roar of gladiator is \nheard from somewhere.\nprepare your battle!"
+  ThrowItem: {fileID: 8724770063042179201, guid: f9c296f23ecb63641854e81fff3c62ea, type: 3}

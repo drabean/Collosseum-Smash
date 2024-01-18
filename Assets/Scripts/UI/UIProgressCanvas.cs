@@ -15,6 +15,7 @@ public class UIProgressCanvas : MonoBehaviour
 
     [SerializeField] Image EnemyProgressBar;
     [SerializeField] Image BossHPBar;
+    [SerializeField] TextMeshProUGUI TMPProgress;
 
     public void HideAll()
     {
@@ -23,9 +24,10 @@ public class UIProgressCanvas : MonoBehaviour
         if(GroupBoss.activeInHierarchy) GroupBoss.GetComponent<ModuleUI>().FadeOut(0.5f);
     }
 
-    public void ShowStageStart()
+    public void ShowStageStart(string text = "Fight!")
     {
         GroupStageStart.SetActive(true);
+        TMPProgress.text = text;
         SoundMgr.Inst.Play("StageStart");
     }
     public void SetProgress(int curCount, int maxCount) 

@@ -23,3 +23,4 @@ MonoBehaviour:
   StageDeco: {fileID: 0}
   bossText: "After Smashing enough enemy, \nstrong enemy will appear.\nSmash it to
     clear stage!"
+  ThrowItem: {fileID: 3860790137050885266, guid: f7e8bbc5441ac944ca38f7ca43bd3288, type: 3}

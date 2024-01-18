@@ -232,7 +232,7 @@ MonoBehaviour:
   attackRange: 1
   attackWidth: 1.2
   attackName: Prefabs/Attack/BiteEffect
-  attackWaitTime: 0.65
+  attackWaitTime: 0.9
   attackAfterWaitTime: 1.3
   doAttackSpin: 0
   layer:

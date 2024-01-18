@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sp: {fileID: 5384544696474922187}
-  item: {fileID: 5923938062283301304, guid: 9d8876e3544975c48ad1eb1368900443, type: 3}
+  item: {fileID: 7670887495465332739, guid: a02eb2eb36eb56e4c8c9480996860fda, type: 3}
 --- !u!212 &5384544696474922187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -171,9 +171,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1881923847
-  m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingLayerID: -692493957
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: -34911366, guid: 68965135752672d4eacee0357e3fb243, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -28,6 +28,18 @@ public class TutorialMgr : MonoBehaviour
     }
     public void startTutorial()
     {
+        StartCoroutine(co_StartTutorial());
+    }
+
+    IEnumerator co_StartTutorial()
+    {
+        UIMgr.Inst.progress.ShowStageStart("Toturial");
+
+        yield return new WaitForSeconds(1.0f);
+        UIMgr.Inst.progress.HideAll();
+
+        yield return new WaitForSeconds(1.0f);
+        SoundMgr.Inst.PlayBGM("Tutorial");
         startP1();
     }
     IEnumerator co_NextPhase(Action next)

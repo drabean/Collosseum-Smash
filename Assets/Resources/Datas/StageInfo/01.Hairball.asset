@@ -19,8 +19,8 @@ MonoBehaviour:
   - {fileID: 999269732158798076, guid: 14275a766da6b6340b588e42a4284010, type: 3}
   Boss: {fileID: 3843553763941045600, guid: 26b4953708536534e87afc37986ae4e4, type: 3}
   maxKill: 15
-  Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
-  BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
+  Intro: {fileID: 8300000, guid: bb599116b2c35fd47a01911a4f470828, type: 3}
+  BGM: {fileID: 8300000, guid: baf2419b8a5012146b7d867eb8aed28f, type: 3}
   StageDeco: {fileID: 6024388929744640293, guid: f9f914c3d56ae324bb95f9c866de33be, type: 3}
-  bossText: "\"A growling sound of a beast echoes through the surroundings. \nA formidable
-    enemy is approaching, covered in thick fur!\""
+  bossText: "A growling sound of a beast \nechoes through air...\nPrepare your Battle!"
+  ThrowItem: {fileID: 2340179198039797983, guid: e496b6c99a0b8164d819560e33c783a6, type: 3}

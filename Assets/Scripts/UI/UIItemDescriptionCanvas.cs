@@ -13,7 +13,8 @@ public class UIItemDescriptionCanvas : MonoSingleton<UIItemDescriptionCanvas>
     public void ShowDescription(string message)
     {
         GroupDescription.SetActive(true);
-        TMPDescription.text = message;
+        TMPName.text = message;
+        TMPDescription.text = "";
     }
 
     public void ShowDescription(Equip equip)

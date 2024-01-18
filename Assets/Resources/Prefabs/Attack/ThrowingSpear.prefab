@@ -47,12 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXName: 
   moveSpeed: 9
   lifeTime: 6
   isRotate: 1
   warningRadius: 0.5
   moveVec: {x: 0, y: 0, z: 0}
   sp: {fileID: 0}
+  moduleAttack: {fileID: 3410549862494987775}
 --- !u!212 &1256957296205520661
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,6 +123,7 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 0
 --- !u!61 &8266985679762548262
 BoxCollider2D:
   m_ObjectHideFlags: 0

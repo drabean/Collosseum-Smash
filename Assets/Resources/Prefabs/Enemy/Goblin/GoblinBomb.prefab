@@ -1,80 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &720191313333017183
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1378553880427138081}
-  - component: {fileID: 4992044237310086077}
-  - component: {fileID: 526449461157808274}
-  m_Layer: 17
-  m_Name: AttackCol
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1378553880427138081
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720191313333017183}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6028886635807258631}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4992044237310086077
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720191313333017183}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.3}
-  m_EdgeRadius: 0
---- !u!114 &526449461157808274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720191313333017183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StunTIme: 0
-  cantPenetrate: 0
-  dmg: 0
-  ownerTr: {fileID: 0}
 --- !u!1 &6028886635807258873
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +16,6 @@ GameObject:
   - component: {fileID: 6028886635807258874}
   - component: {fileID: 1381109140487689764}
   - component: {fileID: 5309155296412603922}
-  - component: {fileID: 1381109140487689771}
   m_Layer: 16
   m_Name: GoblinBomb
   m_TagString: Untagged
@@ -112,7 +36,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6028886635985423067}
-  - {fileID: 1378553880427138081}
   - {fileID: 3419478174727568665}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -139,14 +62,16 @@ MonoBehaviour:
   maxHP: 1
   curHP: 1
   moveSpeed: 1.3
+  moveSpeedCo: 1
   aimRange: 0.5
   size: 0.3
   Target: {fileID: 0}
-  difficulty: 2
+  isChasing: 0
   isSuperarmor: 0
   attackWaitTime: 1
   explosionRange: 1.3
-  Explosion: {fileID: 1062290868216608965, guid: a358c5d236e3a144b9e1ce38d82deb22, type: 3}
+  Explosion: {fileID: 853791872059362625, guid: a358c5d236e3a144b9e1ce38d82deb22, type: 3}
+  prefab: {fileID: 2968552124905286440, guid: 1ff9cc29c70b2ad4db6662ad519c5f70, type: 3}
 --- !u!212 &6028886635807258629
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -291,19 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1381109140487689771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6028886635807258873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc9685665247de4f8d262adc114083c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 2968552124905286440, guid: 1ff9cc29c70b2ad4db6662ad519c5f70, type: 3}
 --- !u!1 &6028886635985423066
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +277,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6028886635807258631}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &841344555107681088
 SpriteRenderer:

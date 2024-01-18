@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4690467594034768761}
-  - component: {fileID: 735080000307687886}
+  - component: {fileID: 853791872059362625}
+  - component: {fileID: 7157773199469752495}
   - component: {fileID: 7289055501080851749}
   - component: {fileID: 7212670211599878939}
   - component: {fileID: 1037140710828526543}
-  - component: {fileID: 7157773199469752495}
+  - component: {fileID: 3165899274885897003}
   m_Layer: 17
   m_Name: Explosion
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &735080000307687886
+--- !u!114 &853791872059362625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,9 +46,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1062290868216608965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
+  m_Script: {fileID: 11500000, guid: 528208051ac3bdb4182f7c93d170261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXName: Bomb
+  range: 1.5625
+--- !u!114 &7157773199469752495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062290868216608965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StunTIme: 0
+  cantPenetrate: 0
+  dmg: 1
+  ownerTr: {fileID: 0}
+  maxHit: 0
 --- !u!95 &7289055501080851749
 Animator:
   serializedVersion: 5
@@ -137,7 +157,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5625
---- !u!114 &7157773199469752495
+--- !u!114 &3165899274885897003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,10 +166,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1062290868216608965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
+  m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StunTIme: 0
-  cantPenetrate: 0
-  dmg: 1
-  ownerTr: {fileID: 0}

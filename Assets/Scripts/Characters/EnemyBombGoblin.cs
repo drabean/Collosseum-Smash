@@ -9,12 +9,20 @@ public class EnemyBombGoblin : Enemy
 
     bool isExploded;
 
-    public GameObject Explosion;
+    public Attack Explosion;
+    public GameObject prefab;
+    public void Awake()
+    {
+        onDeath += spawnOnDeath;
+    }
     public override void StartAI()
     {
         StartCoroutine(co_Chase());
     }
-
+    void spawnOnDeath(Vector3 pos)
+    {
+        Instantiate(prefab, transform.position, Quaternion.identity);
+    }
     IEnumerator co_Chase()
     {
         while(!isDead)
@@ -34,7 +42,10 @@ public class EnemyBombGoblin : Enemy
         hit.FlashWhite(2.0f);
         moveSpeed *= 0.6f;
         yield return new WaitForSeconds(attackWaitTime);
-        Instantiate(Explosion, transform.position, Quaternion.identity);
+        GameMgr.Inst.MainCam.Shake(0.15f, 30, 0.25f, 0f);
+        Instantiate(Explosion, transform.position, Quaternion.identity).Shoot(transform.position, transform.position);
+        onDeath -= spawnOnDeath;
+        invokeOnDeath(Vector3.zero);
         Despawn();
     }
 

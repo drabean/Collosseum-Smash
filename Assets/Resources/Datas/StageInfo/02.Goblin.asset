@@ -22,3 +22,10 @@ MonoBehaviour:
   Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
   BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
   StageDeco: {fileID: 1758710396517536806, guid: 073320eae4ed3474da10ee91c34e69d8, type: 3}
+  bossText: 'You hear the sound of small,
+
+    but many footsteps.
+
+    Prepare your
+    Battle!'
+  ThrowItem: {fileID: 7969373804357992898, guid: 1b8431cc086dbd64ab64a0f3629d3ff8, type: 3}

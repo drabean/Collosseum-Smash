@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] float explosionTime;
-    [SerializeField] GameObject explosion;
+    [SerializeField] Impact explosion;
 
     private void Awake()
     {
@@ -19,8 +19,8 @@ public class Bomb : MonoBehaviour
 
     public void Explode()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
-
+        Instantiate(explosion, transform.position, Quaternion.identity).Shoot(transform.position, transform.position);
+        GameMgr.Inst.MainCam.Shake(0.15f, 30, 0.25f, 0f);
         Destroy(gameObject);
     }
 }
