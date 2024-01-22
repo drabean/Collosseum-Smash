@@ -11,7 +11,7 @@ public class UIMgr : MonoBehaviour
         Inst = this;
     }
 
-    public UIScoreCanvas score;
+    public UIPauseCanvas score;
     public UIHPCanvavs hp;
     public UIControlCanvas joystick;
     public UIProgressCanvas progress;

@@ -3214,10 +3214,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1835276272}
-  - {fileID: 1451874648}
   - {fileID: 1869438831}
   - {fileID: 1233597321}
   - {fileID: 983714793}
+  - {fileID: 1451874648}
   - {fileID: 945300082}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -4341,7 +4341,7 @@ RectTransform:
   - {fileID: 466221487}
   - {fileID: 526354306}
   m_Father: {fileID: 313994894}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4854,7 +4854,7 @@ MonoBehaviour:
   isTest: 1
   testRunData:
     characterInfoIdx: 0
-    item: 
+    item: 36530000
     stageProgress: 0
   testStage: {fileID: 11400000, guid: bf43cdf910459e74584d8605dee8e375, type: 2}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
@@ -4982,7 +4982,7 @@ RectTransform:
   m_Children:
   - {fileID: 1013711664}
   m_Father: {fileID: 313994894}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5221,7 +5221,7 @@ GameObject:
   - component: {fileID: 1451874647}
   - component: {fileID: 1451874650}
   m_Layer: 5
-  m_Name: UIScoreCanvas
+  m_Name: UIPauseCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5255,7 +5255,7 @@ RectTransform:
   - {fileID: 1654360568}
   - {fileID: 1864980360}
   m_Father: {fileID: 313994894}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -22188,7 +22188,7 @@ RectTransform:
   m_Children:
   - {fileID: 1520277389}
   m_Father: {fileID: 313994894}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

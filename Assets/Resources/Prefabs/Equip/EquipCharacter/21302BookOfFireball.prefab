@@ -47,7 +47,7 @@ MonoBehaviour:
   ID: 21302
   ItemSprite: {fileID: 21300000, guid: 63c3641e812253f4d848a2a175b90679, type: 3}
   itemName: BookOfFireball
-  Description: Spawn a Book of fireball at random position. when acquired, spawn
-    Huge Fireball toward nearby enemy.
+  Description: Generate a Book of Fireball at a random position. When you acquire
+    5 books, unleash a powerful Fireball magic.
   owner: {fileID: 0}
-  ItemFireballPrefab: {fileID: 7692268477598082880, guid: 919b086803fcef84e82ff6c3aa97c15b, type: 3}
+  MagicCircle: {fileID: 7160601073334673385, guid: 26dda08f4227b384bbfa181816f8d9bf, type: 3}

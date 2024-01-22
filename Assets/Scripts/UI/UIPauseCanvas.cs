@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class UIScoreCanvas : MonoBehaviour
+public class UIPauseCanvas : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI TMP_Score;
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2989893706180376674}
   - component: {fileID: 8838980308127134284}
   m_Layer: 0
-  m_Name: 02PandantOfWind
+  m_Name: 02MagicSwordSheath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 20102
-  ItemSprite: {fileID: 21300000, guid: 1860a14f8d05c034daebfed5e2d6da70, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 61e7f901396a64c468b7016cd92385f3, type: 3}
   itemName: PandantOfWind
-  Description: Increase Spd by 1.
+  Description: If you dont attack for 6 seconds, Increase your Attack damage by 4
+    on next attack.
   owner: {fileID: 0}
+  cooltime: 4
+  lastAttackTime: 0
+  iconPrefab: {fileID: 8948266564719266889, guid: d3a59fc029ef9204882a23e368e54a5b, type: 3}
+  curIcon: {fileID: 0}

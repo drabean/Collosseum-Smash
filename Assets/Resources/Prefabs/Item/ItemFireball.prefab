@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7692268477598082883}
-  - component: {fileID: 7692268477598082943}
+  - component: {fileID: 1381705861428944091}
   - component: {fileID: 7692268477598082940}
   - component: {fileID: 8804068195651004067}
   m_Layer: 17
@@ -204,7 +204,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7692268477598082943
+--- !u!114 &1381705861428944091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,14 +213,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7692268477598082880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f87bdbcf32e1d5498a1d7e3dd574d42, type: 3}
+  m_Script: {fileID: 11500000, guid: cdd10efe88827e140bb26f2b6db3e693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sp: {fileID: 7372018290875270304}
-  layer:
-    serializedVersion: 2
-    m_Bits: 65536
-  FireBallPrefab: {fileID: 8155456317301673008, guid: 10f27987efc959a42af7f997168eefa0, type: 3}
 --- !u!58 &7692268477598082940
 CircleCollider2D:
   m_ObjectHideFlags: 0

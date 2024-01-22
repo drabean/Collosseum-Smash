@@ -4,37 +4,19 @@ using UnityEngine;
 
 public class BookOfFireball : Equip
 {
-    GameObject curItemFireball;
-    public GameObject ItemFireballPrefab;
-    Coroutine curSpawnCoroutine;
+    public GameObject MagicCircle;
+    GameObject curMagicCircle;
 
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        curItemFireball = Instantiate(ItemFireballPrefab, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
-        curSpawnCoroutine = StartCoroutine(co_SpawnCoroutine());
+       curMagicCircle =  Instantiate(MagicCircle, Vector3.up * (-1.5f), Quaternion.identity);
     }
 
     public override void onUnEquip(Player player)
     {
-        Destroy(curItemFireball);
-        StopCoroutine(curSpawnCoroutine);
+        Destroy(curMagicCircle);
     }
 
-    IEnumerator co_SpawnCoroutine()
-    {
-        while (true)
-        {
-            if (curItemFireball != null)
-            {
-                yield return null;
-            }
-            else
-            {
-                yield return new WaitForSeconds(9.0f);
-                curItemFireball = Instantiate(ItemFireballPrefab, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
-            }
 
-        }
-    }
 }

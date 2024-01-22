@@ -34,6 +34,7 @@ public class EquipWeapon : Equip
             //특수공격이 준비되었음을 알리는 아이콘
             curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/SwordEffect").GetComponent<Poolable>();
             owner.iconHolder.addIcon(curIcon.transform);
+            SoundMgr.Inst.Play("BufOn");
         }
     }
 

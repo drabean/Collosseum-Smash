@@ -148,16 +148,18 @@ MonoBehaviour:
   maxHP: 3
   curHP: 3
   moveSpeed: 2.5
+  moveSpeedCo: 1
   aimRange: 1
   size: 0.5
   spriteGroup: {fileID: 1380716219682906373}
   particle: {fileID: 1380716220854816257}
   iconHolder: {fileID: 3096942052132557833}
   isInAttackRange: 0
-  _stat:
+  Stat:
     STR: 3
-    VIT: 4
-    SPD: 2
+    VIT: 3
+    SPD: 3
+    ACC: 3
   findRange: 5
   attackRange: 1.3
   throwRange: 5

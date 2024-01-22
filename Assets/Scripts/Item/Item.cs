@@ -34,7 +34,7 @@ public class Item : MonoBehaviour
     }
     protected virtual void onAcquired(Player player)
     {
-        Debug.Log("GotItem!");
+      //  Debug.Log("GotItem!");
     }
 
     protected virtual IEnumerator co_AcquireItem()

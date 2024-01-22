@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SmallShield : Equip
 {
-    public int maxKillCount = 5;
+    public int maxKillCount = 7;
     bool isShieldActive;
     public Poolable curIcon;
 
@@ -26,13 +26,14 @@ public class SmallShield : Equip
         if (isShieldActive) return;
 
         killCount++;
-        if(killCount == maxKillCount)
+        if(killCount >= maxKillCount)
         {
             owner.actionHit += Block;
             curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/ShieldEffect").GetComponent<Poolable>();
             owner.iconHolder.addIcon(curIcon.transform);
 
             isShieldActive = true;
+            killCount = 0;
         }
     }
 
