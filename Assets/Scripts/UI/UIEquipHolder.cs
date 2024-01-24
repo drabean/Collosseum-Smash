@@ -16,6 +16,7 @@ public class UIEquipHolder : MonoBehaviour
     }
     public void ShowItemDescription()
     {
-        StartSceneMgr.Inst.ShowItemDescription(equip);
+        Debug.Log("SHOWITEM");
+        UIItemDescriptionPanel.ShowEquip(equip);
     }
 }

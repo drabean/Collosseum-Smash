@@ -51,7 +51,6 @@ public class UTILS : MonoBehaviour
 
         bf.Serialize(fileStream, data);
         fileStream.Close();
-        Debug.Log("SaveSucccess!!!!");
     }
 
     /// <summary>
@@ -118,6 +117,33 @@ public class UTILS : MonoBehaviour
 
     #endregion
 
+    #region Setting
+    static string settingDataName;
+    public static Settings GetSettingData()
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + settingDataName;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fileStream = File.Create(finalPath);
+
+        Settings data = (Settings)bf.Deserialize(fileStream);
+
+        return data;
+    }
+
+    public static void SaveSettingData(Settings data)
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + runDataName;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fileStream = File.Create(finalPath);
+
+        bf.Serialize(fileStream, data);
+        fileStream.Close();
+    }
+    #endregion
     #region ÇØ±Ý
 
     public static void CheckEXP()

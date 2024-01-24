@@ -8,7 +8,7 @@ using UnityEngine;
 public class LoadedData : Singleton<LoadedData>
 {
     public bool isDataLoaded = false;
-
+   
     Dictionary<int, CharacterInfo> CharacterInfos = new Dictionary<int, CharacterInfo>();
     public int characterInfosCount = 0;
 

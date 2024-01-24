@@ -45,7 +45,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
         // Fade In 효과 실행
         yield return StartCoroutine(Fade(0.3f, true));
 
-        // 비동기 씬 로딩을 시작합니다.
+        // 비동기 씬 로딩을 시작
         operation = SceneManager.LoadSceneAsync(nextSceneName);
         operation.allowSceneActivation = false;
 

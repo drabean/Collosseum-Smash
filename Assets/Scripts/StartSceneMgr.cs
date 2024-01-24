@@ -80,10 +80,4 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     {
         Application.Quit();
     }
-
-    public void ShowItemDescription(Equip equip)
-    {
-        ItemDescription.ShowPanel(equip);
-        ItemDescription.gameObject.SetActive(true);
-    }
 }

@@ -361,14 +361,6 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     #endregion
     #region 유틸 함수들
-    int score = 0;
-    public void addScore(int score)
-    {
-        this.score += score;
-        UIMgr.Inst.score.Set(this.score);
-
-    }
-
     Coroutine curSlowtimeCoroutine;
     bool slowTimeLock;
     /// <summary>

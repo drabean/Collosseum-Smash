@@ -31,8 +31,12 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 
     Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
     List<AudioSource> SFXPlayers = new List<AudioSource>();
+    float SFXvolume = 1f;
+
     AudioSource BGMPlayer;
+    float BGMvolume = 1f;
     AudioSource IntroPlayer;
+    #region SFX
     public void Play(string name)
     {
         AudioClip clip;
@@ -65,9 +69,20 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         temp.transform.SetParent(transform);
         AudioSource audio = temp.AddComponent<AudioSource>();
         SFXPlayers.Add(audio);
-
+        audio.volume = SFXvolume;
         return audio;
     }
+
+    public void ChangeSFXVolume(float volume)
+    {
+        SFXvolume = volume;
+        foreach(AudioSource s in SFXPlayers)
+        {
+            s.volume = SFXvolume;
+        }
+    }
+    #endregion
+    #region BGM
     public void PlayBGM(string name)
     {
         AudioClip clip;
@@ -82,7 +97,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
 
         BGMPlayer.Stop();
-        BGMPlayer.volume = 1;
+        BGMPlayer.volume = BGMvolume;
         BGMPlayer.clip = clip;
         BGMPlayer.Play();
     }
@@ -107,7 +122,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
             }
         }
 
-        BGMPlayer.volume = 1;
+        BGMPlayer.volume = BGMvolume;
         BGMPlayer.clip = BGM;
         BGMPlayer.Play();
     }
@@ -117,7 +132,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 
         while(progress >= 0)
         {
-            BGMPlayer.volume = progress;
+            BGMPlayer.volume = progress * BGMvolume;
             progress -= Time.deltaTime / duration;
             yield return null;
         }
@@ -130,4 +145,12 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         if (BGMPlayer == null) return;
         BGMPlayer.Stop();
     }
+
+    public void ChangeBGMVolume(float volume)
+    {
+        BGMvolume = volume;
+        BGMPlayer.volume = volume;
+        IntroPlayer.volume = volume;
+    }
+    #endregion
 }
