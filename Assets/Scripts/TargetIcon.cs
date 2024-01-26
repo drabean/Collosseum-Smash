@@ -15,7 +15,11 @@ public class TargetIcon : MonoBehaviour
     private void Update()
     {
         if (Target == null) return;
-        if (Owner == null) Destroy(gameObject);
+        if (Owner == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         curTargetingPosition = Vector3.MoveTowards(curTargetingPosition, Target.position, moveSpeed * Time.deltaTime);
         line.SetPosition(0, Owner.position);
         line.SetPosition(1, curTargetingPosition);

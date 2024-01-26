@@ -47,8 +47,8 @@ MonoBehaviour:
   ID: 21202
   ItemSprite: {fileID: 21300000, guid: 8a04946b959a21a4d80e35db9fdfb2d1, type: 3}
   itemName: Dagger Pouch
-  Description: After Attacking 3 times, Spawn Throwing Dagger nearby.
+  Description: After Attacking 5 times, Spawn Throwing Dagger nearby.
   owner: {fileID: 0}
   spawnAreaSize: 3
-  DaggerSpawnCount: 4
+  DaggerSpawnCount: 5
   daggerPrefab: {fileID: 3860790137050885266, guid: f7e8bbc5441ac944ca38f7ca43bd3288, type: 3}

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class UIPauseCanvas : MonoBehaviour
 {
     int curPageIdx = 0;
@@ -15,18 +17,20 @@ public class UIPauseCanvas : MonoBehaviour
     public GameObject OptionGroup;
     public GameObject ItemListGroup;
 
+    Settings curSetting;
     public void OpenPausePanel()
     {
         Debug.Log("PAUSED");
         TMPTitle.text = "Pause";
         totalPanel.SetActive(true);
         Time.timeScale = 0;
-        Btn_Move(false);
-
+        OpenPage(1);
     }
     public void ClosePausePanel()
     {
         Time.timeScale = 1;
+
+        if (curSetting != null) UTILS.SaveSettingData(curSetting);
         totalPanel.SetActive(false);
     }
 
@@ -45,6 +49,22 @@ public class UIPauseCanvas : MonoBehaviour
         Pages[curPageIdx].SetActive(true);
 
         switch(curPageIdx)
+        {
+            case 0:
+                OpenItemPage();
+                break;
+            case 1:
+                OpenOptionPage();
+                break;
+        }
+    }
+    void OpenPage(int idx)
+    {
+        Pages[curPageIdx].SetActive(false);
+        curPageIdx = idx;
+        Pages[idx].SetActive(true);
+
+        switch (idx)
         {
             case 0:
                 OpenItemPage();
@@ -78,16 +98,62 @@ public class UIPauseCanvas : MonoBehaviour
     #endregion
 
     #region 옵션 관련
-
+    bool isOptionInit;
+    [SerializeField]Slider SliderBGM;
+    [SerializeField] TextMeshProUGUI TMPBGMVolume;
+    [SerializeField] Slider SliderSFX;
+    [SerializeField] TextMeshProUGUI TMPSFXVolume;
+    [SerializeField] TextMeshProUGUI TMPBtnExplain;
     public void OpenOptionPage()
     {
         TMPTitle.text = "Option";
+        if (isOptionInit) return;
+        isOptionInit = true;
+        SliderBGM.onValueChanged.AddListener(changeBGMVolume);
+        SliderSFX.onValueChanged.AddListener(changeSFXVolume);
+
+        curSetting = UTILS.GetSettingData();
+
+        SliderBGM.value = curSetting.BGMVolume;
+        SliderSFX.value = curSetting.SFXVolume;
+        if(curSetting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        else TMPBtnExplain.text = "Joystick will now start from the center.";
+    }
+
+    public void changeBGMVolume(float value)
+    {
+        TMPBGMVolume.text = "Volume : " + (int)(value * 100);
+        SoundMgr.Inst.ChangeBGMVolume(value);
+        curSetting.BGMVolume = value;
+    }
+
+
+    public void changeSFXVolume(float value)
+    {
+        TMPSFXVolume.text = "Volume : " + (int)(value * 100);
+        SoundMgr.Inst.ChangeSFXVolume(value);
+        curSetting.SFXVolume = value;
+    }
+
+    public void Btn_FloatingJoystick()
+    {
+        TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        UIMgr.Inst.joystick.isFixed = false;
+        curSetting.isJoystickFloating = true;
+    }
+
+    public void Btn_FixedJoystick()
+    {
+        TMPBtnExplain.text = "Joystick will now start from the center.";
+        UIMgr.Inst.joystick.isFixed = true;
+        curSetting.isJoystickFloating = false;
     }
 
 
     #endregion
     public void Btn_BackToTitle()
     {
-
+        if(curSetting != null)UTILS.SaveSettingData(curSetting);
+        LoadSceneMgr.LoadSceneAsync("Start");
     }
 }

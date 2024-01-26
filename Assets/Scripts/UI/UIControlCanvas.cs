@@ -6,6 +6,8 @@ using System;
 
 public class UIControlCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    //중앙고정Joystick이면 False, 아니면 True
+    public bool isFixed;
     public RectTransform joyStick;
 
     public Action<Vector2> joystickAction;
@@ -22,6 +24,8 @@ public class UIControlCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler,
     void Awake()
     {
         radius = joystickBackground.sizeDelta.x * 0.5f;
+        if (UTILS.GetSettingData().isJoystickFloating) isFixed = false;
+        else isFixed = true;
     }
 
     public void setTarget(Action<Vector2> targetAction)
@@ -33,8 +37,10 @@ public class UIControlCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        joyStick.gameObject.SetActive(true);
-        joyStick.position = eventData.position;
+        //joyStick.gameObject.SetActive(true);
+        
+        if(isFixed) joyStick.anchoredPosition = Vector2.zero;
+        else joyStick.position = eventData.position;
 
         joystickCenter = joystickBackground.position;
 

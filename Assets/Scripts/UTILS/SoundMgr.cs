@@ -6,18 +6,24 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 {
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);  
-        
+        DontDestroyOnLoad(gameObject);
+
+        Settings curSetting = UTILS.GetSettingData();
+        BGMvolume = curSetting.BGMVolume;
+        SFXvolume = curSetting.SFXVolume;
+
         GameObject BGM = new GameObject();
         BGM.transform.SetParent(transform);
         BGM.name = "BGMPlayer";
         BGMPlayer = BGM.AddComponent<AudioSource>();
         BGMPlayer.loop = true;
+        BGMPlayer.volume = BGMvolume;
 
         GameObject Intro = new GameObject();
         Intro.transform.SetParent(transform);
         Intro.name = "IntroPlayer";
-        IntroPlayer = BGM.AddComponent<AudioSource>();
+        IntroPlayer = Intro.AddComponent<AudioSource>();
+        IntroPlayer.volume = BGMvolume;
 
         for(int i = 0; i < 3; i++)
         {
@@ -26,7 +32,6 @@ public class SoundMgr : MonoSingleton<SoundMgr>
             AudioSource audio = temp.AddComponent<AudioSource>();
             SFXPlayers.Add(audio);
         }
-
     }
 
     Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
@@ -62,7 +67,11 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     {
         for(int i = 0; i < SFXPlayers.Count; i++ )
         {
-            if (!SFXPlayers[i].isPlaying) return SFXPlayers[i];
+            if (!SFXPlayers[i].isPlaying)
+            {
+                SFXPlayers[i].volume = SFXvolume;
+                return SFXPlayers[i];
+            }
         }
 
         GameObject temp = new GameObject();

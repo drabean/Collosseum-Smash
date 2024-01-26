@@ -8,5 +8,5 @@ public class Settings
 {
     public float BGMVolume = 1;
     public float SFXVolume = 1;
-    public bool isJoystickFloat = true;
+    public bool isJoystickFloating = true;
 }

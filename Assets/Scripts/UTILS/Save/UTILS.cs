@@ -22,6 +22,7 @@ public class UTILS : MonoBehaviour
         if(File.Exists(finalPath))
         {
             BinaryFormatter bf = new BinaryFormatter();
+            Debug.Log(finalPath);
             FileStream fileStream = File.Open(finalPath, FileMode.Open);
 
             RunData data =(RunData)bf.Deserialize(fileStream);
@@ -51,22 +52,6 @@ public class UTILS : MonoBehaviour
 
         bf.Serialize(fileStream, data);
         fileStream.Close();
-    }
-
-    /// <summary>
-    /// 저장되어있는 RunData 삭제하기(reset)
-    /// </summary>
-    //[MenuItem("MyTools/DeleteRunData")]
-    public static void DeleteRunData()
-    {
-        string persistentPath = Application.persistentDataPath;
-        string finalPath = persistentPath + "/" + runDataName;
-
-        if (File.Exists(finalPath))
-        {
-            File.Delete(finalPath);
-            Debug.Log("RunData 삭제됨!");
-        }
     }
 
     #endregion
@@ -99,10 +84,61 @@ public class UTILS : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Setting
+    static string settingDataName = "Settings";
+    public static Settings GetSettingData()
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + settingDataName;
+
+        if (File.Exists(finalPath))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fileStream = File.Open(finalPath, FileMode.Open);
+
+            Settings data =(Settings)bf.Deserialize(fileStream);
+            Debug.Log("Setting 로딩 성공!");
+
+            fileStream.Close();
+            return data;
+        }
+        else
+        {
+            Debug.Log("Setting 존재하지 않음!");
+            Settings newSetting = new Settings();
+            SaveSettingData(newSetting);
+
+            return newSetting;
+        }
+
+    }
+
+    public static void SaveSettingData(Settings data)
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + settingDataName;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fileStream = File.Create(finalPath);
+
+        bf.Serialize(fileStream, data);
+        fileStream.Close();
+    }
+
+
+
+    #endregion
+
+#if UNITY_EDITOR
+
+
+
     /// <summary>
     /// 저장되어있는 SaveData 삭제하기(reset)
     /// </summary>
-    //[MenuItem("MyTools/DeleteSaveData")]
+    [MenuItem("MyTools/DeleteSaveData")]
     public static void DeleteSaveData()
     {
         string persistentPath = Application.persistentDataPath;
@@ -115,35 +151,38 @@ public class UTILS : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region Setting
-    static string settingDataName;
-    public static Settings GetSettingData()
-    {
-        string persistentPath = Application.persistentDataPath;
-        string finalPath = persistentPath + "/" + settingDataName;
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream fileStream = File.Create(finalPath);
-
-        Settings data = (Settings)bf.Deserialize(fileStream);
-
-        return data;
-    }
-
-    public static void SaveSettingData(Settings data)
+    /// <summary>
+    /// 저장되어있는 RunData 삭제하기(reset)
+    /// </summary>
+    [MenuItem("MyTools/DeleteRunData")]
+    public static void DeleteRunData()
     {
         string persistentPath = Application.persistentDataPath;
         string finalPath = persistentPath + "/" + runDataName;
 
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream fileStream = File.Create(finalPath);
-
-        bf.Serialize(fileStream, data);
-        fileStream.Close();
+        if (File.Exists(finalPath))
+        {
+            File.Delete(finalPath);
+            Debug.Log("RunData 삭제됨!");
+        }
     }
-    #endregion
+
+    /// <summary>
+    /// 저장되어있는 Setting 삭제하기(reset)
+    /// </summary>
+    [MenuItem("MyTools/DeleteSettingData")]
+    public static void DeleteSettingData()
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + settingDataName;
+
+        if (File.Exists(finalPath))
+        {
+            File.Delete(finalPath);
+            Debug.Log("SaveData 삭제됨!");
+        }
+    }
+#endif
     #region 해금
 
     public static void CheckEXP()

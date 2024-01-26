@@ -33,6 +33,7 @@ public class TutorialMgr : MonoBehaviour
 
     IEnumerator co_StartTutorial()
     {
+        yield return new WaitForSeconds(1.0f);
         UIMgr.Inst.progress.ShowStageStart("Toturial");
 
         yield return new WaitForSeconds(1.0f);
@@ -191,8 +192,8 @@ public class TutorialMgr : MonoBehaviour
     void clearTutorial()
     {
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
-       // curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
+        curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
 
-        //UTILS.SaveSaveData(curSaveData);
+        UTILS.SaveSaveData(curSaveData);
     }
 }
