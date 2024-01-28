@@ -26,6 +26,8 @@ public class SaveData
 public enum ACHIEVEMENT
 {
     TUTORIALCLEAR = 0,
+    NORMALCLEAR = 1,
+    HARDCLEAR = 2,
 
 }
 /*

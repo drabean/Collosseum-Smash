@@ -76,11 +76,14 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if (isTest && testStage == null) yield break;
 
-        if(isTest)
+        if(stageInfo == null)
         {
-            spawnGong();
-            yield break;
+            //게임 클리어로 간주 rundata 삭제 및 업적 클리어하기
+            GameClearMgr clear = gameObject.AddComponent<GameClearMgr>();
+            clear.Init(curSaveData);
+            curSaveData.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
         }
+
         if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
         else
         {
@@ -360,6 +363,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         LoadSceneMgr.LoadSceneAsync("Main");
     }
     #endregion
+
     #region 유틸 함수들
     Coroutine curSlowtimeCoroutine;
     bool slowTimeLock;
