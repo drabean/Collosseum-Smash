@@ -43,7 +43,7 @@ public class MagicSwordSheath : Equip
         {
             isBufOn = true;
             owner.Stat.STR+=3;
-            curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/SwordEffect").GetComponent<Poolable>();
+            curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconMagicSwordShealth").GetComponent<Poolable>();
             SoundMgr.Inst.Play("BufOn");
             owner.iconHolder.addIcon(curIcon.transform);
         }

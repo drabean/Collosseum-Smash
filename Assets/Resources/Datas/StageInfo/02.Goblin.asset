@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 4139268799128413703, guid: 95aee7cd40e533e48b8813039f60b0fb, type: 3}
   - {fileID: 6028886635807258624, guid: 23a925423b60b9b4ba20388df6a9d24e, type: 3}
   Boss: {fileID: 2639822891089394506, guid: 7a6b5c4721feb4e40be91ac38d02aeb6, type: 3}
-  maxKill: 15
+  maxKill: 20
   Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
   BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
   StageDeco: {fileID: 1758710396517536806, guid: 073320eae4ed3474da10ee91c34e69d8, type: 3}

@@ -76,6 +76,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if (isTest && testStage == null) yield break;
 
+        /*
         if(stageInfo == null)
         {
             //게임 클리어로 간주 rundata 삭제 및 업적 클리어하기
@@ -83,7 +84,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             clear.Init(curSaveData);
             curSaveData.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
         }
-
+        */
         if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
         else
         {
@@ -120,8 +121,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     StageInfo stageInfo;
     Coroutine curSpawnRoutine;
-    int maxCount = 3; // 소환 될 수 있는 최대 마리수
-    int progressCount = 0; //
+    int maxCount = 2; // 소환 될 수 있는 최대 마리수
+    int maxBaseEnemyCount = 2;
+    int progressCount = 0; 
     bool isBossSpawned;
     int dropCount = 4; // 투척 아이템 소환 빈도
     int curDropCount = 0;
@@ -161,7 +163,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     int getIndexToSpawn()
     {
         if (enemiesCanBeSpawned.Count == 0) return 0; // 이 스테이지에서 소환할 수 있는 종류의 적이 더 없다면, 0 반환
-        else if(baseEnemyCount < 2) // 기본 근접 타입 적의 수를 언제나 2마리로 유지하기 위해, 0 반환
+        else if(baseEnemyCount < maxBaseEnemyCount) // 기본 근접 타입 적의 수를 언제나 2마리로 유지하기 위해, 0 반환
         {
             return 0;
         }
@@ -173,7 +175,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
     int curEnemyCount = 0;
-    int baseEnemyCount = 0;
+    int baseEnemyCount = 0; // 기본형 적 최대 소환 수
     WaitForSeconds waitForEnemySpawn = new WaitForSeconds(0.5f);
     IEnumerator normalEnemySpawnRoutine()
     {
@@ -257,11 +259,34 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (index != 0) enemiesCanBeSpawned.Add(index);
         else baseEnemyCount--;
 
+        //여기서어카냐?
         progressCount++;
-        if (progressCount == stageInfo.maxKill / 2) maxCount++; // 진행도의 반에 도달 했다면, 최대 소환수를 1 늘려줌.
         curDropCount++;
 
-        if(curDropCount == dropCount)
+        #region 난이도관리
+        switch(progressCount)
+        {
+            case 5:
+                maxCount = 3;
+                break;
+            case 10:
+                baseEnemyCount = 3;
+                maxCount = 4;
+                break;
+            case 15:
+                baseEnemyCount = 3;
+                maxCount = 5;
+                break;
+            case 25:
+                baseEnemyCount = 4;
+                maxCount = 6;
+                break;
+        }
+
+
+
+        #endregion
+        if (curDropCount == dropCount)
         {
             curDropCount = 0;
             SpawnThrowableItem();

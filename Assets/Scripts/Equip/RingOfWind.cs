@@ -9,6 +9,7 @@ public class RingOfWind : Equip
     float lastAttackTime = 0;
 
     bool isBufOn;
+    public int bufAmount = 3;
     public Poolable curIcon;
 
     public override void onEquip(Player player)
@@ -27,7 +28,8 @@ public class RingOfWind : Equip
         if (isBufOn)
         {
             isBufOn = false;
-            owner.Stat.SPD -= 2;
+            owner.Stat.SPD -= bufAmount;
+            owner.SetStatus();
 
             owner.iconHolder.removeIcon(curIcon.transform);
             curIcon?.Push();
@@ -43,7 +45,8 @@ public class RingOfWind : Equip
         if (Time.time - lastAttackTime > cooltime)
         {
             isBufOn = true;
-            owner.Stat.SPD += 2;
+            owner.Stat.SPD += bufAmount;
+            owner.SetStatus();
             curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/SpeedEffect").GetComponent<Poolable>();
             SoundMgr.Inst.Play("BufOn");
             owner.iconHolder.addIcon(curIcon.transform);

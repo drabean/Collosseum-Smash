@@ -46,7 +46,7 @@ public class HolyPandant : Equip
         {
             if (curIcon == null)
             {
-                curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/ShieldEffect").GetComponent<Poolable>();
+                curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconHolyPandant").GetComponent<Poolable>();
                 owner.iconHolder.addIcon(curIcon.transform);
             }
         }

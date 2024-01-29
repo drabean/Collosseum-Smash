@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f6f8ec43c5f2ab2478be6ec6da28373a
+guid: c98c51e3faef1cf4288e9e104de3b2d2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,11 +101,35 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EFFECT_Shileld_0
+      name: ICON_HolyPandant_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82db862c3ea22de49babeb979f50f9f3
-      internalID: 2141960999
+      spriteID: 573703dd7b925f349a5a1dd18d0c157c
+      internalID: -1387249885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EFFECT_Shileld_1
+      name: ICON_HolyPandant_1
       rect:
         serializedVersion: 2
         x: 16
@@ -140,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1923d82d1d06624f8394fd8c9514c0c
-      internalID: 950561347
+      spriteID: 01ba21967cb8d0448a64abf630a5e7cf
+      internalID: 1601057700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EFFECT_Shileld_2
+      name: ICON_HolyPandant_2
       rect:
         serializedVersion: 2
         x: 0
@@ -161,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 712402055b71b8748982340fd93e0c54
-      internalID: -686594789
+      spriteID: a7be12c5c58ee674fbb003a539e50a41
+      internalID: 798690822
       vertices: []
       indices: 
       edges: []
@@ -178,9 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EFFECT_Shileld_0: 2141960999
-      EFFECT_Shileld_1: 950561347
-      EFFECT_Shileld_2: -686594789
+      ICON_HolyPandant_0: -1387249885
+      ICON_HolyPandant_1: 1601057700
+      ICON_HolyPandant_2: 798690822
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

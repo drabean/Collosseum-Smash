@@ -32,7 +32,7 @@ public class EquipWeapon : Equip
             owner.onAttack += specialAttack;
             countLeft = reqCombo;
             //특수공격이 준비되었음을 알리는 아이콘
-            curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/SwordEffect").GetComponent<Poolable>();
+            curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconHolySword").GetComponent<Poolable>();
             owner.iconHolder.addIcon(curIcon.transform);
             SoundMgr.Inst.Play("BufOn");
         }

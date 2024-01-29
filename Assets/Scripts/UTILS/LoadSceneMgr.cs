@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
 {
@@ -10,8 +11,11 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     AsyncOperation operation;
 
     public CanvasGroup LoadingPanel;
-    float loadingWaitTIme = 2.0f;
+    float loadingWaitTIme = 4.0f;
 
+    public TextMeshProUGUI TMPTip;
+    [TextArea]
+    public List<string> Tips;
     
     void Awake()
     {
@@ -34,6 +38,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     public static void LoadSceneAsync(string sceneName)
     {
         nextSceneName = sceneName;
+
         SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
 
     }
@@ -41,7 +46,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     {
         SoundMgr.Inst.Play("LoadScene");
         Time.timeScale = 1;
-
+        TMPTip.text = Tips[Random.Range(0, Tips.Count)];
         // Fade In 효과 실행
         yield return StartCoroutine(Fade(0.3f, true));
 
