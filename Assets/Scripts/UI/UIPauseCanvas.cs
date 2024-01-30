@@ -24,6 +24,7 @@ public class UIPauseCanvas : MonoBehaviour
         TMPTitle.text = "Pause";
         totalPanel.SetActive(true);
         Time.timeScale = 0;
+        GameMgr.Inst.isPause = true;
         OpenPage(1);
     }
     public void ClosePausePanel()
@@ -32,6 +33,7 @@ public class UIPauseCanvas : MonoBehaviour
 
         if (curSetting != null) UTILS.SaveSettingData(curSetting);
         totalPanel.SetActive(false);
+        GameMgr.Inst.isPause = false;
     }
 
 

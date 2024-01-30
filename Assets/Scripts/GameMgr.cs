@@ -392,6 +392,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     #region 유틸 함수들
     Coroutine curSlowtimeCoroutine;
     bool slowTimeLock;
+    public bool isPause;
     /// <summary>
     /// 일정 시간동안 시간 배율을 조절합니다.
     /// </summary>
@@ -407,12 +408,12 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     IEnumerator co_SlowTime(float time, float amount, bool isSlowTimeLocked)
     {
-        Time.timeScale = amount;
+        if (!isPause) Time.timeScale = amount;
 
         slowTimeLock = isSlowTimeLocked;
         yield return new WaitForSecondsRealtime(time);
 
-        Time.timeScale = 1;
+        if(!isPause)Time.timeScale = 1; // 일시정지중에 해당 분기에서 일시정지 푸는 경우 방지
         slowTimeLock = false;
     }
 

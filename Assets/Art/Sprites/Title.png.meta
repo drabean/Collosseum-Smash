@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d64173238d47db849aedbc3666bb7caf
+guid: f78e0b784cf8795408e74d21594ca823
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TempTitle2_0
+      name: Title_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 58
+        x: 1
+        y: 167
         width: 174
-        height: 40
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 976d4a4557f659e418b303c29ef82150
-      internalID: 218814132
+      spriteID: 8a5153c4c08b829458d286717d4bb098
+      internalID: -1243211990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TempTitle2_1
+      name: Title_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 10
-        width: 111
-        height: 38
+        x: 1
+        y: 130
+        width: 174
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed580fed4b220b949836b02a1462a9d2
-      internalID: 300980518
+      spriteID: d407f0278d67cef4cbf26cf38c351c64
+      internalID: 1501952133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 77
+        width: 111
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b0b930a445cfc419d3050e0a541590
+      internalID: -1226564680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 40
+        width: 111
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de8d15e9c7b7d144b7b9ced57360266
+      internalID: 365771276
       vertices: []
       indices: 
       edges: []
@@ -181,8 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TempTitle2_0: 218814132
-      TempTitle2_1: 300980518
+      Title_0: -1243211990
+      Title_1: 1501952133
+      Title_2: -1226564680
+      Title_3: 365771276
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
