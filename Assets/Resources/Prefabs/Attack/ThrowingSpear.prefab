@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXName: 
-  moveSpeed: 9
+  moveSpeed: 10
   lifeTime: 6
   isRotate: 1
   warningRadius: 0.5

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyChampion : EnemyBoss
 {
-    [SerializeField] Transform spriteGroup;
-
     Attack[] attacks = new Attack[3];
 
     #region Override
@@ -21,15 +19,11 @@ public class EnemyChampion : EnemyBoss
         attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
     }
 
-    Vector3 minVec = new Vector3(-1, 1, 1);
-
 
     public override void StartAI()
     {
         selectPattern();
     }
-
-    bool toglePat;
 
     /// <summary>
     /// 다음 행동을 결정
@@ -38,41 +32,32 @@ public class EnemyChampion : EnemyBoss
     {
         if(patternCountLeft > 1)
         {
-            toglePat = !toglePat;
-            patternCountLeft--;
 
-            int selecter = Random.Range(0, 2);
-            if (toglePat)
+            int patIdx = Random.Range(0, 3);
+            float dist = Vector3.Distance(transform.position, Target.transform.position);
+            switch (patIdx)
             {
-                switch (selecter)
-                {
-                    case 0:
-                        StartCoroutine(co_Runaway(co_Chase(co_Pat1()))); // 추격 후 근접공격
-                        break;
-                    case 1:
-                        StartCoroutine(co_Wander(co_Chase(co_Pat1()))); // 측면 이동 - 추격 후 근접공격
-                        break;
-
-                }
-            }
-            else
-            {
-                switch (selecter)
-                {
-                    case 0:
-                        StartCoroutine(co_Runaway(co_Pat2())); // 도주 후 원거리 공격
-                        break;
-                    case 1:
-                        StartCoroutine(co_Wander(co_Pat2())); // 측면이동 후 원거리공격
-                        break;
-                }
+                case 0: // 근접공격
+                    patternCountLeft--;
+                    if (dist > 1.5f) StartCoroutine(co_Chase(co_Pat1())); // 어느정도 거리가 있다면 추격 후 공격
+                    else StartCoroutine(co_Runaway(co_Chase(co_Pat1()))); // 너무 가깝다면, 거리를 벌린 후에 추격 후 공격
+                    break;
+                case 1: // 원거리 공격
+                    patternCountLeft--;
+                    if (dist > 3) StartCoroutine(co_Wander(co_Pat2())); // 어느정도 거리가 있다면 자리변경 후 공격
+                    else StartCoroutine(co_Runaway(co_Wander(co_Pat2()), 0.6f)); // 너무 가깝다면 거리를 벌린 후에 공격
+                    break;
+                case 2:
+                    if (dist < 1.5f) StartCoroutine(co_Runaway(co_Wander(), 0.2f)); // 혼란을 위한 움직임, 거리를 잠시 벌리고 가로로 이동
+                    else selectPattern();
+                    break;
             }
             
         }
         else if(patternCountLeft == 1)
         {
             patternCountLeft--;
-            StartCoroutine(co_Pat3());
+            StartCoroutine(co_Chase(co_Pat3()));
         }
         else // 연속 공격 끝난 후 그로기
         {
@@ -84,6 +69,7 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Fatigue() // 그로기 상태
     {
         anim.SetBool("isFatigue", true);
+        anim.SetBool("isMoving", false);
 
         float timeLeft = patterns[2].waitAfterTime;
         subHP = maxHP / 4;
@@ -104,7 +90,7 @@ public class EnemyChampion : EnemyBoss
     //타겟을 향해서 이동 (추적)
     IEnumerator co_Chase(IEnumerator nextMove = null)
     {
-        moveSpeed = 6f;
+        moveSpeed = Target.moveSpeed + 1f;
         while (Vector3.Distance(transform.position, Target.transform.position) >= patterns[0].range)
         {
             moveTowardTarget(Target.transform.position);
@@ -116,14 +102,13 @@ public class EnemyChampion : EnemyBoss
         else selectPattern();
     }
     //타겟의 반대방향으로 이동 (도주)
-    IEnumerator co_Runaway(IEnumerator nextMove = null)
+    IEnumerator co_Runaway(IEnumerator nextMove = null, float time = 1)
     {
-        moveSpeed = 2f;
-        float runTimeLeft = 1f;
+        moveSpeed = 3f;
 
-        while (runTimeLeft >= 0)
+        while (time >= 0)
         {
-            runTimeLeft -= Time.deltaTime;
+            time -= Time.deltaTime;
             moveToDir(transform.position - Target.transform.position);
             yield return null;
         }
@@ -134,9 +119,9 @@ public class EnemyChampion : EnemyBoss
     //Target을 중심으로 측면으로 이동
     IEnumerator co_Wander(IEnumerator nextMove = null)
     {
-        moveSpeed = 4f;
-        float wanderTime = Random.Range(0.6f, 1.3f);//이동할 시간을 정함
-        bool isReversed = Random.Range(0, 2) == 0;//회전 방향을 정함
+        moveSpeed = 5f;
+        float wanderTime = Random.Range(0.6f, 1.0f);//이동할 시간을 정함
+        bool isReversed = (Random.Range(0, 2) == 0);//회전 방향을 정함
 
         while (wanderTime >= 0)
         {
@@ -157,18 +142,30 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Pat1(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", true);
-       // curAttackWarning = GameMgr.Inst.AttackEffectCircle(aim.position, patterns[0].width, patterns[0].waitBeforeTime);
-        curAttackWarning = attacks[0].ShowWarning(transform.position, aim.position, patterns[0].waitBeforeTime);
-        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
-        anim.SetBool("isReady", false);
 
-
-        for(int i = 0; i < patterns[0].repeatTIme; i++)
+        for(int i = 0; i < patterns[0].repeatTIme-1; i++)
         {
+            aimRange = 0.8f;
+            setDir();
+            float waitTime = patterns[0].waitBeforeTime;
+            if (i == 0) waitTime += 0.15f;
+
+            curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, waitTime);
+            anim.SetBool("isAtkReady", true);
+            yield return new WaitForSeconds(waitTime);
+            anim.SetBool("isAtkReady", false);
+
             anim.SetTrigger("doAttack");
             yield return new WaitForSeconds(patterns[0].intervalTime);
         }
+        aimRange = 1.4f;
+        setDir();
+        curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, 0.6f);
+        anim.SetBool("isAtkReady", true);
+        yield return new WaitForSeconds(0.6f);
+        anim.SetBool("isAtkReady", false);
+
+        anim.SetTrigger("doAttack");
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
 
         if (nextMove != null) StartCoroutine(nextMove);
@@ -178,7 +175,7 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
-        Instantiate(attacks[0]).Shoot(transform.position, aim.position);
+        Instantiate(attacks[0]).Shoot(aim.position, aim.position);
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
         GameMgr.Inst.MainCam.Shake(0.1f, 40, 0.2f, 0f);
@@ -187,17 +184,21 @@ public class EnemyChampion : EnemyBoss
     IEnumerator co_Pat2(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
-        anim.SetBool("isReady", true);
-
-        curAttackWarning = projectile.ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
-        setDir((Target.transform.position - transform.position).normalized);
-
-        yield return new WaitForSeconds(patterns[1].waitBeforeTime);
-        anim.SetBool("isReady", false);
 
 
         for (int i = 0; i < patterns[1].repeatTIme; i++)
         {
+            setDir();
+            anim.SetBool("isThrowReady", true);
+
+            float waitTime = patterns[1].waitBeforeTime;
+            if (i == 0) waitTime += 0.5f;
+
+            curAttackWarning = projectile.ShowWarning(transform.position, Target.transform.position, waitTime);
+
+            yield return new WaitForSeconds(waitTime);
+            anim.SetBool("isThrowReady", false);
+
             anim.SetTrigger("doThrow");
             setDir((Target.transform.position - transform.position).normalized);
             yield return new WaitForSeconds(patterns[1].intervalTime);
@@ -220,10 +221,12 @@ public class EnemyChampion : EnemyBoss
 
     IEnumerator co_Pat3()
     {
-        anim.SetTrigger("doShout");
-        SoundMgr.Inst.Play("Impact");
+        anim.SetBool("isMoving", false);
+
         curAttackWarning = GameMgr.Inst.AttackEffectCircle(transform.position + Vector3.up * 0.3f, 1.5f, patterns[2].waitBeforeTime);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+        anim.SetTrigger("doShout");
+        SoundMgr.Inst.Play("Impact");
         yield return new WaitForSeconds(0.5f);
         spawnCompanion();
         selectPattern();

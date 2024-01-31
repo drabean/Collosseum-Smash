@@ -3936,7 +3936,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 13.571428
+  orthographic size: 13.214286
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6455,9 +6455,9 @@ MonoBehaviour:
   isTest: 1
   testRunData:
     characterInfoIdx: 0
-    item: 8a4e0000884e0000
+    item: 
     stageProgress: 0
-  testStage: {fileID: 11400000, guid: 0abc997ea953cd04abc46c30f1489fc2, type: 2}
+  testStage: {fileID: 0}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
   DescriptionObject: {fileID: 968196007}
