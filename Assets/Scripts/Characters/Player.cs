@@ -264,6 +264,7 @@ public class Player : CharacterBase
     #region АјАн
     void attack()
     {
+        anim.SetBool("isMoving", false);
         SoundMgr.Inst.Play("Attack");
         GlobalEvent.Inst.AttackEvent();
         anim.SetTrigger("doAttack");
