@@ -6,7 +6,7 @@ public class MagicSwordSheath : Equip
 {
     public float cooltime;
 
-    public float lastAttackTime;
+    [HideInInspector]public float lastAttackTime;
 
     bool isBufOn;
     public Poolable curIcon;

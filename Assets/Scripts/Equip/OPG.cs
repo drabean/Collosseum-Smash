@@ -8,13 +8,13 @@ public class OPG : Equip
     {
         base.onEquip(player);
         owner.Stat.STR += 2;
-        owner.Stat.SPD -= 1;
+        owner.Stat.SPD -= 2;
         owner.SetStatus();
     }
     public override void onUnEquip(Player player)
     {
         owner.Stat.STR -= 2;
-        owner.Stat.SPD += 1;
+        owner.Stat.SPD += 2;
         owner.SetStatus();
     }
 }
