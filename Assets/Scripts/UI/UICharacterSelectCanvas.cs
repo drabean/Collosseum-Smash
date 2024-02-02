@@ -135,7 +135,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     /// </summary>
     public void Btn_StartGame()
     {
-        RunData data = new RunData(curIdx, 0, new List<int>(), 0);
+        RunData data = new RunData(curIdx, new List<int>(), 0);
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)

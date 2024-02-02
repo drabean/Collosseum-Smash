@@ -6450,6 +6450,7 @@ MonoBehaviour:
     characterInfoIdx: 0
     item: 0200000008000000
     stageProgress: 0
+    curHP: 0
   isPlayerInstantiated: 0
   player: {fileID: 0}
   isTest: 1
@@ -6457,7 +6458,8 @@ MonoBehaviour:
     characterInfoIdx: 0
     item: 
     stageProgress: 0
-  testStage: {fileID: 11400000, guid: 0abc997ea953cd04abc46c30f1489fc2, type: 2}
+    curHP: 0
+  testStage: {fileID: 0}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
   DescriptionObject: {fileID: 968196007}

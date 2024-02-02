@@ -259,6 +259,7 @@ MonoBehaviour:
 '
   - You can Change Joystick Options and volume in pause menu.
   - As the stage progresses, more enemies will appear. Get ready for battle!
+  - After clearing a stage, Your HP will recover by 2. Be careful not to get hit!
 --- !u!1 &540136835
 GameObject:
   m_ObjectHideFlags: 0

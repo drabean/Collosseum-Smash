@@ -11,6 +11,7 @@ public class AnimationEventReciever : MonoBehaviour
     public Action attack;
     public Action attack2;
     public Action attack3;
+    public Action attack4;
     public Action moveEffect;
 
     public void onCommandLockStart() { commandLockStart?.Invoke(); }
@@ -19,6 +20,7 @@ public class AnimationEventReciever : MonoBehaviour
     public void onAttackEvent() { attack?.Invoke();}
     public void onAttack2Event() { attack2?.Invoke();}
     public void onAttack3Event() { attack3?.Invoke();}
+    public void onAttack4Event() { attack4?.Invoke();}
     public void onMoveEffect() { moveEffect?.Invoke();}
 
 }

@@ -15,7 +15,7 @@ public class UIGameOverCanvas : MonoBehaviour
 
         if(data == null)
         {
-            data = new RunData(0, 0, new List<int>(), 0);
+            data = new RunData(0 , new List<int>(), 0);
         }
 
         player = Instantiate(LoadedData.Inst.getCharacterInfoByID(data.characterInfoIdx).playerPrefab, new Vector3(0,2,0), Quaternion.identity);

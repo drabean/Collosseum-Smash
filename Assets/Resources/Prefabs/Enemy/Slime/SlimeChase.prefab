@@ -91,13 +91,14 @@ MonoBehaviour:
   aim: {fileID: 1145949988399145451}
   hit: {fileID: 1576325421281623330}
   isDead: 0
-  maxHP: 9
-  curHP: 9
+  maxHP: 8
+  curHP: 8
   moveSpeed: 3
+  moveSpeedCo: 1
   aimRange: 0.1
   size: 0.2
   Target: {fileID: 0}
-  difficulty: 0
+  isChasing: 0
   isSuperarmor: 0
   attackRange: 1
   attackWidth: 1.2
@@ -105,7 +106,6 @@ MonoBehaviour:
   attackWaitTime: 0.65
   attackAfterWaitTime: 1.3
   doAttackSpin: 0
-  isChasing: 0
   layer:
     serializedVersion: 2
     m_Bits: 65536

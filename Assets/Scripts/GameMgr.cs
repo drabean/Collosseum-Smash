@@ -59,7 +59,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             Instantiate(LoadedData.Inst.getEquipByID(curRunData.item[i])).onEquip(player);
         }
         player.SetStatus();
-        player.Heal(10);
+        player.curHP = Mathf.Min(player.maxHP, curRunData.curHP);
         player.AttachUI();
         isPlayerInstantiated = true;
 
@@ -376,13 +376,10 @@ public class GameMgr : MonoSingleton<GameMgr>
     IEnumerator co_ToNextScene()
     {
         curRunData.stageProgress++;
+        curRunData.curHP = (int)player.curHP + 2;
         curSaveData.Exp++;
         yield return new WaitForSeconds(3.0f);
-        //TESTCODE
-        foreach(int i in curRunData.item)
-        {
-            Debug.Log(LoadedData.Inst.getEquipByID(i).name);
-        }
+
         UTILS.SaveRunData(curRunData);
         UTILS.SaveSaveData(curSaveData);
         LoadSceneMgr.LoadSceneAsync("Main");

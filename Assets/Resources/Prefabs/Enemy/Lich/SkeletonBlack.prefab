@@ -71,7 +71,7 @@ MonoBehaviour:
   attackRange: 0.8
   attackWidth: 0.4
   attackName: Prefabs/Attack/ClawEffect
-  attackWaitTime: 0.6
+  attackWaitTime: 0.57
   attackAfterWaitTime: 0.7
   doAttackSpin: 1
   layer:

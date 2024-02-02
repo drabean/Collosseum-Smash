@@ -5077,11 +5077,19 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 1.5
-    waitAfterTime: 6
+    waitAfterTime: 8
     intervalTime: 0
     repeatTIme: 3
     duration: 0
     prefabName: Prefabs/Attack/ShoutEffect
+  - range: 0
+    width: 0
+    waitBeforeTime: 1.1
+    waitAfterTime: 1
+    intervalTime: 0
+    repeatTIme: 3
+    duration: 0
+    prefabName: Prefabs/Attack/multiSpear
   patternCount: 5
   mobs:
   - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}
