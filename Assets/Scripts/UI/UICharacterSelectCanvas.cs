@@ -23,6 +23,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
     public void Init(int saveIdx)
     {
         curIdx = saveIdx;
+        info = LoadedData.Inst.getCharacterInfoByID(curIdx);
+        changePlayer();
     }
     public void OpenCharacterSelect(int idx)
     {
@@ -88,8 +90,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     void Show()
     {
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
-
-        if (curIdx > StartSceneMgr.Inst.saveData.ProgressLV+1) // for Test. remove second when build
+        if (curIdx > StartSceneMgr.Inst.saveData.ProgressLV+1)
         {
             LockGroup.SetActive(true);
         }
@@ -97,6 +98,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
         {
             LockGroup.SetActive(false);
         }
+
+        LockGroup.SetActive(false);  // for Test. remove second when build
 
         changePlayer();
         characterName.text = info.characterName;

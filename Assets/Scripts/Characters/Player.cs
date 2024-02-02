@@ -78,7 +78,7 @@ public class Player : CharacterBase
     public void SetStatus()
     {
         moveSpeed = 2f + (Stat.SPD * 0.5f); 
-        maxHP = Stat.VIT + 2;
+        maxHP = Stat.VIT + 1;
         if(curHP > maxHP)curHP = maxHP;
 
     }
