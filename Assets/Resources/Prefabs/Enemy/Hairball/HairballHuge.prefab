@@ -178,14 +178,14 @@ MonoBehaviour:
   aim: {fileID: 3843553762879491339}
   hit: {fileID: 3843553763941045614}
   isDead: 0
-  maxHP: 50
-  curHP: 50
+  maxHP: 60
+  curHP: 60
   moveSpeed: 4
   moveSpeedCo: 1
   aimRange: 0.4
   size: 0.5
   Target: {fileID: 0}
-  difficulty: 1
+  isChasing: 0
   isSuperarmor: 1
   patterns:
   - range: 1.5

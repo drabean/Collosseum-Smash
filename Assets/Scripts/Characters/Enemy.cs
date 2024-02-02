@@ -70,6 +70,7 @@ public class Enemy : CharacterBase
         GameMgr.Inst.SlowTime(0.1f, 0.2f);
         Destroy(GetComponent<Collider2D>());
 
+        GameMgr.Inst.SpawnThrowableItem(transform.position);
         yield return new WaitForSecondsRealtime(0.15f);
 
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);

@@ -121,11 +121,11 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     StageInfo stageInfo;
     Coroutine curSpawnRoutine;
-    int maxCount = 2; // 소환 될 수 있는 최대 마리수
-    int maxBaseEnemyCount = 2;
+    int maxCount = 3; // 소환 될 수 있는 최대 마리수
+    int maxBaseEnemyCount = 3;
     int progressCount = 0; 
     bool isBossSpawned;
-    int dropCount = 4; // 투척 아이템 소환 빈도
+    int dropCount = 6; // 투척 아이템 소환 빈도
     int curDropCount = 0;
     public IEnumerator StartNormalStage()
     {
@@ -261,17 +261,17 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         //여기서어카냐?
         progressCount++;
-        curDropCount++;
 
         #region 난이도관리
         switch(progressCount)
         {
             case 5:
-                maxCount = 3;
-                break;
-            case 10:
                 baseEnemyCount = 3;
                 maxCount = 4;
+                break;
+            case 10:
+                baseEnemyCount = 4;
+                maxCount = 5;
                 break;
             case 15:
                 baseEnemyCount = 3;
@@ -286,11 +286,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 
         #endregion
-        if (curDropCount == dropCount)
-        {
-            curDropCount = 0;
-            SpawnThrowableItem();
-        }
         UIMgr.Inst.progress.SetProgress(progressCount, stageInfo.maxKill);
         progressTMP.text = progressCount + " / " + stageInfo.maxKill;
         if (progressCount >= stageInfo.maxKill)
@@ -300,10 +295,15 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
 
-    public void SpawnThrowableItem()
+    public void SpawnThrowableItem(Vector3 position)
     {
-        Debug.Log("SPAWN");
-        Instantiate(stageInfo.ThrowItem, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
+        curDropCount++;
+        if (curDropCount >= dropCount)
+        {
+            curDropCount = 0;
+            Debug.Log("SPAWN");
+            Instantiate(stageInfo.ThrowItem, position, Quaternion.identity);
+        }
     }
     void onBossDie(Vector3 pos)
     {

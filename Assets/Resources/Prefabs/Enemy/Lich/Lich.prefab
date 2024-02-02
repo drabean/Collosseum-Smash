@@ -59,13 +59,14 @@ MonoBehaviour:
   aim: {fileID: 4386642272341584061}
   hit: {fileID: 4386642271621334931}
   isDead: 0
-  maxHP: 20
-  curHP: 20
+  maxHP: 25
+  curHP: 25
   moveSpeed: 0
+  moveSpeedCo: 1
   aimRange: 0
   size: 0.5
   Target: {fileID: 0}
-  difficulty: 0
+  isChasing: 0
   isSuperarmor: 1
   patterns:
   - range: 3
@@ -93,15 +94,15 @@ MonoBehaviour:
     duration: 0
     prefabName: Prefabs/Attack/BoneSpear_Long
   patternCount: 10
+  mobs:
+  - {fileID: 4299250763888376794, guid: c46624e5829de464aa935cf638c12652, type: 3}
+  - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
   tpVecs:
   - {x: -7, y: 7, z: 0}
   - {x: -3, y: 7, z: 0}
   - {x: 0, y: 7, z: 0}
   - {x: 3, y: 7, z: 0}
   - {x: 7, y: 7, z: 0}
-  mobs:
-  - {fileID: 4299250763888376794, guid: c46624e5829de464aa935cf638c12652, type: 3}
-  - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
   lichSoul: {fileID: 6705601505423457457, guid: 8a463fcce5754174ab2f8d99563dc5eb, type: 3}
   groggyVec: {x: 0, y: 4, z: 0}
   pat3Vecs:
