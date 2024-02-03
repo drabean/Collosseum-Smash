@@ -6,7 +6,6 @@ public class EnemyMelee: Enemy
 {
     [Header("근거리")]
     public float attackRange;//공격 이펙트 소환지점
-    public float attackWidth;//공격 이펙트 타격판정 너비
     public string attackName;
     Attack attack;
     public float attackWaitTime;

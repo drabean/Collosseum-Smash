@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 10106
   Enemies:
-  - {fileID: 6787935353413353397, guid: 8ba1f2e3fa1656e4fb8265af4b0e0c61, type: 3}
+  - {fileID: 2684497827937193308, guid: 548944f3841c3f9458938e6e286f152f, type: 3}
   - {fileID: 4689563923806523696, guid: a5941502edbea64489fa299615fe326b, type: 3}
   - {fileID: 4208118671071598622, guid: dffdd6a8995b35640bb22fa2518ca04c, type: 3}
+  - {fileID: 6787935353413353397, guid: 8ba1f2e3fa1656e4fb8265af4b0e0c61, type: 3}
   Boss: {fileID: 2734482238864720142, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
   maxKill: 30
   Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}

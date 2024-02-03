@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5757673672844863866}
   - component: {fileID: 4053946062706124716}
   m_Layer: 0
-  m_Name: 09Magic Gloves
+  m_Name: 09MagicGloves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -22,6 +22,11 @@ public class SaveData
             Achievements.Add((int)achievement);
         }
     }
+
+    #region 해금 관련
+
+
+    #endregion
 }
 public enum ACHIEVEMENT
 {

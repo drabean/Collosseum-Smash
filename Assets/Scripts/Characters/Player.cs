@@ -77,17 +77,12 @@ public class Player : CharacterBase
     /// </summary>
     public void SetStatus()
     {
-        moveSpeed = 2f + (Stat.SPD * 0.5f); 
+        moveSpeed = 2f + (Stat.SPD * 0.4f); 
         maxHP = Stat.VIT + 1;
         if(curHP > maxHP)curHP = maxHP;
 
     }
 
-    public void SetHPMax()
-    {
-        curHP = maxHP;
-        UIMgr.Inst.hp.Set((int)curHP);
-    }
     #endregion
 
     #region Events 

@@ -62,13 +62,15 @@ MonoBehaviour:
   maxHP: 1
   curHP: 1
   moveSpeed: 1.5
+  moveSpeedCo: 1
   aimRange: 4
   size: 0.25
   Target: {fileID: 0}
-  difficulty: 2
+  isChasing: 0
   isSuperarmor: 0
   attackRange: 5
-  attackWaitTime: 1
+  attackWaitTime: 0.9
+  attackAfterTime: 1
   runawayTime: 1.6
   projectileName: Prefabs/Attack/RapidEnergyBolt
 --- !u!95 &4208118671071598623

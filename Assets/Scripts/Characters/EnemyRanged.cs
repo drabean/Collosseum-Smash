@@ -7,6 +7,7 @@ public class EnemyRanged : Enemy
     [Header("¿ø°Å¸®")]
     public float attackRange;
     public float attackWaitTime;
+    public float attackAfterTime;
     public float runawayTime;
     public string projectileName;
 
@@ -20,9 +21,9 @@ public class EnemyRanged : Enemy
 
     public override void StartAI()
     {
-        StartCoroutine(co_Chase());
+        StartCoroutine(co_Move());
     }
-    IEnumerator co_Chase()
+    IEnumerator co_Move()
     {
         while (Vector3.Distance(transform.position, Target.transform.position) >= attackRange)
         {
@@ -48,7 +49,7 @@ public class EnemyRanged : Enemy
 
         anim.SetTrigger("doAttack");
         SoundMgr.Inst.Play("Throw");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(attackAfterTime);
         StartCoroutine(co_Runaway());
     }
 
@@ -63,7 +64,7 @@ public class EnemyRanged : Enemy
             yield return null;
         }
 
-        StartCoroutine(co_Chase());
+        StartCoroutine(co_Move());
     }
 
     Attack projectile;
