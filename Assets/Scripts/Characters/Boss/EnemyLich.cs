@@ -11,10 +11,12 @@ public class EnemyLich : EnemyBoss
 
     int patIdx;
 
-
+    public List<Vector3> patternVector = new List<Vector3>();
     public override void StartAI()
     {
         GetComponent<Collider2D>().enabled = false;
+        spawnPool.Add(mobs[0]);
+        spawnPool.Add(mobs[0]);
         StartCoroutine(co_SpawnRoutine());
         StartCoroutine(co_Idle(0.7f));
     }
@@ -33,9 +35,8 @@ public class EnemyLich : EnemyBoss
 
     protected override void selectPattern()
     {
-        patIdx += Random.Range(0, 2);
-        patIdx %= 3;
-
+        patIdx += Random.Range(0, 3);
+        patIdx %= 4;
 
         switch(patIdx)
         {
@@ -48,12 +49,16 @@ public class EnemyLich : EnemyBoss
             case 2:
                 StartCoroutine(co_Pat3());
                 break;
+            case 3:
+                StartCoroutine(co_Pat4());
+                break;
         }
     }
 
     #region Patterns
 
-    float pat1WaitTIme = 0.7f;
+    float pat1WaitTIme = 0.35f;
+    //4방위 뼈창 공격
     IEnumerator co_Pat1()
     {
         teleport(3);
@@ -64,8 +69,6 @@ public class EnemyLich : EnemyBoss
         anim.SetBool("isAtk1Ready", true);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
 
-        anim.SetBool("isAtk1Ready", false);
-        anim.SetTrigger("doAtk1");
         for (int i = 0; i < patterns[0].repeatTIme; i++)
         {
             Vector3[] positions = new Vector3[4];
@@ -84,17 +87,18 @@ public class EnemyLich : EnemyBoss
 
                 positions[j] = Target.transform.position + Vector3.right * xOffset + Vector3.up * yOffset;
             }
-
+            float waitTime = pat1WaitTIme;
+            if (i == 0) waitTime += 0.55f;
         
             //공격 경고
-            atk.ShowWarning(positions[0], positions[2], pat1WaitTIme);
-            atk.ShowWarning(positions[1], positions[3], pat1WaitTIme);
-            atk.ShowWarning(positions[2], positions[0], pat1WaitTIme);
-            atk.ShowWarning(positions[3], positions[1], pat1WaitTIme);
+            atk.ShowWarning(positions[0], positions[2], waitTime);
+            atk.ShowWarning(positions[1], positions[3], waitTime);
+            atk.ShowWarning(positions[2], positions[0], waitTime);
+            atk.ShowWarning(positions[3], positions[1], waitTime);
 
-            yield return new WaitForSeconds(pat1WaitTIme);
-            GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
-            SoundMgr.Inst.Play("Throw");
+            yield return new WaitForSeconds(waitTime);
+            GameMgr.Inst.MainCam.Shake(0.15f, 20, 0.15f, 0f);
+            anim.SetTrigger("doAtk1");
             Instantiate<Attack>(atk).Shoot(positions[0], positions[2]);
             Instantiate<Attack>(atk).Shoot(positions[2], positions[0]);
             Instantiate<Attack>(atk).Shoot(positions[1], positions[3]);
@@ -109,11 +113,14 @@ public class EnemyLich : EnemyBoss
             yield return new WaitForSeconds(patterns[0].intervalTime);
         }
 
+        anim.SetBool("isAtk1Ready", false);
+
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
         selectPattern();
     }
 
-    float skulMissileWaitTIme = 0.3f;
+    //해골미사일 연속투척
+    float skulMissileWaitTIme = 0.2f;
     IEnumerator co_Pat2()
     {
         Attack atk = Resources.Load<Attack>(patterns[1].prefabName);
@@ -122,7 +129,7 @@ public class EnemyLich : EnemyBoss
 
         anim.SetBool("isAtk2Ready", true);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
-        anim.SetBool("isAtk1Ready", false);
+        anim.SetBool("isAtk2Ready", false);
 
         for (int i = 0; i < patterns[1].repeatTIme; i++)
         {
@@ -133,11 +140,16 @@ public class EnemyLich : EnemyBoss
             //각 공격들의 발사 / 목표 위치 계산
             yield return new WaitForSeconds(skulMissileWaitTIme);
             GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
-            SoundMgr.Inst.Play("Throw");
             yield return new WaitForSeconds(0.06f);
             Instantiate<Attack>(atk).Shoot(transform.position, targetVec);
 
             yield return new WaitForSeconds(patterns[1].intervalTime - 0.06f);
+
+            if (i % 4 == 3)
+            {
+                teleport();
+                yield return new WaitForSeconds(0.5f);
+            }
         }
 
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
@@ -145,29 +157,41 @@ public class EnemyLich : EnemyBoss
     }
 
 
-    public List<Vector3>pat3Vecs = new List<Vector3>();
-
+    //뼈창 직선 투척 패턴
     float pat3WaitTime = 0.5f;
     IEnumerator co_Pat3()
     {
         Attack atk = Resources.Load<Attack>(patterns[2].prefabName);
 
-        int positionIdx = Random.Range(0, 3);
+        bool isLeft = Random.Range(0, 2) == 0; // 패턴 출발점이 왼쪽 / 오른쪽 고름
+        Vector3 startPos, endPos;
+
+
+        if (isLeft)
+        {
+            startPos = patternVector[0];
+            endPos = patternVector[1];
+        }
+        else
+        {
+            startPos = patternVector[2];
+            endPos = patternVector[3];
+        }
 
         teleport(3);
         anim.SetBool("isAtk3Ready", true);
         List<Vector3> startVec = new List<Vector3>();
         List<Vector3> endVec = new List<Vector3>();
 
-        Vector3 dif = (pat3Vecs[positionIdx] - pat3Vecs[(++positionIdx) % 4])/patterns[2].repeatTIme;
+        Vector3 dif = (endPos - startPos)/patterns[2].repeatTIme;
 
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
-            startVec.Add(pat3Vecs[positionIdx] + dif * i);
+            startVec.Add(startPos + dif * i);
             endVec.Add(Target.transform.position);
 
-            atk.ShowWarning(pat3Vecs[positionIdx] + dif * i, Target.transform.position, patterns[2].intervalTime * patterns[2].repeatTIme + patterns[2].waitBeforeTime);
+            atk.ShowWarning(startPos + dif * i, Target.transform.position, patterns[2].intervalTime + patterns[2].waitBeforeTime);
 
             GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
             LichParticle.transform.position = startVec[i];
@@ -190,6 +214,60 @@ public class EnemyLich : EnemyBoss
         }
         yield return new WaitForSeconds(patterns[2].waitAfterTime);
         selectPattern();
+    }
+
+    //가로 똥뿌리기 공격
+    IEnumerator co_Pat4()
+    {
+        teleport(3);
+        bool isLeft = Random.Range(0, 2) == 0; // 패턴 출발점이 왼쪽 / 오른쪽 고름
+        Vector3 startPos, endPos;
+
+        Attack atk = Resources.Load<Attack>(patterns[3].prefabName);
+
+        if (isLeft)
+        {
+            startPos = patternVector[0];
+            endPos = patternVector[1];
+        }
+        else
+        {
+            startPos = patternVector[2];
+            endPos = patternVector[3];
+        }
+        float timeLeft = patterns[3].duration;
+        float attackCooltimeLeft = 0;
+
+
+        anim.SetBool("isAtk2Ready", true);
+        GameMgr.Inst.AttackEffectLinear(startPos, endPos, 4f,  patterns[3].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[3].waitBeforeTime);
+
+        while(timeLeft >= 0)
+        {
+            timeLeft -= Time.deltaTime;
+            attackCooltimeLeft -= Time.deltaTime;
+            if(attackCooltimeLeft < 0)
+            {
+                attackCooltimeLeft = patterns[3].intervalTime;
+                Vector3 atkStartVec = Vector3.right * startPos.x + Vector3.up * Random.Range(startPos.y, endPos.y);
+                Vector3 atkEndVec = Vector3.right * startPos.x * (-1) + Vector3.up * atkStartVec.y;
+
+                GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
+                LichParticle.transform.position = atkStartVec;
+                LichParticle.GetComponent<ParticleSystem>().Play();
+
+
+                Instantiate(atk).Shoot(atkStartVec, atkEndVec);
+
+            }
+            yield return null;
+        }
+        anim.SetBool("isAtk2Ready", false);
+        yield return new WaitForSeconds(patterns[3].waitAfterTime);
+
+        selectPattern();
+
     }
 
     #endregion
@@ -216,14 +294,16 @@ public class EnemyLich : EnemyBoss
     }
 
     int curEnemyCount = 0;
+    int maxSpawnCount = 2;
+    List<Enemy> spawnPool = new List<Enemy>();
     IEnumerator co_SpawnRoutine()
     {
         while(true)
         {
-            if(curEnemyCount < 2)
+            if(curEnemyCount < maxSpawnCount)
             {
                 curEnemyCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
+                EnemyMgr.Inst.SpawnEnemy(spawnPool[Random.Range(0, spawnPool.Count)], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
             }
             yield return null;
         }
@@ -243,9 +323,17 @@ public class EnemyLich : EnemyBoss
         onHit(transform, 1.0f, 0.0f);
     }
 
+    bool isInraged;
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         if (curHP == 3) groggy();
+
+        if(curHP < maxHP/2 && !isInraged)
+        {
+            isInraged = true;
+            spawnPool.Add(mobs[1]);
+            maxSpawnCount = 3;
+        }
         base.onHit(attackerPos, dmg, stunTime);
     }
 

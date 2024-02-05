@@ -48,12 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXName: Magic2
   moveSpeed: 6
   lifeTime: 1
   isRotate: 1
   warningRadius: 0.3
   moveVec: {x: 0, y: 0, z: 0}
   sp: {fileID: 0}
+  moduleAttack: {fileID: 0}
 --- !u!212 &2950099902758399068
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,6 +124,7 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 0
 --- !u!95 &8565717800042781957
 Animator:
   serializedVersion: 5

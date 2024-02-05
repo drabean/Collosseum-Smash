@@ -59,8 +59,8 @@ MonoBehaviour:
   aim: {fileID: 4386642272341584061}
   hit: {fileID: 4386642271621334931}
   isDead: 0
-  maxHP: 25
-  curHP: 25
+  maxHP: 40
+  curHP: 40
   moveSpeed: 0
   moveSpeedCo: 1
   aimRange: 0
@@ -72,44 +72,60 @@ MonoBehaviour:
   - range: 3
     width: 0
     waitBeforeTime: 2
-    waitAfterTime: 3
-    intervalTime: 0.7
-    repeatTIme: 3
+    waitAfterTime: 1.5
+    intervalTime: 0.6
+    repeatTIme: 4
     duration: 0
     prefabName: Prefabs/Attack/BoneSpear
   - range: 2
     width: 0
-    waitBeforeTime: 2
-    waitAfterTime: 3
-    intervalTime: 0.2
-    repeatTIme: 4
+    waitBeforeTime: 0.9
+    waitAfterTime: 1
+    intervalTime: 0.1
+    repeatTIme: 12
     duration: 0
     prefabName: Prefabs/Attack/SkulMissile
   - range: 2
     width: 0
-    waitBeforeTime: 2
-    waitAfterTime: 3
+    waitBeforeTime: 1.2
+    waitAfterTime: 0.6
     intervalTime: 0.1
     repeatTIme: 5
     duration: 0
     prefabName: Prefabs/Attack/BoneSpear_Long
+  - range: 2
+    width: 0
+    waitBeforeTime: 2
+    waitAfterTime: 3
+    intervalTime: 0.3
+    repeatTIme: 0
+    duration: 5
+    prefabName: Prefabs/Attack/SkulMissile
+  - range: 2
+    width: 0
+    waitBeforeTime: 2
+    waitAfterTime: 1.5
+    intervalTime: 0.1
+    repeatTIme: 5
+    duration: 0
+    prefabName: 
   patternCount: 10
   mobs:
   - {fileID: 4299250763888376794, guid: c46624e5829de464aa935cf638c12652, type: 3}
   - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
   tpVecs:
-  - {x: -7, y: 7, z: 0}
-  - {x: -3, y: 7, z: 0}
-  - {x: 0, y: 7, z: 0}
-  - {x: 3, y: 7, z: 0}
-  - {x: 7, y: 7, z: 0}
+  - {x: -7, y: 6.5, z: 0}
+  - {x: -3, y: 6.5, z: 0}
+  - {x: 0, y: 6.5, z: 0}
+  - {x: 3, y: 6.5, z: 0}
+  - {x: 7, y: 6.5, z: 0}
   lichSoul: {fileID: 6705601505423457457, guid: 8a463fcce5754174ab2f8d99563dc5eb, type: 3}
   groggyVec: {x: 0, y: 4, z: 0}
-  pat3Vecs:
-  - {x: -8, y: 6, z: 0}
-  - {x: -8, y: -7, z: 0}
-  - {x: 8, y: -7, z: 0}
-  - {x: 8, y: 6, z: 0}
+  patternVector:
+  - {x: -7, y: -6, z: 0}
+  - {x: -7, y: 5, z: 0}
+  - {x: 7, y: -6, z: 0}
+  - {x: 7, y: 5, z: 0}
 --- !u!95 &4386642271621334943
 Animator:
   serializedVersion: 5

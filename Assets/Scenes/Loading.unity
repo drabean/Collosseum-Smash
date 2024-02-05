@@ -253,13 +253,11 @@ MonoBehaviour:
   LoadingPanel: {fileID: 238698413}
   TMPTip: {fileID: 917781170}
   Tips:
-  - 'You can''t Move while you are attacking.  Exploit the enemy''s vulnerability
-    and strike!
-
-'
+  - You can't Move while you are attacking.
   - You can Change Joystick Options and volume in pause menu.
-  - As the stage progresses, more enemies will appear. Get ready for battle!
-  - After clearing a stage, Your HP will recover by 2. Be careful not to get hit!
+  - As the stage progresses, more enemies will appear.
+  - After clearing a stage, Your HP will recover by 2
+  - When you  Smash enemy, throwing items appear occasionally .
 --- !u!1 &540136835
 GameObject:
   m_ObjectHideFlags: 0

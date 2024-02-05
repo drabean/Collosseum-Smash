@@ -7,7 +7,6 @@ public class EnemyKingBlock : EnemyBoss
     Attack[] attacks = new Attack[6];
 
     public SubBlock subBlockPrefab;
-    public ModuleHit spikePrefab;
     public SubBlock[] subBlocks = new SubBlock[2];
 
     public List<SpriteRenderer> faceSprites = new List<SpriteRenderer>();
@@ -16,6 +15,7 @@ public class EnemyKingBlock : EnemyBoss
     public System.Action faceChangeAction;
     int patIdx;
 
+    public List<SpikeGroup> Spikes;
     private void Awake()
     {
         evnt.attack += onAttack1;
@@ -45,11 +45,8 @@ public class EnemyKingBlock : EnemyBoss
         subBlocks[1].transform.position = Vector3.right * 5.8f;
         subBlocks[1].Init(this, Target);
         subBlocks[1].transform.localScale = Vector3.right * (-1) + Vector3.up + Vector3.forward;
-
-
-
-        Instantiate<ModuleHit>(spikePrefab, Vector3.zero, Quaternion.identity);
         //여기서 Spike 소환
+        Instantiate(Spikes[0], Vector3.zero, Quaternion.identity);
     }
 
     IEnumerator co_Idle(float time = 1.5f)

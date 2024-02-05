@@ -11,7 +11,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     AsyncOperation operation;
 
     public CanvasGroup LoadingPanel;
-    float loadingWaitTIme = 4.0f;
+    float loadingWaitTIme = 2.0f;
 
     public TextMeshProUGUI TMPTip;
     [TextArea]

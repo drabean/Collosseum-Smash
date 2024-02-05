@@ -34,7 +34,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
     }
 
-    Dictionary<string, AudioClip> sounds = new Dictionary<string, AudioClip>();
+    Dictionary<string, Sound> sounds = new Dictionary<string, Sound>();
     List<AudioSource> SFXPlayers = new List<AudioSource>();
     float SFXvolume = 1f;
 
@@ -44,21 +44,22 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     #region SFX
     public void Play(string name)
     {
-        AudioClip clip;
+        Sound sfx;
 
         if(sounds.ContainsKey(name))
         {
-            clip = sounds[name];
+            sfx = sounds[name];
         }
         else
         {
-            clip = Resources.Load<AudioClip>("SFX/" + name);
-            sounds.Add(name, clip);
+            sfx = Resources.Load<Sound>("SFX/" + name);
+            sounds.Add(name, sfx);
         }
 
         AudioSource audioSource = findAudioSource();
 
-        audioSource.clip = clip;
+        audioSource.clip = sfx.clip;
+        audioSource.volume = sfx.volume * SFXvolume;
         audioSource.Play();
 
     }
@@ -78,7 +79,6 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         temp.transform.SetParent(transform);
         AudioSource audio = temp.AddComponent<AudioSource>();
         SFXPlayers.Add(audio);
-        audio.volume = SFXvolume;
         return audio;
     }
 
@@ -94,20 +94,14 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     #region BGM
     public void PlayBGM(string name)
     {
-        AudioClip clip;
-        if (sounds.ContainsKey(name))
-        {
-            clip = sounds[name];
-        }
-        else
-        {
-            clip = Resources.Load<AudioClip>("BGM/" + name);
-            sounds.Add(name, clip);
-        }
+        Sound sfx;
+
+        sfx = Resources.Load<Sound>("BGM/" + name);
+        sounds.Add(name, sfx);
 
         BGMPlayer.Stop();
         BGMPlayer.volume = BGMvolume;
-        BGMPlayer.clip = clip;
+        BGMPlayer.clip = sfx.clip;
         BGMPlayer.Play();
     }
 

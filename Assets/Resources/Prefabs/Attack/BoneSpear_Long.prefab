@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXName: 
-  moveSpeed: 9
+  SFXName: Magic2
+  moveSpeed: 11
   lifeTime: 3
   isRotate: 1
   warningRadius: 0.3

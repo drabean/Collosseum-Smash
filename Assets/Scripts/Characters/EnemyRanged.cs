@@ -53,6 +53,7 @@ public class EnemyRanged : Enemy
         StartCoroutine(co_Runaway());
     }
 
+    //공격 후 거리조절
     IEnumerator co_Runaway()
     {
         float runTimeLeft = runawayTime;
@@ -60,7 +61,9 @@ public class EnemyRanged : Enemy
         while(runTimeLeft >= 0)
         {
             runTimeLeft -= Time.deltaTime;
-            moveToDir(transform.position - Target.transform.position);
+            if (Vector3.Distance(transform.position, Target.transform.position) >= attackRange) 
+                moveToDir(transform.position - Target.transform.position);  //공격사거리보다 거리가 멀다면 가까이
+            else moveToDir(Target.transform.position - transform.position); //아니라면 멀리
             yield return null;
         }
 

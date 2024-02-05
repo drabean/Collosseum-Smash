@@ -59,8 +59,8 @@ MonoBehaviour:
   aim: {fileID: 4299250764577412298}
   hit: {fileID: 4299250763888376804}
   isDead: 0
-  maxHP: 2
-  curHP: 2
+  maxHP: 3
+  curHP: 3
   moveSpeed: 3
   moveSpeedCo: 1
   aimRange: 1
@@ -69,14 +69,13 @@ MonoBehaviour:
   isChasing: 0
   isSuperarmor: 0
   attackRange: 0.8
-  attackWidth: 0.4
   attackName: Prefabs/Attack/ClawEffect
   attackWaitTime: 0.57
   attackAfterWaitTime: 0.7
   doAttackSpin: 1
   layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
 --- !u!95 &4299250763888376808
 Animator:
   serializedVersion: 5
