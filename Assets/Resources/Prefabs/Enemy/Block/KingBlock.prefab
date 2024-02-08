@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709177238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709177239}
+  m_Layer: 16
+  m_Name: FirePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1709177239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709177238}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2734482238864720143}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154131986534204262
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,12 +137,12 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1775683016, guid: 119ad91178331444a94ea426eca65c2f, type: 3}
+  m_Sprite: {fileID: 579140887, guid: 00c2398ba7bc1a643976c1d7b23d25ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.875, y: 4.6875}
+  m_Size: {x: 6, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -248,6 +279,7 @@ GameObject:
   - component: {fileID: 2734482238864720128}
   - component: {fileID: 2734482238864720129}
   - component: {fileID: 2734482238864720152}
+  - component: {fileID: 1605302597}
   m_Layer: 16
   m_Name: KingBlock
   m_TagString: Boss
@@ -270,6 +302,7 @@ Transform:
   - {fileID: 154131986534204263}
   - {fileID: 2734482238245154351}
   - {fileID: 7605300383168769994}
+  - {fileID: 1709177239}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -326,10 +359,17 @@ MonoBehaviour:
     repeatTIme: 5
     duration: 1.5
     prefabName: Prefabs/Attack/Laser
+  - range: 0
+    width: 0
+    waitBeforeTime: 1
+    waitAfterTime: 1
+    intervalTime: 0.3
+    repeatTIme: 0
+    duration: 7
+    prefabName: Prefabs/Attack/EnergyBolt
   patternCount: 0
   mobs: []
   subBlockPrefab: {fileID: 4432736918336127245, guid: 013f7549ea3126743b359eab2e223396, type: 3}
-  spikePrefab: {fileID: 1453726104565491051, guid: 9d1e6a5ffb7a6d74b8ad79f52f2bba4d, type: 3}
   subBlocks:
   - {fileID: 0}
   - {fileID: 0}
@@ -339,6 +379,10 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0.3254717, b: 0.3254717, a: 1}
   - {r: 1, g: 0.98732996, b: 0.6367924, a: 1}
+  firePos: {fileID: 1709177239}
+  firePositions:
+  - {x: -6, y: -5, z: 0}
+  - {x: 6, y: -5, z: 0}
 --- !u!95 &2734482238864720141
 Animator:
   serializedVersion: 5
@@ -442,6 +486,19 @@ SortingGroup:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
+--- !u!114 &1605302597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2734482238864720135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToStart: 1
 --- !u!1 &8686880234920362608
 GameObject:
   m_ObjectHideFlags: 0

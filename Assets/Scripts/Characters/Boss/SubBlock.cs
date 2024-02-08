@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 독립된 적이 아닌, KingBlock 보스에 종속되는 몬스터 입니다.
+/// 독립된 적이 아닌, KingBlock 보스에 종속되는 몬스터
 /// </summary>
 public class SubBlock : Enemy
 {
@@ -32,7 +32,8 @@ public class SubBlock : Enemy
     //소환 연출 (본체에서 호출)
     public void Spawn()
     {
-        hit.FlashWhite(0.5f);
+        hit.FlashWhite(0.1f);
+        anim.SetTrigger("doSpawn");
     }
     //제거 연출 (본체에서 호출)
     public void Destroy()
@@ -46,7 +47,6 @@ public class SubBlock : Enemy
         hit.FlashWhite(1.0f);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
-
     }
 
 
@@ -121,7 +121,7 @@ public class SubBlock : Enemy
 
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         SoundMgr.Inst.Play("Jump");
-        anim.SetTrigger("doPat1");
+        anim.SetTrigger("doStomp");
         float timeLeft = 0.5f;
 
         moveSpeed = Vector3.Distance(destination, transform.position) / 0.5f;
@@ -149,7 +149,7 @@ public class SubBlock : Enemy
     public IEnumerator co_Fire1(float duration)
     {
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
-        anim.SetBool("isPat2", true);
+        anim.SetBool("isShootLear", true);
 
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
@@ -165,11 +165,11 @@ public class SubBlock : Enemy
             yield return new WaitForSeconds(missileWaitTime);
             GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
             Instantiate(attacks[1]).Shoot(firePos.position, targetVec);
-            anim.SetTrigger("doPat2");
+            anim.SetTrigger("doShootLear");
 
             yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
         }
-        anim.SetBool("isPat2", false);
+        anim.SetBool("isShootLear", false);
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 
@@ -182,7 +182,7 @@ public class SubBlock : Enemy
     public IEnumerator co_Fire2(float duration)
     {
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
-        anim.SetBool("isPat2", true);
+        anim.SetBool("isShootLear", true);
 
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
@@ -199,14 +199,14 @@ public class SubBlock : Enemy
                 GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
                 SoundMgr.Inst.Play("Throw");
                 Instantiate<Attack>(attacks[1]).Shoot(firePos.position, targetVec);
-                anim.SetTrigger("doPat2");
+                anim.SetTrigger("doShootLear");
             }
             yield return new WaitForSeconds(missileWaitTime + rapidWaitTime * patterns[2].repeatTIme);
 
             yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
         }
 
-        anim.SetBool("isPat2", false);
+        anim.SetBool("isShootLear", false);
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 
@@ -221,13 +221,13 @@ public class SubBlock : Enemy
         yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Target.transform.position.y));
         attacks[2].ShowWarning(LaserPos.position, LaserPos.position.x * (-1) * Vector3.right + LaserPos.position.y * Vector3.up, patterns[3].waitBeforeTime);
 
-        anim.SetBool("isPat3", true);
+        anim.SetBool("isLaser", true);
         yield return new WaitForSeconds(patterns[3].waitBeforeTime);
 
         Instantiate(attacks[2]).Shoot(LaserPos.position, LaserPos.position.x * (-1) * Vector3.right + LaserPos.position.y * Vector3.up);
         GameMgr.Inst.MainCam.Shake(2.0f, 15, 0.08f, 0f);
         yield return new WaitForSeconds(patterns[3].duration);
-        anim.SetBool("isPat3", false);
+        anim.SetBool("isLaser", false);
     }
 
     #endregion

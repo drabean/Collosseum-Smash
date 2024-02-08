@@ -147,6 +147,7 @@ MonoBehaviour:
   isSuperarmor: 0
   attackRange: 5
   attackWaitTime: 1.1
+  attackAfterTime: 1.6
   runawayTime: 1.3
   projectileName: Prefabs/Attack/MultiSpear
 --- !u!95 &2900340629051677477

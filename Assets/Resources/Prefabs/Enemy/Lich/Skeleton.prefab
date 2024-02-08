@@ -93,13 +93,15 @@ MonoBehaviour:
   maxHP: 2
   curHP: 2
   moveSpeed: 1.5
+  moveSpeedCo: 1
   aimRange: 1
   size: 0.2
   Target: {fileID: 0}
-  difficulty: 2
+  isChasing: 0
   isSuperarmor: 0
   attackRange: 4
   attackWaitTime: 0.7
+  attackAfterTime: 1.1
   runawayTime: 1.4
   projectileName: Prefabs/Attack/Bone
 --- !u!95 &1742816727417321248

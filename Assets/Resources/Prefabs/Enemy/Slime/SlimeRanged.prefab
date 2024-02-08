@@ -231,6 +231,7 @@ MonoBehaviour:
   isSuperarmor: 0
   attackRange: 5
   attackWaitTime: 0.8
+  attackAfterTime: 1
   runawayTime: 1
   projectileName: Prefabs/Attack/SlimeBall
 --- !u!95 &7308975240347374948

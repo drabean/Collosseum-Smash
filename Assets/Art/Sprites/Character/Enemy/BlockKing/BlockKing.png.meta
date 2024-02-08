@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 119ad91178331444a94ea426eca65c2f
+guid: 00c2398ba7bc1a643976c1d7b23d25ef
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,43 +129,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlockBoss_Temp_0
+      name: BlockKing_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
-        width: 100
-        height: 100
+        y: 192
+        width: 96
+        height: 96
       alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d379a7a22b272d14fbbad7ae81ff9d2c
-      internalID: 1775683016
+      spriteID: c49333b186b858e478e6fe660d3f29a8
+      internalID: 579140887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BlockBoss_Temp_1
+      name: BlockKing_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 100
-        height: 100
+        x: 96
+        y: 192
+        width: 96
+        height: 96
       alignment: 9
-      pivot: {x: 0.5, y: 0.25}
+      pivot: {x: 0.5, y: 0.15625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6162f937937c2ef48bd95050003487b7
-      internalID: 269443943
+      spriteID: dbd62c53ddfc5104386440a8676a037b
+      internalID: 1796205821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlockKing_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7af30a74e4828cd4d8133fc38afe4f7e
+      internalID: -888302940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlockKing_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797db39485c3acb48a216e3d78483496
+      internalID: 199432436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlockKing_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e347b768376f7c6469aa995416ecaf46
+      internalID: 1460873082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlockKing_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.15625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b70868408f7875448b03af8b5075c5d
+      internalID: -1871672809
       vertices: []
       indices: 
       edges: []
@@ -181,8 +265,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BlockBoss_Temp_0: 1775683016
-      BlockBoss_Temp_1: 269443943
+      BlockKing_0: 579140887
+      BlockKing_1: 1796205821
+      BlockKing_2: -888302940
+      BlockKing_3: 199432436
+      BlockKing_4: 1460873082
+      BlockKing_5: -1871672809
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

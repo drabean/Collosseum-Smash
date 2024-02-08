@@ -142,6 +142,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
         {
             data.item.Add(info.playerItems[i].ID);
         }
+        data.curHP = info.playerPrefab.Stat.VIT + 1;
+
         UTILS.SaveRunData(data);
 
         resetCharacterView();

@@ -91,8 +91,8 @@ MonoBehaviour:
   aim: {fileID: 1145949988399145451}
   hit: {fileID: 1576325421281623330}
   isDead: 0
-  maxHP: 8
-  curHP: 8
+  maxHP: 7
+  curHP: 7
   moveSpeed: 3
   moveSpeedCo: 1
   aimRange: 0.1
@@ -101,7 +101,6 @@ MonoBehaviour:
   isChasing: 0
   isSuperarmor: 0
   attackRange: 1
-  attackWidth: 1.2
   attackName: Prefabs/Attack/SlimeExplosionGreen
   attackWaitTime: 0.65
   attackAfterWaitTime: 1.3

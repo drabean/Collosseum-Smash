@@ -15,7 +15,10 @@ public class EnemyKingBlock : EnemyBoss
     public System.Action faceChangeAction;
     int patIdx;
 
-    public List<SpikeGroup> Spikes;
+    public Transform firePos;
+
+    public List<SpikeGroup> spikes;
+
     private void Awake()
     {
         evnt.attack += onAttack1;
@@ -24,6 +27,7 @@ public class EnemyKingBlock : EnemyBoss
 
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
+        attacks[3] = Resources.Load<Attack>(patterns[3].prefabName);
 
         faceChangeAction += () => { anim.SetTrigger("doFaceChange"); };
      
@@ -45,8 +49,6 @@ public class EnemyKingBlock : EnemyBoss
         subBlocks[1].transform.position = Vector3.right * 5.8f;
         subBlocks[1].Init(this, Target);
         subBlocks[1].transform.localScale = Vector3.right * (-1) + Vector3.up + Vector3.forward;
-        //여기서 Spike 소환
-        Instantiate(Spikes[0], Vector3.zero, Quaternion.identity);
     }
 
     IEnumerator co_Idle(float time = 1.5f)
@@ -70,8 +72,9 @@ public class EnemyKingBlock : EnemyBoss
         patIdx += Random.Range(1, 3);
         patIdx %= 3;
 
+
         //test
-        patIdx = 2;
+        patIdx = 3;
         switch (patIdx)
         {
             case 0:
@@ -82,6 +85,9 @@ public class EnemyKingBlock : EnemyBoss
                 break;
             case 2:
                 StartCoroutine(co_Pat3());
+                break;
+            case 3:
+                StartCoroutine(co_Fire1(6f));
                 break;
         }
     }
@@ -120,6 +126,10 @@ public class EnemyKingBlock : EnemyBoss
     }
     #endregion
 
+    /// <summary>
+    /// 번갈아가면서 찍기 공격
+    /// </summary>
+    /// <returns></returns>
     #region Pat1
     IEnumerator co_Pat1()
     {
@@ -146,7 +156,7 @@ public class EnemyKingBlock : EnemyBoss
 
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         SoundMgr.Inst.Play("Jump");
-        anim.SetTrigger("doPat1");
+        anim.SetTrigger("doStomp");
         float timeLeft = 0.5f;
 
         moveSpeed = Vector3.Distance(destination, transform.position) / 0.5f;
@@ -169,6 +179,7 @@ public class EnemyKingBlock : EnemyBoss
     #endregion
 
     #region pat2
+    //양각 공격
     IEnumerator co_Pat2()
     {
         changeFaceColor(2);
@@ -186,7 +197,10 @@ public class EnemyKingBlock : EnemyBoss
     #endregion
 
     #region pat3
-
+    /// <summary>
+    /// 번갈아가면서 레이져 쏘기 공격
+    /// </summary>
+    /// <returns></returns>
     IEnumerator co_Pat3()
     {
         changeFaceColor(2);
@@ -225,13 +239,13 @@ public class EnemyKingBlock : EnemyBoss
         yield return StartCoroutine(co_Move(Vector3.right * Target.transform.position.x + Vector3.up * transform.position.y));
         attacks[2].ShowWarning(transform.position, targetVec, patterns[2].waitBeforeTime);
 
-        anim.SetBool("isPat3", true);
+        anim.SetBool("isLaser", true);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
 
         Instantiate(attacks[2]).Shoot(transform.position,targetVec);
         GameMgr.Inst.MainCam.Shake(2.0f, 15, 0.08f, 0f);
         yield return new WaitForSeconds(patterns[2].duration);
-        anim.SetBool("isPat3", false);
+        anim.SetBool("isLaser", false);
     }
 
     protected override IEnumerator co_Smash(Transform attackerPos)
@@ -241,4 +255,44 @@ public class EnemyKingBlock : EnemyBoss
         return base.co_Smash(attackerPos);
     }
     #endregion
+
+    public Vector3[] firePositions;
+    /// <summary>
+    /// 발사계열 1 - 범위 내 무작위 위치 계속 발사
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator co_Fire1(float duration)
+    {
+        SpikeGroup spike = Instantiate(spikes[0], Vector3.zero, Quaternion.identity);
+        yield return StartCoroutine(co_Move(Vector3.up * 4.5f));
+        anim.SetBool("isShootFront", true);
+        spike.ShowWarning(patterns[3].waitBeforeTime);
+
+        yield return new WaitForSeconds(patterns[3].waitBeforeTime);
+
+        spike.Show();
+        float timeLeft = duration;
+        float fireTimeLeft = patterns[3].intervalTime;
+        while (timeLeft >= 0)
+        {
+
+
+            if (fireTimeLeft < 0)
+            { 
+                fireTimeLeft = patterns[3].intervalTime;
+                GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
+                Vector3 targetVec = Vector3.right * Random.Range(firePositions[0].x, firePositions[1].x) + Vector3.up * firePositions[0].y;
+                Instantiate(attacks[3]).Shoot(firePos.position, targetVec);
+                anim.SetTrigger("doShootFront");
+            }
+
+            timeLeft -= Time.deltaTime;
+            fireTimeLeft -= Time.deltaTime;
+
+            yield return null;
+        }
+        anim.SetBool("isShootFront", false);
+        spike.Hide();
+        yield return new WaitForSeconds(patterns[1].waitAfterTime);
+    }
 }

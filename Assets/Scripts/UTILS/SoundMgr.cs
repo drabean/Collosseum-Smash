@@ -94,14 +94,13 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     #region BGM
     public void PlayBGM(string name)
     {
-        Sound sfx;
+        AudioClip sfx;
 
-        sfx = Resources.Load<Sound>("BGM/" + name);
-        sounds.Add(name, sfx);
+        sfx = Resources.Load<AudioClip>("BGM/" + name);
 
         BGMPlayer.Stop();
         BGMPlayer.volume = BGMvolume;
-        BGMPlayer.clip = sfx.clip;
+        BGMPlayer.clip = sfx;
         BGMPlayer.Play();
     }
 

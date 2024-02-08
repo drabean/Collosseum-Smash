@@ -101,6 +101,7 @@ MonoBehaviour:
   isSuperarmor: 0
   attackRange: 10
   attackWaitTime: 1.1
+  attackAfterTime: 1.5
   runawayTime: 2
   projectileName: Prefabs/Attack/TrainingSpear
 --- !u!95 &811833523814136949

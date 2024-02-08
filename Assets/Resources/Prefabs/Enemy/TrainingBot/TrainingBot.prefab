@@ -92,7 +92,7 @@ MonoBehaviour:
   isDead: 0
   maxHP: 4
   curHP: 4
-  moveSpeed: 1
+  moveSpeed: 2.5
   moveSpeedCo: 1
   aimRange: 1
   size: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   isChasing: 0
   isSuperarmor: 0
   attackRange: 1.1
-  attackWidth: 1
   attackName: Prefabs/Attack/HammerImpact
   attackWaitTime: 0.9
   attackAfterWaitTime: 1.5
