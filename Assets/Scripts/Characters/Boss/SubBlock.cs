@@ -95,7 +95,13 @@ public class SubBlock : Enemy
         }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    public void MoveToStartpos()
+    {
+        StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * -0.6f));
+    }
     #endregion
 
     #region 스매쉬
@@ -139,7 +145,7 @@ public class SubBlock : Enemy
 
 
     #region 발사 패턴
-    float missileWaitTime = 0.3f;
+    float fire1WaitTime = 0.7f;
     public Transform firePos;
 
     /// <summary>
@@ -148,31 +154,35 @@ public class SubBlock : Enemy
     /// <returns></returns>
     public IEnumerator co_Fire1(float duration)
     {
-        yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
+        yield return new WaitForSeconds(1.0f);
+
         anim.SetBool("isShootLear", true);
 
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
+        float timeLeft = duration-1;
+        float fireTimeLeft = 0.0f;
 
-        float startTime = Time.time;
-        while (Time.time - startTime <= duration)
+        while (timeLeft > 0)
         {
-            Vector3 targetVec = Target.transform.position ;
-            attacks[1].ShowWarning(firePos.position, targetVec, missileWaitTime);
             //각 공격들의 발사 / 목표 위치 계산
-            yield return new WaitForSeconds(0.3f);
-            GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
-            SoundMgr.Inst.Play("Throw");
-            yield return new WaitForSeconds(missileWaitTime);
-            GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
-            Instantiate(attacks[1]).Shoot(firePos.position, targetVec);
-            anim.SetTrigger("doShootLear");
+            if(fireTimeLeft < 0)
+            {
+                GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
 
-            yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
+                GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
+                Instantiate(attacks[1]).Shoot(firePos.position, Target.transform.position);
+                anim.SetTrigger("doShootLear");
+                fireTimeLeft = fire1WaitTime;
+            }
+
+            timeLeft -= Time.deltaTime;
+            fireTimeLeft -= Time.deltaTime;
+            yield return null;
         }
         anim.SetBool("isShootLear", false);
-        yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 
+    float fire2WaitTime = 0.9f;
     float rapidWaitTime = 0.1f;
 
     /// <summary>
@@ -181,33 +191,40 @@ public class SubBlock : Enemy
     /// <returns></returns>
     public IEnumerator co_Fire2(float duration)
     {
-        yield return StartCoroutine(co_Move(Vector3.right * xPos + Vector3.up * Random.Range(yRange[0], yRange[1])));
+        yield return new WaitForSeconds(1.0f);
+
         anim.SetBool("isShootLear", true);
 
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
-        float startTime = Time.time;
-        while (Time.time - startTime <= duration)
+        float timeLeft = duration-1; // 이동모션 위해  대기한만큼 뺴줌
+        float fireTimeLeft = 0.0f;
+
+        while (timeLeft > 0)
         { 
             Vector3 targetVec = Target.transform.position;
-            attacks[1].ShowWarning(firePos.position, targetVec, missileWaitTime);
-            //각 공격들의 발사 / 목표 위치 계산
-            yield return new WaitForSeconds(0.3f);
-            for (int i = 0; i < patterns[2].repeatTIme; i++)
-            {
-                yield return new WaitForSeconds(0.1f);
-                GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
-                SoundMgr.Inst.Play("Throw");
-                Instantiate<Attack>(attacks[1]).Shoot(firePos.position, targetVec);
-                anim.SetTrigger("doShootLear");
-            }
-            yield return new WaitForSeconds(missileWaitTime + rapidWaitTime * patterns[2].repeatTIme);
 
-            yield return new WaitForSeconds(patterns[1].intervalTime - missileWaitTime);
+            if (fireTimeLeft < 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
+                    Instantiate<Attack>(attacks[1]).Shoot(firePos.position, targetVec);
+                    anim.SetTrigger("doShootLear");
+
+                    timeLeft -= rapidWaitTime;
+                    yield return new WaitForSeconds(rapidWaitTime);
+                }
+                fireTimeLeft = fire2WaitTime;
+            }
+
+            timeLeft -= Time.deltaTime;
+            fireTimeLeft -= Time.deltaTime;
+
+            yield return new WaitForSeconds(patterns[1].intervalTime - fire1WaitTime);
         }
 
         anim.SetBool("isShootLear", false);
-        yield return new WaitForSeconds(patterns[1].waitAfterTime);
     }
 
     #endregion

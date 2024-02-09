@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 2734482238864720128}
   - component: {fileID: 2734482238864720129}
   - component: {fileID: 2734482238864720152}
-  - component: {fileID: 1605302597}
   m_Layer: 16
   m_Name: KingBlock
   m_TagString: Boss
@@ -325,8 +324,8 @@ MonoBehaviour:
   aim: {fileID: 2734482238245154351}
   hit: {fileID: 2734482238864720129}
   isDead: 0
-  maxHP: 150
-  curHP: 150
+  maxHP: 160
+  curHP: 160
   moveSpeed: 5
   moveSpeedCo: 1
   aimRange: 1
@@ -338,7 +337,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0.8
-    waitAfterTime: 3
+    waitAfterTime: 2.5
     intervalTime: 0.4
     repeatTIme: 2
     duration: 0
@@ -353,20 +352,28 @@ MonoBehaviour:
     prefabName: 
   - range: 0
     width: 0
-    waitBeforeTime: 1
+    waitBeforeTime: 0.7
     waitAfterTime: 4
-    intervalTime: 1.6
+    intervalTime: 1.3
     repeatTIme: 5
     duration: 1.5
     prefabName: Prefabs/Attack/Laser
   - range: 0
     width: 0
     waitBeforeTime: 1
-    waitAfterTime: 1
-    intervalTime: 0.3
+    waitAfterTime: 0.8
+    intervalTime: 0.2
     repeatTIme: 0
     duration: 7
     prefabName: Prefabs/Attack/EnergyBolt
+  - range: 0
+    width: 0
+    waitBeforeTime: 1.5
+    waitAfterTime: 1.5
+    intervalTime: 0.4
+    repeatTIme: 3
+    duration: 0
+    prefabName: 
   patternCount: 0
   mobs: []
   subBlockPrefab: {fileID: 4432736918336127245, guid: 013f7549ea3126743b359eab2e223396, type: 3}
@@ -380,6 +387,12 @@ MonoBehaviour:
   - {r: 1, g: 0.3254717, b: 0.3254717, a: 1}
   - {r: 1, g: 0.98732996, b: 0.6367924, a: 1}
   firePos: {fileID: 1709177239}
+  spikes:
+  - {fileID: 5108342032011152482, guid: 69df2efcb1ef46a4fb365df7c6c8b1ec, type: 3}
+  - {fileID: 3543460180116373975, guid: b1f5e8b312562b04d91f4e112c3b7e2f, type: 3}
+  - {fileID: 3235892250691346757, guid: 172dc1e952e83f949b3b3df43ec19d69, type: 3}
+  - {fileID: 3235892250691346757, guid: fb16fa92f49775c48b8bdc35c0cad7c6, type: 3}
+  - {fileID: 3543460180116373975, guid: 031b1ec24175e6f40b7dcae02bd99d4b, type: 3}
   firePositions:
   - {x: -6, y: -5, z: 0}
   - {x: 6, y: -5, z: 0}
@@ -486,19 +499,6 @@ SortingGroup:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
---- !u!114 &1605302597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2734482238864720135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToStart: 1
 --- !u!1 &8686880234920362608
 GameObject:
   m_ObjectHideFlags: 0

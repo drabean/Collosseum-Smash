@@ -49,12 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXName: EnergyBolt
-  moveSpeed: 8
+  moveSpeed: 5.5
   lifeTime: 4
   isRotate: 0
   warningRadius: 0.2
   moveVec: {x: 0, y: 0, z: 0}
   sp: {fileID: 2446138682284122895}
+  moduleAttack: {fileID: 0}
 --- !u!58 &6522658320684209175
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,6 +140,7 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 0
 --- !u!95 &6437284784089960151
 Animator:
   serializedVersion: 5
