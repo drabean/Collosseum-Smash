@@ -232,7 +232,7 @@ MonoBehaviour:
   chargeRange: 2.5
   chargeStartRange: 2.5
   chargeTime: 0.4
-  waitBeforeTime: 0.7
+  waitBeforeTime: 0.6
   waitAfterTime: 1.3
   attackName: Prefabs/Attack/BlockImpactSmall
   SFXName: Jump2

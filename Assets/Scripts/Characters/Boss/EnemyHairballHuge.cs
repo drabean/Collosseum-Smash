@@ -22,7 +22,7 @@ public class EnemyHairballHuge : EnemyBoss
     }
     public override void StartAI()
     {
-        SpawnMob(Random.Range(0, 3));
+        spawnMob(Random.Range(0, 3), deadOption);
         selectPattern();
     }
 
@@ -54,12 +54,17 @@ public class EnemyHairballHuge : EnemyBoss
         {
             patternCount = 4 + Random.Range(0, 3);
 
-            StartCoroutine(co_Fatigue(2.0f));
+            if(!isRage) StartCoroutine(co_Fatigue(2.7f));
+            else StartCoroutine(co_Fatigue(1.7f));
             //TODO: FATIQUEMOTION
         }
 
     }
-
+    protected override void rageChange()
+    {
+        moveSpeed += 0.5f;
+        aimRange += 0.3f;
+    }
 
     #region Pat1
 
@@ -151,7 +156,7 @@ public class EnemyHairballHuge : EnemyBoss
     }
 
     #endregion
-    #region Pat3 Lecacy
+    #region Pat3 (Lecacy)
     protected IEnumerator co_Pat3()
     {
         anim.SetBool("isMoving", false);
@@ -185,7 +190,8 @@ public class EnemyHairballHuge : EnemyBoss
     #region Fatique
     IEnumerator co_Fatigue(float fatigueTime = 3.0f)
     {
-        SpawnMob(Random.Range(0, 3));
+        spawnMob(Random.Range(0, 3), deadOption);
+        if(isRage) spawnMob(Random.Range(0, 3), deadOption);
         anim.SetBool("isFatigue", true);
 
         float timeLeft = fatigueTime;
@@ -203,20 +209,5 @@ public class EnemyHairballHuge : EnemyBoss
 
     #endregion
 
-    #region Mob Spawn
-    int enemyCount = 0;
-    public int maxEnemyCount = 3;
-    public void SpawnMob(int idx)
-    {
-        if (enemyCount >= maxEnemyCount) return;
-
-        enemyCount++;
-        EnemyMgr.Inst.SpawnEnemy(mobs[idx], EnemyMgr.Inst.getRandomPos(), deadOption);    
-    }
-    void deadOption(Vector3 hitVec)
-    {
-        enemyCount--;
-    }
-    #endregion
 
 }

@@ -5035,4 +5035,4 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
-  maxHit: 0
+  maxHit: 1

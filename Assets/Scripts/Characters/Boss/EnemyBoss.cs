@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 /// <summary>
 /// 패턴 정보 구조체
@@ -56,6 +56,7 @@ public class EnemyBoss : Enemy
     public List<Enemy> mobs = new List<Enemy>();
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
+        checkRage();
         subHP -= dmg;
         base.onHit(attackerPos, dmg, stunTime);
         UIMgr.Inst.progress.SetBossHP(curHP, maxHP);
@@ -85,7 +86,7 @@ public class EnemyBoss : Enemy
         {
             hit.FlashWhite(0.2f);
             GameObject temp = DictionaryPool.Inst.Pop("Prefabs/Effect/ExplosionEffect");
-            temp.transform.position = transform.position + Vector3.right *  Random.Range(-size, size) + Vector3.up * Random.Range(-size, size);
+            temp.transform.position = transform.position.Randomize(size);
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
@@ -94,4 +95,53 @@ public class EnemyBoss : Enemy
         yield return base.co_Smash(GameMgr.Inst.player.transform);
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }
+    #region Rage
+
+    protected bool isRage = false; // 현재 분노 페이즈인가
+    protected bool isRagePattern = false;
+
+    //반피 이하일 시 2페이즈 진입
+    protected virtual void checkRage()
+    {
+        if(!isRage && (curHP < ((float)maxHP/2)))
+        {
+            isRage = true;
+            isRagePattern = true;
+            rageChange();
+            Debug.Log("RAGE!");
+        }
+    }
+
+   protected virtual void rageChange()
+    {
+
+    }
+
+
+    #endregion
+    #region Spawn
+    public int maxSpawnCount = 3;
+    protected int curSpawnCount = 0;
+
+    protected virtual void spawnMob(int idx, Action<Vector3> deadOption)
+    {
+        spawnMob(idx, EnemyMgr.Inst.getRandomPos(), deadOption);
+    }
+     protected virtual void spawnMob(int idx, Vector3 position, Action<Vector3> deadOption)
+    {
+        spawnMob(mobs[idx], position, deadOption);
+    }
+
+    protected virtual void spawnMob(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption)
+    {
+        if (curSpawnCount >= maxSpawnCount) return;
+        curSpawnCount++;
+        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, position, deadOption);
+    }
+    protected virtual void deadOption(Vector3 hitVec)
+    {
+        curSpawnCount--;
+    }
+
+#endregion
 }

@@ -59,8 +59,8 @@ MonoBehaviour:
   aim: {fileID: 4386642272341584061}
   hit: {fileID: 4386642271621334931}
   isDead: 0
-  maxHP: 40
-  curHP: 40
+  maxHP: 50
+  curHP: 50
   moveSpeed: 0
   moveSpeedCo: 1
   aimRange: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   mobs:
   - {fileID: 4299250763888376794, guid: c46624e5829de464aa935cf638c12652, type: 3}
   - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
+  maxSpawnCount: 2
   tpVecs:
   - {x: -7, y: 6.5, z: 0}
   - {x: -3, y: 6.5, z: 0}

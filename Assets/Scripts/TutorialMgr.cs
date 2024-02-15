@@ -121,18 +121,15 @@ public class TutorialMgr : MonoBehaviour
     {
         UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
         Instantiate(throwItem, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity)
-            .onAcquire += () => EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 1.0f, 0.0f));
+            .onAcquire += () => EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 4.0f, 0.0f), endP3);
 
-     //   EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 1.0f, 0.0f), checkP2);
 
-        player.onThrow += endP3;
         progressTMP.text = "Pick up throwing Item, \n release Joystick to Throw!";
     }
 
-    void endP3()
+    void endP3(Vector3 vec)
     {
         UIMgr.Inst.progress.HideAll();
-        player.onThrow -= endP3;
         StartCoroutine(co_NextPhase(startP4));
     }
 
@@ -193,7 +190,8 @@ public class TutorialMgr : MonoBehaviour
     {
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
         curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
-
+        GameMgr.Inst.curRunData.isTutorial = false;
+        UTILS.SaveRunData(GameMgr.Inst.curRunData);
         UTILS.SaveSaveData(curSaveData);
     }
 }

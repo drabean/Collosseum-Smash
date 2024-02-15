@@ -144,10 +144,17 @@ public class UICharacterSelectCanvas : MonoBehaviour
         }
         data.curHP = info.playerPrefab.Stat.VIT + 1;
 
+        data.isTutorial = this.isTutorial;
         UTILS.SaveRunData(data);
 
         resetCharacterView();
         LoadSceneMgr.LoadSceneAsync("Main");
+    }
+
+    bool isTutorial = true;
+    public void Toggle_tutorial(bool isTrue)
+    {
+        isTutorial = isTrue;
     }
     #endregion
 

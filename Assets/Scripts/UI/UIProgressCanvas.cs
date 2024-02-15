@@ -39,11 +39,15 @@ public class UIProgressCanvas : MonoBehaviour
     {
         GroupNormal.GetComponent<ModuleUI>().FadeIn(0.5f);
     }
+    public float bossCurHP;
+    public float bossMaxHP;
 
-    public void SetBossHP(float  curHp, float maxHP) 
+    public void SetBossHP(float  curHP, float maxHP) 
     {
+        bossCurHP = curHP;
+        bossMaxHP = maxHP;
         if (!GroupBoss.activeInHierarchy) ShowBossUI();
-        BossHPBar.fillAmount = (float) curHp / maxHP; 
+        BossHPBar.fillAmount = (float) curHP / maxHP; 
     }
     public void ShowBossUI()
     {

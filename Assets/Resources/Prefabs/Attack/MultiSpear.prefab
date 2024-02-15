@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXName: 
   projectile: {fileID: 480764549815840870, guid: 810c0284b6d37e243a8e3f098feefd31, type: 3}
-  ShootNum: 5
-  Radian: 25
+  ShootNum: 3
+  Radian: 35

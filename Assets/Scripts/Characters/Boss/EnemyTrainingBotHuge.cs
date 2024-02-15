@@ -50,12 +50,9 @@ public class EnemyTrainingBotHuge : EnemyBoss
         Instantiate(attacks[0]).Shoot(transform.position + Vector3.up * 0.5f, transform.position + Vector3.up * 0.5f);
     }
 
-    int maxSpawnCount = 2;
-    int curSpawnCount = 0;
 
     IEnumerator co_SpawnMob()
     {
-        if (curSpawnCount > maxSpawnCount) yield break;
         doSpawn();
         yield return new WaitForSeconds(3.0f);
         selectPattern();
@@ -63,27 +60,8 @@ public class EnemyTrainingBotHuge : EnemyBoss
 
     void doSpawn()
     {
-        int idx = Random.Range(0, 2);
-
-        switch(idx)
-        {
-            case 0:
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.right * 1.5f, enemyDeadOption);
-                curSpawnCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.right * -1.5f, enemyDeadOption);
-                curSpawnCount++;
-                break;
-            case 1:
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.down * 2.0f, enemyDeadOption);
-                curSpawnCount++;
-                break;
-        }
-
-    }
-
-    void enemyDeadOption(Vector3 pos)
-    {
-        curSpawnCount--;
+        spawnMob(0, transform.position + Vector3.right * 1.5f, deadOption);
+        spawnMob(0, transform.position + Vector3.right * -1.5f, deadOption);
     }
 
 

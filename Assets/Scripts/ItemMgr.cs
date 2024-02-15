@@ -44,7 +44,6 @@ public class ItemMgr : MonoSingleton<ItemMgr>
         if (player.Stat.STR <= 5) potionPool.Add(potionItems.list[0]);
         if (player.Stat.SPD <= 5) potionPool.Add(potionItems.list[1]);
         if (player.Stat.VIT <= 5) potionPool.Add(potionItems.list[2]);
-        if (player.Stat.ACC <= 5) potionPool.Add(potionItems.list[3]);
 
     }
 
@@ -67,7 +66,7 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     /// <returns></returns>
     public Equip GetPotionEquip()
     {
-        if (potionPool.Count == 0) return GetNormalEquip();
+        if (potionPool.Count == 0) return GetNormalEquip(); // 플레이어의 능력치가 모두 최대치라면, 일반 장비를 반환.
 
         Equip equip = potionPool[Random.Range(0, potionPool.Count)];
         potionPool.Remove(equip);

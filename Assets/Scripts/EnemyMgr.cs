@@ -154,6 +154,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
             }
         }
 
+        spawnedEnemy.curHP -= GameMgr.Inst.curRunData.bossProgress;
         spawnedEnemy.StartAI();
         GameMgr.Inst.MainCam.changeTargetToDefault();
         Destroy(camTarget);

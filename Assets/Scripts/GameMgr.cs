@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Random = UnityEngine.Random;
 
+
+public enum PHASE
+{
+    LOADING,
+    NORMAL,
+    BOSS,
+    REWARD
+}
 public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
@@ -37,6 +45,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     public Enemy GongPrefab;
 
     public TextMeshPro progressTMP;
+    PHASE curPhase = PHASE.LOADING;
+    
     private IEnumerator Start()
     {
         if (isTest)
@@ -59,8 +69,8 @@ public class GameMgr : MonoSingleton<GameMgr>
             Instantiate(LoadedData.Inst.getEquipByID(curRunData.item[i])).onEquip(player);
         }
         player.SetStatus();
-        player.curHP = Mathf.Min(player.maxHP, curRunData.curHP);
-        player.AttachUI();
+        player.curHP = Mathf.Min(player.maxHP, curRunData.curHP); // 체력세팅.
+        player.AttachUI(); // 조이스틱 및 UI 연동
         isPlayerInstantiated = true;
 
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
@@ -76,24 +86,26 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if (isTest && testStage == null) yield break;
 
-        /*
-        if(stageInfo == null)
+
+        if(curRunData.isTutorial)
         {
-            //게임 클리어로 간주 rundata 삭제 및 업적 클리어하기
-            GameClearMgr clear = gameObject.AddComponent<GameClearMgr>();
-            clear.Init(curSaveData);
-            curSaveData.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
-        }
-        */
-        if(curSaveData.checkAchivement(ACHIEVEMENT.TUTORIALCLEAR)) spawnGong();
-        else
-        {
-            //TUTORIAL START
-            TutorialMgr tutorial =  gameObject.AddComponent<TutorialMgr>();
+            TutorialMgr tutorial = gameObject.AddComponent<TutorialMgr>();
             tutorial.Init(player, progressTMP, curSaveData);
             tutorial.startTutorial();
+            yield break;
         }
-        
+        else if(curRunData.isBoss)
+        {
+            yield return new WaitForSeconds(1.5f);
+            SoundMgr.Inst.PlayBGM(stageInfo.Intro, stageInfo.BGM);
+            startBossStage();
+            yield break;
+        }
+        else
+        {
+            spawnGong();
+            yield break;
+        }
     }
  
 
@@ -125,7 +137,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     int maxBaseEnemyCount = 3;
     int progressCount = 0; 
     bool isBossSpawned;
-    int dropCount = 6; // 투척 아이템 소환 빈도
+    public int dropCount = 6; // 투척 아이템 소환 빈도
     int curDropCount = 0;
     public IEnumerator StartNormalStage()
     {
@@ -140,8 +152,10 @@ public class GameMgr : MonoSingleton<GameMgr>
         SoundMgr.Inst.PlayBGM(stageInfo.Intro, stageInfo.BGM);
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
+        progressCount = curRunData.normalProgress;
         progressTMP.text = progressCount + " / " + stageInfo.maxKill;
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
+        curPhase = PHASE.NORMAL;
     }
 
     void InitEnemyPool()
@@ -198,8 +212,10 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     void startBossStage()
     {
+
         if (isBossSpawned) return;
         isBossSpawned = true;
+        curPhase = PHASE.BOSS;
         StartCoroutine(co_StartBossStage());
     }
 
@@ -265,21 +281,25 @@ public class GameMgr : MonoSingleton<GameMgr>
         #region 난이도관리
         switch(progressCount)
         {
-            case 5:
+            case <=5:
                 baseEnemyCount = 3;
                 maxCount = 4;
                 break;
-            case 10:
+            case <= 15:
                 baseEnemyCount = 4;
                 maxCount = 5;
                 break;
-            case 15:
+            case <= 20:
                 baseEnemyCount = 3;
                 maxCount = 5;
                 break;
-            case 25:
+            case <= 30:
                 baseEnemyCount = 4;
                 maxCount = 6;
+                break;           
+            case <= 35:
+                baseEnemyCount = 4;
+                maxCount = 7;
                 break;
         }
 
@@ -373,11 +393,19 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     #endregion
 
+    /// <summary>
+    /// 정상적으로 게임 클리어 해서 다음 라운드로 넘어갈때
+    /// </summary>
+    /// <returns></returns>
     IEnumerator co_ToNextScene()
     {
         curRunData.stageProgress++;
         curRunData.curHP = (int)player.curHP + 2;
+        curRunData.isBoss = false;
         curSaveData.Exp++;
+
+        curRunData.normalProgress = 0;
+        curRunData.bossProgress = 0;
         yield return new WaitForSeconds(3.0f);
 
         UTILS.SaveRunData(curRunData);
@@ -387,6 +415,27 @@ public class GameMgr : MonoSingleton<GameMgr>
     #endregion
 
     #region 유틸 함수들
+    /// <summary>
+    /// 플레이어 사망시 플레이어쪽에서 호출
+    /// 현재 스테이지 안에서의 진행사항을 임시적으로 저장함.
+    /// </summary>
+    public void SaveCurRunData()
+    {
+        switch(curPhase)
+        {
+            case PHASE.NORMAL:
+                curRunData.isBoss = false;
+                curRunData.normalProgress = progressCount;
+                break;
+            case PHASE.BOSS:
+                curRunData.isBoss = true;
+
+                curRunData.bossProgress = (int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP);
+                break;
+        }
+        UTILS.SaveRunData(curRunData);
+    }
+
     Coroutine curSlowtimeCoroutine;
     bool slowTimeLock;
     public bool isPause;
@@ -441,6 +490,17 @@ public class GameMgr : MonoSingleton<GameMgr>
         temp.GetComponent<Poolable>().Push(time);
 
         return temp;
+    }
+
+
+    public void Btn_ToTitle()
+    {
+        LoadSceneMgr.LoadSceneAsync("Start");
+    }
+
+    public void Btn_Exit()
+    {
+        Application.Quit();
     }
 
     #endregion

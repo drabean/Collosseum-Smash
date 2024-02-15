@@ -10,7 +10,7 @@ public class EnemySlimeKing : EnemyBoss
     [SerializeField] Transform eyeTr;
 
     Attack[] attacks = new Attack[6];
-
+    int patIdx = 0;
     protected override void setDir(Vector3 dir)
     {
         eye.sortingOrder = dir.y < 0 ? 1 : -1;
@@ -22,6 +22,7 @@ public class EnemySlimeKing : EnemyBoss
     {
         evnt.attack += onAttack1;
         evnt.attack2 += onAttack2;
+        evnt.attack4 += onAttack4;
 
         patternCountLeft = Random.Range(2, patternCount + 1);
 
@@ -41,18 +42,33 @@ public class EnemySlimeKing : EnemyBoss
 
     protected override void selectPattern()
     {
-        switch (patternCountLeft)
+        
+        patIdx += Random.Range(1, 3);
+        patIdx %= 3;
+
+        if(isRagePattern)
         {
-            case > 0:
-                patternCountLeft--;
-                if (Random.Range(0, 2) == 0) StartCoroutine(co_Pat1());
-                else StartCoroutine(co_Pat3());
-                break;
+            isRagePattern = false;
+            StartCoroutine(co_Pat4());
+            return;
+        }
+        switch(patIdx)
+        {
             case 0:
-                patternCountLeft = Random.Range(2, patternCount + 1);
+                StartCoroutine(co_Pat1());
+                break;
+            case 1:
                 StartCoroutine(co_Pat2());
                 break;
+            case 2:
+                StartCoroutine(co_Pat3());
+                break;
         }
+    }
+
+    protected override void rageChange()
+    {
+        maxSpawnCount++;
     }
     IEnumerator co_Wait(float timeleft)
     {
@@ -85,11 +101,13 @@ public class EnemySlimeKing : EnemyBoss
         {
             setDir();
             yield return StartCoroutine(co_Move(Target.transform.position));
-            yield return new WaitForSeconds(patterns[0].intervalTime);
+            float waitTime = patterns[0].intervalTime;
+            if (isRage) waitTime -= 0.35f;
+            yield return new WaitForSeconds(waitTime);
         }
 
         yield return co_Wait(patterns[0].waitAfterTime);
-        EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos());
+        spawnMob(0, deadOption);
         StartCoroutine(co_Idle());
     }
 
@@ -122,16 +140,15 @@ public class EnemySlimeKing : EnemyBoss
 
     IEnumerator co_Pat2()
     {
-        yield return co_Move(new Vector3(0, 3.5f, 0));
-
         eyeTr.transform.localPosition = Vector3.zero;
         eye.sortingOrder = 1;
-        GameMgr.Inst.AttackEffectCircle(transform.position, 2.3f, 1.0f);
-        yield return co_Wait(1.0f);
-        onAttack1();
+        float waitTime = 1.0f;
+        if (isRage) waitTime -= 0.3f;
+        yield return co_Wait(waitTime);
+
 
         float timeLeft = patterns[1].duration;
-        anim.SetBool("isShaking", true);
+        anim.SetBool("isShakingWeak", true);
         GameMgr.Inst.MainCam.Shake(patterns[1].duration, 20, 0.08f, 0, true);
         isImmune = true;
         while(timeLeft >= 0)
@@ -140,7 +157,7 @@ public class EnemySlimeKing : EnemyBoss
             yield return null;
         }
         isImmune = false;
-        anim.SetBool("isShaking", false);
+        anim.SetBool("isShakingWeak", false);
 
         yield return co_Wait(patterns[1].waitAfterTime);
 
@@ -152,21 +169,23 @@ public class EnemySlimeKing : EnemyBoss
     {
         SoundMgr.Inst.Play("Throw");
 
-      
-        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3]));
-        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5]));
+        float randomRange = 2.5f;
+        if (isRage) randomRange -= 0.8f;
+        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], Target.transform.position.Randomize(randomRange)));
+        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], Target.transform.position.Randomize(randomRange)));
+        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5], Target.transform.position.Randomize(randomRange)));
     }
 
-    IEnumerator co_attack2(Impact slimeExplosion, Projectile slimeBall)
+    IEnumerator co_attack2(Impact slimeExplosion, Projectile slimeBall, Vector3 attackPos)
     {
+        slimeExplosion.ShowWarning(transform.position, attackPos, 0.9f);
+        yield return new WaitForSeconds(0.15f);
         //날아가는 슬라임 볼 생성
-        Vector3 attackPos = EnemyMgr.Inst.getRandomPos();
         Projectile tempObj = Instantiate(slimeBall);
         tempObj.transform.position = transform.position;
         tempObj.moveSpeed = Vector3.Distance(transform.position, attackPos) / 0.75f;
         tempObj.Shoot(transform.position, attackPos);
 
-        slimeExplosion.ShowWarning(transform.position, attackPos, 0.75f);
         yield return new WaitForSeconds(0.75f);
         //실제 공격 (폭팔) 생성
 
@@ -195,7 +214,7 @@ public class EnemySlimeKing : EnemyBoss
             Instantiate(attacks[1], transform.position, Quaternion.identity).Shoot(transform.position, targetPos);
         }
 
-        EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
+        spawnMob(1, deadOption);
         StartCoroutine(co_Idle(patterns[2].waitAfterTime));
     }
 
@@ -218,6 +237,48 @@ public class EnemySlimeKing : EnemyBoss
         base.stopAction();
         anim.SetBool("isShaking", false);
     }
+
+    #region 어려운패턴
+
+    IEnumerator co_Pat4()
+    {
+        yield return co_Move(new Vector3(0, 3.5f, 0));
+
+        eyeTr.transform.localPosition = Vector3.zero;
+        eye.sortingOrder = 1;
+        GameMgr.Inst.AttackEffectCircle(transform.position, 2.3f, 1.0f);
+        yield return co_Wait(1.0f);
+        onAttack1();
+
+        float timeLeft = patterns[3].duration;
+        anim.SetBool("isShaking", true);
+        GameMgr.Inst.MainCam.Shake(patterns[3].duration, 20, 0.08f, 0, true);
+        isImmune = true;
+        while (timeLeft >= 0)
+        {
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+        isImmune = false;
+        anim.SetBool("isShaking", false);
+
+        yield return co_Wait(patterns[3].waitAfterTime);
+
+
+        StartCoroutine(co_Idle());
+    }
+
+    void onAttack4()
+    {
+        SoundMgr.Inst.Play("Throw");
+
+
+        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], EnemyMgr.Inst.getRandomPos()));
+        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], EnemyMgr.Inst.getRandomPos()));
+        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5], EnemyMgr.Inst.getRandomPos()));
+    }
+
+    #endregion
 }
 
 /*LEGACY

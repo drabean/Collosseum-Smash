@@ -35,7 +35,7 @@ public class EnemyLich : EnemyBoss
 
     protected override void selectPattern()
     {
-        patIdx += Random.Range(0, 3);
+        patIdx += Random.Range(1, 3);
         patIdx %= 4;
 
         switch(patIdx)
@@ -148,7 +148,7 @@ public class EnemyLich : EnemyBoss
             if (i % 4 == 3)
             {
                 teleport();
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.7f);
             }
         }
 
@@ -293,29 +293,25 @@ public class EnemyLich : EnemyBoss
         transform.position = tpVecs[curPosIdx];
     }
 
-    int curEnemyCount = 0;
-    int maxSpawnCount = 2;
     List<Enemy> spawnPool = new List<Enemy>();
+    WaitForSeconds wait05 = new WaitForSeconds(0.5f);
+
     IEnumerator co_SpawnRoutine()
     {
         while(true)
         {
-            if(curEnemyCount < maxSpawnCount)
-            {
-                curEnemyCount++;
-                EnemyMgr.Inst.SpawnEnemy(spawnPool[Random.Range(0, spawnPool.Count)], EnemyMgr.Inst.getRandomPos(), enemyDeadOption);
-            }
-            yield return null;
+            spawnMob(spawnPool[Random.Range(0, spawnPool.Count)], EnemyMgr.Inst.getRandomPos(), deadOption);
+            yield return wait05;
         }
     }
 
-    void enemyDeadOption(Vector3 pos)
+    protected override void deadOption(Vector3 pos)
     {
         //  this.onHit(transform, 1.0f, 0.0f);
         TargetedProjecitile tp =  Instantiate(lichSoul);
         tp.Shoot(pos, this.gameObject);
         tp.onTouch += onLichSoulHit;
-        curEnemyCount--;
+        curSpawnCount--;
     }
 
     void onLichSoulHit()
@@ -323,20 +319,19 @@ public class EnemyLich : EnemyBoss
         onHit(transform, 1.0f, 0.0f);
     }
 
-    bool isInraged;
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
         if (curHP == 3) groggy();
 
-        if(curHP < maxHP/2 && !isInraged)
-        {
-            isInraged = true;
-            spawnPool.Add(mobs[1]);
-            maxSpawnCount = 3;
-        }
         base.onHit(attackerPos, dmg, stunTime);
     }
+    protected override void rageChange()
+    {
+        maxSpawnCount = 3;
 
+        spawnPool.Add(mobs[0]);
+        spawnPool.Add(mobs[1]);
+    }
     void groggy()
     {
         GameMgr.Inst.SlowTime(0.4f, 0.2f, true);

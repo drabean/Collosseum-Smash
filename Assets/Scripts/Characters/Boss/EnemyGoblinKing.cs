@@ -22,14 +22,13 @@ public class EnemyGoblinKing : EnemyBoss
 
     public float SpawnCoolTime;
     float lastSpawnedTime;
-    bool usedSpawningBomb;
     IEnumerator co_Chase()
     {
         while(true)
         {
-            if (!usedSpawningBomb && (curHP / maxHP) <= 0.5f)
+            if (isRagePattern)
             {
-                usedSpawningBomb = true;
+                isRagePattern = false;
                 yield return StartCoroutine(co_SpawnBombs());
             }
 
@@ -56,10 +55,10 @@ public class EnemyGoblinKing : EnemyBoss
         anim.SetTrigger("doSpawn");
         yield return new WaitForSeconds(1.0f);
 
-        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[0], enemyDeadOption);
-        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[1], enemyDeadOption);
-        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[2], enemyDeadOption);
-        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[3], enemyDeadOption);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[0]);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[1]);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[2]);
+        EnemyMgr.Inst.SpawnEnemy(mobs[2], EnemyMgr.Inst.getCornerPos()[3]);
 
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
 
@@ -86,10 +85,6 @@ public class EnemyGoblinKing : EnemyBoss
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
     }
 
-
-    int maxSpawnCount = 3;
-    int curSpawnCount = 0;
-
     IEnumerator co_SpawnMob()
     {
         if (curSpawnCount > maxSpawnCount) yield break;
@@ -113,25 +108,21 @@ public class EnemyGoblinKing : EnemyBoss
         switch(idx)
         {
             case 0:
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.right * 1.0f, enemyDeadOption);
-                curSpawnCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.right * -1.0f, enemyDeadOption);
-                curSpawnCount++;
+                spawnMob(0, transform.position + Vector3.right * 1.0f, deadOption);
+                spawnMob(0, transform.position + Vector3.right * -1.0f, deadOption);
+                if(isRage) spawnMob(0, transform.position + Vector3.up * 2.0f, deadOption);
                 break;
             case 1:
-                EnemyMgr.Inst.SpawnEnemy(mobs[0], transform.position + Vector3.down * 2.0f, enemyDeadOption);
-                curSpawnCount++;
-                EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
-                curSpawnCount++;
+                spawnMob(0, transform.position + Vector3.down * 2.0f, deadOption);
+                spawnMob(1, deadOption);
+                if (isRage) spawnMob(0, transform.position + Vector3.up * 2.0f, deadOption);
                 break;
         }
 
     }
 
-    void enemyDeadOption(Vector3 pos)
+    protected override void rageChange()
     {
-        curSpawnCount--;
+        maxSpawnCount = 3;
     }
-
-
 }

@@ -128,6 +128,7 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 1
 --- !u!1 &9048280943113272310
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,3 +181,4 @@ MonoBehaviour:
   warningRadius: 0.7
   moveVec: {x: 0, y: 0, z: 0}
   sp: {fileID: 0}
+  moduleAttack: {fileID: 9048280941730945595}

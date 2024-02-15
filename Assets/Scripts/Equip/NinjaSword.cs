@@ -17,7 +17,7 @@ public class NinjaSword : Equip
     {
     }
 
-    protected void throwDagger()
+    protected void throwDagger(Projectile projectile)
     {
 
         //CircleCast를 통해 주변 모든 Enemy Layer 오브젝트 검색

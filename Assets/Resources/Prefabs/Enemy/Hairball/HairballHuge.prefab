@@ -178,8 +178,8 @@ MonoBehaviour:
   aim: {fileID: 3843553762879491339}
   hit: {fileID: 3843553763941045614}
   isDead: 0
-  maxHP: 60
-  curHP: 60
+  maxHP: 80
+  curHP: 80
   moveSpeed: 4
   moveSpeedCo: 1
   aimRange: 0.4
@@ -217,7 +217,7 @@ MonoBehaviour:
   - {fileID: 2240554736026179979, guid: 9b377497e118d814e9c999dc29301581, type: 3}
   - {fileID: 8819645963848089268, guid: 45dcd21c4a5cb10409dd347e86b5ad6a, type: 3}
   - {fileID: 999269732158798076, guid: 14275a766da6b6340b588e42a4284010, type: 3}
-  maxEnemyCount: 3
+  maxSpawnCount: 3
 --- !u!95 &3843553763941045586
 Animator:
   serializedVersion: 5

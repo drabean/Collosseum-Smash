@@ -13,7 +13,6 @@ public class ModuleExplosiveAttack : ModuleAttack
             if (exploded) return;
 
             exploded = true;
-            Debug.Log("ASD");
             Instantiate(Explosion).Shoot(transform.position, transform.position + Vector3.up * 0.01f);
             Destroy(gameObject);
         }

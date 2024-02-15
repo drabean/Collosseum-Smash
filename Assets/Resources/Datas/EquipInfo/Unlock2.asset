@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2813709b0125c4392199a06d1f13e7, type: 3}
+  m_Name: Unlock2
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 4119564199720313905, guid: dce8356f19fbdcd4ab062192245446f4, type: 3}
+  - {fileID: 7114138161455148572, guid: da11b8ed55ed91d4ca2c846dca2f5d70, type: 3}
+  - {fileID: 7778055991383642656, guid: a604816d69449f34cbf7c7039c28941c, type: 3}

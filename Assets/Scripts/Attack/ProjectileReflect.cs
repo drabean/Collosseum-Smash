@@ -6,10 +6,6 @@ public class ProjectileReflect : MonoBehaviour
 {
     [SerializeField] Projectile owner;
 
-    private void Start()
-    {
-        gameObject.layer = owner.gameObject.layer;
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)

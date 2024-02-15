@@ -10,8 +10,13 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] UIItemDescriptionPanel ItemDescription;
     [SerializeField] RectTransform ButtonHolder;
     [SerializeField] UIButton ButtonPrefab;
+    [SerializeField] UIOptionCanvas Option;
+    [SerializeField] GameObject OptionPanel;
+    [SerializeField] GameObject DebugPanel;
 
     [HideInInspector] public SaveData saveData;
+
+    public bool isTestMode;
 
     private void Awake()
     {
@@ -47,6 +52,13 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Option";
         newBtn.btn.onClick.AddListener(Btn_Option);
+        
+        if(isTestMode)
+        {
+            newBtn = Instantiate(ButtonPrefab, ButtonHolder);
+            newBtn.txt.text = "Debug";
+            newBtn.btn.onClick.AddListener(Btn_Debug);
+        }
 
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Exit";
@@ -73,11 +85,18 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     public void Btn_Option()
     {
         Debug.Log("OpenOption");
-        LoadSceneMgr.LoadSceneAsync("Tutorial");
+        OptionPanel.SetActive(true);
+        Option.Init();
     }
-
+    public void Btn_Debug( )
+    {
+        Debug.Log("OpenDebug");
+        DebugPanel.SetActive(true);
+        
+    }
     public void Btn_Exit()
     {
+        Debug.Log("QUIT");
         Application.Quit();
     }
 }

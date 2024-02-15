@@ -47,5 +47,5 @@ MonoBehaviour:
   ID: 20101
   ItemSprite: {fileID: 21300000, guid: 922337f3467c3a4488168abf025151d9, type: 3}
   itemName: OPG
-  Description: Increase your attack damage by 2, but decrease yout moveSpeed by 2.
+  Description: Increase your attack damage by 2, but decrease yout moveSpeed by 1.
   owner: {fileID: 0}

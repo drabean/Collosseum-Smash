@@ -120,8 +120,8 @@ public class Player : CharacterBase
     /// <summary>
     /// 투척 시
     /// </summary>
-    public Action onThrow;
-    public void InvokeOnThrow() { onThrow?.Invoke(); }
+    public Action<Projectile> onThrow;
+    public void InvokeOnThrow(Projectile projectile) { onThrow?.Invoke(projectile); }
     /// <summary>
     /// 이동 중지 시
     /// </summary>
@@ -303,12 +303,12 @@ public class Player : CharacterBase
     void throwItem()
     {
         isHolding = false;
-        InvokeOnThrow();
         if (curHoldingItem == null) return;
         Projectile projectile = Instantiate(curHoldingItem.projectile);
         projectile.gameObject.layer = LayerMask.NameToLayer("AllyAttack");
         projectile.Shoot(transform.position, target.position);
         projectile.moduleAttack.dmg = Stat.STR + Stat.ACC;
+        InvokeOnThrow(projectile);
         Destroy(curHoldingItem.gameObject);
         curHoldingItem = null;
 
@@ -418,6 +418,7 @@ public class Player : CharacterBase
 
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
+        GameMgr.Inst.SaveCurRunData();
         yield return new WaitForSeconds(1.5f);
         LoadSceneMgr.LoadSceneAsync("GameOver");
     }

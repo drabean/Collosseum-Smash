@@ -5178,9 +5178,9 @@ MonoBehaviour:
     VIT: 2
     SPD: 4
     ACC: 3
-  findRange: 5
+  findRange: 4
   attackRange: 1.3
-  throwRange: 5
+  throwRange: 3
   isHolding: 0
   layer:
     serializedVersion: 2

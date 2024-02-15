@@ -203,3 +203,4 @@ MonoBehaviour:
   cantPenetrate: 1
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 1

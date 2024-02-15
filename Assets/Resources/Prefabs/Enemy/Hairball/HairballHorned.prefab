@@ -189,10 +189,10 @@ MonoBehaviour:
   chargeRange: 3
   chargeStartRange: 2
   chargeTime: 0.35
-  waitBeforeTime: 1.2
+  waitBeforeTime: 1
   waitAfterTime: 1.5
   attackName: 
-  SFXName: 
+  SFXName: Jump2
   isCharge: 1
 --- !u!212 &8819645963848089272
 SpriteRenderer:

@@ -19,7 +19,7 @@ public class SpikeShield : Equip
     {   
         DictionaryPool.Inst.Pop("Prefabs/Effect/SpikeShieldEffect").transform.position = owner.transform.position;
 
-        return resisted;  //이전 체인에서 이미 저항에 성공했으므로, 그냥 통과
+        return resisted;
 
     }
 }

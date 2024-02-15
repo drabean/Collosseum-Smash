@@ -174,6 +174,16 @@ public class EnemyChampion : EnemyBoss
         anim.SetBool("isAtkReady", false);
 
         anim.SetTrigger("doAttack");
+
+        if(isRage)
+        {
+            curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, 0.6f);
+            anim.SetBool("isAtkReady", true);
+            yield return new WaitForSeconds(Random.Range( 0.5f, 0.8f));
+            anim.SetBool("isAtkReady", false);
+
+            anim.SetTrigger("doAttack");
+        }
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
 
         if (nextMove != null) StartCoroutine(nextMove);
@@ -201,6 +211,7 @@ public class EnemyChampion : EnemyBoss
 
             float waitTime = patterns[1].waitBeforeTime;
             if (i == 0) waitTime += 0.15f;
+            if (isRage) waitTime -= 0.1f;
 
             curAttackWarning = attacks[1].ShowWarning(transform.position, Target.transform.position, waitTime);
 
@@ -275,8 +286,8 @@ public class EnemyChampion : EnemyBoss
 
     void spawnCompanion()
     {
-        EnemyMgr.Inst.SpawnEnemy(mobs[0], EnemyMgr.Inst.getRandomPos());
-        EnemyMgr.Inst.SpawnEnemy(mobs[1], EnemyMgr.Inst.getRandomPos());
+        spawnMob(0, deadOption);
+        spawnMob(1, deadOption);
     }
 
 }

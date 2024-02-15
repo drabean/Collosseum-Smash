@@ -5175,12 +5175,12 @@ MonoBehaviour:
   isInAttackRange: 0
   Stat:
     STR: 1
-    VIT: 1
-    SPD: 2
+    VIT: 3
+    SPD: 3
     ACC: 3
-  findRange: 6
+  findRange: 4
   attackRange: 1.3
-  throwRange: 4
+  throwRange: 3
   isHolding: 0
   layer:
     serializedVersion: 2
