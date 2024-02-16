@@ -204,10 +204,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9017707761369755733}
-  - component: {fileID: 6274656256198770183}
+  - component: {fileID: -5282468214532501617}
   - component: {fileID: 6274656256198770185}
-  - component: {fileID: 6274656256198770182}
-  - component: {fileID: 2370927291114272411}
   m_Layer: 17
   m_Name: SlimeExplosionBall
   m_TagString: Untagged
@@ -223,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9017707761369755735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: 0.69, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -232,7 +230,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6274656256198770183
+--- !u!114 &-5282468214532501617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,13 +239,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9017707761369755735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
+  m_Script: {fileID: 11500000, guid: c73996b48722ca9428cde0d6052d7a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  lifeTime: 3
-  isRotate: 0
-  moveVec: {x: 0, y: 0, z: 0}
+  SFXName: 
+  targetAttack: {fileID: 334716579514766352, guid: 63035333f19dab4489ecb8f3e45f9ce3, type: 3}
+  moveTime: 0.75
+  anim: {fileID: 6274656256198770185}
 --- !u!95 &6274656256198770185
 Animator:
   serializedVersion: 5
@@ -269,27 +267,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6274656256198770182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9017707761369755735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2370927291114272411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9017707761369755735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2deb8444e5eab4d8c592c39f9afc8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
