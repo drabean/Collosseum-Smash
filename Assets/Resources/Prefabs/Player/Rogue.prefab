@@ -5174,10 +5174,10 @@ MonoBehaviour:
   iconHolder: {fileID: 7997748329131795683}
   isInAttackRange: 0
   Stat:
-    STR: 2
+    STR: 3
     VIT: 2
     SPD: 4
-    ACC: 3
+    ACC: 2
   findRange: 4
   attackRange: 1.3
   throwRange: 3

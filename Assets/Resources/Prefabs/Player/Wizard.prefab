@@ -5177,7 +5177,7 @@ MonoBehaviour:
     STR: 1
     VIT: 3
     SPD: 3
-    ACC: 3
+    ACC: 4
   findRange: 4
   attackRange: 1.3
   throwRange: 3
