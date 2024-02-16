@@ -64,9 +64,12 @@ public class EnemyMelee: Enemy
             if (isDead) yield break;
             wanderTime -= Time.deltaTime;
 
-            Vector2 moveVec = (Target.transform.position - transform.position);
-            moveVec = Vector2.right * moveVec.y * (-1) + Vector2.up * moveVec.x;
+            Vector3 moveVec = (Target.transform.position - transform.position);
+            moveVec = Vector3.right * moveVec.y * (-1) + Vector3.up * moveVec.x;
             if (isReversed) moveVec *= -1;
+
+            //플레이어에게 다가가는 방향으로 벡ㅌ ㅓ보정
+            moveVec = moveVec.normalized + (0.5f) * (Target.transform.position - transform.position).normalized;
             moveToDir(moveVec);
 
             if (Vector3.Distance(transform.position, Target.transform.position) < attackRange)

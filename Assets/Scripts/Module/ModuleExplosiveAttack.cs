@@ -12,6 +12,7 @@ public class ModuleExplosiveAttack : ModuleAttack
         {
             if (exploded) return;
 
+            character.onHit(ownerTr, dmg, StunTIme);
             exploded = true;
             Instantiate(Explosion).Shoot(transform.position, transform.position + Vector3.up * 0.01f);
             Destroy(gameObject);

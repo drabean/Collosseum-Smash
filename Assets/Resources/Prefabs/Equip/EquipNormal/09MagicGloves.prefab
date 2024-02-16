@@ -47,5 +47,5 @@ MonoBehaviour:
   ID: 20109
   ItemSprite: {fileID: 21300000, guid: ed3f79638e09dd24da787e8b586b536c, type: 3}
   itemName: MagicGloves
-  Description: Increase your Throwing damage by 1.
+  Description: Increase your Throwing damage by 2.
   owner: {fileID: 0}

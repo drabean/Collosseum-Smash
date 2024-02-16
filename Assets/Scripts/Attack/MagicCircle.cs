@@ -53,7 +53,7 @@ public class MagicCircle : MonoBehaviour
     public void Charge()
     {
         hitModule.FlashWhite(0.1f);
-        if (curCharge < maxCharge)
+        if (curCharge < maxCharge-1)
         {
             curCharge++;
             TMP.text = curCharge + " / " + maxCharge;

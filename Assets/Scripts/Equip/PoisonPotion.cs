@@ -8,6 +8,9 @@ public class PoisonPotion : Equip
     public GameObject ItemPoisonPotionPrefab;
     Coroutine curSpawnCoroutine;
 
+    public int maxUse;
+
+    int curUse = 0;
     public override void onEquip(Player player)
     {
         base.onEquip(player);
@@ -25,6 +28,8 @@ public class PoisonPotion : Equip
     {
         while(true)
         {
+            if (curUse >= maxUse) yield break;
+
             if (curItemPoisonPotion != null)
             {
                 yield return null;
@@ -33,6 +38,7 @@ public class PoisonPotion : Equip
             {
                 yield return new WaitForSeconds(9.0f);
                 curItemPoisonPotion = Instantiate(ItemPoisonPotionPrefab, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
+                curUse++;
             }
 
         }
