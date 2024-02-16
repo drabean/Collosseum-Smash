@@ -199,9 +199,8 @@ MonoBehaviour:
   isChasing: 0
   isSuperarmor: 0
   attackRange: 1.4
-  attackWidth: 0.6
   attackName: Prefabs/Attack/SmashEffect
-  attackWaitTime: 0.4
+  attackWaitTime: 0.55
   attackAfterWaitTime: 1.5
   doAttackSpin: 0
   layer:

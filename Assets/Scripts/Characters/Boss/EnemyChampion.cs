@@ -261,6 +261,10 @@ public class EnemyChampion : EnemyBoss
     {
         anim.SetBool("isMoving", false);
 
+        for (int i = 0; i < patterns[3].repeatTIme; i++)
+        {
+
+        
         setDir();
         anim.SetBool("isThrowStrongReady", true);
 
@@ -272,7 +276,7 @@ public class EnemyChampion : EnemyBoss
         anim.SetBool("isThrowStrongReady", false);
         anim.SetTrigger("doThrowStrong");
         yield return new WaitForSeconds(patterns[3].waitAfterTime);
-
+        }
 
         if (nextMove != null) StartCoroutine(nextMove);
         else selectPattern();
@@ -290,4 +294,9 @@ public class EnemyChampion : EnemyBoss
         spawnMob(1, deadOption);
     }
 
+    protected override void rageChange()
+    {
+        patterns[3].repeatTIme++;
+        patterns[3].waitBeforeTime -= 0.15f;
+    }
 }

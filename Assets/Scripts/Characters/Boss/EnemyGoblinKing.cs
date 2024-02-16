@@ -110,12 +110,12 @@ public class EnemyGoblinKing : EnemyBoss
             case 0:
                 spawnMob(0, transform.position + Vector3.right * 1.0f, deadOption);
                 spawnMob(0, transform.position + Vector3.right * -1.0f, deadOption);
-                if(isRage) spawnMob(0, transform.position + Vector3.up * 2.0f, deadOption);
+                if(isRage) spawnMob(2, transform.position + Vector3.down * 0.5f, deadOption);
                 break;
             case 1:
                 spawnMob(0, transform.position + Vector3.down * 2.0f, deadOption);
                 spawnMob(1, deadOption);
-                if (isRage) spawnMob(0, transform.position + Vector3.up * 2.0f, deadOption);
+                if (isRage) spawnMob(2, transform.position + Vector3.down * 0.5f, deadOption);
                 break;
         }
 
@@ -123,6 +123,6 @@ public class EnemyGoblinKing : EnemyBoss
 
     protected override void rageChange()
     {
-        maxSpawnCount = 3;
+        maxSpawnCount = 4;
     }
 }

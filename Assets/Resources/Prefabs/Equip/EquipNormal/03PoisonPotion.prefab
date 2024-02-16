@@ -47,6 +47,7 @@ MonoBehaviour:
   ID: 20103
   ItemSprite: {fileID: 21300000, guid: 44b94fded76a3474b914941807daf61b, type: 3}
   itemName: Poison Potion
-  Description: Spawn a throwable Poison Potion every 9 seconds.
+  Description: Spawn a throwable Poison Potion every 9 seconds. can be used 4 times.
   owner: {fileID: 0}
   ItemPoisonPotionPrefab: {fileID: 1973500329445788230, guid: ca57ae4f79a26b84baaa55c832f0ef4d, type: 3}
+  maxUse: 4

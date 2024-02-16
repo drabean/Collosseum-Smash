@@ -55,7 +55,7 @@ public class EnemyHairballHuge : EnemyBoss
             patternCount = 4 + Random.Range(0, 3);
 
             if(!isRage) StartCoroutine(co_Fatigue(2.7f));
-            else StartCoroutine(co_Fatigue(1.7f));
+            else StartCoroutine(co_Fatigue(1.8f));
             //TODO: FATIQUEMOTION
         }
 

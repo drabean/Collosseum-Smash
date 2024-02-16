@@ -19,6 +19,7 @@ public class EnemyKingBlock : EnemyBoss
 
     public List<SpikeGroup> spikes;
 
+    SpikeGroup curSpike;
     private void Awake()
     {
         evnt.attack += onStomp;
@@ -183,6 +184,7 @@ public class EnemyKingBlock : EnemyBoss
 
     protected override IEnumerator co_Smash(Transform attackerPos)
     {
+        if (curSpike != null) Destroy(curSpike.gameObject);
         subBlocks[0].Destroy();
         subBlocks[1].Destroy();
         return base.co_Smash(attackerPos);
@@ -195,6 +197,7 @@ public class EnemyKingBlock : EnemyBoss
     IEnumerator co_Pat2()
     {
         SpikeGroup spike = Instantiate(spikes[2], Vector3.zero, Quaternion.identity);
+        curSpike = spike;
         spike.ShowWarning(patterns[1].waitBeforeTime);
         subBlocks[0].MoveToStartpos();
         subBlocks[1].MoveToStartpos();
@@ -222,6 +225,8 @@ public class EnemyKingBlock : EnemyBoss
     IEnumerator co_Pat3()
     {
         SpikeGroup spike = Instantiate(spikes[3], Vector3.zero, Quaternion.identity);
+        curSpike = spike;
+
         spike.ShowWarning(patterns[2].waitBeforeTime);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
         spike.Show();
@@ -275,6 +280,8 @@ public class EnemyKingBlock : EnemyBoss
     public IEnumerator co_Pat4()
     {
         SpikeGroup spike = Instantiate(spikes[Random.Range(0, 2)], Vector3.zero, Quaternion.identity);
+        curSpike = spike;
+
         subBlocks[0].MoveToStartpos();
         subBlocks[1].MoveToStartpos();
 
@@ -316,6 +323,7 @@ public class EnemyKingBlock : EnemyBoss
     IEnumerator co_Pat5()
     {
         SpikeGroup spike = Instantiate(spikes[4], Vector3.zero, Quaternion.identity);
+        curSpike = spike;
         spike.ShowWarning(patterns[4].waitBeforeTime);
         yield return new WaitForSeconds(patterns[4].waitBeforeTime);
         spike.Show();

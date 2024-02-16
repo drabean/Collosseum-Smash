@@ -289,7 +289,7 @@ public class GameMgr : MonoSingleton<GameMgr>
                 baseEnemyCount = 4;
                 maxCount = 5;
                 break;
-            case <= 20:
+            case <= 25:
                 baseEnemyCount = 3;
                 maxCount = 5;
                 break;

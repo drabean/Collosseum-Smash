@@ -9,8 +9,10 @@ public class EnemySlimeKing : EnemyBoss
     [SerializeField] SpriteRenderer eye;
     [SerializeField] Transform eyeTr;
 
-    Attack[] attacks = new Attack[6];
+    Attack[] attacks = new Attack[4];
     int patIdx = 0;
+
+    float slimeballMoveTime = 0.85f;
     protected override void setDir(Vector3 dir)
     {
         eye.sortingOrder = dir.y < 0 ? 1 : -1;
@@ -28,10 +30,8 @@ public class EnemySlimeKing : EnemyBoss
 
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[1] = Resources.Load<Attack>(patterns[2].prefabName);
-        attacks[2] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosion");
-        attacks[3] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBall");
-        attacks[4] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionGreen");
-        attacks[5] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBallGreen");
+        attacks[2] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBall");
+        attacks[3] = Resources.Load<Attack>("Prefabs/Attack/SlimeExplosionBallGreen");
 
     }
 
@@ -69,6 +69,10 @@ public class EnemySlimeKing : EnemyBoss
     protected override void rageChange()
     {
         maxSpawnCount++;
+        slimeballMoveTime -= 0.2f;
+        patterns[0].waitBeforeTime -= 0.15f;
+        patterns[2].repeatTIme += 2;
+        patterns[2].waitBeforeTime -= 0.15f;
     }
     IEnumerator co_Wait(float timeleft)
     {
@@ -171,25 +175,19 @@ public class EnemySlimeKing : EnemyBoss
 
         float randomRange = 2.5f;
         if (isRage) randomRange -= 0.8f;
-        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], Target.transform.position.Randomize(randomRange)));
-        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], Target.transform.position.Randomize(randomRange)));
-        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5], Target.transform.position.Randomize(randomRange)));
+        StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
+        StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
+        StartCoroutine(co_attack2(attacks[3], Target.transform.position.Randomize(randomRange)));
     }
 
-    IEnumerator co_attack2(Impact slimeExplosion, Projectile slimeBall, Vector3 attackPos)
+    IEnumerator co_attack2(Attack slimeBall, Vector3 attackPos)
     {
-        slimeExplosion.ShowWarning(transform.position, attackPos, 0.9f);
+        slimeBall.ShowWarning(attackPos, attackPos, slimeballMoveTime + 0.15f);
         yield return new WaitForSeconds(0.15f);
         //날아가는 슬라임 볼 생성
-        Projectile tempObj = Instantiate(slimeBall);
-        tempObj.transform.position = transform.position;
-        tempObj.moveSpeed = Vector3.Distance(transform.position, attackPos) / 0.75f;
+        ProjectileParabola tempObj = (ProjectileParabola)Instantiate(slimeBall);
+        tempObj.moveTime = slimeballMoveTime;
         tempObj.Shoot(transform.position, attackPos);
-
-        yield return new WaitForSeconds(0.75f);
-        //실제 공격 (폭팔) 생성
-
-        Instantiate(slimeExplosion).Shoot(transform.position, attackPos);
     }
 
     IEnumerator co_Pat3()
@@ -231,7 +229,6 @@ public class EnemySlimeKing : EnemyBoss
             base.onHit(attackerPos, dmg, stunTime);
         }
     }
-
     protected override void stopAction()
     {
         base.stopAction();
@@ -273,9 +270,9 @@ public class EnemySlimeKing : EnemyBoss
         SoundMgr.Inst.Play("Throw");
 
 
-        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], EnemyMgr.Inst.getRandomPos()));
-        StartCoroutine(co_attack2((Impact)attacks[2], (Projectile)attacks[3], EnemyMgr.Inst.getRandomPos()));
-        StartCoroutine(co_attack2((Impact)attacks[4], (Projectile)attacks[5], EnemyMgr.Inst.getRandomPos()));
+        StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
+        StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
+        StartCoroutine(co_attack2(attacks[3], EnemyMgr.Inst.getRandomPos()));
     }
 
     #endregion

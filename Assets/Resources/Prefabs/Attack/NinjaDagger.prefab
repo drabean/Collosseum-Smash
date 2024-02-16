@@ -46,9 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48889c32ac627a4db7c3b7f4414cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXName: 
   moveSpeed: 8
   lifeTime: 6
   isRotate: 1
+  warningRadius: 0.7
+  moveVec: {x: 0, y: 0, z: 0}
+  sp: {fileID: 0}
+  moduleAttack: {fileID: 4952809618265262555}
 --- !u!95 &3944230587399281574
 Animator:
   serializedVersion: 5
@@ -194,8 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4f9bb03714b0345be3701d7da11d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStun: 0
-  isMelee: 0
+  StunTIme: 0
   cantPenetrate: 1
-  dmg: 1
+  dmg: 3
   ownerTr: {fileID: 0}
+  maxHit: 0

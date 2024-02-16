@@ -5048,8 +5048,8 @@ MonoBehaviour:
   aim: {fileID: 793671580796740060}
   hit: {fileID: 793671581856987577}
   isDead: 0
-  maxHP: 120
-  curHP: 120
+  maxHP: 140
+  curHP: 140
   moveSpeed: 4
   moveSpeedCo: 1
   aimRange: 0.7
@@ -5086,7 +5086,7 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 1.1
     waitAfterTime: 1
-    intervalTime: 0
+    intervalTime: 1
     repeatTIme: 3
     duration: 0
     prefabName: Prefabs/Attack/multiSpear
@@ -5094,6 +5094,7 @@ MonoBehaviour:
   mobs:
   - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}
   - {fileID: 8533509118144780453, guid: 0c53d11e1e2dd66438315734c4b2fc76, type: 3}
+  maxSpawnCount: 3
 --- !u!95 &793671581856987525
 Animator:
   serializedVersion: 5

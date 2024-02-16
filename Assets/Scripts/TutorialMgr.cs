@@ -120,9 +120,8 @@ public class TutorialMgr : MonoBehaviour
     void startP3()
     {
         UIMgr.Inst.progress.SetProgress((int)p3Count, 2);
-        Instantiate(throwItem, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity)
-            .onAcquire += () => EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 4.0f, 0.0f), endP3);
-
+        Instantiate(throwItem, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        EnemyMgr.Inst.SpawnEnemy(TrainingBots[0], new Vector3(0.0f, 5.0f, 0.0f), endP3);
 
         progressTMP.text = "Pick up throwing Item, \n release Joystick to Throw!";
     }
