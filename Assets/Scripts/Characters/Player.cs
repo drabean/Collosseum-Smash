@@ -268,12 +268,14 @@ public class Player : CharacterBase
 
     void doAttack()
     {
-        if ( target.TryGetComponent<CharacterBase>(out CharacterBase cb))
+        if (target != null)
         {
-            //Status 적용
-            cb.onHit(transform, Stat.STR);
+            if (target.TryGetComponent<CharacterBase>(out CharacterBase cb))
+            {
+                //Status 적용
+                cb.onHit(transform, Stat.STR);
+            }
         }
-
 
         InvokeOnAttack();
     }

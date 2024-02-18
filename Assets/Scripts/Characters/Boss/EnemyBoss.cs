@@ -64,7 +64,7 @@ public class EnemyBoss : Enemy
 
     int explosionRepeatTime = 10;
 
-
+    ItemCoin coin;
     protected override IEnumerator co_Smash(Transform attackerPos)
     {
         GameMgr.Inst.removeAllNormalEnemies();
@@ -81,18 +81,25 @@ public class EnemyBoss : Enemy
         }
 
         GameMgr.Inst.SlowTime(3f, 0.3f, true);
+        coin = Resources.Load<ItemCoin>("Prefabs/Item/ItemCoin");
+        List<ItemCoin> coins = new List<ItemCoin>();
         //여기서 적 사망 연출
         for(int i = 0; i < explosionRepeatTime; i++)
         {
             hit.FlashWhite(0.2f);
             GameObject temp = DictionaryPool.Inst.Pop("Prefabs/Effect/ExplosionEffect");
             temp.transform.position = transform.position.Randomize(size);
+            ItemCoin c = Instantiate(coin, transform.position, Quaternion.identity);
+            c.Init(1);
+            coins.Add(c);
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
         SoundMgr.Inst.Play("Smash");
-        
+
         yield return base.co_Smash(GameMgr.Inst.player.transform);
+        foreach (ItemCoin c in coins) { if(c != null)c.magnet(Target.transform); }
+
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }
     #region Rage

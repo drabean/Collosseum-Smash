@@ -11,10 +11,8 @@ public class ProjectileParabola : Attack
     float moveSpeed;
     public override void Shoot(Vector3 startPos, Vector3 targetPos)
     {
-        Debug.Log("startPos" + startPos + "endPos" + targetPos);
         transform.position = startPos;
         moveSpeed = Vector3.Distance(startPos, targetPos) / moveTime;
-        Debug.Log("moveSpeed" + moveSpeed);
         anim.SetFloat("moveTime", 1/moveTime);
 
         StartCoroutine(move(targetPos));

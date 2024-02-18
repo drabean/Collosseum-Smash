@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFXName: 
   projectile: {fileID: 3904610861512576124, guid: 0a21e5526b90cd94f946fdd7a7b4e9b0, type: 3}
-  repNum: 3
+  repNum: 4
   interval: 0.1
-  acc: 0
+  acc: 2

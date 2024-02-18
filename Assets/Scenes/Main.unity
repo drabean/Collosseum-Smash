@@ -6861,6 +6861,7 @@ MonoBehaviour:
   testStage: {fileID: 0}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
+  CoinPrefab: {fileID: 8522252760596038181, guid: 4039a47af2f617b419a8f187a745f204, type: 3}
   dropCount: 6
   DescriptionObject: {fileID: 968196007}
   isPause: 0

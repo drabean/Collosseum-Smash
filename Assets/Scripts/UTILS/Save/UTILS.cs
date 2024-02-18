@@ -25,11 +25,19 @@ public class UTILS : MonoBehaviour
             Debug.Log(finalPath);
             FileStream fileStream = File.Open(finalPath, FileMode.Open);
 
-            RunData data =(RunData)bf.Deserialize(fileStream);
-            Debug.Log("RunData 로딩 성공!");
+            if (fileStream != null)
+            {
+                RunData data = (RunData)bf.Deserialize(fileStream);
+                Debug.Log("RunData 로딩 성공!");
 
-            fileStream.Close();
-            return data;
+                fileStream.Close();
+                return data;
+            }
+            else
+            {
+                Debug.Log("파일을 읽는 과정에서 오류 발생");
+                return null;
+            }
         }
         else
         {

@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 3932594245380771362}
   - component: {fileID: 3932594245380771363}
   - component: {fileID: 3932594245380771364}
-  - component: {fileID: 3932594245380771367}
   m_Layer: 16
   m_Name: TrainingBotDoll
   m_TagString: Untagged
@@ -222,19 +221,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3932594245380771367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3932594245380771365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToStart: 1
 --- !u!1 &7776673354769321298
 GameObject:
   m_ObjectHideFlags: 0

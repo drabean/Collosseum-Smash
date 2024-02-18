@@ -46,6 +46,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     public TextMeshPro progressTMP;
     PHASE curPhase = PHASE.LOADING;
+
+    public ItemCoin CoinPrefab;
     
     private IEnumerator Start()
     {
@@ -139,6 +141,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     bool isBossSpawned;
     public int dropCount = 6; // 투척 아이템 소환 빈도
     int curDropCount = 0;
+    public int coinCount = 10;
+    int curCoinCount = 0;
     public IEnumerator StartNormalStage()
     {
         UIMgr.Inst.progress.ShowStageStart();
@@ -212,7 +216,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     void startBossStage()
     {
-
         if (isBossSpawned) return;
         isBossSpawned = true;
         curPhase = PHASE.BOSS;
@@ -229,8 +232,9 @@ public class GameMgr : MonoSingleton<GameMgr>
         UIMgr.Inst.progress.HideAll();
         EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, onBossDie);
         yield return new WaitForSeconds(1f);
+        progressTMP.text = stageInfo.bossText;
         UIMgr.Inst.progress.ShowBossUI();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.7f);
         progressTMP.text = "";
     }
     /// <summary>
@@ -275,7 +279,6 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (index != 0) enemiesCanBeSpawned.Add(index);
         else baseEnemyCount--;
 
-        //여기서어카냐?
         progressCount++;
 
         #region 난이도관리
@@ -315,6 +318,10 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
 
+    /// <summary>
+    /// 투척 아이템 및 재화 생성 관리 함수
+    /// </summary>
+    /// <param name="position"></param>
     public void SpawnThrowableItem(Vector3 position)
     {
         curDropCount++;
@@ -323,6 +330,12 @@ public class GameMgr : MonoSingleton<GameMgr>
             curDropCount = 0;
             Debug.Log("SPAWN");
             Instantiate(stageInfo.ThrowItem, position, Quaternion.identity);
+        }
+        curCoinCount++;
+        if(curCoinCount >= coinCount)
+        {
+            curCoinCount = 0;
+            Instantiate(CoinPrefab, position, Quaternion.identity).Init(1);
         }
     }
     void onBossDie(Vector3 pos)

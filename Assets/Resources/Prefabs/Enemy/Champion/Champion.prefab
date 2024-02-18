@@ -5084,10 +5084,10 @@ MonoBehaviour:
     prefabName: Prefabs/Attack/ShoutEffect
   - range: 0
     width: 0
-    waitBeforeTime: 1.1
+    waitBeforeTime: 0.9
     waitAfterTime: 1
     intervalTime: 1
-    repeatTIme: 3
+    repeatTIme: 1
     duration: 0
     prefabName: Prefabs/Attack/multiSpear
   patternCount: 5

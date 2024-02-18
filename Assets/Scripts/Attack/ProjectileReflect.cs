@@ -10,7 +10,6 @@ public class ProjectileReflect : MonoBehaviour
     {
         foreach (ContactPoint2D contact in collision.contacts)
         {
-            Debug.Log("REFLECT");
             // 접점의 법선 벡터
             Vector2 contactNormal = contact.normal;
 
