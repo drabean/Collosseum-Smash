@@ -76,6 +76,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
 
         GameObject temp = new GameObject();
+        temp.name = "SFXPlayer";
         temp.transform.SetParent(transform);
         AudioSource audio = temp.AddComponent<AudioSource>();
         SFXPlayers.Add(audio);

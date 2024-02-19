@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LichSkulMelee
+  m_Controller: {fileID: 9100000, guid: 1c1ef15ae5be39a48abefb9ebd6af631, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 56bb61cdf7cc66f4a9945cbf8a18a0bd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eda5b607ec4da14488af7e32932b03f2, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3c05040945be1a24ab074233bebd9c3b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 23f8989584a04354ea3c3a8a96196940, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: aa907c844a579784a80a14b79750dead, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b7282fffa981e994dad478bbf416422e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e936dda642b4d6649ac1c54c53305c4c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a5d1c1cfea7d8d944960bf33df2c280d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 831db54274c02f0448f1921a703f09f1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a5d1c1cfea7d8d944960bf33df2c280d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f135ca846fec42a47b9bf69a6a3bcbc3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5d7dd83ed9e69ad4e9714d2b76fed2f2, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a33692431bbb6da449cc6f53a37b4c7a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6d2471af8cd8d7746bf235979e47dcf5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 377efb239b1b5af47b2dadddfad63abb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b7282fffa981e994dad478bbf416422e, type: 2}

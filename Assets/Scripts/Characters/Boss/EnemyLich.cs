@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemyLich : EnemyBoss
 {
     public List<Vector3> tpVecs = new List<Vector3>();
+    public Vector3 magicCirclePos;
+
     int curPosIdx = 3;
     public TargetedProjecitile lichSoul;
     public Vector3 groggyVec;
+    public ParticleSystem patternParticle;
 
     int patIdx;
 
@@ -15,6 +18,7 @@ public class EnemyLich : EnemyBoss
     public override void StartAI()
     {
         GetComponent<Collider2D>().enabled = false;
+        spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[0]);
         StartCoroutine(co_SpawnRoutine());
@@ -38,6 +42,13 @@ public class EnemyLich : EnemyBoss
         patIdx += Random.Range(1, 3);
         patIdx %= 4;
 
+
+        if(isRagePattern)
+        {
+            isRagePattern = false;
+            StartCoroutine(co_Pat5());
+            return;
+        }
         switch(patIdx)
         {
             case 0:
@@ -103,8 +114,8 @@ public class EnemyLich : EnemyBoss
             Instantiate<Attack>(atk).Shoot(positions[2], positions[0]);
             Instantiate<Attack>(atk).Shoot(positions[1], positions[3]);
             Instantiate<Attack>(atk).Shoot(positions[3], positions[1]);
-
-            for(int j = 0; j < 4; j++)
+            patternParticle.Play();
+            for (int j = 0; j < 4; j++)
             {
                 GameObject LichParticle = DictionaryPool.Inst.Pop("Prefabs/Particle/LichParticle");
                 LichParticle.transform.position = positions[j];
@@ -135,7 +146,7 @@ public class EnemyLich : EnemyBoss
         {
             anim.SetTrigger("doAtk2");
             sp.flipX = !sp.flipX;
-            Vector3 targetVec = Target.transform.position + Random.Range(-patterns[1].range, patterns[1].range) * Vector3.right + Random.Range(-patterns[1].range, patterns[1].range) * Vector3.up;
+            Vector3 targetVec = Target.transform.position.Randomize(patterns[1].range);
             atk.ShowWarning(transform.position, targetVec, skulMissileWaitTIme);
             //각 공격들의 발사 / 목표 위치 계산
             yield return new WaitForSeconds(skulMissileWaitTIme);
@@ -272,6 +283,96 @@ public class EnemyLich : EnemyBoss
 
     #endregion
 
+    #region 강력한 공격 
+
+    public AnimationCurve rotationSpeedCurve;
+    float spinSpeed = 0;
+    IEnumerator co_Pat5()
+    {
+        Attack atk = Resources.Load<Attack>(patterns[4].prefabName);
+        StopCoroutine(co_SpawnRoutine());
+
+        GameMgr.Inst.removeAllNormalEnemies();
+
+        float timeLeft = patterns[4].duration;
+        float magicCircleFireTime = 0;
+        float lichFireTIme = 0;
+        float angle = 0;
+
+        teleport(3);
+        for (int j = 0; j < 4; j++)
+        {
+            // 각도를 라디안으로 변환
+            float radians = (angle + j * 90) * Mathf.Deg2Rad;
+
+            // 좌표 계산
+            float xOffset = patterns[0].range * Mathf.Cos(radians);
+            float yOffset = patterns[0].range * Mathf.Sin(radians);
+
+            atk.ShowWarning(magicCirclePos, magicCirclePos + Vector3.right * xOffset + Vector3.up * yOffset, patterns[4].waitBeforeTime);
+        }
+
+        yield return new WaitForSeconds(patterns[4].waitBeforeTime);
+
+        while(timeLeft > 0)
+        {
+            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 25f;
+            timeLeft -= Time.deltaTime;
+            magicCircleFireTime -= Time.deltaTime;
+            lichFireTIme -= Time.deltaTime;
+
+            angle += Time.deltaTime * spinSpeed;
+
+            if(magicCircleFireTime <= 0)
+            {
+                magicCircleFireTime = patterns[4].intervalTime;
+
+                for (int j = 0; j < 4; j++)
+                {
+                    // 각도를 라디안으로 변환
+                    float radians = (angle + j * 90) * Mathf.Deg2Rad;
+
+                    // 좌표 계산
+                    float xOffset = patterns[0].range * Mathf.Cos(radians);
+                    float yOffset = patterns[0].range * Mathf.Sin(radians);
+
+                    Instantiate(atk).Shoot(magicCirclePos, magicCirclePos + Vector3.right * xOffset + Vector3.up * yOffset);
+                }
+
+            }
+
+            if(lichFireTIme <= 0)
+            {
+                lichFireTIme = 1;
+                StartCoroutine(co_Pat5Subpattern());
+            }
+            yield return null;
+        }
+        yield return new WaitForSeconds(patterns[4].waitAfterTime);
+
+
+        StartCoroutine(co_SpawnRoutine());
+        curSpawnCount = 0;
+
+        selectPattern();
+    }
+
+    IEnumerator co_Pat5Subpattern()
+    {
+        Attack atk = Resources.Load<Attack>(patterns[2].prefabName);
+        patternParticle.Play();
+
+        anim.SetTrigger("doAtk2");
+        sp.flipX = !sp.flipX;
+        Vector3 targetVec = Target.transform.position;
+        atk.ShowWarning(transform.position, targetVec, skulMissileWaitTIme);
+        //각 공격들의 발사 / 목표 위치 계산
+        yield return new WaitForSeconds(skulMissileWaitTIme);
+        GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
+        yield return new WaitForSeconds(0.06f);
+        Instantiate<Attack>(atk).Shoot(transform.position, targetVec);
+    }
+    #endregion
     void teleport(int idx = -1)
     {
         if(idx == -1)

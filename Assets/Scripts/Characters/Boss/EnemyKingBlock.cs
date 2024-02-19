@@ -17,9 +17,6 @@ public class EnemyKingBlock : EnemyBoss
 
     public Transform firePos;
 
-    public List<SpikeGroup> spikes;
-
-    SpikeGroup curSpike;
     private void Awake()
     {
         evnt.attack += onStomp;
@@ -36,6 +33,7 @@ public class EnemyKingBlock : EnemyBoss
 
     public override void StartAI()
     {
+        spawnSpikes();
         StartCoroutine(co_Move(Vector3.up * 4.5f));
         //여기서 SubBlock들 소환
         StartCoroutine(co_Idle());
@@ -56,7 +54,7 @@ public class EnemyKingBlock : EnemyBoss
     {
         changeFaceColor(0);
         float timeLeft = time;
-
+ 
         while (timeLeft >= 0)
         {
             setDir();
@@ -64,7 +62,6 @@ public class EnemyKingBlock : EnemyBoss
             timeLeft -= Time.deltaTime;
             yield return null;
         }
-
         selectPattern();
     }
 
@@ -73,7 +70,7 @@ public class EnemyKingBlock : EnemyBoss
         patIdx += Random.Range(1, 4);
         patIdx %= 5;
 
-
+        patIdx = 4;//TEST
         switch (patIdx)
         {
             case 0:
@@ -108,6 +105,15 @@ public class EnemyKingBlock : EnemyBoss
         }
     }
 
+
+    protected override void rageChange()
+    {
+        foreach(SubBlock block in subBlocks)
+        {
+            block.fire1WaitTime -= 0.1f;
+            block.fire2WaitTime -= 0.15f;
+        }
+    }
     #region 이동
     IEnumerator co_Move(Vector3 destination)
     {
@@ -128,26 +134,136 @@ public class EnemyKingBlock : EnemyBoss
     }
     #endregion
 
+    #region 가시
+    /*
+        for(int x = 0; x <10; x++)
+        {
+            for(int y = 0; y < 8; y++)
+            {
+
+            }
+        }
+    */
+    Animator[,] spikes = new Animator[10, 8];
+    public Animator SpikePrefab;
+
+    //전체 가시를 4가지 구역으로 나눈것
+    List<Animator>[] area4 = new List<Animator>[4] { new List<Animator>(), new List<Animator>(), new List<Animator>(), new List<Animator>() };
+
+    //외각 가시들
+    List<Animator> edges = new List<Animator>();
+
+    //추가 패턴들 - 1: 외각 제외했을때 남은것중 모서리 3블럭씩 총 12블럭 2: 중앙 6블럭
+    List<Animator>[] additional = new List<Animator>[2] { new List<Animator>(), new List<Animator>() };
+    void spawnSpikes()
+    {
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                Animator spike = Instantiate(SpikePrefab, (-6.75f + 1.5f * x) * Vector3.right + (-6 + 1.5f * y) * Vector3.up, Quaternion.identity);
+                spikes[x, y] = spike;
+
+                //모서리 가시들 초기화
+                if (x == 0 || x == 9 || y == 0 || y == 7) edges.Add(spike);
+                //4구역 가시들 초기화
+                if ((x >= 0) && (x <= 4) && (y >= 0) && (y <= 3)) area4[0].Add(spike);
+                if ((x >= 0) && (x <= 4) && (y >= 4) && (y <= 7)) area4[1].Add(spike);
+                if ((x >= 5) && (x <= 9) && (y >= 0) && (y <= 3)) area4[2].Add(spike);
+                if ((x >= 5) && (x <= 9) && (y >= 4) && (y <= 7)) area4[3].Add(spike);
+            }
+        }
+        #region 추가가시 1 - 모서리 블럭들
+        additional[0].Add(spikes[1, 1]);
+        additional[0].Add(spikes[1, 2]);
+        additional[0].Add(spikes[2, 1]);
+
+        additional[0].Add(spikes[8, 1]);
+        additional[0].Add(spikes[8, 2]);
+        additional[0].Add(spikes[7, 1]);
+
+        additional[0].Add(spikes[1, 6]);
+        additional[0].Add(spikes[1, 5]);
+        additional[0].Add(spikes[2, 6]);
+
+        additional[0].Add(spikes[8, 6]);
+        additional[0].Add(spikes[8, 5]);
+        additional[0].Add(spikes[7, 6]);
+
+        #endregion
+        #region 추가가시 2 - 중앙 가시
+
+        additional[1].Add(spikes[4, 3]);
+        additional[1].Add(spikes[4, 4]);
+        additional[1].Add(spikes[5, 3]);
+        additional[1].Add(spikes[5, 4]);
+        #endregion
+    }
+
+
+    void spikeWarning(List<Animator> spikeLis, float time)
+    {
+        foreach (Animator spike in spikeLis)
+        {
+            GameMgr.Inst.AttackEffectLinear(spike.transform.position + Vector3.right * -0.7f, spike.transform.position + Vector3.right * 0.7f, 1.4f, time);
+        }
+    }
+    void showSpikes(List<Animator>  spikeLis)
+    {
+        foreach (Animator spike in spikeLis)
+        {
+            spike.SetBool("isOn", true);
+        }
+    }
+
+    void hideSpikes(List<Animator> spikeLis)
+    {
+        foreach (Animator spike in spikeLis)
+        {
+            spike.SetBool("isOn", false);
+        }
+    }
+
+    void hideAllSpikes()
+    {
+        foreach(Animator spike in spikes)
+        {
+            spike.SetBool("isOn", false);
+        }
+    }
+    #endregion
+
+
+
     /// <summary>
     /// 번갈아가면서 찍기 공격
     /// </summary>
     /// <returns></returns>
-    #region Pat1
+    #region 패턴 1 - 번갈아가면서 찍기 패턴
     IEnumerator co_Pat1()
     {
         changeFaceColor(1);
 
         Vector3 originVec = transform.position;
+        int spikeIdx = Random.Range(0, 2);
 
+        spikeWarning(edges, patterns[0].waitBeforeTime);
+        spikeWarning(additional[spikeIdx], patterns[0].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         setDir();
-        yield return StartCoroutine(co_Atk1(Target.transform.position));
+
+        showSpikes(edges);
+        showSpikes(additional[spikeIdx]);
         yield return new WaitForSeconds(patterns[0].intervalTime);
+
+        yield return StartCoroutine(co_Atk1(Target.transform.position));
         StartCoroutine(co_Move(originVec));
 
         yield return StartCoroutine(subBlocks[0].co_Smash());
 
         yield return StartCoroutine(subBlocks[1].co_Smash());
 
+        hideAllSpikes();
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
         selectPattern();
     }
@@ -177,46 +293,34 @@ public class EnemyKingBlock : EnemyBoss
         GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0f);
         Instantiate(attacks[0]).Shoot(transform.position + Vector3.up * 0.5f, transform.position + Vector3.up * 0.5f);
     }
-
-    #endregion
-
- 
-
     protected override IEnumerator co_Smash(Transform attackerPos)
     {
-        if (curSpike != null) Destroy(curSpike.gameObject);
+        hideAllSpikes();
         subBlocks[0].Destroy();
         subBlocks[1].Destroy();
         return base.co_Smash(attackerPos);
     }
 
-
+    #endregion
 
     #region 패턴 2 - 양각 슈팅 패턴
     //양각 공격
     IEnumerator co_Pat2()
     {
-        SpikeGroup spike = Instantiate(spikes[2], Vector3.zero, Quaternion.identity);
-        curSpike = spike;
-        spike.ShowWarning(patterns[1].waitBeforeTime);
-        subBlocks[0].MoveToStartpos();
-        subBlocks[1].MoveToStartpos();
-        yield return new WaitForSeconds(patterns[1].waitBeforeTime);
-        spike.Show();
         int blockSwitch = Random.Range(0, 2);
-
         StartCoroutine(subBlocks[blockSwitch].co_Fire1(patterns[1].duration));
         StartCoroutine(subBlocks[++blockSwitch % 2].co_Fire2(patterns[1].duration));
+        spikeWarning(edges, 1.0f);
         yield return new WaitForSeconds(1.0f);
+        showSpikes(edges);
 
         changeFaceColor(2);
 
         yield return new WaitForSeconds(patterns[1].duration-1);
-        spike.Hide();
 
+        hideAllSpikes();
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
 
-        Destroy(spike.gameObject);
         selectPattern();
     }
     #endregion
@@ -224,15 +328,18 @@ public class EnemyKingBlock : EnemyBoss
     #region 패턴 3 - 레이져 발사 패턴
     IEnumerator co_Pat3()
     {
-        SpikeGroup spike = Instantiate(spikes[3], Vector3.zero, Quaternion.identity);
-        curSpike = spike;
-
-        spike.ShowWarning(patterns[2].waitBeforeTime);
-        yield return new WaitForSeconds(patterns[2].waitBeforeTime);
-        spike.Show();
         changeFaceColor(2);
         //어느 블럭에서 레이저를 발사 할 지 정하는 변수
         int  subBlockIdx = 0;
+
+        int spikeIdx = Random.Range(0, 2);
+
+        spikeWarning(edges, patterns[0].waitBeforeTime);
+        spikeWarning(additional[spikeIdx], patterns[0].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+
+        showSpikes(edges);
+        showSpikes(additional[spikeIdx]);
 
         for (int i = 0; i < patterns[2].repeatTIme; i++)
         {
@@ -249,9 +356,10 @@ public class EnemyKingBlock : EnemyBoss
             
             yield return new WaitForSeconds(patterns[2].intervalTime);
         }
-        spike.Hide();
+
+        hideAllSpikes();
         yield return new WaitForSeconds(patterns[2].waitAfterTime);
-        Destroy(spike.gameObject);
+
         selectPattern();
     }
     IEnumerator co_Laser(float waitAfterTime)
@@ -279,19 +387,18 @@ public class EnemyKingBlock : EnemyBoss
     /// <returns></returns>
     public IEnumerator co_Pat4()
     {
-        SpikeGroup spike = Instantiate(spikes[Random.Range(0, 2)], Vector3.zero, Quaternion.identity);
-        curSpike = spike;
-
-        subBlocks[0].MoveToStartpos();
-        subBlocks[1].MoveToStartpos();
-
+     
         yield return StartCoroutine(co_Move(Vector3.up * 4.5f));
         faceChangeAction.Invoke();
         anim.SetBool("isShootFront", true);
-        spike.ShowWarning(patterns[3].waitBeforeTime);
 
+        spikeWarning(edges,patterns[3].waitBeforeTime);
+        spikeWarning(additional[0], patterns[3].waitBeforeTime);
         yield return new WaitForSeconds(patterns[3].waitBeforeTime);
-        spike.Show();
+
+        showSpikes(edges);
+        showSpikes(additional[0]);
+
         float timeLeft = patterns[3].duration;
         float fireTimeLeft = patterns[3].intervalTime;
         while (timeLeft >= 0)
@@ -311,9 +418,9 @@ public class EnemyKingBlock : EnemyBoss
             yield return null;
         }
         anim.SetBool("isShootFront", false);
-        spike.Hide();
+
+        hideAllSpikes();
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
-        Destroy(spike.gameObject);
 
         selectPattern();
     }
@@ -322,20 +429,32 @@ public class EnemyKingBlock : EnemyBoss
     #region 패턴 5 - 본체 레이저 패턴
     IEnumerator co_Pat5()
     {
-        SpikeGroup spike = Instantiate(spikes[4], Vector3.zero, Quaternion.identity);
-        curSpike = spike;
-        spike.ShowWarning(patterns[4].waitBeforeTime);
+        #region 살릴 구역 정하기
+        int safeNum = Random.Range(3, 6);
+
+        List<Animator> spikeLis = new List<Animator>();
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                if (y == safeNum || y == safeNum + 1) continue;
+                else spikeLis.Add(spikes[x, y]);
+            }
+        }
+
+        #endregion
+
+        spikeWarning(spikeLis, patterns[4].waitBeforeTime);
         yield return new WaitForSeconds(patterns[4].waitBeforeTime);
-        spike.Show();
         changeFaceColor(2);
 
+        showSpikes(spikeLis);
         for (int i = 0; i < patterns[4].repeatTIme; i++)
         {
             yield return co_Laser(patterns[4].intervalTime);
         }
-        spike.Hide();
+        hideAllSpikes();
         yield return new WaitForSeconds(patterns[4].waitAfterTime);
-        Destroy(spike.gameObject);
         selectPattern();
     }
 

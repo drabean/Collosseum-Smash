@@ -2915,6 +2915,24 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &102190695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2734482238864720135, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+  m_PrefabInstance: {fileID: 343192020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &102190704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102190695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec73dd2b15684094d8044093947fe51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToStart: 1
 --- !u!1 &148455424
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,6 +3577,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &343192020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2734482238864720135, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_Name
+      value: KingBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720142, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: SpikePrefab
+      value: 
+      objectReference: {fileID: 6198244581746031856, guid: 0d6921b1cd7730345813af1bc564e63f, type: 3}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734482238864720143, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 792645ac6c6ca65428f1ff85d8c1fb9d, type: 3}
 --- !u!1 &452401646
 GameObject:
   m_ObjectHideFlags: 0
@@ -6848,7 +6927,7 @@ MonoBehaviour:
     bossProgress: 0
   isPlayerInstantiated: 0
   player: {fileID: 0}
-  isTest: 0
+  isTest: 1
   testRunData:
     characterInfoIdx: 0
     item: 
@@ -6863,6 +6942,7 @@ MonoBehaviour:
   progressTMP: {fileID: 969279953}
   CoinPrefab: {fileID: 8522252760596038181, guid: 4039a47af2f617b419a8f187a745f204, type: 3}
   dropCount: 6
+  coinCount: 10
   DescriptionObject: {fileID: 968196007}
   isPause: 0
 --- !u!4 &1089279276

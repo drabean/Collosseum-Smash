@@ -145,7 +145,7 @@ public class SubBlock : Enemy
 
 
     #region 발사 패턴
-    float fire1WaitTime = 0.7f;
+   public float fire1WaitTime = 0.7f;
     public Transform firePos;
 
     /// <summary>
@@ -182,7 +182,7 @@ public class SubBlock : Enemy
         anim.SetBool("isShootLear", false);
     }
 
-    float fire2WaitTime = 0.9f;
+    public float fire2WaitTime = 0.9f;
     float rapidWaitTime = 0.1f;
 
     /// <summary>
