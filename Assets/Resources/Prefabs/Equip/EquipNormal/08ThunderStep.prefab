@@ -49,5 +49,5 @@ MonoBehaviour:
   itemName: ThunderStep
   Description: "\rThunder crashes along your path."
   owner: {fileID: 0}
-  cooltime: 0.5
+  cooltime: 1.2
   lastEffectedTime: 0

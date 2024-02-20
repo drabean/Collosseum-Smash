@@ -70,7 +70,14 @@ public class EnemyKingBlock : EnemyBoss
         patIdx += Random.Range(1, 4);
         patIdx %= 5;
 
-        patIdx = 4;//TEST
+
+        if(isRagePattern)
+        {
+            isRagePattern = false;
+            StartCoroutine(co_Pat6());
+
+            return;
+        }    
         switch (patIdx)
         {
             case 0:
@@ -259,8 +266,10 @@ public class EnemyKingBlock : EnemyBoss
         yield return StartCoroutine(co_Atk1(Target.transform.position));
         StartCoroutine(co_Move(originVec));
 
+        if(isRage)StartCoroutine(subBlocks[1].co_FireSingle(1, 0.25f));
         yield return StartCoroutine(subBlocks[0].co_Smash());
 
+        if (isRage) StartCoroutine(subBlocks[0].co_FireSingle(1, 0.25f));
         yield return StartCoroutine(subBlocks[1].co_Smash());
 
         hideAllSpikes();
@@ -352,6 +361,7 @@ public class EnemyKingBlock : EnemyBoss
                 StartCoroutine(subBlocks[subBlockIdx].co_Laser()); // 서브블럭 1 발사
                 ++subBlockIdx;
                 subBlockIdx %= 2;
+                if(isRage) StartCoroutine(subBlocks[subBlockIdx].co_FireSingle(0.2f, 0.15f));
             }
             
             yield return new WaitForSeconds(patterns[2].intervalTime);
@@ -395,7 +405,7 @@ public class EnemyKingBlock : EnemyBoss
         spikeWarning(edges,patterns[3].waitBeforeTime);
         spikeWarning(additional[0], patterns[3].waitBeforeTime);
         yield return new WaitForSeconds(patterns[3].waitBeforeTime);
-
+        changeFaceColor(0);
         showSpikes(edges);
         showSpikes(additional[0]);
 
@@ -451,11 +461,71 @@ public class EnemyKingBlock : EnemyBoss
         showSpikes(spikeLis);
         for (int i = 0; i < patterns[4].repeatTIme; i++)
         {
+            if(isRage) StartCoroutine(subBlocks[Random.Range(0, 2)].co_FireSingle(0.15f, 0.2f));
             yield return co_Laser(patterns[4].intervalTime);
         }
         hideAllSpikes();
         yield return new WaitForSeconds(patterns[4].waitAfterTime);
         selectPattern();
+    }
+
+    #endregion
+
+    #region 강력한 패턴
+
+    float fireInterval = 1.3f;
+    IEnumerator co_Pat6()
+    {
+
+        subBlocks[0].MoveToStartpos();
+        subBlocks[1].MoveToStartpos();
+        yield return StartCoroutine(co_Move(Vector3.up * 4.5f));
+        spikeWarning(edges, patterns[5].waitBeforeTime);
+        yield return new WaitForSeconds(patterns[5].waitBeforeTime);
+        showSpikes(edges);
+
+        StartCoroutine(co_FireSingle(patterns[5].duration, fireInterval));
+        yield return new WaitForSeconds(fireInterval / 3);
+        StartCoroutine(subBlocks[0].co_FireSingle(patterns[5].duration, fireInterval));
+        yield return new WaitForSeconds(fireInterval / 3);
+        StartCoroutine(subBlocks[1].co_FireSingle(patterns[5].duration, fireInterval));
+        yield return new WaitForSeconds(patterns[5].duration);
+
+        hideAllSpikes();
+        yield return new WaitForSeconds(patterns[5].waitAfterTime);
+
+    }
+
+    public IEnumerator co_FireSingle(float duration, float interval)
+    {
+        anim.SetBool("isShootLear", true);
+
+        yield return new WaitForSeconds(0.1f);
+
+        float shootWaitTime = 0;
+
+        while (duration > 0)
+        {
+            if (shootWaitTime <= 0)
+            {
+                Vector3 shootTr = Target.transform.position;
+
+                shootWaitTime = interval; 
+
+                attacks[3].ShowWarning(firePos.position, shootTr, 0.1f);
+                yield return new WaitForSeconds(0.1f);
+                duration -= 0.1f;
+                GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
+                anim.SetTrigger("doShootLear");
+                Instantiate(attacks[3]).Shoot(firePos.position, shootTr);
+            }
+
+            shootWaitTime -= Time.deltaTime;
+            duration -= Time.deltaTime;
+            yield return null;
+
+        }
+        anim.SetBool("isShootLear", false);
     }
 
     #endregion

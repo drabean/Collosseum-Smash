@@ -47,5 +47,5 @@ MonoBehaviour:
   SFXName: 
   projectile: {fileID: 3904610861512576124, guid: 0a21e5526b90cd94f946fdd7a7b4e9b0, type: 3}
   repNum: 4
-  interval: 0.1
-  acc: 2
+  interval: 0.3
+  acc: 2.5

@@ -92,10 +92,11 @@ MonoBehaviour:
   maxHP: 1
   curHP: 1
   moveSpeed: 0
+  moveSpeedCo: 1
   aimRange: 0
   size: 0.3
   Target: {fileID: 0}
-  difficulty: 0
+  isChasing: 0
   isSuperarmor: 0
 --- !u!61 &1451265242180528411
 BoxCollider2D:
@@ -113,8 +114,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.25, y: 1.25}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1.25, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -209,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fa22d8b8d6325b4caaa3e87b02e523f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44889ccd7635b9b4d91f46a0134ec1ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

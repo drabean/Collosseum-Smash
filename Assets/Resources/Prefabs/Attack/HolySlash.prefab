@@ -137,6 +137,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StunTIme: 1
   cantPenetrate: 0
-  dmg: 3
+  dmg: 1
   ownerTr: {fileID: 0}
   maxHit: 10

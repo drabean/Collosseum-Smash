@@ -177,7 +177,7 @@ MonoBehaviour:
   cantPenetrate: 1
   dmg: 3
   ownerTr: {fileID: 3648400753803865964}
-  maxHit: 0
+  maxHit: 2
 --- !u!58 &8664459146554289795
 CircleCollider2D:
   m_ObjectHideFlags: 0

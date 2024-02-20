@@ -7,6 +7,7 @@ public class SaveData
     public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
     public int ProgressLV;
     public List<int> Achievements = new List<int>();
+    public List<int> Unlocks = new List<int>();
     public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
 
     public bool checkAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
@@ -28,12 +29,42 @@ public class SaveData
 
     #endregion
 }
+
+/// <summary>
+/// 업적 Enum
+/// </summary>
 public enum ACHIEVEMENT
 {
     TUTORIALCLEAR = 0,
     NORMALCLEAR = 1,
     HARDCLEAR = 2,
 
+}
+
+/// <summary>
+/// 상점 해금 Enum
+/// </summary>
+public enum UNLOCKS
+{
+    ATKSPD = 0,
+    THRWDMG = 1,
+    MAXHP = 2,
+    HPREG = 3,
+
+}
+
+/// <summary>
+/// 진행도에 따른 해금 정도
+/// </summary>
+public enum PROGRESS
+{
+    ITEMS1 = 0,
+    REROLL = 1,
+    ITEMS2 = 2,
+
+    HONOR1 = 11,
+    HONOR2 = 12,
+    HONOR3 = 13,
 }
 /*
  * 업적 정보

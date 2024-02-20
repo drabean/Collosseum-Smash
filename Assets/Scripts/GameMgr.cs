@@ -194,7 +194,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     int curEnemyCount = 0;
     int baseEnemyCount = 0; // 기본형 적 최대 소환 수
-    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(0.5f);
+    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.5f);
     IEnumerator normalEnemySpawnRoutine()
     {
         while (true)

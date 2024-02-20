@@ -178,8 +178,8 @@ MonoBehaviour:
   aim: {fileID: 3843553762879491339}
   hit: {fileID: 3843553763941045614}
   isDead: 0
-  maxHP: 110
-  curHP: 110
+  maxHP: 100
+  curHP: 100
   moveSpeed: 4
   moveSpeedCo: 1
   aimRange: 0.4
@@ -190,7 +190,7 @@ MonoBehaviour:
   patterns:
   - range: 1.5
     width: 1
-    waitBeforeTime: 0.6
+    waitBeforeTime: 0.8
     waitAfterTime: 1
     intervalTime: 0
     repeatTIme: 0

@@ -18,7 +18,7 @@ public class ProjectileRapid : Attack
     {
         for (int i = 0; i < repNum; i++)
         {
-            Instantiate<Projectile>(projectile).Shoot(startPos, targetPos + Random.Range(-acc, acc) * Vector3.right + Random.Range(-acc, acc) * Vector3.up);
+            Instantiate<Projectile>(projectile).Shoot(startPos, targetPos.Randomize(acc));
             yield return new WaitForSeconds(interval);
         }
 

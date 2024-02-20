@@ -324,8 +324,8 @@ MonoBehaviour:
   aim: {fileID: 2734482238245154351}
   hit: {fileID: 2734482238864720129}
   isDead: 0
-  maxHP: 220
-  curHP: 220
+  maxHP: 300
+  curHP: 300
   moveSpeed: 5
   moveSpeedCo: 1
   aimRange: 1
@@ -374,6 +374,14 @@ MonoBehaviour:
     repeatTIme: 3
     duration: 0
     prefabName: 
+  - range: 0
+    width: 0
+    waitBeforeTime: 2
+    waitAfterTime: 1
+    intervalTime: 0.4
+    repeatTIme: 0
+    duration: 10
+    prefabName: 
   patternCount: 0
   mobs: []
   maxSpawnCount: 3
@@ -388,12 +396,7 @@ MonoBehaviour:
   - {r: 1, g: 0.3254717, b: 0.3254717, a: 1}
   - {r: 1, g: 0.98732996, b: 0.6367924, a: 1}
   firePos: {fileID: 1709177239}
-  spikes:
-  - {fileID: 5108342032011152482, guid: 69df2efcb1ef46a4fb365df7c6c8b1ec, type: 3}
-  - {fileID: 3543460180116373975, guid: b1f5e8b312562b04d91f4e112c3b7e2f, type: 3}
-  - {fileID: 3235892250691346757, guid: 172dc1e952e83f949b3b3df43ec19d69, type: 3}
-  - {fileID: 3235892250691346757, guid: fb16fa92f49775c48b8bdc35c0cad7c6, type: 3}
-  - {fileID: 3543460180116373975, guid: 031b1ec24175e6f40b7dcae02bd99d4b, type: 3}
+  SpikePrefab: {fileID: 6198244581746031856, guid: 0d6921b1cd7730345813af1bc564e63f, type: 3}
   firePositions:
   - {x: -6, y: -5, z: 0}
   - {x: 6, y: -5, z: 0}

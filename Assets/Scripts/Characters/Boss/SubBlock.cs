@@ -248,4 +248,39 @@ public class SubBlock : Enemy
     }
 
     #endregion
+
+    #region 단발 발사 패턴
+
+    public IEnumerator co_FireSingle(float duration, float interval)
+    {  
+        anim.SetBool("isShootLear", true);
+
+        yield return new WaitForSeconds(0.1f);
+
+        float shootWaitTime = 0;
+
+        while (duration > 0)
+        {
+            Vector3 shootTr = Target.transform.position;
+
+            if(shootWaitTime <= 0)
+            {
+                shootWaitTime = interval;
+                attacks[1].ShowWarning(firePos.position, shootTr, 0.1f);
+                yield return new WaitForSeconds(0.1f);
+                duration -= 0.1f;
+
+                GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
+                anim.SetTrigger("doShootLear");
+                Instantiate(attacks[1]).Shoot(firePos.position, shootTr);
+            }
+
+            shootWaitTime -= Time.deltaTime;
+            duration -= Time.deltaTime;
+            yield return null;
+        }
+        anim.SetBool("isShootLear", false);
+    }
+
+    #endregion
 }

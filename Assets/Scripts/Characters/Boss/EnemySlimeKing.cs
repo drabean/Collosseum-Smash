@@ -115,11 +115,13 @@ public class EnemySlimeKing : EnemyBoss
         StartCoroutine(co_Idle());
     }
 
-    IEnumerator co_Move(Vector3 destination)
+    IEnumerator co_Move(Vector3 destination, bool isFirstJump = false)
     {
-        attacks[0].ShowWarning(destination + Vector3.up * 0.5f, destination + Vector3.up * 0.5f, patterns[0].waitBeforeTime + 0.5f);
+        float waitTime = patterns[0].waitBeforeTime;
+        if (isFirstJump) waitTime += 0.5f;
+        attacks[0].ShowWarning(destination + Vector3.up * 0.5f, destination + Vector3.up * 0.5f, waitTime + 0.5f);
 
-        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
+        yield return new WaitForSeconds(waitTime);
         SoundMgr.Inst.Play("Jump");
         anim.SetBool("isMoving", true);
         float timeLeft = 0.5f;

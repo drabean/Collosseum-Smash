@@ -84,10 +84,12 @@ public class UTILS : MonoBehaviour
         if (File.Exists(finalPath))
         {
             string jsonData = File.ReadAllText(finalPath);
+            Debug.Log("SAVE DATA 로딩 성공!");
             return JsonUtility.FromJson<SaveData>(jsonData);
         }
         else
         {
+            Debug.Log("SAVE DATA 로딩 실패 / 새로운 데이터 생성");
             return new SaveData();
         }
     }

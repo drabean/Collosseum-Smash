@@ -136,8 +136,8 @@ MonoBehaviour:
   aim: {fileID: 2900340628364735495}
   hit: {fileID: 2900340629051677481}
   isDead: 0
-  maxHP: 30
-  curHP: 30
+  maxHP: 10
+  curHP: 10
   moveSpeed: 1.5
   moveSpeedCo: 1
   aimRange: 1
@@ -145,10 +145,10 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 0
-  attackRange: 6
+  attackRange: 4
   attackWaitTime: 1.5
-  attackAfterTime: 4.5
-  runawayTime: 1.3
+  attackAfterTime: 3
+  runawayTime: 2
   projectileName: Prefabs/Attack/MultiSpear
 --- !u!95 &2900340629051677477
 Animator:
