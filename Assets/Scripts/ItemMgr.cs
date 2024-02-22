@@ -19,11 +19,12 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     /// <param name="data"></param>
     public void InitNormalEquipPool(RunData data)
     {
-        EquipInfo normalItems = Resources.Load<EquipInfo>("Datas/EquipInfo/EquipNormal");
-        normalPool = new List<Equip>();
-        normalPool.AddRange(normalItems.list);
+        normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/EquipNormal").list); // 기본 아이템
+        if(SaveDatas.Inst.save.CheckProgress(PROGRESS.ITEMS1))
+            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock1").list); // 기본 아이템
+            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock2").list); // 기본 아이템
         //이미 획득한 아이템은 풀에서 빼주기
-        foreach(int ItemsGot in data.item)
+        foreach (int ItemsGot in data.item)
         {
             if(normalPool.Contains(LoadedData.Inst.getEquipByID(ItemsGot)))
             {
