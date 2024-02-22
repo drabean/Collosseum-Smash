@@ -72,4 +72,9 @@ public class DEBUGPANEL : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void Btn_MoneyCheat()
+    {
+        SaveDatas.Inst.save.Money += 200;
+    }
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SaveData
 {
+    public int Money;
     public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
-    public int ProgressLV;
     public List<int> Achievements = new List<int>();
     public List<int> Unlocks = new List<int>();
     public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
 
-    public bool checkAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
+    #region 업적 관련
+    public bool CheckAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
     {
         if (Achievements.Contains((int)achievement)) return true;
         else return false;
@@ -23,9 +24,40 @@ public class SaveData
             Achievements.Add((int)achievement);
         }
     }
+    #endregion
 
     #region 해금 관련
+    public bool CheckUnlock(UNLOCKS unlock) // 특정 업적의 클리어 여부를 반환.
+    {
+        if (Unlocks.Contains((int)unlock)) return true;
+        else return false;
+    }
 
+    public void BuyUnlock(UNLOCKS unlock)
+    {
+        if (!Unlocks.Contains((int)unlock))
+        {
+            Unlocks.Add((int)unlock);
+        }
+    }
+
+    #endregion
+
+
+    #region 해금 관련
+    public bool CheckProgress(PROGRESS unlock) // 특정 업적의 클리어 여부를 반환.
+    {
+        if (Unlocks.Contains((int)unlock)) return true;
+        else return false;
+    }
+
+    public void BuyProgress(PROGRESS progress)
+    {
+        if (!Unlocks.Contains((int)progress))
+        {
+            Unlocks.Add((int)progress);
+        }
+    }
 
     #endregion
 }
@@ -55,12 +87,14 @@ public enum UNLOCKS
 
 /// <summary>
 /// 진행도에 따른 해금 정도
+/// 5마리 처치 시 마다 새로운거 해금
 /// </summary>
 public enum PROGRESS
 {
-    ITEMS1 = 0,
-    REROLL = 1,
-    ITEMS2 = 2,
+    REROLL = 0,
+    ITEMS1 = 1,
+    REVIVE1 = 2,
+    ITEMS2 = 3,
 
     HONOR1 = 11,
     HONOR2 = 12,
@@ -71,10 +105,4 @@ public enum PROGRESS
  * 00. Tutorial 클리어
  * 10 ~ 19. 각 보스들 클리어
  * 20 ~ 29. 각 캐릭터들로 게임 클리어
- * 
- * Exp 정보
- * 스테이지 클리아마다 1 쌓임
- * 경험치를 10 쌓을 때 마다, 새로운 캐릭터를 열어줌.
- * Exp 정보 저장은 각각 사망시, 보스 처치 후 아이템 획득 후 등 Scene 전환 및 RunData의 갱신이 이루어지는 타이밍에 저장.
- * Exp를 통한 해금은 어쩌구저쩌구
  */

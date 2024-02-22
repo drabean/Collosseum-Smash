@@ -14,15 +14,13 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] GameObject OptionPanel;
     [SerializeField] GameObject DebugPanel;
 
-    [HideInInspector] public SaveData saveData;
 
     public bool isTestMode;
 
-    private void Awake()
+    private IEnumerator Start()
     {
         //Awake가 아닌, 다른 스크립트에서 일괄적으로 하도록 바뀌어야 함.
-        if(!LoadedData.Inst.isDataLoaded) LoadedData.Inst.LoadData();
-        saveData = UTILS.LoadSaveData();
+        while (!MainGameLogic.isInit) yield return null;
         //세이브 데이터 확인 및 배경 캐릭터 동기화
         RunData lastRunData = UTILS.GetRunData();
 

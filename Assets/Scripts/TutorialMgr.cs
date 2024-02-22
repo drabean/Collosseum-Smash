@@ -12,14 +12,12 @@ public class TutorialMgr : MonoBehaviour
 
     public Player player;
     public TextMeshPro progressTMP;
-    public SaveData curSaveData;
     public Item throwItem;
 
-    public void Init(Player player, TextMeshPro progressTMP, SaveData curSaveData)
+    public void Init(Player player, TextMeshPro progressTMP)
     {
         this.player = player;
         this.progressTMP = progressTMP;
-        this.curSaveData = curSaveData;
 
         TrainingBots.Add(Resources.Load<Enemy>("Prefabs/Enemy/TrainingBot/TrainingBotDoll"));
         TrainingBots.Add(Resources.Load<Enemy>("Prefabs/Enemy/TrainingBot/TrainingBot"));
@@ -188,9 +186,10 @@ public class TutorialMgr : MonoBehaviour
     void clearTutorial()
     {
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
-        curSaveData.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
+
+        SaveDatas.Inst.save.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
         GameMgr.Inst.curRunData.isTutorial = false;
         UTILS.SaveRunData(GameMgr.Inst.curRunData);
-        UTILS.SaveSaveData(curSaveData);
+        SaveDatas.Inst.SyncSaveData();
     }
 }

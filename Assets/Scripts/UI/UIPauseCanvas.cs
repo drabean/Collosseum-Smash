@@ -17,7 +17,6 @@ public class UIPauseCanvas : MonoBehaviour
     public GameObject OptionGroup;
     public GameObject ItemListGroup;
 
-    Settings curSetting;
     public void OpenPausePanel()
     {
         Debug.Log("PAUSED");
@@ -31,7 +30,6 @@ public class UIPauseCanvas : MonoBehaviour
     {
         Time.timeScale = 1;
 
-        if (curSetting != null) UTILS.SaveSettingData(curSetting);
         totalPanel.SetActive(false);
         GameMgr.Inst.isPause = false;
     }
@@ -114,11 +112,9 @@ public class UIPauseCanvas : MonoBehaviour
         SliderBGM.onValueChanged.AddListener(changeBGMVolume);
         SliderSFX.onValueChanged.AddListener(changeSFXVolume);
 
-        curSetting = UTILS.GetSettingData();
-
-        SliderBGM.value = curSetting.BGMVolume;
-        SliderSFX.value = curSetting.SFXVolume;
-        if(curSetting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        SliderBGM.value = SaveDatas.Inst.setting.BGMVolume;
+        SliderSFX.value = SaveDatas.Inst.setting.SFXVolume;
+        if(SaveDatas.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
         else TMPBtnExplain.text = "Joystick will now start from the center.";
     }
 
@@ -126,7 +122,7 @@ public class UIPauseCanvas : MonoBehaviour
     {
         TMPBGMVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeBGMVolume(value);
-        curSetting.BGMVolume = value;
+        SaveDatas.Inst.setting.BGMVolume = value;
     }
 
 
@@ -134,28 +130,28 @@ public class UIPauseCanvas : MonoBehaviour
     {
         TMPSFXVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeSFXVolume(value);
-        curSetting.SFXVolume = value;
+        SaveDatas.Inst.setting.SFXVolume = value;
     }
 
     public void Btn_FloatingJoystick()
     {
         TMPBtnExplain.text = "Jostick will now start from where you touch.";
         UIMgr.Inst.joystick.isFixed = false;
-        curSetting.isJoystickFloating = true;
+        SaveDatas.Inst.setting.isJoystickFloating = true;
     }
 
     public void Btn_FixedJoystick()
     {
         TMPBtnExplain.text = "Joystick will now start from the center.";
         UIMgr.Inst.joystick.isFixed = true;
-        curSetting.isJoystickFloating = false;
+        SaveDatas.Inst.setting.isJoystickFloating = false;
     }
 
 
     #endregion
     public void Btn_BackToTitle()
     {
-        if(curSetting != null)UTILS.SaveSettingData(curSetting);
+        SaveDatas.Inst.SyncSetting();
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 }

@@ -9,8 +9,6 @@ public class UIGameOverCanvas : MonoBehaviour
 
     private void Awake()
     {
-        if (!LoadedData.Inst.isDataLoaded) LoadedData.Inst.LoadData();
-
         RunData data = UTILS.GetRunData();
 
         if(data == null)

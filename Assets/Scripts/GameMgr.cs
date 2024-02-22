@@ -19,7 +19,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 {
     [HideInInspector] public CameraController MainCam;
     [HideInInspector] public RunData curRunData;
-    [HideInInspector] public SaveData curSaveData;
     public bool isPlayerInstantiated;
 
     public Player player;
@@ -58,7 +57,6 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
-        curSaveData = UTILS.LoadSaveData();
         //플레이어 생성 및 설정 동기화
         player = Instantiate(LoadedData.Inst.getCharacterInfoByID(curRunData.characterInfoIdx).playerPrefab);
         player.transform.position = Vector3.up * -3f;
@@ -92,7 +90,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if(curRunData.isTutorial)
         {
             TutorialMgr tutorial = gameObject.AddComponent<TutorialMgr>();
-            tutorial.Init(player, progressTMP, curSaveData);
+            tutorial.Init(player, progressTMP);
             tutorial.startTutorial();
             yield break;
         }
@@ -415,14 +413,14 @@ public class GameMgr : MonoSingleton<GameMgr>
         curRunData.stageProgress++;
         curRunData.curHP = (int)player.curHP + 2;
         curRunData.isBoss = false;
-        curSaveData.Exp++;
 
         curRunData.normalProgress = 0;
         curRunData.bossProgress = 0;
+        //세이브데이터는 여기서!
         yield return new WaitForSeconds(3.0f);
 
         UTILS.SaveRunData(curRunData);
-        UTILS.SaveSaveData(curSaveData);
+        SaveDatas.Inst.SyncSaveData();
         LoadSceneMgr.LoadSceneAsync("Main");
     }
     #endregion

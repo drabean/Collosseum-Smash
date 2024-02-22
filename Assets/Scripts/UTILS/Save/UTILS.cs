@@ -22,7 +22,6 @@ public class UTILS : MonoBehaviour
         if(File.Exists(finalPath))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            Debug.Log(finalPath);
             FileStream fileStream = File.Open(finalPath, FileMode.Open);
 
             if (fileStream != null)
@@ -141,14 +140,14 @@ public class UTILS : MonoBehaviour
 
     #endregion
 
+
 #if UNITY_EDITOR
-
-
 
     /// <summary>
     /// 저장되어있는 SaveData 삭제하기(reset)
     /// </summary>
     [MenuItem("MyTools/DeleteSaveData")]
+#endif
     public static void DeleteSaveData()
     {
         string persistentPath = Application.persistentDataPath;
@@ -160,11 +159,13 @@ public class UTILS : MonoBehaviour
             Debug.Log("SaveData 삭제됨!");
         }
     }
+#if UNITY_EDITOR
 
     /// <summary>
     /// 저장되어있는 RunData 삭제하기(reset)
     /// </summary>
     [MenuItem("MyTools/DeleteRunData")]
+#endif
     public static void DeleteRunData()
     {
         string persistentPath = Application.persistentDataPath;
@@ -176,11 +177,13 @@ public class UTILS : MonoBehaviour
             Debug.Log("RunData 삭제됨!");
         }
     }
+#if UNITY_EDITOR
 
     /// <summary>
     /// 저장되어있는 Setting 삭제하기(reset)
     /// </summary>
     [MenuItem("MyTools/DeleteSettingData")]
+#endif
     public static void DeleteSettingData()
     {
         string persistentPath = Application.persistentDataPath;
@@ -192,25 +195,16 @@ public class UTILS : MonoBehaviour
             Debug.Log("SaveData 삭제됨!");
         }
     }
-#endif
+
     #region 해금
 
     public static void CheckEXP()
     {
-        SaveData data = UTILS.LoadSaveData();
-
-        if(data.Exp >= 100)
-        {
-            unlock(data);
-        }
     }
     public static void unlock(SaveData data)
     {
         data.Exp -= 100;
-        data.ProgressLV++;
         //TODO: ProgressLV 체크하기.
-
-        UTILS.SaveSaveData(data);
     }
 
 

@@ -8,7 +8,6 @@ public class UIOptionCanvas : MonoBehaviour
     public GameObject totalPanel;
 
     bool isOptionInit;
-    Settings curSetting;
     [SerializeField] Slider SliderBGM;
     [SerializeField] TextMeshProUGUI TMPBGMVolume;
     [SerializeField] Slider SliderSFX;
@@ -16,12 +15,11 @@ public class UIOptionCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI TMPBtnExplain;
     public void Init()
     {
-        curSetting = UTILS.GetSettingData();
-        SliderBGM.value = curSetting.BGMVolume;
-        TMPBGMVolume.text = "Volume : " + (int)(curSetting.BGMVolume * 100);
-        SliderSFX.value = curSetting.SFXVolume;
-        TMPSFXVolume.text = "Volume : " + (int)(curSetting.SFXVolume * 100);
-        if (curSetting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        SliderBGM.value = SaveDatas.Inst.setting.BGMVolume;
+        TMPBGMVolume.text = "Volume : " + (int)(SaveDatas.Inst.setting.BGMVolume * 100);
+        SliderSFX.value = SaveDatas.Inst.setting.SFXVolume;
+        TMPSFXVolume.text = "Volume : " + (int)(SaveDatas.Inst.setting.SFXVolume * 100);
+        if (SaveDatas.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
         else TMPBtnExplain.text = "Joystick will now start from the center.";
 
         if (isOptionInit) return;
@@ -34,7 +32,7 @@ public class UIOptionCanvas : MonoBehaviour
     {
         TMPBGMVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeBGMVolume(value);
-        curSetting.BGMVolume = value;
+        SaveDatas.Inst.setting.BGMVolume = value;
     }
 
 
@@ -42,24 +40,24 @@ public class UIOptionCanvas : MonoBehaviour
     {
         TMPSFXVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeSFXVolume(value);
-        curSetting.SFXVolume = value;
+        SaveDatas.Inst.setting.SFXVolume = value;
     }
 
     public void Btn_FloatingJoystick()
     {
         TMPBtnExplain.text = "Jostick will now start from where you touch.";
-        curSetting.isJoystickFloating = true;
+        SaveDatas.Inst.setting.isJoystickFloating = true;
     }
 
     public void Btn_FixedJoystick()
     {
         TMPBtnExplain.text = "Joystick will now start from the center.";
-        curSetting.isJoystickFloating = false;
+        SaveDatas.Inst.setting.isJoystickFloating = false;
     }
 
     public void CloseOption()
     {
-        UTILS.SaveSettingData(curSetting);
+        SaveDatas.Inst.SyncSetting();
         totalPanel.SetActive(false);
     }
 
