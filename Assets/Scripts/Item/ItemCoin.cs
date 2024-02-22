@@ -15,6 +15,7 @@ public class ItemCoin : Item
     {
 
         SoundMgr.Inst.Play("Coin");
+        SaveDatas.Inst.save.Coin++;
     }
 
     public void Throw(Vector3 destination)

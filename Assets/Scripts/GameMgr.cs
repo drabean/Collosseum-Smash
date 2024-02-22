@@ -52,8 +52,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         if (isTest)
         {
-            LoadedData.Inst.LoadData();
-            curRunData = testRunData;
+            if (!SaveDatas.isInit) SaveDatas.Inst.Init();
+            if (!LoadedData.isDataLoaded) SaveDatas.Inst.Init();
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();

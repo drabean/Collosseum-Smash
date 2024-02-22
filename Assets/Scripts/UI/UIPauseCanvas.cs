@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIPauseCanvas : MonoBehaviour
 {
     int curPageIdx = 0;
+    //0:ItemPage, 1:OptionPage
     public GameObject[] Pages;
 
     public TextMeshProUGUI TMPTitle;
@@ -152,6 +153,7 @@ public class UIPauseCanvas : MonoBehaviour
     public void Btn_BackToTitle()
     {
         SaveDatas.Inst.SyncSetting();
+        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 }
