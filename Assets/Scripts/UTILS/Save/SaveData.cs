@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveData
 {
-    public int Money;
+    public int Coin;
     public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
     public List<int> Achievements = new List<int>();
     public List<int> Unlocks = new List<int>();

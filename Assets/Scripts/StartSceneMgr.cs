@@ -11,6 +11,7 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] RectTransform ButtonHolder;
     [SerializeField] UIButton ButtonPrefab;
     [SerializeField] UIOptionCanvas Option;
+    [SerializeField] UIShopCanvas Shop;
     [SerializeField] GameObject OptionPanel;
     [SerializeField] GameObject DebugPanel;
 
@@ -37,20 +38,27 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
         //Instantiate Button
         UIButton newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Start";
-        newBtn.btn.onClick.AddListener(BtnStart);
+        newBtn.btn.onClick.AddListener(Btn_Start);
 
         if(lastRunData != null)
         {
             newBtn = Instantiate(ButtonPrefab, ButtonHolder);
             newBtn.txt.text = "Continue"; ;
-            newBtn.btn.onClick.AddListener(BtnContinue);
+            newBtn.btn.onClick.AddListener(Btn_Continue);
 
         }
 
+        //옵션
+        newBtn = Instantiate(ButtonPrefab, ButtonHolder);
+        newBtn.txt.text = "Shop";
+        newBtn.btn.onClick.AddListener(Btn_Shop);
+
+        //옵션
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Option";
         newBtn.btn.onClick.AddListener(Btn_Option);
         
+        //디버그
         if(isTestMode)
         {
             newBtn = Instantiate(ButtonPrefab, ButtonHolder);
@@ -58,27 +66,29 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
             newBtn.btn.onClick.AddListener(Btn_Debug);
         }
 
+        //게임종료
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Exit";
         newBtn.btn.onClick.AddListener(Btn_Exit);
 
+        //버튼 묶음 위치 조절
+        ButtonHolder.GetComponent<RectTransform>().anchoredPosition = Vector3.right * -10 + Vector3.up * (-300 + (50) * ButtonHolder.transform.childCount);
         #endregion
     }
-    public void BtnStart()
+    public void Btn_Start()
     {
         Debug.Log("START");
-        //SceneManager.LoadScene("Main");
-        //runData = new runData()
-        //UTILS.SaveRunData();
 
         CharacterSelectGroup.gameObject.SetActive(true);
         CharacterSelectGroup.OpenCharacterSelect(0);
-
-      //  LoadSceneMgr.LoadSceneAsync("Main");
     }
-    public void BtnContinue()
+    public void Btn_Continue()
     {
         LoadSceneMgr.LoadSceneAsync("Main");
+    }
+    public void Btn_Shop()
+    {
+        Shop.OpenPanel();
     }
     public void Btn_Option()
     {
