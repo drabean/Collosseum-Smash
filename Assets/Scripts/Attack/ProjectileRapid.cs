@@ -16,7 +16,9 @@ public class ProjectileRapid : Attack
 
     IEnumerator co_Shoot(Vector3 startPos, Vector3 targetPos)
     {
-        for (int i = 0; i < repNum; i++)
+        Instantiate<Projectile>(projectile).Shoot(startPos, targetPos); // 초탄은 정확하게
+        yield return new WaitForSeconds(interval);
+        for (int i = 1; i < repNum; i++)
         {
             Instantiate<Projectile>(projectile).Shoot(startPos, targetPos.Randomize(acc));
             yield return new WaitForSeconds(interval);

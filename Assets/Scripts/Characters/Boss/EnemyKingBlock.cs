@@ -493,6 +493,7 @@ public class EnemyKingBlock : EnemyBoss
 
         hideAllSpikes();
         yield return new WaitForSeconds(patterns[5].waitAfterTime);
+        selectPattern();
 
     }
 
