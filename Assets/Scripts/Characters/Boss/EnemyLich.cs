@@ -15,14 +15,17 @@ public class EnemyLich : EnemyBoss
     int patIdx;
 
     public List<Vector3> patternVector = new List<Vector3>();
+
+    public LichSubSkul subSkul;
     public override void StartAI()
     {
         GetComponent<Collider2D>().enabled = false;
         spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[0]);
-        spawnPool.Add(mobs[0]);
         StartCoroutine(co_SpawnRoutine());
         StartCoroutine(co_Idle(0.7f));
+
+        Instantiate(subSkul).Init(transform, (Player)Target);
     }
     IEnumerator co_Idle(float time = 1.5f)
     {
@@ -437,7 +440,6 @@ public class EnemyLich : EnemyBoss
     {
         GameMgr.Inst.SlowTime(0.4f, 0.2f, true);
 
-        Debug.Log("G");
         StopAllCoroutines();
         anim.SetBool("isAtk1Ready", false);
         anim.SetBool("isAtk2Ready", false);

@@ -440,7 +440,7 @@ public class EnemyKingBlock : EnemyBoss
     IEnumerator co_Pat5()
     {
         #region 살릴 구역 정하기
-        int safeNum = Random.Range(3, 6);
+        int safeNum = Random.Range(4, 7);
 
         List<Animator> spikeLis = new List<Animator>();
         for (int x = 0; x < 10; x++)
