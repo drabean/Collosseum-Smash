@@ -15,11 +15,11 @@ public class UIOptionCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI TMPBtnExplain;
     public void Init()
     {
-        SliderBGM.value = SaveDatas.Inst.setting.BGMVolume;
-        TMPBGMVolume.text = "Volume : " + (int)(SaveDatas.Inst.setting.BGMVolume * 100);
-        SliderSFX.value = SaveDatas.Inst.setting.SFXVolume;
-        TMPSFXVolume.text = "Volume : " + (int)(SaveDatas.Inst.setting.SFXVolume * 100);
-        if (SaveDatas.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        SliderBGM.value = LoadedSave.Inst.setting.BGMVolume;
+        TMPBGMVolume.text = "Volume : " + (int)(LoadedSave.Inst.setting.BGMVolume * 100);
+        SliderSFX.value = LoadedSave.Inst.setting.SFXVolume;
+        TMPSFXVolume.text = "Volume : " + (int)(LoadedSave.Inst.setting.SFXVolume * 100);
+        if (LoadedSave.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
         else TMPBtnExplain.text = "Joystick will now start from the center.";
 
         if (isOptionInit) return;
@@ -32,7 +32,7 @@ public class UIOptionCanvas : MonoBehaviour
     {
         TMPBGMVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeBGMVolume(value);
-        SaveDatas.Inst.setting.BGMVolume = value;
+        LoadedSave.Inst.setting.BGMVolume = value;
     }
 
 
@@ -40,24 +40,24 @@ public class UIOptionCanvas : MonoBehaviour
     {
         TMPSFXVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeSFXVolume(value);
-        SaveDatas.Inst.setting.SFXVolume = value;
+        LoadedSave.Inst.setting.SFXVolume = value;
     }
 
     public void Btn_FloatingJoystick()
     {
         TMPBtnExplain.text = "Jostick will now start from where you touch.";
-        SaveDatas.Inst.setting.isJoystickFloating = true;
+        LoadedSave.Inst.setting.isJoystickFloating = true;
     }
 
     public void Btn_FixedJoystick()
     {
         TMPBtnExplain.text = "Joystick will now start from the center.";
-        SaveDatas.Inst.setting.isJoystickFloating = false;
+        LoadedSave.Inst.setting.isJoystickFloating = false;
     }
 
     public void CloseOption()
     {
-        SaveDatas.Inst.SyncSetting();
+        LoadedSave.Inst.SyncSetting();
         totalPanel.SetActive(false);
     }
 

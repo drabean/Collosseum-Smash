@@ -187,9 +187,9 @@ public class TutorialMgr : MonoBehaviour
     {
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
 
-        SaveDatas.Inst.save.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
+        LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);
         GameMgr.Inst.curRunData.isTutorial = false;
         UTILS.SaveRunData(GameMgr.Inst.curRunData);
-        SaveDatas.Inst.SyncSaveData();
+        LoadedSave.Inst.SyncSaveData();
     }
 }

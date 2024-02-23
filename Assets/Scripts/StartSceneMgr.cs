@@ -20,8 +20,8 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
 
     private IEnumerator Start()
     {
-        //Awake가 아닌, 다른 스크립트에서 일괄적으로 하도록 바뀌어야 함.
-        while (!MainGameLogic.isInit) yield return null;
+        while (!MainGameLogic.isInit) yield return null; // 데이터 초기화까지 대기
+
         //세이브 데이터 확인 및 배경 캐릭터 동기화
         RunData lastRunData = UTILS.GetRunData();
 

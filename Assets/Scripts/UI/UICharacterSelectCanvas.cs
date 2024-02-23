@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UICharacterSelectCanvas : MonoBehaviour
@@ -12,6 +13,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     [SerializeField] UIStatIcon[] stats;
     [SerializeField] RectTransform EquipHolder;
     [SerializeField] UIEquipHolder[] equips;
+    [SerializeField] Toggle TutorialToggle;
     public CharacterInfo info;
 
     public int curIdx = 0;
@@ -25,6 +27,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
         curIdx = saveIdx;
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
         changePlayer();
+        if (!LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) TutorialToggle.isOn = true;
+        else TutorialToggle.isOn = false;
     }
     public void OpenCharacterSelect(int idx)
     {
@@ -134,7 +138,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
         {
             data.item.Add(info.playerItems[i].ID);
         }
-        data.curHP = info.playerPrefab.Stat.VIT + 1;
+        data.curHP =10;
 
         data.isTutorial = this.isTutorial;
         UTILS.SaveRunData(data);

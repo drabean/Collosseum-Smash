@@ -8,8 +8,8 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     {
         DontDestroyOnLoad(gameObject);
 
-        BGMvolume = SaveDatas.Inst.setting.BGMVolume;
-        SFXvolume = SaveDatas.Inst.setting.SFXVolume;
+        BGMvolume = LoadedSave.Inst.setting.BGMVolume;
+        SFXvolume = LoadedSave.Inst.setting.SFXVolume;
 
         GameObject BGM = new GameObject();
         BGM.transform.SetParent(transform);

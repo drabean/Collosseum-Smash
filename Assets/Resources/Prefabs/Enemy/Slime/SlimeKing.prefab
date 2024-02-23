@@ -314,7 +314,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0
-    waitAfterTime: 1.5
+    waitAfterTime: 1.2
     intervalTime: 0
     repeatTIme: 0
     duration: 1.2

@@ -75,7 +75,7 @@ public class DEBUGPANEL : MonoBehaviour
 
     public void Btn_MoneyCheat()
     {
-        SaveDatas.Inst.save.Coin += 200;
-        SaveDatas.Inst.SyncSaveData();
+        LoadedSave.Inst.save.Coin += 200;
+        LoadedSave.Inst.SyncSaveData();
     }
 }

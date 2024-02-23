@@ -9,7 +9,7 @@ public class UICoinCanvas : MonoSingleton<UICoinCanvas>
 
     public void SyncCoin()
     {
-        TMP.text = SaveDatas.Inst.save.Coin.ToString();
+        TMP.text = LoadedSave.Inst.save.Coin.ToString();
     }
 
     private void Update()

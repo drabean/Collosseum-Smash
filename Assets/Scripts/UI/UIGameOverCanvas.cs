@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class UIGameOverCanvas : MonoBehaviour
 {
     Player player;
+    RunData data;
 
     private void Awake()
     {
-        RunData data = UTILS.GetRunData();
+        data = UTILS.GetRunData();
 
         if(data == null)
         {
@@ -35,7 +36,10 @@ public class UIGameOverCanvas : MonoBehaviour
 
     IEnumerator co_ContinueStage()
     {
+        data.curHP = 10;
+        UTILS.SaveRunData(data);
         yield return new WaitForSeconds(2.0f);
+
         LoadSceneMgr.LoadSceneAsync("Main");
     }
 

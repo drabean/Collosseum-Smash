@@ -82,6 +82,7 @@ public enum UNLOCKS
     THRWDMG = 1,
     MAXHP = 2,
     HPREG = 3,
+    MONEY = 4,
 
 }
 

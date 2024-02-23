@@ -10,7 +10,7 @@ public class MainGameLogic : MonoBehaviour
     public static bool isInit;
     private void Awake()
     {
-        if (!SaveDatas.isInit) SaveDatas.Inst.Init();
+        if (!LoadedSave.isInit) LoadedSave.Inst.Init();
         if (!LoadedData.isDataLoaded) LoadedData.Inst.LoadData();
         isInit = true;
     }

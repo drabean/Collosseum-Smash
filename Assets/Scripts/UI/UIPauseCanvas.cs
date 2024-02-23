@@ -113,9 +113,9 @@ public class UIPauseCanvas : MonoBehaviour
         SliderBGM.onValueChanged.AddListener(changeBGMVolume);
         SliderSFX.onValueChanged.AddListener(changeSFXVolume);
 
-        SliderBGM.value = SaveDatas.Inst.setting.BGMVolume;
-        SliderSFX.value = SaveDatas.Inst.setting.SFXVolume;
-        if(SaveDatas.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
+        SliderBGM.value = LoadedSave.Inst.setting.BGMVolume;
+        SliderSFX.value = LoadedSave.Inst.setting.SFXVolume;
+        if(LoadedSave.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
         else TMPBtnExplain.text = "Joystick will now start from the center.";
     }
 
@@ -123,7 +123,7 @@ public class UIPauseCanvas : MonoBehaviour
     {
         TMPBGMVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeBGMVolume(value);
-        SaveDatas.Inst.setting.BGMVolume = value;
+        LoadedSave.Inst.setting.BGMVolume = value;
     }
 
 
@@ -131,28 +131,28 @@ public class UIPauseCanvas : MonoBehaviour
     {
         TMPSFXVolume.text = "Volume : " + (int)(value * 100);
         SoundMgr.Inst.ChangeSFXVolume(value);
-        SaveDatas.Inst.setting.SFXVolume = value;
+        LoadedSave.Inst.setting.SFXVolume = value;
     }
 
     public void Btn_FloatingJoystick()
     {
         TMPBtnExplain.text = "Jostick will now start from where you touch.";
         UIMgr.Inst.joystick.isFixed = false;
-        SaveDatas.Inst.setting.isJoystickFloating = true;
+        LoadedSave.Inst.setting.isJoystickFloating = true;
     }
 
     public void Btn_FixedJoystick()
     {
         TMPBtnExplain.text = "Joystick will now start from the center.";
         UIMgr.Inst.joystick.isFixed = true;
-        SaveDatas.Inst.setting.isJoystickFloating = false;
+        LoadedSave.Inst.setting.isJoystickFloating = false;
     }
 
 
     #endregion
     public void Btn_BackToTitle()
     {
-        SaveDatas.Inst.SyncSetting();
+        LoadedSave.Inst.SyncSetting();
         StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
         LoadSceneMgr.LoadSceneAsync("Start");
     }

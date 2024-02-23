@@ -52,8 +52,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         if (isTest)
         {
-            if (!SaveDatas.isInit) SaveDatas.Inst.Init();
-            if (!LoadedData.isDataLoaded) SaveDatas.Inst.Init();
+            if (!LoadedSave.isInit) LoadedSave.Inst.Init();
+            if (!LoadedData.isDataLoaded) LoadedSave.Inst.Init();
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
@@ -68,10 +68,15 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             Instantiate(LoadedData.Inst.getEquipByID(curRunData.item[i])).onEquip(player);
         }
+
+        checkUnlock();
+
         player.SetStatus();
         player.curHP = Mathf.Min(player.maxHP, curRunData.curHP); // 체력세팅.
         player.AttachUI(); // 조이스틱 및 UI 연동
         isPlayerInstantiated = true;
+
+
 
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(player);
@@ -108,7 +113,25 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
     }
  
-
+    void checkUnlock()
+    {
+        if(LoadedSave.Inst.save.CheckUnlock(UNLOCKS.ATKSPD))
+        {
+            player.GetComponent<Animator>().SetFloat("atkSpd",1.15f);
+        }
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.THRWDMG))
+        {
+            player.Stat.ACC++;
+        }
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.MAXHP))
+        {
+            player.Stat.VIT++;
+        }
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.MONEY))
+        {
+            coinCount-=2;
+        }
+    }
     void spawnGong()
     {
         progressTMP.text = "SMASH TO START!";
@@ -353,7 +376,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSeconds(2.0f);
         spawnItems();
     }
-
+    #endregion
 
     #region 아이템 관련
     ItemEquipHolder holder;
@@ -412,6 +435,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         curRunData.stageProgress++;
         curRunData.curHP = (int)player.curHP + 2;
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.HPREG)) curRunData.curHP++;
         curRunData.isBoss = false;
 
         curRunData.normalProgress = 0;
@@ -420,10 +444,9 @@ public class GameMgr : MonoSingleton<GameMgr>
         yield return new WaitForSeconds(3.0f);
 
         UTILS.SaveRunData(curRunData);
-        SaveDatas.Inst.SyncSaveData();
+        LoadedSave.Inst.SyncSaveData();
         LoadSceneMgr.LoadSceneAsync("Main");
     }
-    #endregion
 
     #region 유틸 함수들
     /// <summary>
