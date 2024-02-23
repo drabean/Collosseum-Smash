@@ -135,6 +135,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         spawnedEnemy.Target = player;
         if (deadOption != null) spawnedEnemy.onDeath += deadOption;
 
+        UIMgr.Inst.progress.ShowBossUI();
+        spawnedEnemy.curHP -= GameMgr.Inst.curRunData.bossProgress;
         Collider2D[] cols = spawnedEnemy.GetComponentsInChildren<Collider2D>();
         if (cols.Length != 0)
         {
@@ -154,7 +156,9 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
             }
         }
 
-        spawnedEnemy.curHP -= GameMgr.Inst.curRunData.bossProgress;
+        UIMgr.Inst.progress.SetBossHP(spawnedEnemy.curHP, spawnedEnemy.maxHP);
+        if(spawnedEnemy.curHP != spawnedEnemy.maxHP)SoundMgr.Inst.Play("Hit");
+        spawnedEnemy.GetComponent<EnemyBoss>().alreadyUsedPattern = true; // 반피 이하에서 continue시 발악패턴 안쓰도록 조절
         spawnedEnemy.StartAI();
         GameMgr.Inst.MainCam.changeTargetToDefault();
         Destroy(camTarget);

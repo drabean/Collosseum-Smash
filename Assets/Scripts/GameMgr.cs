@@ -254,7 +254,6 @@ public class GameMgr : MonoSingleton<GameMgr>
         EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, onBossDie);
         yield return new WaitForSeconds(1f);
         progressTMP.text = stageInfo.bossText;
-        UIMgr.Inst.progress.ShowBossUI();
         yield return new WaitForSeconds(1.7f);
         progressTMP.text = "";
     }

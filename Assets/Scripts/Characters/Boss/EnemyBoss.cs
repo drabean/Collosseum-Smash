@@ -106,14 +106,14 @@ public class EnemyBoss : Enemy
 
     protected bool isRage = false; // 현재 분노 페이즈인가
     protected bool isRagePattern = false;
-
+    public bool alreadyUsedPattern = false; // 반피 이하에서 Continue했을때, 바로 발악패턴 쓰는거 막음
     //반피 이하일 시 2페이즈 진입
     protected virtual void checkRage()
     {
         if(!isRage && (curHP < ((float)maxHP/2)))
         {
             isRage = true;
-            isRagePattern = true;
+            if(!alreadyUsedPattern) isRagePattern = true;
             rageChange();
             Debug.Log("RAGE!");
         }

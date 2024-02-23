@@ -5052,6 +5052,7 @@ MonoBehaviour:
   mobs:
   - {fileID: 7806197883472134555, guid: 2dd64a1b96ff0904fa88d8ef32e01663, type: 3}
   - {fileID: 4903823895050830230, guid: 75c7f1bce8114064d897e0bb868810dc, type: 3}
+  alreadyUsedPattern: 0
   maxSpawnCount: 2
   tpVecs:
   - {x: -7, y: 6.5, z: 0}
@@ -5068,6 +5069,7 @@ MonoBehaviour:
   - {x: -7, y: 5, z: 0}
   - {x: 7, y: -6, z: 0}
   - {x: 7, y: 5, z: 0}
+  subSkul: {fileID: 6569675111165195076, guid: d56d399220567d847a8f54c2f044793b, type: 3}
   rotationSpeedCurve:
     serializedVersion: 2
     m_Curve:
