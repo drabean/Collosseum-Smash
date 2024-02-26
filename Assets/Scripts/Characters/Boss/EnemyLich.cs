@@ -17,6 +17,7 @@ public class EnemyLich : EnemyBoss
     public List<Vector3> patternVector = new List<Vector3>();
 
     public LichSubSkul subSkul;
+    List<GameObject> subSkuls = new List<GameObject>();
     public override void StartAI()
     {
         GetComponent<Collider2D>().enabled = false;
@@ -25,7 +26,14 @@ public class EnemyLich : EnemyBoss
         StartCoroutine(co_SpawnRoutine());
         StartCoroutine(co_Idle(0.7f));
 
-        Instantiate(subSkul).Init(transform, (Player)Target);
+        spawnSkul();
+    }
+
+    void spawnSkul()
+    {
+        LichSubSkul skul = Instantiate(subSkul);
+        skul.Init(transform, (Player)Target);
+        subSkuls.Add(skul.gameObject);
     }
     IEnumerator co_Idle(float time = 1.5f)
     {
@@ -432,13 +440,15 @@ public class EnemyLich : EnemyBoss
     protected override void rageChange()
     {
         maxSpawnCount = 3;
+        rageChange();
 
         spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[1]);
     }
     void groggy()
     {
-        GameMgr.Inst.SlowTime(0.4f, 0.2f, true);
+        patternParticle.Play();
+        GameMgr.Inst.SlowTime(0.7f, 0.2f, true);
 
         StopAllCoroutines();
         anim.SetBool("isAtk1Ready", false);
@@ -446,7 +456,7 @@ public class EnemyLich : EnemyBoss
         anim.SetBool("isAtk3Ready", false);
         anim.SetBool("isGroggy", true);
         GameMgr.Inst.removeAllNormalEnemies();
-
+        foreach(GameObject subSkul in subSkuls) { Destroy(subSkul); }
         GetComponent<Collider2D>().enabled = true;
         transform.position = groggyVec;
     }

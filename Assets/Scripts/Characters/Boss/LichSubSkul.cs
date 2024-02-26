@@ -28,7 +28,7 @@ public class LichSubSkul : MonoBehaviour
 
             Vector3 targetPos = calcPlayerPos(1.0f);
 
-            curWarning = attack.ShowWarning(transform.position, targetPos, 3.0f);
+            curWarning = attack.ShowWarning(transform.position, targetPos, 1.5f);
 
             yield return new WaitForSeconds(attackBeforeTime);
             Instantiate(attack).Shoot(transform.position, targetPos);

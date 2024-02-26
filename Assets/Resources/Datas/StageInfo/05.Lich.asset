@@ -18,6 +18,7 @@ MonoBehaviour:
   - {fileID: 1742816727417321249, guid: 2fca652def281f144afd8505274d1e74, type: 3}
   - {fileID: 5895252393295958234, guid: 2e848e237f093fc42adab2c27a74c4a0, type: 3}
   - {fileID: 5112398023351027448, guid: 0acddba20df65c042ae2a63a6ea3d071, type: 3}
+  - {fileID: 5112398023351027448, guid: 0acddba20df65c042ae2a63a6ea3d071, type: 3}
   Boss: {fileID: 4386642271621334936, guid: 12f4670c66e4df5499e6b93f220780ec, type: 3}
   maxKill: 40
   Intro: {fileID: 0}

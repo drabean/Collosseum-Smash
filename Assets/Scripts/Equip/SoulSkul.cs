@@ -19,7 +19,6 @@ public class SoulSkul : Equip
     {
         CharacterBase target = FindTarget();
         if (target == null) return;
-        Debug.Log(target.gameObject.name);
         TargetedProjecitile tp = Instantiate(lichSoul);
         tp.Shoot(owner.transform.position, this.gameObject);
         tp.Target = target.gameObject;
