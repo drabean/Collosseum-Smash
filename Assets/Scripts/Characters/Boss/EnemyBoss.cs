@@ -47,6 +47,10 @@ public class EnemyBoss : Enemy
     protected virtual void selectPattern() { }
 
     /// <summary>
+    /// 하드모드 패턴을 사용할지 정함
+    /// </summary>
+    public bool isHardMode = false;
+    /// <summary>
     /// 상태 확인용으로 서브로 사용하는 HP
     /// </summary>
     protected float subHP = 0;
@@ -113,7 +117,8 @@ public class EnemyBoss : Enemy
         if(!isRage && (curHP < ((float)maxHP/2)))
         {
             isRage = true;
-            if(!alreadyUsedPattern) isRagePattern = true;
+            if (!alreadyUsedPattern) isRagePattern = true;
+            else isRagePattern = isRagePattern = false;
             rageChange();
             Debug.Log("RAGE!");
         }

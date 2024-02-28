@@ -13,7 +13,7 @@ public class EnemyBombGoblin : Enemy
     public GameObject prefab;
     public void Awake()
     {
-        onDeath += spawnOnDeath;
+        ActionOnDeath += spawnOnDeath;
     }
     public override void StartAI()
     {
@@ -44,7 +44,7 @@ public class EnemyBombGoblin : Enemy
         yield return new WaitForSeconds(attackWaitTime);
         GameMgr.Inst.MainCam.Shake(0.15f, 30, 0.25f, 0f);
         Instantiate(Explosion, transform.position, Quaternion.identity).Shoot(transform.position, transform.position);
-        onDeath -= spawnOnDeath;
+        ActionOnDeath -= spawnOnDeath;
         invokeOnDeath(Vector3.zero);
         Despawn();
     }

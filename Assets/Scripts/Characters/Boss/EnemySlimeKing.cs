@@ -71,6 +71,7 @@ public class EnemySlimeKing : EnemyBoss
         maxSpawnCount++;
         slimeballMoveTime -= 0.2f;
         patterns[0].waitBeforeTime -= 0.15f;
+        patterns[0].intervalTime = -0.35f;
         patterns[2].repeatTIme += 2;
         patterns[2].waitBeforeTime -= 0.15f;
     }
@@ -105,9 +106,7 @@ public class EnemySlimeKing : EnemyBoss
         {
             setDir();
             yield return StartCoroutine(co_Move(Target.transform.position));
-            float waitTime = patterns[0].intervalTime;
-            if (isRage) waitTime -= 0.35f;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(patterns[0].intervalTime);
         }
 
         yield return co_Wait(patterns[0].waitAfterTime);
