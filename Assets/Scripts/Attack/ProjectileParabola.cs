@@ -20,7 +20,6 @@ public class ProjectileParabola : Attack
 
     IEnumerator move(Vector3 targetPos)
     {
-        Debug.Log("MVESPEEDSAD" + moveSpeed);
         while(moveTime >= 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);

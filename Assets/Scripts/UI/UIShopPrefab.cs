@@ -17,10 +17,10 @@ public class UIShopPrefab : MonoBehaviour
     public TextMeshProUGUI TMP_Description;
 
     [SerializeField] int cost;
-    [SerializeField] UNLOCKS unlock;
+    [SerializeField] UNLOCK unlock;
 
 
-    public void Init(int cost, UNLOCKS unlock, string title, string description)
+    public void Init(int cost, UNLOCK unlock, string title, string description)
     {
         this.cost = cost;
         this.unlock = unlock;

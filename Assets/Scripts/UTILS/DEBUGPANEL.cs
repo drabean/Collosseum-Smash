@@ -51,7 +51,10 @@ public class DEBUGPANEL : MonoBehaviour
         {
             data.item.Add(info.playerItems[i].ID);
         }
-        data.curHP = info.playerPrefab.Stat.VIT + 1;
+        data.curHP = 10;
+        data.reviveCount = 1;
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) data.reviveCount++;
+
         data.stageProgress = curStageIdx;
 
         ItemMgr.Inst.InitNormalEquipPool(data);
@@ -60,9 +63,12 @@ public class DEBUGPANEL : MonoBehaviour
         {
             data.item.Add(ItemMgr.Inst.GetNormalEquip().ID);
         }
-
+        data.isTutorial = false;
         data.isBoss = startFromBoss;
         Debug.Log("STAGESTART!"+curCharacterIdx+"+"+ curStageIdx);
+
+        //하드모드 열려있으면 강제로 하드모드 진입
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR)) data.isHardMode = true;
         UTILS.SaveRunData(data);
 
         LoadSceneMgr.LoadSceneAsync("Main");
@@ -76,6 +82,19 @@ public class DEBUGPANEL : MonoBehaviour
     public void Btn_MoneyCheat()
     {
         LoadedSave.Inst.save.Coin += 200;
+        LoadedSave.Inst.SyncSaveData();
+    }
+
+    public void Btn_RemoveAllData()
+    {
+        UTILS.DeleteRunData();
+        UTILS.DeleteSaveData();
+        UTILS.DeleteSettingData();
+    }
+
+    public void Btn_EnableHardmode()
+    {
+        LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
         LoadedSave.Inst.SyncSaveData();
     }
 }

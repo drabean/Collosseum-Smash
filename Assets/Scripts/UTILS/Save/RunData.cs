@@ -25,4 +25,11 @@ public class RunData
     public bool isBoss = false; // true일 시, 일반 몬스터 스테이지를 건너뛰고, 보스 스테이지로 직행
     public int normalProgress = 0; // 일반 몬스터 진행치 - 이번 스테이지에서 잡은 애들 수
     public int bossProgress = 0; // 보스 진행치 - 이번스테이지에서 적에게 "입힌 피해량"
+
+    public bool isHardMode;
+
+    public int reviveCount = 0; // 부활 남은 횟수
+    public bool isRevivedAd = false; // 광고로 부활 했는지.
+
+    public bool isGameOver;
 }

@@ -12,9 +12,12 @@ public class Enemy : CharacterBase
 
     public bool isSuperarmor;
     #region delegate
-    public Action<Vector3> onDeath;
-    protected void invokeOnDeath(Vector3 pos) { onDeath?.Invoke(pos); }
+    public Action<Vector3> ActionOnDeath;
+    protected void invokeOnDeath(Vector3 pos) { ActionOnDeath?.Invoke(pos); }
     public Action onSpawn;
+
+    public Action<Transform, float> ActionOnHit;
+    protected void invokeOnHit(Transform attackerPos, float dmg) { ActionOnHit?.Invoke(attackerPos, dmg);}
     #endregion
 
     protected GameObject curAttackWarning;
@@ -25,7 +28,7 @@ public class Enemy : CharacterBase
     {
         if (isDead) return;
         curHP -= dmg;
-
+        invokeOnHit(attackerPos, dmg);
 
         if (curHP <= 0)
         {
@@ -104,7 +107,7 @@ public class Enemy : CharacterBase
         }
     }
 
-    void stun(float stunTime)
+    public void stun(float stunTime)
     {
         StopAllCoroutines();
         StartCoroutine(co_Stun(stunTime));

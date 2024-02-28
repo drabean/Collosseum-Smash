@@ -24,14 +24,18 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
 
         //세이브 데이터 확인 및 배경 캐릭터 동기화
         RunData lastRunData = UTILS.GetRunData();
-
         if(lastRunData != null)
         {
             CharacterSelectGroup.Init(lastRunData.characterInfoIdx);
+            if (lastRunData.isGameOver)
+            {
+                UTILS.DeleteRunData();
+                lastRunData = null;
+            }
         }
         else
         {
-            CharacterSelectGroup.Init(0);
+             CharacterSelectGroup.Init(0);
         }
 
         #region 버튼 생성

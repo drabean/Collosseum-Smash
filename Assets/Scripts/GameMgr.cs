@@ -115,19 +115,19 @@ public class GameMgr : MonoSingleton<GameMgr>
  
     void checkUnlock()
     {
-        if(LoadedSave.Inst.save.CheckUnlock(UNLOCKS.ATKSPD))
+        if(LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKSPD))
         {
             player.GetComponent<Animator>().SetFloat("atkSpd",1.15f);
         }
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.THRWDMG))
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.THRWDMG))
         {
             player.Stat.ACC++;
         }
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.MAXHP))
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MAXHP))
         {
             player.Stat.VIT++;
         }
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.MONEY))
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MONEY))
         {
             coinCount-=2;
         }
@@ -139,7 +139,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         Enemy Gong = Instantiate(GongPrefab);
         Gong.transform.position = Vector3.up * 4;
         //StartNormalStage();
-        Gong.onDeath += position =>
+        Gong.ActionOnDeath += position =>
         {
             // 무명 함수 내부에서 StartStage() 함수 호출
             StartCoroutine(StartNormalStage());
@@ -215,7 +215,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     int curEnemyCount = 0;
     int baseEnemyCount = 0; // 기본형 적 최대 소환 수
-    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.5f);
+    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.0f);
     IEnumerator normalEnemySpawnRoutine()
     {
         while (true)
@@ -230,7 +230,16 @@ public class GameMgr : MonoSingleton<GameMgr>
             int idx2Spwn = getIndexToSpawn();
             if (idx2Spwn == 0) baseEnemyCount++;
 
-            EnemyMgr.Inst.SpawnEnemy(stageInfo.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn));
+            BUF buf = BUF.NONE;
+            if (curRunData.isHardMode)
+            {
+                if (Random.Range(0, 3) == 0)
+                {
+                    if (idx2Spwn == 0) buf = (BUF)Random.Range(1, 3);   // 근접 몬스터는 메달 / 폭탄 버프만
+                    else buf = (BUF)Random.Range(3, 5);                 // 특수 몬스터는 텔레포트 / 추가발사만
+                }
+            }
+            EnemyMgr.Inst.SpawnEnemy(stageInfo.Enemies[idx2Spwn], EnemyMgr.Inst.getRandomPos(), (pos) => onNormalEnemyDie(idx2Spwn), buf);
             curEnemyCount++;
         }
     }
@@ -251,7 +260,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         progressTMP.text = stageInfo.bossText;
 
         UIMgr.Inst.progress.HideAll();
-        EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, onBossDie);
+        EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, curRunData.isHardMode ,onBossDie);
         yield return new WaitForSeconds(1f);
         progressTMP.text = stageInfo.bossText;
         yield return new WaitForSeconds(1.7f);
@@ -312,7 +321,7 @@ public class GameMgr : MonoSingleton<GameMgr>
                 baseEnemyCount = 4;
                 maxCount = 5;
                 break;
-            case <= 25:
+            case <= 20:
                 baseEnemyCount = 3;
                 maxCount = 5;
                 break;
@@ -321,8 +330,8 @@ public class GameMgr : MonoSingleton<GameMgr>
                 maxCount = 6;
                 break;           
             case <= 35:
-                baseEnemyCount = 4;
-                maxCount = 7;
+                baseEnemyCount = 3;
+                maxCount = 6;
                 break;
         }
 
@@ -348,7 +357,6 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (curDropCount >= dropCount)
         {
             curDropCount = 0;
-            Debug.Log("SPAWN");
             Instantiate(stageInfo.ThrowItem, position, Quaternion.identity);
         }
         curCoinCount++;
@@ -434,7 +442,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         curRunData.stageProgress++;
         curRunData.curHP = (int)player.curHP + 2;
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCKS.HPREG)) curRunData.curHP++;
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;
         curRunData.isBoss = false;
 
         curRunData.normalProgress = 0;
@@ -458,14 +466,16 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             case PHASE.NORMAL:
                 curRunData.isBoss = false;
-                curRunData.normalProgress = progressCount;
+                curRunData.normalProgress = Mathf.Max(0, progressCount-5);
                 break;
             case PHASE.BOSS:
                 curRunData.isBoss = true;
 
-                curRunData.bossProgress = (int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP);
+                curRunData.bossProgress =Mathf.Min((int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP + 10), (int)UIMgr.Inst.progress.bossMaxHP);
                 break;
         }
+        //여기서 게임오버 확인 - 광고 추가시 해당 사항도 추가 확인해야함
+        if (curRunData.reviveCount <= 0) curRunData.isGameOver = true;
         UTILS.SaveRunData(curRunData);
     }
 

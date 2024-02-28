@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
+public enum BUF
+{
+    NONE = 0,
+    MEDAL = 1,
+    BOMB = 2,
+    TELEPORT = 3,
+    SHOOTER = 4
+}
 
 public class EnemyMgr : MonoSingleton<EnemyMgr>
 {
@@ -71,10 +79,10 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <param name="enemyPrefab">소환할 적 프리팹</param>
     /// <param name="position">소환할 위치</param>
     /// <param name="deadOption">사망시 호출될 추가 함수 (옵션)</param>
-    public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
+    public void SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null, BUF buf = BUF.NONE)
     {
         canSpawnEnemy = true;
-        StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption));
+        StartCoroutine(co_SpawnEnemy(enemyPrefab, position, deadOption, buf));
     }
 
     /// <summary>
@@ -84,7 +92,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     /// <param name="position"></param>
     /// <param name="deadOption"></param>
     /// <returns></returns>
-    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
+    IEnumerator co_SpawnEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null, BUF buf = BUF.NONE)
     {
         position = getClampedVec(position);
         GameMgr.Inst.AttackEffectCircle(position, 1.0f, 1.0f);
@@ -101,16 +109,78 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
         spawnedEnemy.Target = player;
         spawnedEnemy.StartAI();
-        
-        if(deadOption != null) spawnedEnemy.onDeath += deadOption;
+        if (buf != BUF.NONE) addBufToEnemy(spawnedEnemy, buf);
+        if(deadOption != null) spawnedEnemy.ActionOnDeath += deadOption;
     }
 
-    public void SpawnBossEnemy(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
+    #region 적 버프 (하드모드)
+
+    void addBufToEnemy(Enemy enemy, BUF buf)
     {
-        StartCoroutine(co_spawnBoss(enemyPrefab, position, deadOption));
+
+        switch (buf)
+        {
+            case BUF.MEDAL:
+                GameObject Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconMedal");
+                Icon.transform.parent = enemy.transform;
+                Icon.transform.localPosition = Vector3.up * 0.8f;
+
+                //크기 증가, 체력 및 이속 증가
+                enemy.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                enemy.curHP *= 1.5f;
+                enemy.moveSpeed *= 1.2f;
+                enemy.isSuperarmor = true;
+                break;
+            case BUF.BOMB:
+                Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconBomb");
+                Icon.transform.parent = enemy.transform;
+                Icon.transform.localPosition = Vector3.up * 0.8f;
+
+                //사망시 위치에 폭탄 설치
+                enemy.ActionOnDeath += (Vector3 attackerPos) => { BUFBOMB(attackerPos, enemy.transform); };
+
+                break;
+            case BUF.TELEPORT:
+                Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconTeleport");
+                Icon.transform.parent = enemy.transform;
+                Icon.transform.localPosition = Vector3.up * 0.8f;
+                //피격시 플레이어 주변 무작위 위치로 텔레포트.
+                enemy.ActionOnHit += (Transform attackerPos, float dmg) => { BUFTeleport(attackerPos, dmg, enemy.transform); };
+                break;
+            case BUF.SHOOTER:
+                Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconShooter");
+                Icon.transform.parent = enemy.transform;
+                Icon.transform.localPosition = Vector3.up * 0.8f;
+                GameObject Shooter = Instantiate(Resources.Load<GameObject>("Prefabs/BUFShooter"));
+                Shooter.transform.SetParent(enemy.transform);
+                Shooter.transform.localPosition = Vector3.up * 0.8f;
+
+
+                enemy.ActionOnDeath += (Vector3 attackerPos) => { Destroy(Shooter.gameObject); };
+                break;
+        }
     }
 
-    IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption = null)
+    void BUFTeleport(Transform attackerPos, float dmg, Transform owner)
+    {
+        //공격모션 중지
+        owner.GetComponent<Enemy>().stun(0);
+        //공격자 위치 주변, 스테이지 밖을 벗어나지 않는 범위.
+        owner.transform.position = attackerPos.position.Randomize(6.0f).Clamp(spawnArea[0].position, spawnArea[1].position);
+    }
+
+    void BUFBOMB(Vector3 hitVec, Transform owner)
+    {
+        Instantiate(Resources.Load<GameObject>("Prefabs/Bomb"), owner.position, Quaternion.identity);
+    }
+
+    #endregion
+    public void SpawnBossEnemy(Enemy enemyPrefab, Vector3 position, bool isHardMode, Action<Vector3> deadOption = null)
+    {
+        StartCoroutine(co_spawnBoss(enemyPrefab, position, isHardMode, deadOption));
+    }
+
+    IEnumerator co_spawnBoss(Enemy enemyPrefab, Vector3 position,bool isHardMode, Action<Vector3> deadOption = null)
     {
         //소환 연출중에 캐릭터가 죽는걸 방지하기 위해 모든 일반적을 없애줌
         GameMgr.Inst.removeAllNormalEnemies();
@@ -131,9 +201,10 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         SoundMgr.Inst.Play("Impact");
 
         Enemy spawnedEnemy = Instantiate<Enemy>(enemyPrefab, position, Quaternion.identity);
-
+        
         spawnedEnemy.Target = player;
-        if (deadOption != null) spawnedEnemy.onDeath += deadOption;
+        spawnedEnemy.GetComponent<EnemyBoss>().isHardMode = isHardMode;
+        if (deadOption != null) spawnedEnemy.ActionOnDeath += deadOption;
 
         UIMgr.Inst.progress.ShowBossUI();
         spawnedEnemy.curHP -= GameMgr.Inst.curRunData.bossProgress;
@@ -158,7 +229,15 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
         UIMgr.Inst.progress.SetBossHP(spawnedEnemy.curHP, spawnedEnemy.maxHP);
         if(spawnedEnemy.curHP != spawnedEnemy.maxHP)SoundMgr.Inst.Play("Hit");
-        spawnedEnemy.GetComponent<EnemyBoss>().alreadyUsedPattern = true; // 반피 이하에서 continue시 발악패턴 안쓰도록 조절
+        if (spawnedEnemy.curHP < ((float)spawnedEnemy.maxHP / 2f))
+        {
+            Debug.Log("Continued boss's HP is lower than half");
+            spawnedEnemy.GetComponent<EnemyBoss>().alreadyUsedPattern = true; // 반피 이하에서 continue시 발악패턴 안쓰도록 조절
+        }
+        else
+        {
+            spawnedEnemy.GetComponent<EnemyBoss>().alreadyUsedPattern = false;
+        }
         spawnedEnemy.StartAI();
         GameMgr.Inst.MainCam.changeTargetToDefault();
         Destroy(camTarget);

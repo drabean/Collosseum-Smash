@@ -171,7 +171,7 @@ public class TutorialMgr : MonoBehaviour
         Enemy Gong = Instantiate(GameMgr.Inst.GongPrefab);
         Gong.transform.position = Vector3.up * 4;
         //StartNormalStage();
-        Gong.onDeath += position =>
+        Gong.ActionOnDeath += position =>
         {
             // 무명 함수 내부에서 StartStage() 함수 호출
             StartCoroutine(GameMgr.Inst.StartNormalStage());

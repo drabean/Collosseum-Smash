@@ -8,9 +8,10 @@ public class SaveData
     public int Exp; // 게임 진행도 경험치. (캐릭터 해금 등에 사용)
     public List<int> Achievements = new List<int>();
     public List<int> Unlocks = new List<int>();
+    public List<int> Progresses = new List<int>();
     public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
 
-    #region 업적 관련
+    #region 업적 관련 (ACHIVEMENT)
     public bool CheckAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
     {
         if (Achievements.Contains((int)achievement)) return true;
@@ -26,14 +27,14 @@ public class SaveData
     }
     #endregion
 
-    #region 해금 관련
-    public bool CheckUnlock(UNLOCKS unlock) // 특정 업적의 클리어 여부를 반환.
+    #region 상점 관련 (UNLOCK)
+    public bool CheckUnlock(UNLOCK unlock) // 특정 업적의 클리어 여부를 반환.
     {
         if (Unlocks.Contains((int)unlock)) return true;
         else return false;
     }
 
-    public void BuyUnlock(UNLOCKS unlock)
+    public void BuyUnlock(UNLOCK unlock)
     {
         if (!Unlocks.Contains((int)unlock))
         {
@@ -44,18 +45,18 @@ public class SaveData
     #endregion
 
 
-    #region 해금 관련
+    #region 해금 관련 (PROGRESS)
     public bool CheckProgress(PROGRESS unlock) // 특정 업적의 클리어 여부를 반환.
     {
-        if (Unlocks.Contains((int)unlock)) return true;
+        if (Progresses.Contains((int)unlock)) return true;
         else return false;
     }
 
-    public void BuyProgress(PROGRESS progress)
+    public void BuyProgress(PROGRESS unlock)
     {
-        if (!Unlocks.Contains((int)progress))
+        if (!Unlocks.Contains((int)unlock))
         {
-            Unlocks.Add((int)progress);
+            Unlocks.Add((int)unlock);
         }
     }
 
@@ -76,13 +77,14 @@ public enum ACHIEVEMENT
 /// <summary>
 /// 상점 해금 Enum
 /// </summary>
-public enum UNLOCKS
+public enum UNLOCK
 {
     ATKSPD = 0,
     THRWDMG = 1,
     MAXHP = 2,
     HPREG = 3,
     MONEY = 4,
+    REVIVE = 5,
 
 }
 

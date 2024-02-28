@@ -14,6 +14,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
     [SerializeField] RectTransform EquipHolder;
     [SerializeField] UIEquipHolder[] equips;
     [SerializeField] Toggle TutorialToggle;
+    [SerializeField] GameObject HardToggleGroup;
+    [SerializeField] Toggle HardmodeToggle;
     public CharacterInfo info;
 
     public int curIdx = 0;
@@ -27,12 +29,33 @@ public class UICharacterSelectCanvas : MonoBehaviour
         curIdx = saveIdx;
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
         changePlayer();
-        if (!LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) TutorialToggle.isOn = true;
-        else TutorialToggle.isOn = false;
+        if (!LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR))
+        {
+            isTutorial = true;
+            TutorialToggle.isOn = true;
+        }
+        else
+        {
+            isTutorial = false;
+            TutorialToggle.isOn = false;
+        }
+
+
+
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR))
+        {
+            HardmodeToggle.gameObject.SetActive(true);
+            HardmodeToggle.isOn = true;
+            isHardMode = true;
+        }
+        else
+        {
+            HardmodeToggle.gameObject.SetActive(false);
+            isHardMode = false;
+        }
     }
     public void OpenCharacterSelect(int idx)
     {
-        //TODO: Save에 저장된 마지막 플레이 캐릭터가 보이도록 함
         GroupCharacterSelect.SetActive(true);
 
         curIdx = idx;
@@ -139,18 +162,25 @@ public class UICharacterSelectCanvas : MonoBehaviour
             data.item.Add(info.playerItems[i].ID);
         }
         data.curHP =10;
-
+        data.reviveCount = 1;
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) data.reviveCount++;
         data.isTutorial = this.isTutorial;
+        data.isHardMode = this.isHardMode;
         UTILS.SaveRunData(data);
 
         resetCharacterView();
         LoadSceneMgr.LoadSceneAsync("Main");
     }
 
-    bool isTutorial = true;
+    bool isTutorial = false;
+    bool isHardMode = false;
     public void Toggle_tutorial(bool isTrue)
     {
         isTutorial = isTrue;
+    }
+    public void Toggle_Hard(bool isTrue)
+    {
+        isHardMode = isTrue;
     }
     #endregion
 

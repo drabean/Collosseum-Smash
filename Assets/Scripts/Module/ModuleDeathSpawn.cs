@@ -14,7 +14,7 @@ public class ModuleDeathSpawn : MonoBehaviour
             Debug.Log("Enemy script not found");
             Destroy(this);
         }
-        enem.onDeath += spawnOnDeath;
+        enem.ActionOnDeath += spawnOnDeath;
     }
 
     void spawnOnDeath(Vector3 pos)
