@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHairballHuge : EnemyBoss
 {
     Attack[] attacks = new Attack[2];
+    Attack GroundBlock;
 
     /// <summary>
     /// 패턴1: 근접공격
@@ -16,7 +17,7 @@ public class EnemyHairballHuge : EnemyBoss
     {
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[1] = Resources.Load<Attack>(patterns[1].prefabName);
-
+        GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock"); ;
         evnt.attack += doAttack;
         evnt.attack2 += doJumpAttack;
     }
@@ -101,6 +102,8 @@ public class EnemyHairballHuge : EnemyBoss
         anim.SetBool("isReady", false);
 
         anim.SetTrigger("doAttack");
+
+        if (isHardMode) ShootGroundBlock();
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
 
     }
@@ -124,6 +127,8 @@ public class EnemyHairballHuge : EnemyBoss
         yield return StartCoroutine(co_Jump(destination));
 
         anim.SetBool("isMoving", false);
+
+        if (isHardMode) ShootGroundBlock();
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
         selectPattern();
     }
@@ -207,6 +212,22 @@ public class EnemyHairballHuge : EnemyBoss
         selectPattern();
     }
 
+    #endregion
+
+    #region 하드모드 추가패턴 
+    public void ShootGroundBlock()
+    {
+        StartCoroutine(co_ShootGroundBlock());
+    }
+    float groundBlockWaitTime = 0.1f;
+    IEnumerator co_ShootGroundBlock()
+    {
+        Vector3[] targetPositions = new Vector3[3] { transform.position.Randomize(3.0f), transform.position.Randomize(3.0f), transform.position.Randomize(3.0f) };
+        for (int i = 0; i < 3; i++) GroundBlock.ShowWarning(transform.position, targetPositions[i],groundBlockWaitTime);
+        yield return new WaitForSeconds(groundBlockWaitTime);
+        for(int i = 0; i < 3; i++) Instantiate(GroundBlock).Shoot(transform.position, targetPositions[i]);
+
+    }
     #endregion
 
 

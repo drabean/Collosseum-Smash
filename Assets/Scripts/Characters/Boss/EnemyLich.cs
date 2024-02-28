@@ -79,7 +79,7 @@ public class EnemyLich : EnemyBoss
 
     #region Patterns
 
-    float pat1WaitTIme = 0.35f;
+    float pat1WaitTIme = 0.55f;
     //4방위 뼈창 공격
     IEnumerator co_Pat1()
     {
@@ -110,7 +110,7 @@ public class EnemyLich : EnemyBoss
                 positions[j] = Target.transform.position + Vector3.right * xOffset + Vector3.up * yOffset;
             }
             float waitTime = pat1WaitTIme;
-            if (i == 0) waitTime += 0.55f;
+            if (i == 0) waitTime += 0.35f;
         
             //공격 경고
             atk.ShowWarning(positions[0], positions[2], waitTime);
@@ -327,7 +327,7 @@ public class EnemyLich : EnemyBoss
 
         while(timeLeft > 0)
         {
-            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 25f;
+            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 35f;
             timeLeft -= Time.deltaTime;
             magicCircleFireTime -= Time.deltaTime;
             lichFireTIme -= Time.deltaTime;
@@ -440,7 +440,7 @@ public class EnemyLich : EnemyBoss
     protected override void rageChange()
     {
         maxSpawnCount = 3;
-        rageChange();
+        spawnSkul();
 
         spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[1]);
