@@ -258,6 +258,8 @@ MonoBehaviour:
   - As the stage progresses, more enemies will appear.
   - After clearing a stage, Your HP will recover by 2
   - When you  Smash enemy, throwing items appear occasionally .
+  - When the powerful enemy's health drops below half, the attacks become even more
+    Dangerous.
 --- !u!1 &540136835
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,10 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You can''t Move while you are attacking.  Exploit the enemy''s vulnerability
-    and strike!
-
-'
+  m_text: You can't Move while you are attacking.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
   m_sharedMaterial: {fileID: -6208690387942919651, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
@@ -559,8 +558,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
-  m_fontSizeBase: 90
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
