@@ -443,4 +443,12 @@ public class Player : CharacterBase
         anim.SetBool("isDead", false);
     }
     #endregion
+
+#if UNITY_EDITOR
+    [ContextMenu("KILL")]
+    void deathTest()
+    {
+        StartCoroutine(co_Smash(Vector3.right));
+    }
+#endif
 }

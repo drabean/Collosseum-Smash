@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adfa240a6e8f444b93e8b3940c9f497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCharge: 4
+  maxCharge: 3
   magic: {fileID: 8155456317301673008, guid: 10f27987efc959a42af7f997168eefa0, type: 3}
   TMP: {fileID: 7160601071969669482}
   chargeEffect: {fileID: 6705601505423457457, guid: 5bc6f785210f6a9488fdb62a714331b8, type: 3}
