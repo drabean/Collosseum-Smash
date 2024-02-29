@@ -15,7 +15,7 @@ public class ModuleFollow : MonoBehaviour
     {
         if (Target == null) return;
 
-        while(Vector3.Distance(transform.position, Target.position) >= mindist)
+        if(Vector3.Distance(transform.position, Target.position) >= mindist)
         {
             transform.position = Vector3.MoveTowards(transform.position, Target.position, Time.deltaTime * moveSpd);
         }

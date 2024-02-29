@@ -31,7 +31,7 @@ public class ProjectileParabola : Attack
         Destroy(gameObject);
     }
 
-    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
+    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time,float size = 1)
     {
         return targetAttack.ShowWarning(targetPos, targetPos, moveTime);
     }

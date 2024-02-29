@@ -183,9 +183,9 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 0
-  attackRange: 6
-  attackWaitTime: 0.6
-  attackAfterTime: 1.1
+  attackRange: 7
+  attackWaitTime: 1.5
+  attackAfterTime: 1.5
   runawayTime: 1
   projectileName: Prefabs/Attack/RapidSkulMissile
 --- !u!95 &5112398023351027449

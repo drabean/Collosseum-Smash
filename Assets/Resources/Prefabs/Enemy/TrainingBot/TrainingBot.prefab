@@ -92,7 +92,7 @@ MonoBehaviour:
   isDead: 0
   maxHP: 4
   curHP: 4
-  moveSpeed: 2.5
+  moveSpeed: 2
   moveSpeedCo: 1
   aimRange: 1
   size: 0

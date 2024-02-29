@@ -16,24 +16,26 @@ public class EnemyLich : EnemyBoss
 
     public List<Vector3> patternVector = new List<Vector3>();
 
-    public LichSubSkul subSkul;
-    List<GameObject> subSkuls = new List<GameObject>();
+    public SubShooter subSkul;
+    List<SubShooter> subSkuls = new List<SubShooter>();
+    List<SubShooter> hardSubSkuls = new List<SubShooter>();
     public override void StartAI()
     {
         GetComponent<Collider2D>().enabled = false;
-        spawnPool.Add(mobs[0]);
         spawnPool.Add(mobs[0]);
         StartCoroutine(co_SpawnRoutine());
         StartCoroutine(co_Idle(0.7f));
 
         spawnSkul();
+        if(isHardMode) StartCoroutine(spawnSubSkulHard());
     }
 
     void spawnSkul()
     {
-        LichSubSkul skul = Instantiate(subSkul);
+        SubShooter skul = Instantiate(subSkul);
         skul.Init(transform, (Player)Target);
-        subSkuls.Add(skul.gameObject);
+        skul.StartAutoShoot();
+        subSkuls.Add(skul);
     }
     IEnumerator co_Idle(float time = 1.5f)
     {
@@ -327,7 +329,7 @@ public class EnemyLich : EnemyBoss
 
         while(timeLeft > 0)
         {
-            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 35f;
+            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 40f;
             timeLeft -= Time.deltaTime;
             magicCircleFireTime -= Time.deltaTime;
             lichFireTIme -= Time.deltaTime;
@@ -338,10 +340,10 @@ public class EnemyLich : EnemyBoss
             {
                 magicCircleFireTime = patterns[4].intervalTime;
 
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     // 각도를 라디안으로 변환
-                    float radians = (angle + j * 90) * Mathf.Deg2Rad;
+                    float radians = (angle + j * 120) * Mathf.Deg2Rad;
 
                     // 좌표 계산
                     float xOffset = patterns[0].range * Mathf.Cos(radians);
@@ -354,7 +356,7 @@ public class EnemyLich : EnemyBoss
 
             if(lichFireTIme <= 0)
             {
-                lichFireTIme = 1;
+                lichFireTIme = 1.5f;
                 StartCoroutine(co_Pat5Subpattern());
             }
             yield return null;
@@ -439,12 +441,46 @@ public class EnemyLich : EnemyBoss
     }
     protected override void rageChange()
     {
-        maxSpawnCount = 3;
-        spawnSkul();
+        maxSpawnCount = 2;
+        StartCoroutine(co_ResetSubSkul());
 
         spawnPool.Add(mobs[0]);
-        spawnPool.Add(mobs[1]);
+        spawnPool.Add(mobs[1]); // 원거리형 잡몹을 더 적게 소환하기 위해, 근거리형 잡몹을 2마리 추가로 리스트에 추가.
     }
+    IEnumerator co_ResetSubSkul() // SubSkul을 하나 더 생성하고, 발사주기를 재조정하는 함수.
+    {
+        subSkuls[0].StopAutoShoot();
+        subSkuls[0].StartAutoShoot();
+
+        if (!isHardMode)
+        {
+            yield return new WaitForSeconds(subSkuls[0].shootInterval / 3);
+
+            SubShooter skul = Instantiate(subSkul);
+            skul.Init(transform, (Player)Target);
+            skul.StartAutoShoot();
+            subSkuls.Add(skul);
+        }
+        else
+        {
+            hardSubSkuls[0].StopAutoShoot();
+            hardSubSkuls[1].StopAutoShoot();
+
+            yield return new WaitForSeconds(subSkuls[0].shootInterval / 5);
+            SubShooter skul = Instantiate(subSkul);
+            skul.Init(transform, (Player)Target);
+            skul.StartAutoShoot();
+            subSkuls.Add(skul);
+
+            yield return new WaitForSeconds(subSkuls[0].shootInterval / 5);
+            hardSubSkuls[0].StartAutoShoot();         
+            
+            yield return new WaitForSeconds(subSkuls[0].shootInterval / 5);
+            hardSubSkuls[1].StartAutoShoot();
+
+        }
+    }
+
     void groggy()
     {
         patternParticle.Play();
@@ -456,8 +492,22 @@ public class EnemyLich : EnemyBoss
         anim.SetBool("isAtk3Ready", false);
         anim.SetBool("isGroggy", true);
         GameMgr.Inst.removeAllNormalEnemies();
-        foreach(GameObject subSkul in subSkuls) { Destroy(subSkul); }
+        foreach(SubShooter subSkul in subSkuls) { Destroy(subSkul.gameObject); }
         GetComponent<Collider2D>().enabled = true;
         transform.position = groggyVec;
+    }
+
+    IEnumerator spawnSubSkulHard()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            SubShooter skul = Instantiate(subSkul, Vector3.right * (i ==1 ? -5 : 5) + Vector3.up * 5.5f, Quaternion.identity);
+            skul.Init(transform, (Player)Target);
+            Destroy(skul.GetComponent<ModuleFollow>());
+            hardSubSkuls.Add(skul);
+        }
+        yield return new WaitForSeconds(subSkuls[0].shootInterval / 2);
+        hardSubSkuls[0].StartAutoShoot();
+        hardSubSkuls[1].StartAutoShoot();
     }
 }

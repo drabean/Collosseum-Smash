@@ -29,7 +29,7 @@ public class Shooter : MonoBehaviour
             {
                 shootTimeLeft = ShootTime;
 
-                RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 7.0f, Vector3.forward, 0f, layer);
+                RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 8.0f, Vector3.forward, 0f, layer);
 
                 if (hits.Length == 0) continue;
                 Vector3 startPos = transform.position;

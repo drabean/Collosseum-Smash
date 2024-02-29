@@ -17,7 +17,7 @@ public class EnemyHairballHuge : EnemyBoss
     {
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[1] = Resources.Load<Attack>(patterns[1].prefabName);
-        GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock"); ;
+        GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock");
         evnt.attack += doAttack;
         evnt.attack2 += doJumpAttack;
     }
@@ -225,7 +225,7 @@ public class EnemyHairballHuge : EnemyBoss
         Vector3[] targetPositions = new Vector3[3] { transform.position.Randomize(3.0f), transform.position.Randomize(3.0f), transform.position.Randomize(3.0f) };
         for (int i = 0; i < 3; i++) GroundBlock.ShowWarning(transform.position, targetPositions[i],groundBlockWaitTime);
         yield return new WaitForSeconds(groundBlockWaitTime);
-        for(int i = 0; i < 3; i++) Instantiate(GroundBlock).Shoot(transform.position, targetPositions[i]);
+        for(int i = 0; i < 3; i++) Instantiate(GroundBlock).Shoot(aim.transform.position, targetPositions[i]);
 
     }
     #endregion

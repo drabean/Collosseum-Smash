@@ -37,7 +37,7 @@ public class LichBoneSpear : Attack
         Destroy(gameObject);
 
     }
-    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
+    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time, float size = 1)
     {
         Vector3[] positions = new Vector3[4];
         //각 공격들의 발사 / 목표 위치 계산

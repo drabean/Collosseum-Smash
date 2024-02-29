@@ -126,8 +126,8 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 Icon.transform.localPosition = Vector3.up * 0.8f;
 
                 //크기 증가, 체력 및 이속 증가
-                enemy.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-                enemy.curHP *= 1.5f;
+                enemy.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                enemy.curHP += enemy.curHP *(0.8f);
                 enemy.moveSpeed *= 1.2f;
                 enemy.isSuperarmor = true;
                 break;
@@ -145,6 +145,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
                 Icon.transform.parent = enemy.transform;
                 Icon.transform.localPosition = Vector3.up * 0.8f;
                 //피격시 플레이어 주변 무작위 위치로 텔레포트.
+                enemy.curHP += 3; // 원킬 방지
                 enemy.ActionOnHit += (Transform attackerPos, float dmg) => { BUFTeleport(attackerPos, dmg, enemy.transform); };
                 break;
             case BUF.SHOOTER:

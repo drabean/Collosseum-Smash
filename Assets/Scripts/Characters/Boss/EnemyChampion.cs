@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyChampion : EnemyBoss
 {
     Attack[] attacks = new Attack[4];
-
+    Attack GroundBlock;
     #region Override
     private void Awake()
     {
@@ -20,6 +20,8 @@ public class EnemyChampion : EnemyBoss
         attacks[1] = Resources.Load<Attack>(patterns[1].prefabName);
         attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
         attacks[3] = Resources.Load<Attack>(patterns[3].prefabName);
+
+        GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock");
     }
 
 
@@ -193,6 +195,7 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
+        if (isHardMode) ShootGroundBlock();
         Instantiate(attacks[0]).Shoot(aim.position, aim.position);
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
@@ -290,8 +293,10 @@ public class EnemyChampion : EnemyBoss
 
     void spawnCompanion()
     {
-        spawnMob(0, deadOption);
-        spawnMob(1, deadOption);
+        BUF buf = BUF.NONE;
+        if (isHardMode) buf = BUF.MEDAL;
+        spawnMob(0, deadOption, buf);
+        spawnMob(1, deadOption, buf);
     }
 
     protected override void rageChange()
@@ -299,4 +304,21 @@ public class EnemyChampion : EnemyBoss
         patterns[3].repeatTIme++;
         patterns[3].waitBeforeTime -= 0.15f;
     }
+
+    #region 하드모드 추가패턴 
+    public void ShootGroundBlock()
+    {
+        StartCoroutine(co_ShootGroundBlock());
+    }
+    float groundBlockWaitTime = 0.1f;
+    IEnumerator co_ShootGroundBlock()
+    {
+        Vector3[] targetPositions = new Vector3[2] { transform.position.Randomize(3.0f), transform.position.Randomize(4.0f) };
+        for (int i = 0; i < 2; i++) GroundBlock.ShowWarning(transform.position, targetPositions[i], groundBlockWaitTime);
+        yield return new WaitForSeconds(groundBlockWaitTime);
+        for (int i = 0; i < 2; i++) Instantiate(GroundBlock).Shoot(aim.transform.position, targetPositions[i]);
+
+    }
+    #endregion
+
 }

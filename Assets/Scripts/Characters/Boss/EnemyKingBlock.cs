@@ -48,6 +48,8 @@ public class EnemyKingBlock : EnemyBoss
         subBlocks[1].transform.position = Vector3.right * 5.8f+ Vector3.up * -0.6f;
         subBlocks[1].Init(this, Target);
         subBlocks[1].transform.localScale = Vector3.right * (-1) + Vector3.up + Vector3.forward;
+
+        if (isHardMode) SpawnSubShooter();
     }
 
     IEnumerator co_Idle(float time = 1.5f)
@@ -70,8 +72,7 @@ public class EnemyKingBlock : EnemyBoss
         patIdx += Random.Range(1, 4);
         patIdx %= 5;
 
-
-        if(isRagePattern)
+        if (isRagePattern)
         {
             isRagePattern = false;
             StartCoroutine(co_Pat6());
@@ -110,6 +111,11 @@ public class EnemyKingBlock : EnemyBoss
         {
             sp.color = faceColors[colorIdx];
         }
+        if (isHardMode && subShooter != null)
+        {
+            if (colorIdx == 0) subShooter.ShootCount(3); // 안전 모드로 돌아갈때 4발
+            else subShooter.ShootCount(2); // 패턴 시작할때 2발
+        }
     }
 
 
@@ -117,8 +123,8 @@ public class EnemyKingBlock : EnemyBoss
     {
         foreach(SubBlock block in subBlocks)
         {
-            block.fire1WaitTime -= 0.1f;
-            block.fire2WaitTime -= 0.15f;
+            block.fire1WaitTime -= 0.05f;
+            block.fire2WaitTime -= 0.1f;
         }
     }
     #region 이동
@@ -142,15 +148,7 @@ public class EnemyKingBlock : EnemyBoss
     #endregion
 
     #region 가시
-    /*
-        for(int x = 0; x <10; x++)
-        {
-            for(int y = 0; y < 8; y++)
-            {
 
-            }
-        }
-    */
     Animator[,] spikes = new Animator[10, 8];
     public Animator SpikePrefab;
 
@@ -249,7 +247,6 @@ public class EnemyKingBlock : EnemyBoss
     #region 패턴 1 - 번갈아가면서 찍기 패턴
     IEnumerator co_Pat1()
     {
-        changeFaceColor(1);
 
         Vector3 originVec = transform.position;
         int spikeIdx = Random.Range(0, 2);
@@ -257,6 +254,7 @@ public class EnemyKingBlock : EnemyBoss
         spikeWarning(edges, patterns[0].waitBeforeTime);
         spikeWarning(additional[spikeIdx], patterns[0].waitBeforeTime);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
+        changeFaceColor(1);
         setDir();
 
         showSpikes(edges);
@@ -273,6 +271,7 @@ public class EnemyKingBlock : EnemyBoss
         yield return StartCoroutine(subBlocks[1].co_Smash());
 
         hideAllSpikes();
+        changeFaceColor(0);
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
         selectPattern();
     }
@@ -321,13 +320,13 @@ public class EnemyKingBlock : EnemyBoss
         StartCoroutine(subBlocks[++blockSwitch % 2].co_Fire2(patterns[1].duration));
         spikeWarning(edges, 1.0f);
         yield return new WaitForSeconds(1.0f);
-        showSpikes(edges);
-
         changeFaceColor(2);
+        showSpikes(edges);
 
         yield return new WaitForSeconds(patterns[1].duration-1);
 
         hideAllSpikes();
+        changeFaceColor(0);
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
 
         selectPattern();
@@ -337,7 +336,6 @@ public class EnemyKingBlock : EnemyBoss
     #region 패턴 3 - 레이져 발사 패턴
     IEnumerator co_Pat3()
     {
-        changeFaceColor(2);
         //어느 블럭에서 레이저를 발사 할 지 정하는 변수
         int  subBlockIdx = 0;
 
@@ -346,6 +344,8 @@ public class EnemyKingBlock : EnemyBoss
         spikeWarning(edges, patterns[0].waitBeforeTime);
         spikeWarning(additional[spikeIdx], patterns[0].waitBeforeTime);
         yield return new WaitForSeconds(patterns[2].waitBeforeTime);
+
+        changeFaceColor(2);
 
         showSpikes(edges);
         showSpikes(additional[spikeIdx]);
@@ -367,6 +367,7 @@ public class EnemyKingBlock : EnemyBoss
             yield return new WaitForSeconds(patterns[2].intervalTime);
         }
 
+        changeFaceColor(0);
         hideAllSpikes();
         yield return new WaitForSeconds(patterns[2].waitAfterTime);
 
@@ -397,15 +398,15 @@ public class EnemyKingBlock : EnemyBoss
     /// <returns></returns>
     public IEnumerator co_Pat4()
     {
-     
         yield return StartCoroutine(co_Move(Vector3.up * 4.5f));
+
+        changeFaceColor(2);
         faceChangeAction.Invoke();
         anim.SetBool("isShootFront", true);
 
         spikeWarning(edges,patterns[3].waitBeforeTime);
         spikeWarning(additional[0], patterns[3].waitBeforeTime);
         yield return new WaitForSeconds(patterns[3].waitBeforeTime);
-        changeFaceColor(0);
         showSpikes(edges);
         showSpikes(additional[0]);
 
@@ -429,6 +430,7 @@ public class EnemyKingBlock : EnemyBoss
         }
         anim.SetBool("isShootFront", false);
 
+        changeFaceColor(0);
         hideAllSpikes();
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
 
@@ -440,7 +442,7 @@ public class EnemyKingBlock : EnemyBoss
     IEnumerator co_Pat5()
     {
         #region 살릴 구역 정하기
-        int safeNum = Random.Range(4, 7);
+        int safeNum = Random.Range(2, 5);
 
         List<Animator> spikeLis = new List<Animator>();
         for (int x = 0; x < 10; x++)
@@ -481,6 +483,7 @@ public class EnemyKingBlock : EnemyBoss
         subBlocks[1].MoveToStartpos();
         yield return StartCoroutine(co_Move(Vector3.up * 4.5f));
         spikeWarning(edges, patterns[5].waitBeforeTime);
+        changeFaceColor(2);
         yield return new WaitForSeconds(patterns[5].waitBeforeTime);
         showSpikes(edges);
 
@@ -491,6 +494,7 @@ public class EnemyKingBlock : EnemyBoss
         StartCoroutine(subBlocks[1].co_FireSingle(patterns[5].duration, fireInterval));
         yield return new WaitForSeconds(patterns[5].duration);
 
+        changeFaceColor(0);
         hideAllSpikes();
         yield return new WaitForSeconds(patterns[5].waitAfterTime);
         selectPattern();
@@ -529,5 +533,15 @@ public class EnemyKingBlock : EnemyBoss
         anim.SetBool("isShootLear", false);
     }
 
+    #endregion
+    #region 하드모드패턴
+    public SubShooter SubShooterPrefab;
+    SubShooter subShooter;
+
+    void SpawnSubShooter()
+    {
+        subShooter = Instantiate(SubShooterPrefab, new Vector3(0, -6, 0), Quaternion.identity);
+        subShooter.Init(transform, Target);
+    }
     #endregion
 }

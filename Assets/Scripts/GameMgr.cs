@@ -315,11 +315,11 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             case <=5:
                 baseEnemyCount = 3;
-                maxCount = 4;
+                maxCount = 3;
                 break;
             case <= 15:
-                baseEnemyCount = 4;
-                maxCount = 5;
+                baseEnemyCount = 3;
+                maxCount = 4;
                 break;
             case <= 20:
                 baseEnemyCount = 3;
@@ -471,7 +471,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             case PHASE.BOSS:
                 curRunData.isBoss = true;
 
-                curRunData.bossProgress =Mathf.Min((int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP + 10), (int)UIMgr.Inst.progress.bossMaxHP);
+                curRunData.bossProgress = Mathf.Max((int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP - UIMgr.Inst.progress.bossMaxHP * (1/5f)), 0);
                 break;
         }
         //여기서 게임오버 확인 - 광고 추가시 해당 사항도 추가 확인해야함
@@ -507,13 +507,15 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
 
 
+    //직선형 경고
     ObjectPool Pool_attackWarningLinear;
-    public GameObject AttackEffectLinear(Vector3 startPos, Vector3 endpos, float height, float time)
+    public GameObject AttackEffectLinear(Vector3 startPos, Vector3 endpos, float height, float time, float size = 1)
     {
         //TODO: ObjectPool
         GameObject temp = Pool_attackWarningLinear.Pop();
         temp.transform.position = startPos;
         temp.transform.rotation = (endpos - startPos).ToQuaternion();
+        temp.transform.localScale = Vector3.right * size + Vector3.up * size + Vector3.forward;
         temp.GetComponent<SpriteRenderer>().size = Vector2.right * (endpos - startPos).magnitude + Vector2.up * height;
 
         temp.GetComponent<Poolable>().Push(time);
@@ -521,6 +523,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         return temp;
     }
 
+    //원형 경고
     // SpriteRenderer attackWarningCircle;
     ObjectPool Pool_attackWarningCircle;
     public GameObject AttackEffectCircle(Vector3 startPos, float range, float time)

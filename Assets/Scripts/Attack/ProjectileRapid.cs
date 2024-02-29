@@ -27,7 +27,7 @@ public class ProjectileRapid : Attack
         Destroy(gameObject);
     }
 
-    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
+    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time, float size = 1)
     {
         return projectile.ShowWarning(startPos, targetPos, time);
     }

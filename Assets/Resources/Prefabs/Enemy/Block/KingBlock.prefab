@@ -336,7 +336,7 @@ MonoBehaviour:
   patterns:
   - range: 0
     width: 0
-    waitBeforeTime: 0.8
+    waitBeforeTime: 0.9
     waitAfterTime: 2
     intervalTime: 0
     repeatTIme: 2
@@ -361,7 +361,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 1
-    waitAfterTime: 0.8
+    waitAfterTime: 1.1
     intervalTime: 0.2
     repeatTIme: 0
     duration: 7
@@ -383,7 +383,9 @@ MonoBehaviour:
     duration: 10
     prefabName: 
   patternCount: 0
+  isHardMode: 0
   mobs: []
+  alreadyUsedPattern: 0
   maxSpawnCount: 3
   subBlockPrefab: {fileID: 4432736918336127245, guid: 013f7549ea3126743b359eab2e223396, type: 3}
   subBlocks:
@@ -400,6 +402,7 @@ MonoBehaviour:
   firePositions:
   - {x: -6, y: -5, z: 0}
   - {x: 6, y: -5, z: 0}
+  SubShooterPrefab: {fileID: 986508260195636350, guid: d10bbd26359d22c42b05cb895a0401c9, type: 3}
 --- !u!95 &2734482238864720141
 Animator:
   serializedVersion: 5

@@ -106,6 +106,7 @@ public class EnemySlimeKing : EnemyBoss
         {
             setDir();
             yield return StartCoroutine(co_Move(Target.transform.position));
+            if (isHardMode) ShootParabolaSlime();
             yield return new WaitForSeconds(patterns[0].intervalTime);
         }
 
@@ -154,6 +155,7 @@ public class EnemySlimeKing : EnemyBoss
 
         float timeLeft = patterns[1].duration;
         anim.SetBool("isShakingWeak", true);
+        if (isHardMode) ShootParabolaSlime();
         GameMgr.Inst.MainCam.Shake(patterns[1].duration, 20, 0.08f, 0, true);
         isImmune = true;
         while(timeLeft >= 0)
@@ -208,7 +210,8 @@ public class EnemySlimeKing : EnemyBoss
             attacks[1].ShowWarning(transform.position, targetPositions[i], patterns[2].waitBeforeTime);
         }
         yield return co_Move(transform.position);
-        foreach(Vector3 targetPos in targetPositions)
+        if (isHardMode) ShootParabolaSlime();
+        foreach (Vector3 targetPos in targetPositions)
         {
             Instantiate(attacks[1], transform.position, Quaternion.identity).Shoot(transform.position, targetPos);
         }
@@ -277,6 +280,21 @@ public class EnemySlimeKing : EnemyBoss
     }
 
     #endregion
+
+    public void ShootParabolaSlime()
+    {
+        StartCoroutine(co_ShootParabolaSlime());
+    }
+
+    float slimeBallWaitTIme = 0.1f;
+    IEnumerator co_ShootParabolaSlime()
+    {
+        Vector3[] targetPositions = new Vector3[3] { transform.position.Randomize(3.0f), transform.position.Randomize(3.0f), transform.position.Randomize(3.0f) };
+        for (int i = 0; i < 3; i++) attacks[2].ShowWarning(transform.position, targetPositions[i], slimeBallWaitTIme);
+        yield return new WaitForSeconds(slimeBallWaitTIme);
+        for (int i = 0; i < 3; i++) Instantiate(attacks[2]).Shoot(transform.position, targetPositions[i]);
+
+    }
 }
 
 /*LEGACY

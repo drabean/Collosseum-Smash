@@ -6,7 +6,7 @@ public class SpawnAttack : Attack
 {
     public string SpawnName;
 
-    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
+    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time, float size = 1)
     {
         curWarning = GameMgr.Inst.AttackEffectCircle(targetPos, 1.5f, time);
         return curWarning;

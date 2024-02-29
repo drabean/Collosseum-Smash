@@ -135,20 +135,20 @@ public class EnemyBoss : Enemy
     public int maxSpawnCount = 3;
     protected int curSpawnCount = 0;
 
-    protected virtual void spawnMob(int idx, Action<Vector3> deadOption)
+    protected virtual void spawnMob(int idx, Action<Vector3> deadOption, BUF buf = BUF.NONE)
     {
-        spawnMob(idx, EnemyMgr.Inst.getRandomPos(), deadOption);
+        spawnMob(idx, EnemyMgr.Inst.getRandomPos(), deadOption, buf);
     }
-     protected virtual void spawnMob(int idx, Vector3 position, Action<Vector3> deadOption)
+     protected virtual void spawnMob(int idx, Vector3 position, Action<Vector3> deadOption, BUF buf = BUF.NONE)
     {
-        spawnMob(mobs[idx], position, deadOption);
+        spawnMob(mobs[idx], position, deadOption, buf);
     }
 
-    protected virtual void spawnMob(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption)
+    protected virtual void spawnMob(Enemy enemyPrefab, Vector3 position, Action<Vector3> deadOption, BUF buf = BUF.NONE)
     {
         if (curSpawnCount >= maxSpawnCount) return;
         curSpawnCount++;
-        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, position, deadOption);
+        EnemyMgr.Inst.SpawnEnemy(enemyPrefab, position, deadOption, buf);
     }
     protected virtual void deadOption(Vector3 hitVec)
     {

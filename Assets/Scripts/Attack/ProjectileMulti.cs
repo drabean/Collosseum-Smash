@@ -24,7 +24,7 @@ public class ProjectileMulti : Attack
         }
     }
 
-    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time)
+    public override GameObject ShowWarning(Vector3 startPos, Vector3 targetPos, float time, float size = 1)
     {
         Vector3 originVec = targetPos - startPos;
         float originRadian = Mathf.Atan2(originVec.y, originVec.x);
@@ -37,7 +37,7 @@ public class ProjectileMulti : Attack
             //시작각도
             float radians = originRadian + Radian * (i - ((float)ShootNum / 2 - 0.5f)) * Mathf.Deg2Rad;
 
-            projectile.ShowWarning(startPos, startPos + Vector3.right * Mathf.Cos(radians) + Vector3.up * Mathf.Sin(radians), time);
+            projectile.ShowWarning(startPos, startPos + Vector3.right * Mathf.Cos(radians) + Vector3.up * Mathf.Sin(radians), time, size);
         }
 
         return null;

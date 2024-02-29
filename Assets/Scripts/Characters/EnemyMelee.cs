@@ -28,7 +28,7 @@ public class EnemyMelee: Enemy
     void selectState()
     {
         if (!checkOtherMeleeEnemy()) StartCoroutine(co_Chase(Random.Range(1.0f, 2.0f)));
-        else StartCoroutine(co_Wander(Random.Range(0.2f, 0.8f))); // 주변에 이미 Chase상태인 적이 있다면, 0.5초동안 위치를 재 조정 후에 추격.
+        else StartCoroutine(co_Wander(Random.Range(1.0f, 1.5f))); // 주변에 이미 Chase상태인 적이 있다면, 0.5초동안 위치를 재 조정 후에 추격.
     }
     IEnumerator co_Chase(float chaseTime)
     {
@@ -68,8 +68,8 @@ public class EnemyMelee: Enemy
             moveVec = Vector3.right * moveVec.y * (-1) + Vector3.up * moveVec.x;
             if (isReversed) moveVec *= -1;
 
-            //플레이어에게 다가가는 방향으로 벡ㅌ ㅓ보정
-            moveVec = moveVec.normalized + (0.5f) * (Target.transform.position - transform.position).normalized;
+            //플레이어에게 다가가는 방향으로 벡터 보정
+            moveVec = (0.5f) * moveVec.normalized +(Target.transform.position - transform.position).normalized;
             moveToDir(moveVec);
 
             if (Vector3.Distance(transform.position, Target.transform.position) < attackRange)
@@ -92,7 +92,7 @@ public class EnemyMelee: Enemy
 
         anim.SetBool("isMoving", false);
         anim.SetBool("isReady", true);
-        curAttackWarning = attack.ShowWarning(transform.position, aim.position, attackWaitTime);
+        curAttackWarning = attack.ShowWarning(transform.position, aim.position, attackWaitTime, transform.localScale.x);
         yield return new WaitForSeconds(attackWaitTime);
         anim.SetBool("isReady", false);
 
@@ -104,6 +104,7 @@ public class EnemyMelee: Enemy
     {
         Attack temp = Instantiate(attack);
         temp.Shoot(transform.position, aim.position);
+        temp.transform.localScale = transform.localScale; // 강화 등의 이유로 사이즈 변경되었다면, 공격도 크게 만듬.
         if(doAttackSpin) temp.transform.rotation = (aim.position - transform.position).ToQuaternion();
         else temp.GetComponent<SpriteRenderer>().flipX = sp.flipX;
     }

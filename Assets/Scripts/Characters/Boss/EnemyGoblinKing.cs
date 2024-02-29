@@ -105,16 +105,19 @@ public class EnemyGoblinKing : EnemyBoss
     {
         int idx = Random.Range(0, 2);
 
+        BUF buf = BUF.NONE;
+        if (isHardMode) buf = BUF.BOMB;
+
         switch(idx)
         {
             case 0:
-                spawnMob(0, transform.position + Vector3.right * 1.0f, deadOption);
-                spawnMob(0, transform.position + Vector3.right * -1.0f, deadOption);
+                spawnMob(0, transform.position + Vector3.right * 1.0f, deadOption, buf);
+                spawnMob(0, transform.position + Vector3.right * -1.0f, deadOption, buf);
                 if(isRage) spawnMob(2, transform.position + Vector3.down * 0.5f, deadOption);
                 break;
             case 1:
-                spawnMob(0, transform.position + Vector3.down * 2.0f, deadOption);
-                spawnMob(1, deadOption);
+                spawnMob(0, transform.position + Vector3.down * 2.0f, deadOption, buf);
+                spawnMob(1, deadOption, buf);
                 if (isRage) spawnMob(2, transform.position + Vector3.down * 0.5f, deadOption);
                 break;
         }

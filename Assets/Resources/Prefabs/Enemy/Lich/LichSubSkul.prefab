@@ -4836,6 +4836,7 @@ GameObject:
   - component: {fileID: 5363346592337575356}
   - component: {fileID: 101049477786246989}
   - component: {fileID: -4531359120969889150}
+  - component: {fileID: -8759304082102931809}
   m_Layer: 0
   m_Name: LichSubSkul
   m_TagString: Untagged
@@ -4874,7 +4875,7 @@ MonoBehaviour:
   follow: {fileID: -4531359120969889150}
   attack: {fileID: 4783149186542479556, guid: 9c7131ad28ce2e042846838bc31947c2, type: 3}
   attackBeforeTime: 1
-  shootInterval: 3.5
+  shootInterval: 6
 --- !u!212 &5363346592337575356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4961,5 +4962,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  moveSpd: 7
+  moveSpd: 1.2
   mindist: 0.7
+--- !u!114 &-8759304082102931809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876872624829700261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d27e0b69f33bc4ca54cd7b42757e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

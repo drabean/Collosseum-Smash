@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5847000805320792564}
   - component: {fileID: 4276340385324046624}
   - component: {fileID: 6226703509943149120}
+  - component: {fileID: 8263269470317076843}
   m_Layer: 17
   m_Name: GroundHitSmoke
   m_TagString: Untagged
@@ -169,3 +170,15 @@ MonoBehaviour:
   dmg: 1
   ownerTr: {fileID: 0}
   maxHit: 0
+--- !u!114 &8263269470317076843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4288050258666285610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
