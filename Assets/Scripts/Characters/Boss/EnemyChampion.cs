@@ -293,10 +293,16 @@ public class EnemyChampion : EnemyBoss
 
     void spawnCompanion()
     {
-        BUF buf = BUF.NONE;
-        if (isHardMode) buf = BUF.MEDAL;
-        spawnMob(0, deadOption, buf);
-        spawnMob(1, deadOption, buf);
+        if (!isHardMode)
+        {
+            spawnMob(0, transform.position + Vector3.down, deadOption);
+            spawnMob(1, deadOption);
+        }
+        else
+        {
+            spawnMob(0, transform.position + Vector3.down, deadOption, BUF.MEDAL);
+            spawnMob(1, deadOption, BUF.TELEPORT);
+        }
     }
 
     protected override void rageChange()

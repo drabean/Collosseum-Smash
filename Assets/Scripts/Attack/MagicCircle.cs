@@ -37,7 +37,7 @@ public class MagicCircle : MonoBehaviour
 
     void spawnItem()
     {
-        curItem = Instantiate(ItemPrefab, EnemyMgr.Inst.getRandomPos(), Quaternion.identity);
+        curItem = Instantiate(ItemPrefab, transform.position.Randomize(4.0f).Clamp(EnemyMgr.Inst.spawnArea[0].position, EnemyMgr.Inst.spawnArea[1].position), Quaternion.identity);
         curItem.onAcquire += showEffect;
     }
 

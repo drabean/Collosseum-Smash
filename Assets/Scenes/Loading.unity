@@ -258,8 +258,7 @@ MonoBehaviour:
   - As the stage progresses, more enemies will appear.
   - After clearing a stage, Your HP will recover by 2
   - When you  Smash enemy, throwing items appear occasionally .
-  - When the powerful enemy's health drops below half, the attacks become even more
-    Dangerous.
+  - "When Boss's health is lower than 1/2, It's attack \nwill be more dangerous."
 --- !u!1 &540136835
 GameObject:
   m_ObjectHideFlags: 0

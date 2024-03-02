@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StunTIme: 0
-  cantPenetrate: 1
+  cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
   maxHit: 1

@@ -118,7 +118,39 @@ public class UICharacterSelectCanvas : MonoBehaviour
     {
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
-        LockGroup.SetActive(false);  // for Test. remove second when build
+
+        switch(curIdx) // 캐릭터별 Unlock 구별
+        {
+            case 0:
+                {
+                    LockGroup.SetActive(false);
+                    break;
+                }
+            case 1:
+                if(LoadedSave.Inst.save.Exp >= 5)
+                {
+                    LockGroup.SetActive(false); 
+                }
+                else
+                {
+                    LockGroup.SetActive(true);
+                    TMPLockProgress.text = "Unlock After Deafeating " + (5 - LoadedSave.Inst.save.Exp) + " Boss!";
+                }
+                break;
+            case 2:
+                if (LoadedSave.Inst.save.Exp >= 10)
+                {
+                    LockGroup.SetActive(false);
+                }
+                else
+                {
+                    LockGroup.SetActive(true);
+                    TMPLockProgress.text = "Unlock After Deafeating " + (10 - LoadedSave.Inst.save.Exp) + " Boss!";
+                }
+                break;
+        }
+
+
 
         changePlayer();
         characterName.text = info.characterName;

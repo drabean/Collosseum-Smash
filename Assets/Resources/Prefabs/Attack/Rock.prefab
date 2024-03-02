@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9048280941730945589}
   - component: {fileID: 9048280941730945588}
   - component: {fileID: 9048280941730945595}
+  - component: {fileID: 7491938376060297294}
   m_Layer: 17
   m_Name: sp
   m_TagString: Untagged
@@ -129,6 +130,19 @@ MonoBehaviour:
   dmg: 1
   ownerTr: {fileID: 0}
   maxHit: 1
+--- !u!114 &7491938376060297294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048280941730945591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c806eb0aea70bd84cb8a0b00988517d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 720
 --- !u!1 &9048280943113272310
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,8 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXName: 
-  moveSpeed: 4
-  lifeTime: 1.5
+  moveSpeed: 12
+  lifeTime: 1
   isRotate: 0
   warningRadius: 0.7
   moveVec: {x: 0, y: 0, z: 0}

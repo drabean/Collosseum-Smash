@@ -21,10 +21,10 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     {
         normalPool = new List<Equip>();
         normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/EquipNormal").list); // 기본 아이템
-        if(LoadedSave.Inst.save.CheckProgress(PROGRESS.ITEMS1))
-            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock1").list); // 기본 아이템
-        if (LoadedSave.Inst.save.CheckProgress(PROGRESS.ITEMS2))
-            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock2").list); // 기본 아이템
+        if(LoadedSave.Inst.save.Exp > 5)
+            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock1").list); // 1차 해금 - 투척 관련 템들
+        if (LoadedSave.Inst.save.Exp > 10)
+            normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock2").list); // 2차 해금 - 부작용 있는 아이템
         //이미 획득한 아이템은 풀에서 빼주기
         foreach (int ItemsGot in data.item)
         {

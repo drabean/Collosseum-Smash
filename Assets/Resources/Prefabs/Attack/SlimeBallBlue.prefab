@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 691940203698591520}
   - component: {fileID: 7606645992879119507}
   m_Layer: 17
-  m_Name: SlimeBall
+  m_Name: SlimeBallBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ SpriteRenderer:
   m_SortingLayerID: -1881923847
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 429374716, guid: b6301aba4f90ca54f9e8b59bee8c1d5d, type: 3}
+  m_Sprite: {fileID: 429374716, guid: 7ef304e16eb316e479f977cf34a29022, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -321,7 +321,7 @@ Animator:
   m_GameObject: {fileID: 7894033681707198555}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e461e14b9093e9c4c870ab20253ea9f8, type: 2}
+  m_Controller: {fileID: 9100000, guid: f4af7e73dcdeafb4382b367b55a7463c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
