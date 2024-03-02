@@ -53,7 +53,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (isTest)
         {
             if (!LoadedSave.isInit) LoadedSave.Inst.Init();
-            if (!LoadedData.isDataLoaded) LoadedSave.Inst.Init();
+            if (!LoadedData.isDataLoaded) LoadedData.Inst.LoadData();
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
@@ -447,7 +447,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         curRunData.normalProgress = 0;
         curRunData.bossProgress = 0;
-        //세이브데이터는 여기서!
+        LoadedSave.Inst.save.Exp++;
+        
         yield return new WaitForSeconds(3.0f);
 
         UTILS.SaveRunData(curRunData);

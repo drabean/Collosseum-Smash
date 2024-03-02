@@ -90,11 +90,13 @@ public class DEBUGPANEL : MonoBehaviour
         UTILS.DeleteRunData();
         UTILS.DeleteSaveData();
         UTILS.DeleteSettingData();
+        Application.Quit();
     }
 
     public void Btn_EnableHardmode()
     {
         LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
+        LoadedSave.Inst.save.Exp += 10;
         LoadedSave.Inst.SyncSaveData();
     }
 }
