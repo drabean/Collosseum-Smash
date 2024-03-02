@@ -98,10 +98,6 @@ public enum PROGRESS
     ITEMS1 = 1,
     REVIVE1 = 2,
     ITEMS2 = 3,
-
-    HONOR1 = 11,
-    HONOR2 = 12,
-    HONOR3 = 13,
 }
 /*
  * 업적 정보

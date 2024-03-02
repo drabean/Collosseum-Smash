@@ -32,7 +32,7 @@ public class Shooter : MonoBehaviour
                 RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 8.0f, Vector3.forward, 0f, layer);
 
                 if (hits.Length == 0) continue;
-                Vector3 startPos = transform.position;
+                Vector3 startPos = transform.position.Randomize(3.0f);
                 Vector3 targetPosition = hits[0].point;
 
                 Destroy(Instantiate(ShooterPrefab, startPos, Quaternion.identity), 0.5f);
