@@ -57,6 +57,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
+
+        Time.timeScale = 1;
         //플레이어 생성 및 설정 동기화
         player = Instantiate(LoadedData.Inst.getCharacterInfoByID(curRunData.characterInfoIdx).playerPrefab);
         player.transform.position = Vector3.up * -3f;
@@ -84,12 +86,22 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (testStage == null) stageInfo = getStageData();
         else stageInfo = testStage;
 
+
+        if(stageInfo == null)
+        {
+            GameClearMgr clear = gameObject.AddComponent<GameClearMgr>();
+            clear.Init(curRunData, progressTMP);
+            clear.StartClearRoutine();
+            yield break;
+        }
+
+
         if(stageInfo.StageDeco != null) Instantiate(stageInfo.StageDeco, Vector3.zero, Quaternion.identity);
-        Time.timeScale = 1;
 
         //즉시 시작이 아닌, 별도 오브젝트를 공격함으로서 게임이 시작하도록 만듬.
 
         if (isTest && testStage == null) yield break;
+
 
 
         if(curRunData.isTutorial)
@@ -363,13 +375,15 @@ public class GameMgr : MonoSingleton<GameMgr>
         if(curCoinCount >= coinCount)
         {
             curCoinCount = 0;
-            Instantiate(CoinPrefab, position, Quaternion.identity).Init(1);
+            ItemCoin coin = Instantiate(CoinPrefab, position, Quaternion.identity);
+            coin.Init(1);
+            coin.onAcquire += () => { curRunData.totalCoinCount++; };
         }
     }
     void onBossDie(Vector3 pos)
     {
         StartCoroutine(co_SpawnItems());
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut(2.0f));
+        SoundMgr.Inst.BGMFadeout();
         UIMgr.Inst.progress.HideAll();
     }
     
@@ -382,12 +396,14 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         yield return new WaitForSeconds(2.0f);
         spawnItems();
+        yield return new WaitForSeconds(1.0f);
+        UIMgr.Inst.itemDescription.ShowDescription("Select One!");
     }
     #endregion
 
     #region 아이템 관련
     ItemEquipHolder holder;
-    [SerializeField]ModuleHit DescriptionObject;
+    [SerializeField]Animator DescriptionObject;
     List<ItemEquipHolder> curEquips = new List<ItemEquipHolder>(); //풀에서 꺼내서 현재 스테이지에 배치된 아이템들.
 
     [ContextMenu("SpawnITem")]
@@ -397,10 +413,10 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     void spawnItems()
     {
-        UIMgr.Inst.itemDescription.ShowDescription("Select One!");
 
         DescriptionObject.gameObject.SetActive(true);
-        DescriptionObject.FlashWhite(0.1f);
+        DescriptionObject.SetTrigger("Show");
+
         for (int i = 0; i < 3; i++)
         {
             Equip e2s;
@@ -456,12 +472,21 @@ public class GameMgr : MonoSingleton<GameMgr>
         LoadSceneMgr.LoadSceneAsync("Main");
     }
 
+    [ContextMenu("DEFEATTEST")]
+    public void ShowDefeated()
+    {
+        SoundMgr.Inst.Play("StageStart");
+        UIMgr.Inst.defeated.Init(stageInfo, curRunData);
+        UIMgr.Inst.defeated.OpenDefeatPanel();
+    }
+
     #region 유틸 함수들
     /// <summary>
     /// 플레이어 사망시 플레이어쪽에서 호출
     /// 현재 스테이지 안에서의 진행사항을 임시적으로 저장함.
+    /// true라면 게임오버, false라면 부활씬으로
     /// </summary>
-    public void SaveCurRunData()
+    public bool SaveCurRunData()
     {
         switch(curPhase)
         {
@@ -475,9 +500,21 @@ public class GameMgr : MonoSingleton<GameMgr>
                 curRunData.bossProgress = Mathf.Max((int)(UIMgr.Inst.progress.bossMaxHP - UIMgr.Inst.progress.bossCurHP - UIMgr.Inst.progress.bossMaxHP * (1/5f)), 0);
                 break;
         }
-        //여기서 게임오버 확인 - 광고 추가시 해당 사항도 추가 확인해야함
-        if (curRunData.reviveCount <= 0) curRunData.isGameOver = true;
+
         UTILS.SaveRunData(curRunData);
+
+        Debug.Log(curRunData.reviveCount);
+
+        if (curRunData.reviveCount <= 0)
+        {
+            curRunData.isGameOver = true;
+            return true; // 부활횟수가 없으므로, 진짜 게임오버
+        }
+        else
+        {
+            curRunData.isGameOver = false;
+            return false; // 부활횟수가 있으므로, 부활 씬으로 이동
+        }
     }
 
     Coroutine curSlowtimeCoroutine;

@@ -89,7 +89,9 @@ public class UTILS : MonoBehaviour
         else
         {
             Debug.Log("SAVE DATA 로딩 실패 / 새로운 데이터 생성");
-            return new SaveData();
+            SaveData newData = new SaveData();
+            UTILS.SaveSaveData(newData);
+            return newData;
         }
     }
 

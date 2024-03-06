@@ -25,4 +25,5 @@ MonoBehaviour:
   bossText: 'You feel a formidable presence..
 
     prepare your battle!'
+  DeathMessage: You became sticky and gooey...
   ThrowItem: {fileID: 4321020091999280051, guid: 3694ad92c28ba2341a5b13bd776155e1, type: 3}

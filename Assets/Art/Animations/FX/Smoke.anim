@@ -28,7 +28,7 @@ AnimationClip:
     - time: 0.2
       value: {fileID: -709815881, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
     - time: 0.26666668
-      value: {fileID: -709815881, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
+      value: {fileID: 0}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,7 +52,7 @@ AnimationClip:
     - {fileID: -52935936, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
     - {fileID: -484007900, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
     - {fileID: -709815881, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
-    - {fileID: -709815881, guid: fa8977bb643b9a2498433e29a6decd1e, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -77,11 +77,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.26666668
-    functionName: OnDespawn
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

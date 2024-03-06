@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 474969283084216280}
   - component: {fileID: 7265481405074068698}
   - component: {fileID: 1896508158546602579}
-  - component: {fileID: 7556310310725361999}
   - component: {fileID: 2437425297434771517}
   m_Layer: 0
   m_Name: Smoke
@@ -81,7 +80,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 1.25}
+  m_Size: {x: 1.875, y: 1.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -108,18 +107,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7556310310725361999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474969283084216281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87e22374918f6440973fee88b2e2595, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2437425297434771517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,4 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d91c8c07805504d8dd9ba8e9b65e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPushTime: 0
   SFXName: Swoosh

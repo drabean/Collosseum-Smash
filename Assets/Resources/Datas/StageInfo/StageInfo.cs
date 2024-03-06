@@ -20,6 +20,8 @@ public class StageInfo : ScriptableObject
     public GameObject StageDeco;
     [TextArea]
     public string bossText;
+    [TextArea]
+    public string DeathMessage;
 
     public ItemThrowable ThrowItem;
 }

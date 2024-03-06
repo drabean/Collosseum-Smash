@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 20101
   ItemSprite: {fileID: 21300000, guid: f2adc37f91e8f3c47a086cf789f04e8f, type: 3}
-  itemName: EarthShaker
+  itemName: Earth Shaker
   Description: If you Move after attack, shockwave occurs and strikes the enemy.
   owner: {fileID: 0}
   stack: 0

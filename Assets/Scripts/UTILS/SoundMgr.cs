@@ -28,6 +28,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         {
             GameObject temp = new GameObject();
             temp.transform.SetParent(transform);
+            temp.name = "SFXPlayer";
             AudioSource audio = temp.AddComponent<AudioSource>();
             SFXPlayers.Add(audio);
         }
@@ -128,7 +129,12 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         BGMPlayer.clip = BGM;
         BGMPlayer.Play();
     }
-    public IEnumerator co_BGMFadeOut(float duration = 1)
+
+    public Coroutine BGMFadeout()
+    {
+        return StartCoroutine(co_BGMFadeOut());
+    }
+    IEnumerator co_BGMFadeOut(float duration = 1)
     {
         float progress = 1f;
 

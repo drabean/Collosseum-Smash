@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21301
   ItemSprite: {fileID: 21300000, guid: d3c06a92917b9ac45aaeebe4e050efaf, type: 3}
-  itemName: MagicStaff
+  itemName: Magic Staff
   Description: Shoots Magic missiile Every 2 Seconds. Shoots immediatly when attack.
   owner: {fileID: 0}
   CrystalPrefab: {fileID: 2428237780678499828, guid: 3fa75c6fae94df04e9bf530e3174e360, type: 3}

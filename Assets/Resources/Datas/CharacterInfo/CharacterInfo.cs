@@ -12,4 +12,5 @@ public class CharacterInfo : ScriptableObject
     public string characterName;
     [TextArea]
     public string description;
+    public Sprite DeathSprite;
 }

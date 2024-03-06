@@ -376,6 +376,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "Go TO \nTitle"
       objectReference: {fileID: 0}
+    - target: {fileID: 2862489239726851562, guid: 88147dedbbb49494c9d448728314c320, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862489239726851562, guid: 88147dedbbb49494c9d448728314c320, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2862489240329761696, guid: 88147dedbbb49494c9d448728314c320, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -566,7 +574,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 13.571428
+  orthographic size: 14.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1491,6 +1499,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Continue
       objectReference: {fileID: 0}
+    - target: {fileID: 2862489239726851562, guid: 88147dedbbb49494c9d448728314c320, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862489239726851562, guid: 88147dedbbb49494c9d448728314c320, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2862489240329761696, guid: 88147dedbbb49494c9d448728314c320, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2014,8 +2030,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -37,7 +37,7 @@ public class UIGameOverCanvas : MonoBehaviour
             ConitnueMessageGroup.SetActive(false);
 
             TMP_ReviveCountLeft.text = data.reviveCount.ToString() + " Left";
-            if (LoadedSave.Inst.save.Coin <= 20)
+            if (LoadedSave.Inst.save.Coin < 20)
             {
                 Debug.Log("CantRevive!");
                 ReviveBtnLock.SetActive(true);
@@ -52,7 +52,7 @@ public class UIGameOverCanvas : MonoBehaviour
             CanContinueGroup.SetActive(false);
             GameOvergroup.SetActive(true);
         }
-        data.isGameOver = true; // 게임오버씬에서 아무것도 하지 않고, 강제 종료 할 경우 runData를 삭제하게 하기 위한 조치.
+        data.isGameOver = true; // 게임오버씬에서 아무것도 하지 않고, 강제 종료 할 경우 이어서 할 수 없도록 함
         UTILS.SaveRunData(data);
 
     }
@@ -69,7 +69,7 @@ public class UIGameOverCanvas : MonoBehaviour
 
         player.EndDeadMotion();
         player.AutoMove(new Vector3(15, 2, 0));
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
+        SoundMgr.Inst.BGMFadeout();
         StartCoroutine(co_ContinueStage());
     }
 
@@ -94,7 +94,7 @@ public class UIGameOverCanvas : MonoBehaviour
     public void BtnEndStage()
     {
         UTILS.DeleteRunData();
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
+        SoundMgr.Inst.BGMFadeout();
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 }

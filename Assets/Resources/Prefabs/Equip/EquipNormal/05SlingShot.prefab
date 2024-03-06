@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 20105
   ItemSprite: {fileID: 21300000, guid: a80cdbcbd0ba868448e2fb2162f73e76, type: 3}
-  itemName: SlingShot
+  itemName: Sling Shot
   Description: When Starting Stage, Spawn Throwable Stone at the corner of the stage.
   owner: {fileID: 0}
   ItemRockPrefab: {fileID: 5384544696474922186, guid: b0e6fb2828431f5468211e8602ea8a91, type: 3}

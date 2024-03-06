@@ -99,7 +99,7 @@ public class Enemy : CharacterBase
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
         hit.DmgTxt(((int)dmg).ToString());
-        GameMgr.Inst.MainCam.Shake(0.15f, 20f, 0.15f, 0f);
+        GameMgr.Inst.MainCam.Shake(0.1f, 10f, 0.07f, 0f);
         if (!isSuperarmor)
         {
             hit.knockback(0.3f, transform.position + hitVec * KnockBackPower);

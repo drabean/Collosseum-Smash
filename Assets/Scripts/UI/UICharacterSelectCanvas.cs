@@ -90,6 +90,10 @@ public class UICharacterSelectCanvas : MonoBehaviour
     {
         resetCharacterView();
 
+
+        GameObject smoke = DictionaryPool.Inst.Pop("Prefabs/Smoke");
+        smoke.transform.position = playerSpawnPos.position;
+        smoke.GetComponent<Poolable>().Push(2.0f);
         curPlayer = Instantiate(info.playerPrefab, playerSpawnPos.position, Quaternion.identity).gameObject;
 
         curSpawnRoutine = StartCoroutine(co_SpawnBotCoroutine());
@@ -200,7 +204,8 @@ public class UICharacterSelectCanvas : MonoBehaviour
         data.isHardMode = this.isHardMode;
         UTILS.SaveRunData(data);
 
-        resetCharacterView();
+        SoundMgr.Inst.BGMFadeout();
+
         LoadSceneMgr.LoadSceneAsync("Main");
     }
 

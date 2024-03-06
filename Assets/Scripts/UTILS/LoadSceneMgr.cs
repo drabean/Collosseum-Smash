@@ -44,12 +44,15 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
     }
     IEnumerator co_AsyncLoading()
     {
+        SoundMgr.Inst.BGMFadeout();
+
         SoundMgr.Inst.Play("LoadScene");
         Time.timeScale = 1;
         TMPTip.text = Tips[Random.Range(0, Tips.Count)];
         // Fade In 효과 실행
         yield return StartCoroutine(Fade(0.3f, true));
 
+        LoadingPanel.alpha = 1;
         // 비동기 씬 로딩을 시작
         operation = SceneManager.LoadSceneAsync(nextSceneName);
         operation.allowSceneActivation = false;
@@ -61,6 +64,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
 
         // Fade Out 효과 실행
         yield return StartCoroutine(Fade(0.3f, false));
+        LoadingPanel.alpha = 0.0f;
         Destroy(gameObject);
     }
 

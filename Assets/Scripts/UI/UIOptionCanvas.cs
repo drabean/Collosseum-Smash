@@ -19,8 +19,8 @@ public class UIOptionCanvas : MonoBehaviour
         TMPBGMVolume.text = "Volume : " + (int)(LoadedSave.Inst.setting.BGMVolume * 100);
         SliderSFX.value = LoadedSave.Inst.setting.SFXVolume;
         TMPSFXVolume.text = "Volume : " + (int)(LoadedSave.Inst.setting.SFXVolume * 100);
-        if (LoadedSave.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick will now start from where you touch.";
-        else TMPBtnExplain.text = "Joystick will now start from the center.";
+        if (LoadedSave.Inst.setting.isJoystickFloating) TMPBtnExplain.text = "Jostick starts from where you touch.";
+        else TMPBtnExplain.text = "Jostick starts from the center.";
 
         if (isOptionInit) return;
         isOptionInit = true;

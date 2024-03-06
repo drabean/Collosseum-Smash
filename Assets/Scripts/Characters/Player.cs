@@ -299,6 +299,8 @@ public class Player : CharacterBase
 
     void doThrow()
     {
+        if (!curHoldingItem.canThrow) return;
+
         SoundMgr.Inst.Play("Throw");
         anim.SetBool("isHolding", false);
         anim.SetTrigger("doThrow");
@@ -408,22 +410,33 @@ public class Player : CharacterBase
 
         isDead = true;
         Destroy(targetIcon.gameObject);
-        anim.SetBool("isMoving", false);
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
 
-        GameMgr.Inst.MainCam.Shake(0.15f, 50f, 0.12f, 0f);
-        GameMgr.Inst.MainCam.Zoom(0.15f, 0.98f);
-        GameMgr.Inst.SlowTime(0.3f, 0.3f, true);
+        GameObject camTarget = new GameObject();
+        camTarget.name = "CamTarget";
+        camTarget.transform.position = transform.position;
+        GameMgr.Inst.MainCam.changeTarget(camTarget.transform);
+        anim.SetBool("isMoving", false);
+        SoundMgr.Inst.BGMFadeout();
+
+        GameMgr.Inst.SlowTime(1.0f, 0.3f, true);
+        GameMgr.Inst.MainCam.Shake(1.0f, 15f, 0.12f, 0f);
+        GameMgr.Inst.MainCam.Zoom(1.0f, 0.96f);
 
         hit.FlashWhite(0.3f);
         hit.Togle(1.0f);
-        Destroy(GetComponent<Collider2D>());
 
+        bool isGameOver = GameMgr.Inst.SaveCurRunData();
+
+        SoundMgr.Inst.Play("PlayerHit");
+        yield return new WaitForSeconds(0.3f);
+
+        Destroy(GetComponent<Collider2D>());
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
-        GameMgr.Inst.SaveCurRunData();
-        yield return new WaitForSeconds(1.5f);
-        LoadSceneMgr.LoadSceneAsync("GameOver");
+
+        yield return new WaitForSeconds(1.2f);
+        if (isGameOver) GameMgr.Inst.ShowDefeated();
+        else LoadSceneMgr.LoadSceneAsync("GameOver");
     }
     void onMove()
     {

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21101
   ItemSprite: {fileID: 21300000, guid: 99bebdad91ef15d45a5d281f4b2dc8a5, type: 3}
-  itemName: HolySword
+  itemName: Holy Sword
   Description: after attacking 3 times, shoot holy slash when attacking.
   owner: {fileID: 0}
   reqCombo: 3

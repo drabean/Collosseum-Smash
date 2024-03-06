@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21302
   ItemSprite: {fileID: 21300000, guid: 63c3641e812253f4d848a2a175b90679, type: 3}
-  itemName: BookOfFireball
+  itemName: Book Of Fireball
   Description: Generate a Book of Fireball at a random position. When you acquire
     3 books, unleash a powerful Fireball magic.
   owner: {fileID: 0}

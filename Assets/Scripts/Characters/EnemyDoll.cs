@@ -21,6 +21,7 @@ public class EnemyDoll : Enemy
 
         hit.FlashWhite(0.1f);
         Destroy(GetComponent<Collider2D>());
+        StartSceneCamera.Inst.Shake();
 
         rb.AddForce(hitVec * 20, ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;

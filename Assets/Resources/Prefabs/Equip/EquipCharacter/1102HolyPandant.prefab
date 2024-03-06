@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21102
   ItemSprite: {fileID: 21300000, guid: c188dde37c82d214890f3599d641508d, type: 3}
-  itemName: HolyPandant
+  itemName: Holy Pandant
   Description: When attacked, negates damage and stuns nearby enemies. has 30s cooltime.
   owner: {fileID: 0}
   Cooltime: 30

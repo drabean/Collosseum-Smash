@@ -32,4 +32,6 @@ public class RunData
     public bool isRevivedAd = false; // 광고로 부활 했는지.
 
     public bool isGameOver;
+
+    public int totalCoinCount = 0; // 이번 Run에서 얻은 총합 골드 일람.
 }

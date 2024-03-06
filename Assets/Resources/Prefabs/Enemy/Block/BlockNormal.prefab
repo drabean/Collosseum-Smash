@@ -189,8 +189,8 @@ MonoBehaviour:
   aim: {fileID: 9115289137479448301}
   hit: {fileID: 7243762665686575652}
   isDead: 0
-  maxHP: 10
-  curHP: 10
+  maxHP: 8
+  curHP: 8
   moveSpeed: 3.5
   moveSpeedCo: 1
   aimRange: 0.1
@@ -199,7 +199,6 @@ MonoBehaviour:
   isChasing: 0
   isSuperarmor: 0
   attackRange: 1
-  attackWidth: 1.2
   attackName: Prefabs/Attack/BlockImpactSmall
   attackWaitTime: 0.65
   attackAfterWaitTime: 1.3

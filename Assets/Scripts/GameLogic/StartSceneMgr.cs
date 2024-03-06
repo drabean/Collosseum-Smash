@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class StartSceneMgr : MonoSingleton<StartSceneMgr>
 {
@@ -15,13 +16,23 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] GameObject OptionPanel;
     [SerializeField] GameObject DebugPanel;
 
-
+    [SerializeField] Animator title;
+    [SerializeField] TextMeshPro ProgressTMP;
     public bool isTestMode;
 
+    WaitForSeconds waitForBtn = new WaitForSeconds(0.1f);
     private IEnumerator Start()
     {
         while (!MainGameLogic.isInit) yield return null; // 데이터 초기화까지 대기
 
+
+        yield return new WaitForSeconds(0.5f);
+        ProgressTMP.text = "Done!";
+        SoundMgr.Inst.PlayBGM("StartScene");
+        yield return new WaitForSeconds(1.0f);
+        ProgressTMP.text = "";
+        //메인 씬 글자 생성 애니메이션 보여주기
+        title.SetTrigger("doSpawn");
         //세이브 데이터 확인 및 배경 캐릭터 동기화
         RunData lastRunData = UTILS.GetRunData();
         if(lastRunData != null)
@@ -38,12 +49,19 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
              CharacterSelectGroup.Init(0);
         }
 
+        List<GameObject> btnsLis = new List<GameObject>();
+
+        //버튼 순서대로 생성
         #region 버튼 생성
         //Instantiate Button
+        //게임시작버튼
         UIButton newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Start";
         newBtn.btn.onClick.AddListener(Btn_Start);
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
 
+        //컨티뉴버튼
         if(lastRunData != null)
         {
             newBtn = Instantiate(ButtonPrefab, ButtonHolder);
@@ -51,32 +69,51 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
             newBtn.btn.onClick.AddListener(Btn_Continue);
 
         }
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
 
-        //옵션
+        //상점
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Shop";
         newBtn.btn.onClick.AddListener(Btn_Shop);
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
 
         //옵션
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Option";
         newBtn.btn.onClick.AddListener(Btn_Option);
-        
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
+
         //디버그
-        if(isTestMode)
+        if (isTestMode)
         {
             newBtn = Instantiate(ButtonPrefab, ButtonHolder);
             newBtn.txt.text = "Debug";
             newBtn.btn.onClick.AddListener(Btn_Debug);
         }
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
 
         //게임종료
         newBtn = Instantiate(ButtonPrefab, ButtonHolder);
         newBtn.txt.text = "Exit";
         newBtn.btn.onClick.AddListener(Btn_Exit);
+        btnsLis.Add(newBtn.gameObject);
+        newBtn.gameObject.SetActive(false);
+
 
         //버튼 묶음 위치 조절
-        ButtonHolder.GetComponent<RectTransform>().anchoredPosition = Vector3.right * -10 + Vector3.up * (-300 + (50) * ButtonHolder.transform.childCount);
+        ButtonHolder.GetComponent<RectTransform>().anchoredPosition = Vector3.right * -10 + Vector3.up * (-350 + (50) * ButtonHolder.transform.childCount);
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach(GameObject btn in btnsLis)
+        {
+            btn.SetActive(true);
+            yield return waitForBtn;
+        }
         #endregion
     }
     public void Btn_Start()

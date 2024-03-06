@@ -26,9 +26,7 @@ public class UIItemDescriptionPanel : MonoBehaviour
     public void ShowPanel(Equip equip)
     {
         gameObject.SetActive(true);
-        Debug.Log(equip);
-        Debug.Log(equip.ItemSprite);
-        Debug.Log(itemImage);
+
         itemImage.sprite = equip.ItemSprite;
         TMP_Name.text = equip.itemName;
         TMP_Description.text = equip.Description;

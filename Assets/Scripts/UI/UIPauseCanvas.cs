@@ -107,7 +107,7 @@ public class UIPauseCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI TMPBtnExplain;
     public void OpenOptionPage()
     {
-        TMPTitle.text = "Option";
+        TMPTitle.text = "Options";
         if (isOptionInit) return;
         isOptionInit = true;
         SliderBGM.onValueChanged.AddListener(changeBGMVolume);
@@ -153,7 +153,7 @@ public class UIPauseCanvas : MonoBehaviour
     public void Btn_BackToTitle()
     {
         LoadedSave.Inst.SyncSetting();
-        StartCoroutine(SoundMgr.Inst.co_BGMFadeOut());
+        SoundMgr.Inst.BGMFadeout();
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 }

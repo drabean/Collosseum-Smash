@@ -23,19 +23,21 @@ public class UIShopCanvas : MonoBehaviour
     void initShopPage()
     {
         if (isShoptInit) return;
+        //TODO: 광고 추가하기
+
         //공속
         UIShopPrefab prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(100, UNLOCK.ATKSPD, "attack Speed", "increase player's attack speed.");
+        prefab.Init(100, UNLOCK.ATKSPD, "Attack Speed", "Increase player's attack speed.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKSPD)) prefab.disableBtn();
 
         //투척데미지
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.THRWDMG, "Throw Damage", "increase player's Throw Damage.");
+        prefab.Init(50, UNLOCK.THRWDMG, "Throw Damage", "Increase player's Throw Damage.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.THRWDMG)) prefab.disableBtn();
 
         //최대체력
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.MAXHP, "Max HP", "increase player's Max HP.");
+        prefab.Init(50, UNLOCK.MAXHP, "Max HP", "Increase player's Max HP.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MAXHP)) prefab.disableBtn();
 
         //체력재생

@@ -16,4 +16,5 @@ public class UIMgr : MonoBehaviour
     public UIControlCanvas joystick;
     public UIProgressCanvas progress;
     public UIItemDescriptionCanvas itemDescription;
+    public UIDefeatedCanvas defeated;
 }

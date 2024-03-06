@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 20108
   ItemSprite: {fileID: 21300000, guid: ccf373ac3c77cfa45805c1199b02c248, type: 3}
-  itemName: ThunderStep
+  itemName: Thunder Step
   Description: "\rThunder crashes along your path."
   owner: {fileID: 0}
   cooltime: 1.2

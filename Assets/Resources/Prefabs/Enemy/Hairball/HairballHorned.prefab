@@ -177,8 +177,8 @@ MonoBehaviour:
   aim: {fileID: 8819645963674252236}
   hit: {fileID: 8819645963848089276}
   isDead: 0
-  maxHP: 4
-  curHP: 4
+  maxHP: 5
+  curHP: 5
   moveSpeed: 5
   moveSpeedCo: 1
   aimRange: 5
