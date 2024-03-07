@@ -106,7 +106,7 @@ MonoBehaviour:
   doAttackSpin: 1
   layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
 --- !u!95 &3932594245380771375
 Animator:
   serializedVersion: 5

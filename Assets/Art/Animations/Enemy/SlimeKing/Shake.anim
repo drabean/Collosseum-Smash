@@ -345,7 +345,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: onAttack4
+    functionName: onAttack4Event
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -359,7 +359,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.5833333
-    functionName: onAttack2Event
+    functionName: onAttack4Event
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

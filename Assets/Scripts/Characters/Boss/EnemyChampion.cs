@@ -67,7 +67,7 @@ public class EnemyChampion : EnemyBoss
         else if(patternCountLeft == 1)
         {
             patternCountLeft--;
-            StartCoroutine(co_Chase(co_Pat3()));
+            StartCoroutine(co_Pat3());
         }
         else // 연속 공격 끝난 후 그로기
         {

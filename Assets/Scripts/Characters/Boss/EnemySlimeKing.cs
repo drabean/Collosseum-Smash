@@ -177,7 +177,8 @@ public class EnemySlimeKing : EnemyBoss
         SoundMgr.Inst.Play("Throw");
 
         float randomRange = 2.5f;
-        if (isRage) randomRange -= 0.8f;
+        if (isRage) randomRange = -0.6f;
+
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
         StartCoroutine(co_attack2(attacks[3], Target.transform.position.Randomize(randomRange)));
@@ -269,14 +270,24 @@ public class EnemySlimeKing : EnemyBoss
         StartCoroutine(co_Idle());
     }
 
+    int atk4Idx = 0;
     void onAttack4()
     {
         SoundMgr.Inst.Play("Throw");
+        if (atk4Idx >= 2)
+        {
+            atk4Idx = 0;
+            StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(2.0f)));
+            StartCoroutine(co_attack2(attacks[3], Target.transform.position.Randomize(2.0f)));
+        }
+        else
+        {
 
-
-        StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
-        StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
-        StartCoroutine(co_attack2(attacks[3], EnemyMgr.Inst.getRandomPos()));
+            StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
+            StartCoroutine(co_attack2(attacks[2], EnemyMgr.Inst.getRandomPos()));
+            StartCoroutine(co_attack2(attacks[3], EnemyMgr.Inst.getRandomPos()));
+        }
+        atk4Idx++;
     }
 
     #endregion

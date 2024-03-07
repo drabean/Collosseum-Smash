@@ -33,6 +33,14 @@ public class EnemyHairballHuge : EnemyBoss
     {
         anim.SetBool("isMoving", false);
 
+
+        if(isRagePattern)
+        {
+            isRagePattern = false;
+            StartCoroutine(co_Pat3());
+            return;
+        }
+
         //연속공격
         if (patternCount >= 1)
         {
@@ -41,22 +49,15 @@ public class EnemyHairballHuge : EnemyBoss
             lastPatIdx++;
             lastPatIdx %= 2;
 
-            switch(lastPatIdx)
-            {
-                case 0:
-                    StartCoroutine(co_Pat1());
-                    break;
-                case 1:
-                    StartCoroutine(co_Pat2());
-                    break;
-            }
+            StartCoroutine(co_Pat1());           
         }
         else
         {
-            patternCount = 4 + Random.Range(0, 3);
+            patternCount = 2;
+            if (isRage) patternCount++;
 
             if(!isRage) StartCoroutine(co_Fatigue(2.7f));
-            else StartCoroutine(co_Fatigue(1.8f));
+            else StartCoroutine(co_Fatigue(1.0f));
             //TODO: FATIQUEMOTION
         }
 
@@ -65,6 +66,7 @@ public class EnemyHairballHuge : EnemyBoss
     {
         moveSpeed += 0.5f;
         aimRange += 0.3f;
+        patterns[0].waitBeforeTime -= 0.25f;
     }
 
     #region Pat1
@@ -86,7 +88,7 @@ public class EnemyHairballHuge : EnemyBoss
             yield return null;
         }
 
-        selectPattern();
+        StartCoroutine(co_Pat2());
     }
 
     IEnumerator co_Atk()
@@ -120,7 +122,7 @@ public class EnemyHairballHuge : EnemyBoss
     IEnumerator co_Pat2()
     {
         //플레이어 주변 랜덤 범위 내에서 스테이지 내부의 위치.
-        Vector3 destination = Target.transform.position + Random.Range(patterns[1].range, -patterns[1].range) * Vector3.right + Random.Range(patterns[1].range, -patterns[1].range) * Vector3.up;
+        Vector3 destination = Target.transform.position.Randomize(patterns[1].range).Clamp(EnemyMgr.Inst.spawnArea[0].position, EnemyMgr.Inst.spawnArea[1].position);
         destination = EnemyMgr.Inst.getClampedVec(destination);
 
         setDir(destination - transform.position);
@@ -128,7 +130,6 @@ public class EnemyHairballHuge : EnemyBoss
 
         anim.SetBool("isMoving", false);
 
-        if (isHardMode) ShootGroundBlock();
         yield return new WaitForSeconds(patterns[1].waitAfterTime);
         selectPattern();
     }
@@ -158,9 +159,22 @@ public class EnemyHairballHuge : EnemyBoss
 
         Attack temp = Instantiate(attacks[1]);
         temp.Shoot(transform.position, aim.position);
+
+        ShootGroundBlock();
     }
 
     #endregion
+
+    public IEnumerator co_Pat3()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            setDir();
+            StartCoroutine(co_Jump(Target.transform.position.Randomize(patterns[1].range)));
+            yield return new WaitForSeconds(1.2f);
+        }
+    }
+    /*
     #region Pat3 (Lecacy)
     protected IEnumerator co_Pat3()
     {
@@ -191,7 +205,7 @@ public class EnemyHairballHuge : EnemyBoss
     }
 
     #endregion
-
+    */
     #region Fatique
     IEnumerator co_Fatigue(float fatigueTime = 3.0f)
     {
