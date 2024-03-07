@@ -247,13 +247,12 @@ public class Player : CharacterBase
         if(target == null)
         {
             targetIcon.Target = null;
-            targetIcon.curTargetingPosition = transform.position;
             targetIcon.gameObject.SetActive(false);
         }
         else
         {
-            targetIcon.gameObject.SetActive(true);
             targetIcon.Target = target;
+            targetIcon.gameObject.SetActive(true);
         }
     }
 

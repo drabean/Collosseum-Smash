@@ -13,8 +13,10 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     [SerializeField] UIButton ButtonPrefab;
     [SerializeField] UIOptionCanvas Option;
     [SerializeField] UIShopCanvas Shop;
+    [SerializeField] UIAchievementCanvas Achivement;
     [SerializeField] GameObject OptionPanel;
     [SerializeField] GameObject DebugPanel;
+    [SerializeField] GameObject AchivementBtn;
 
     [SerializeField] Animator title;
     [SerializeField] TextMeshPro ProgressTMP;
@@ -103,6 +105,7 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
         btnsLis.Add(newBtn.gameObject);
         newBtn.gameObject.SetActive(false);
 
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) btnsLis.Add(AchivementBtn);
 
         //버튼 묶음 위치 조절
         ButtonHolder.GetComponent<RectTransform>().anchoredPosition = Vector3.right * -10 + Vector3.up * (-350 + (50) * ButtonHolder.transform.childCount);
@@ -130,6 +133,11 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     public void Btn_Shop()
     {
         Shop.OpenPanel();
+    }
+
+    public void Btn_Achivement()
+    {
+        Achivement.OpenPanel();
     }
     public void Btn_Option()
     {

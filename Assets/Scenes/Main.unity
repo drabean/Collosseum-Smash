@@ -1771,9 +1771,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1089279275}
-        m_TargetAssemblyTypeName: GameMgr, Assembly-CSharp
-        m_MethodName: Btn_ToTitle
+      - m_Target: {fileID: 1174054440}
+        m_TargetAssemblyTypeName: UIDefeatedCanvas, Assembly-CSharp
+        m_MethodName: Btn_AdBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2150,7 +2150,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: -65}
-  m_SizeDelta: {x: 180, y: 10}
+  m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &675055144
 MonoBehaviour:
@@ -2459,7 +2459,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 145, y: 0}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736421717
 MonoBehaviour:
@@ -2668,7 +2668,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -145, y: 0}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &797309402
 MonoBehaviour:
@@ -5482,9 +5482,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1089279275}
-        m_TargetAssemblyTypeName: GameMgr, Assembly-CSharp
-        m_MethodName: Btn_ToTitle
+      - m_Target: {fileID: 1174054440}
+        m_TargetAssemblyTypeName: UIDefeatedCanvas, Assembly-CSharp
+        m_MethodName: Btn_GoToTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6154,7 +6154,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: 24, y: 24}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1325074821
 MonoBehaviour:
@@ -22776,7 +22776,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.5, y: -7.5}
-  m_SizeDelta: {x: 19, y: 21}
+  m_SizeDelta: {x: 31, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1496097355
 MonoBehaviour:
@@ -23449,9 +23449,9 @@ RectTransform:
   m_Father: {fileID: 1958561532}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -9.900024, y: 226.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -25, y: -80}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1632459721
@@ -23515,8 +23515,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -24798,7 +24798,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: -65}
-  m_SizeDelta: {x: 180, y: 10}
+  m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1833123560
 MonoBehaviour:

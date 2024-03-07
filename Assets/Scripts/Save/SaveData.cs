@@ -23,6 +23,10 @@ public class SaveData
         {
             Achievements.Add((int)achievement);
         }
+        else
+        {
+            Debug.Log((int)achievement + " not Exist");
+        }
     }
     #endregion
 
@@ -47,12 +51,24 @@ public class SaveData
 
 /// <summary>
 /// 업적 Enum
+/// 
+/// 보스처치
+/// 2번째 자리수: 보스 난이도
+/// 3번째 자리수: 고유 아이디
 /// </summary>
 public enum ACHIEVEMENT
 {
     TUTORIALCLEAR = 0,
     NORMALCLEAR = 1,
     HARDCLEAR = 2,
+
+    KILLTUTORIAL =  100,
+    KILLHAIRBALL =  110,
+    KILLGOBLIN =    111,
+    KILLCHAMPION =  120,
+    KILLSLIME =     121,
+    KILLLICH =      130,
+    KILLBLOCK =     131
 
 }
 

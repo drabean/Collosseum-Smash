@@ -8,14 +8,15 @@ public class TrophyActivator : MonoBehaviour
     public List<Transform> trophyPositions;
 
 
-    private void Awake()
+    private IEnumerator Start()
     {
+        while (!LoadedSave.isInit) yield return null;
+
         InstantiateTrophy();
     }
     void InstantiateTrophy()
     {
-        SaveData data = UTILS.LoadSaveData();
-        if (data.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) Instantiate(trophyPrefabs[0], trophyPositions[0]);
-        if (data.CheckAchivement(ACHIEVEMENT.NORMALCLEAR)) Instantiate(trophyPrefabs[1], trophyPositions[1]);
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) Instantiate(trophyPrefabs[0], trophyPositions[0]);
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR)) Instantiate(trophyPrefabs[1], trophyPositions[1]);
     }
 }

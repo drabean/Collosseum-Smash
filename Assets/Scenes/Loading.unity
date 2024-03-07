@@ -254,12 +254,13 @@ MonoBehaviour:
   TMPTip: {fileID: 917781170}
   Tips:
   - You can't Move while you are attacking.
-  - You can Change Joystick Options and volume in pause menu.
+  - You can Options  in pause menu.
   - As the stage progresses, more enemies will appear.
   - After clearing a stage, Your HP will recover by 2
   - When you  Smash enemy, throwing items appear occasionally .
   - "When Boss's health is lower than 1/2, It's attack \nwill be more dangerous."
-  - After defeating each boss for the first time, you can get coin reward!
+  - After defeating each boss for the first time, you can get 20 coin reward!
+  - You can get permanent powerups at shop.
 --- !u!1 &540136835
 GameObject:
   m_ObjectHideFlags: 0
