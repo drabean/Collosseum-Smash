@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f55c7cca303b1d347a630f93d93cbbb7
+guid: 9842db91e6c7ef1419e11a82e71486df
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,43 +129,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Close_0
+      name: TrophyIcon_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 0
-        width: 31
-        height: 32
+        x: 2
+        y: 2
+        width: 12
+        height: 11
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 812fba5fdf1dadc41847e33b8733fb54
-      internalID: 1859843192
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Button_Close_1
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 0
-        width: 31
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7815a3fe5a5811439e6c7d89d8ff65f
-      internalID: 1037746812
+      spriteID: d58257e92b90de1498fbed8b9f08b799
+      internalID: -1991665481
       vertices: []
       indices: 
       edges: []
@@ -181,8 +160,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Button_Close_0: 1859843192
-      Button_Close_1: 1037746812
+      TrophyIcon_0: -1991665481
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
