@@ -7,20 +7,17 @@ using TMPro;
 public class UIShopCanvas : MonoBehaviour
 {
     public GameObject totalPanel;
-
-    public GameObject[] Pages;
+    [SerializeField] UIShopPrefab ShopPrefab;
+    [SerializeField] Transform ShopPrefabHolder;
+    bool isShoptInit = false;
 
     public void OpenPanel()
     {
         totalPanel.SetActive(true);
-        initShopPage();
+        initShopPanel();
     }
 
-    #region 상점 페이지
-    [SerializeField] UIShopPrefab ShopPrefab;
-    [SerializeField] Transform ShopPrefabHolder;
-    bool isShoptInit = false;
-    void initShopPage()
+    void initShopPanel()
     {
         if (isShoptInit) return;
         //TODO: 광고 추가하기
@@ -57,14 +54,7 @@ public class UIShopCanvas : MonoBehaviour
 
         isShoptInit = true;
     }
-    #endregion
-    #region 업적 페이지
 
-    #endregion
-    public void Btn_Move(bool isRight)
-    {
-
-    }
     public void Btn_Exit()
     {
         totalPanel.SetActive(false);
