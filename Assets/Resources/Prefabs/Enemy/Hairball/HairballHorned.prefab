@@ -189,7 +189,7 @@ MonoBehaviour:
   chargeRange: 3
   chargeStartRange: 2
   chargeTime: 0.35
-  waitBeforeTime: 1
+  waitBeforeTime: 0.95
   waitAfterTime: 1.5
   attackName: 
   SFXName: Jump2

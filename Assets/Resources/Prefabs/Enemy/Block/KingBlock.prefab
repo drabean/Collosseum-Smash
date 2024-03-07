@@ -333,6 +333,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 1
+  BossAchivement: 131
   patterns:
   - range: 0
     width: 0

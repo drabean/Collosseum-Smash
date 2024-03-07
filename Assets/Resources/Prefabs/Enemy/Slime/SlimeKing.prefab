@@ -293,8 +293,8 @@ MonoBehaviour:
   aim: {fileID: 4042474324696653424}
   hit: {fileID: 4042474324043264350}
   isDead: 0
-  maxHP: 200
-  curHP: 200
+  maxHP: 220
+  curHP: 220
   moveSpeed: 3
   moveSpeedCo: 1
   aimRange: 1.5
@@ -302,6 +302,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 1
+  BossAchivement: 121
   patterns:
   - range: 0
     width: 0
@@ -314,14 +315,14 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 0
-    waitAfterTime: 1.2
+    waitAfterTime: 1
     intervalTime: 0
     repeatTIme: 0
     duration: 1.2
     prefabName: Prefabs/Attack/SlimeBall
   - range: 0
     width: 0
-    waitBeforeTime: 1.3
+    waitBeforeTime: 1.1
     waitAfterTime: 1
     intervalTime: 0
     repeatTIme: 5
@@ -336,6 +337,7 @@ MonoBehaviour:
     duration: 6
     prefabName: 
   patternCount: 3
+  isHardMode: 0
   mobs:
   - {fileID: 1620728181462010843, guid: b60dd6a26f6568743a81e4784a7e3b00, type: 3}
   - {fileID: 6063666786104351322, guid: 1a11055ca8944ce4488f2571a6fc8c1d, type: 3}

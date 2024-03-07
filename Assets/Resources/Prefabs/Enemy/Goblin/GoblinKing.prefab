@@ -5093,8 +5093,8 @@ MonoBehaviour:
   aim: {fileID: 4568708113561576523}
   hit: {fileID: 4568708114615270446}
   isDead: 0
-  maxHP: 120
-  curHP: 120
+  maxHP: 130
+  curHP: 130
   moveSpeed: 3
   moveSpeedCo: 1
   aimRange: 0.8
@@ -5102,6 +5102,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 1
+  BossAchivement: 111
   patterns:
   - range: 0.7
     width: 1
@@ -5120,10 +5121,12 @@ MonoBehaviour:
     duration: 2.5
     prefabName: 
   patternCount: 0
+  isHardMode: 0
   mobs:
   - {fileID: 2615918146226860490, guid: ab6c15cd655f6ac4d8dd5de1ae3c7b12, type: 3}
   - {fileID: 4139268799128413703, guid: 95aee7cd40e533e48b8813039f60b0fb, type: 3}
   - {fileID: 6028886635807258624, guid: 23a925423b60b9b4ba20388df6a9d24e, type: 3}
+  alreadyUsedPattern: 0
   maxSpawnCount: 3
   SpawnCoolTime: 6
 --- !u!95 &4568708114615270418

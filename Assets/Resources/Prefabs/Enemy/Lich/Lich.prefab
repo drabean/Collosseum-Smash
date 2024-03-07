@@ -5007,6 +5007,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 1
+  BossAchivement: 130
   patterns:
   - range: 3
     width: 0
@@ -5049,6 +5050,7 @@ MonoBehaviour:
     duration: 9
     prefabName: Prefabs/Attack/LichMissile
   patternCount: 10
+  isHardMode: 0
   mobs:
   - {fileID: 7806197883472134555, guid: 2dd64a1b96ff0904fa88d8ef32e01663, type: 3}
   - {fileID: 4903823895050830230, guid: 75c7f1bce8114064d897e0bb868810dc, type: 3}

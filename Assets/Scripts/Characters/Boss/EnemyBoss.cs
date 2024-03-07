@@ -28,6 +28,7 @@ public struct PatternInfo
 }
 public class EnemyBoss : Enemy
 {
+    public ACHIEVEMENT BossAchivement;
     /// <summary>
     /// 패턴 정보
     /// </summary>
@@ -76,6 +77,18 @@ public class EnemyBoss : Enemy
         GameMgr.Inst.MainCam.changeTarget(transform);
         //죽은 적을 다시 공격하는 것을 막기 위해, 콜라이더 없애줌
         Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+
+
+        //업적 클리어하기 및 첫 클리어 보너스!
+        if (!LoadedSave.Inst.save.CheckAchivement(BossAchivement))
+        {
+            LoadedSave.Inst.save.ClearAchivement(BossAchivement);
+            Debug.Log("FirstClear!");
+            LoadedSave.Inst.save.Coin += 20;
+            LoadedSave.Inst.SyncSaveData();
+        }
+
+
         if(cols.Length != 0)
         {
             foreach(Collider2D col in cols)
