@@ -18,5 +18,6 @@ public class TrophyActivator : MonoBehaviour
     {
         if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR)) Instantiate(trophyPrefabs[0], trophyPositions[0]);
         if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR)) Instantiate(trophyPrefabs[1], trophyPositions[1]);
+        if(LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.HARDCLEAR)) Instantiate(trophyPrefabs[2], trophyPositions[2]);
     }
 }

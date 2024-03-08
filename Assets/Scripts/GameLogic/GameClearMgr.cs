@@ -10,10 +10,15 @@ public class GameClearMgr : MonoBehaviour
 
     TextMeshPro progressTMP;
 
-    public void Init( RunData runData,TextMeshPro progressTMP)
+    bool isHardMode;
+    public void Init(RunData runData,TextMeshPro progressTMP)
     {
-        ClearTrophy = Resources.Load<Item>("Prefabs/Trophy/ClearTrophy");
+        isHardMode = runData.isHardMode;
+
+        if(!isHardMode)ClearTrophy = Resources.Load<Item>("Prefabs/Trophy/ClearTrophyItem");
+        else ClearTrophy = Resources.Load<Item>("Prefabs/Trophy/HardmodeTrophyItem");
         this.progressTMP = progressTMP;
+        this.isHardMode = runData.isHardMode;
 
         TrophyHolder = Instantiate(Resources.Load<Animator>("Prefabs/TrophyHolder"));
         TrophyHolder.transform.position = Vector3.up * 0.5f;
@@ -32,14 +37,13 @@ public class GameClearMgr : MonoBehaviour
     IEnumerator co_ClearRoutine()
     {
         progressTMP.text = "";
+        yield return new WaitForSeconds(2.0f);
+        if (!isHardMode) progressTMP.text = "You have smashed every enemy!";
+        else progressTMP.text = "You have smashd countless, \nevil Things! ";
         yield return new WaitForSeconds(3.0f);
-        progressTMP.text = "You bravely defeated \ncountless foes.";
-        yield return new WaitForSeconds(3.0f);
-        progressTMP.text = "Everyone will \nremember your  valor!";
-        yield return new WaitForSeconds(3.0f);
-        progressTMP.text = "However, there seems \nto be another challenge \n still awaits...";
-        yield return new WaitForSeconds(3.0f);
-        progressTMP.text = "Receive the trophy, \nglorious champion!";
+        if(!isHardMode)progressTMP.text = "Receive the trophy, \nGlorious champion!";
+        else progressTMP.text = "Ypu are a true \nchampion of colloseum!";
+        yield return new WaitForSeconds(1.0f);
         TrophyHolder.SetTrigger("Show");
         yield return new WaitForSeconds(1.0f);
         SpawnTrophy();
@@ -54,7 +58,10 @@ public class GameClearMgr : MonoBehaviour
     public void GameClear()
     {
         // rundata 삭제 및 업적 클리어하기
-        LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
+        if(!isHardMode)LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
+        else LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.HARDCLEAR);
+        LoadedSave.Inst.SyncSaveData();
+
         StartCoroutine(ShowClearPanel());
     }
 }

@@ -18,10 +18,10 @@ MonoBehaviour:
   - {fileID: 8819645963848089268, guid: 45dcd21c4a5cb10409dd347e86b5ad6a, type: 3}
   - {fileID: 999269732158798076, guid: 14275a766da6b6340b588e42a4284010, type: 3}
   Boss: {fileID: 3843553763941045600, guid: 26b4953708536534e87afc37986ae4e4, type: 3}
-  maxKill: 25
+  maxKill: 20
   Intro: {fileID: 8300000, guid: bb599116b2c35fd47a01911a4f470828, type: 3}
   BGM: {fileID: 8300000, guid: baf2419b8a5012146b7d867eb8aed28f, type: 3}
   StageDeco: {fileID: 6024388929744640293, guid: f9f914c3d56ae324bb95f9c866de33be, type: 3}
   bossText: "A growling sound of a beast \nechoes through air...\nPrepare your Battle!"
-  DeathMessage: They seemed weak, but they weren't as frail as they appeared.
+  DeathMessage: Your entire body is covered in fur!
   ThrowItem: {fileID: 2340179198039797983, guid: e496b6c99a0b8164d819560e33c783a6, type: 3}

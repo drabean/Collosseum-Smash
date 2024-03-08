@@ -22,6 +22,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     public bool isPlayerInstantiated;
 
     public Player player;
+
+    int TotalSpawnCount;
     
     protected void Awake()
     {
@@ -79,13 +81,11 @@ public class GameMgr : MonoSingleton<GameMgr>
         isPlayerInstantiated = true;
 
 
-
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(player);
         //테스트를 위한 임의 스테이지 지정
         if (testStage == null) stageInfo = getStageData();
         else stageInfo = testStage;
-
 
         if(stageInfo == null)
         {
@@ -95,6 +95,8 @@ public class GameMgr : MonoSingleton<GameMgr>
             yield break;
         }
 
+        TotalSpawnCount = stageInfo.maxKill;
+        if (curRunData.isHardMode) TotalSpawnCount += 10;
 
         if(stageInfo.StageDeco != null) Instantiate(stageInfo.StageDeco, Vector3.zero, Quaternion.identity);
 
@@ -190,7 +192,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         if (curSpawnRoutine != null) StopCoroutine(curSpawnRoutine);
         UIMgr.Inst.progress.ShowNormalUI();
         progressCount = curRunData.normalProgress;
-        progressTMP.text = progressCount + " / " + stageInfo.maxKill;
+        progressTMP.text = progressCount + " / " + TotalSpawnCount;
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
         curPhase = PHASE.NORMAL;
     }
@@ -326,14 +328,18 @@ public class GameMgr : MonoSingleton<GameMgr>
         switch(progressCount)
         {
             case <=5:
-                baseEnemyCount = 3;
+                baseEnemyCount = 2;
+                maxCount = 2;
+                break;
+            case <= 10:
+                baseEnemyCount = 2;
                 maxCount = 3;
                 break;
             case <= 15:
                 baseEnemyCount = 3;
                 maxCount = 4;
                 break;
-            case <= 20:
+            case <= 25:
                 baseEnemyCount = 3;
                 maxCount = 5;
                 break;
@@ -345,14 +351,18 @@ public class GameMgr : MonoSingleton<GameMgr>
                 baseEnemyCount = 3;
                 maxCount = 6;
                 break;
+            case <= 45:
+                baseEnemyCount = 3;
+                maxCount = 7;
+                break;
         }
 
 
 
         #endregion
-        UIMgr.Inst.progress.SetProgress(progressCount, stageInfo.maxKill);
-        progressTMP.text = progressCount + " / " + stageInfo.maxKill;
-        if (progressCount >= stageInfo.maxKill)
+        UIMgr.Inst.progress.SetProgress(progressCount, TotalSpawnCount);
+        progressTMP.text = progressCount + " / " + TotalSpawnCount;
+        if (progressCount >= TotalSpawnCount)
         {
             removeAllNormalEnemies();
             startBossStage();

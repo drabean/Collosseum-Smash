@@ -169,10 +169,14 @@ public class EnemyHairballHuge : EnemyBoss
     {
         for(int i = 0; i < 3; i++)
         {
-            setDir();
-            StartCoroutine(co_Jump(Target.transform.position.Randomize(patterns[1].range)));
+            Vector3 destination = Target.transform.position.Randomize(patterns[1].range);
+
+            setDir(destination - transform.position);
+            StartCoroutine(co_Jump(destination));
             yield return new WaitForSeconds(1.2f);
         }
+
+        StartCoroutine(co_Fatigue(2.3f));
     }
     /*
     #region Pat3 (Lecacy)
