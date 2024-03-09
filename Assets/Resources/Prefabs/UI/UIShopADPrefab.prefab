@@ -413,7 +413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Purchased!
+  m_text: Can Watch \nAfter  6 Hours.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
   m_sharedMaterial: {fileID: -6208690387942919651, guid: 9aa720dbe096c3f42a13d80307bf5928, type: 2}
@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableGroup: {fileID: 5013144447817137256}
+  TMPTimeSpan: {fileID: 5013144447885177998}
 --- !u!1 &5013144449050367775
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +724,7 @@ GameObject:
   - component: {fileID: 5013144449050367762}
   - component: {fileID: 5013144449050367761}
   m_Layer: 5
-  m_Name: ImageCoin
+  m_Name: ImageAD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,8 +747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 5.2}
-  m_SizeDelta: {x: 18, y: 18}
+  m_AnchoredPosition: {x: 0, y: 3}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5013144449050367762
 CanvasRenderer:
@@ -853,7 +854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Watch Ads to get 50 Coin! \n(Once per day)"
+  m_text: "Watch Ads to get 30 Coin! \n(Available once every 60 minutes)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85f3b75127766604488b42a375dcfea8, type: 2}
   m_sharedMaterial: {fileID: -5642168707093515901, guid: 85f3b75127766604488b42a375dcfea8, type: 2}

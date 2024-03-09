@@ -27,6 +27,7 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
     {
         while (!MainGameLogic.isInit) yield return null; // 데이터 초기화까지 대기
 
+        Application.targetFrameRate = 60;
 
         yield return new WaitForSeconds(0.5f);
         ProgressTMP.text = "Done!";

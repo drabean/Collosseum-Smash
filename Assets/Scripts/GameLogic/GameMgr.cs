@@ -477,10 +477,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         DescriptionObject.SetTrigger("Hide");
 
-        yield return new WaitForSeconds(1.0f);
-        DescriptionObject.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
 
         UTILS.SaveRunData(curRunData);
         LoadedSave.Inst.SyncSaveData();

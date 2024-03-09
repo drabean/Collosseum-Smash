@@ -187,7 +187,7 @@ public class TutorialMgr : MonoBehaviour
     {
         SoundMgr.Inst.BGMFadeout();
 
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR))
+        if (!LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR))
         {
             LoadedSave.Inst.save.Coin += 10;
             LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.TUTORIALCLEAR);

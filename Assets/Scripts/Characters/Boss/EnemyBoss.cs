@@ -99,7 +99,6 @@ public class EnemyBoss : Enemy
 
         GameMgr.Inst.SlowTime(3f, 0.3f, true);
         coin = Resources.Load<ItemCoin>("Prefabs/Item/ItemCoin");
-        List<ItemCoin> coins = new List<ItemCoin>();
         //여기서 적 사망 연출
         for(int i = 0; i < explosionRepeatTime; i++)
         {
@@ -108,14 +107,14 @@ public class EnemyBoss : Enemy
             temp.transform.position = transform.position.Randomize(size);
             ItemCoin c = Instantiate(coin, transform.position, Quaternion.identity);
             c.Init(1);
-            coins.Add(c);
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
         SoundMgr.Inst.Play("Smash");
 
         yield return base.co_Smash(GameMgr.Inst.player.transform);
-        foreach (ItemCoin c in coins) { if(c != null)c.magnet(Target.transform); }
+        ItemCoin[] coins = GameObject.FindObjectsOfType<ItemCoin>();
+        foreach (ItemCoin c in coins) c.magnet(Target.transform);
 
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }

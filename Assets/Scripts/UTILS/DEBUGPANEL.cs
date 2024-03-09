@@ -90,6 +90,7 @@ public class DEBUGPANEL : MonoBehaviour
         UTILS.DeleteRunData();
         UTILS.DeleteSaveData();
         UTILS.DeleteSettingData();
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 

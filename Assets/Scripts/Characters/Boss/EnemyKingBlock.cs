@@ -306,6 +306,7 @@ public class EnemyKingBlock : EnemyBoss
         hideAllSpikes();
         subBlocks[0].Destroy();
         subBlocks[1].Destroy();
+        if (subShooter != null) Destroy(subShooter.gameObject);
         return base.co_Smash(attackerPos);
     }
 

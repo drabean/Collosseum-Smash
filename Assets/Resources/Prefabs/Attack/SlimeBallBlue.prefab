@@ -310,7 +310,7 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
-  maxHit: 0
+  maxHit: 1
 --- !u!95 &7606645992879119507
 Animator:
   serializedVersion: 5
