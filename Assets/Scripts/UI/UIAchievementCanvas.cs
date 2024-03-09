@@ -31,7 +31,12 @@ public class UIAchievementCanvas : MonoBehaviour
         if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR))
         {
             UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Champion", "Beat the game in normal difficulty.", "Hard Mode\nUnlock");
+            prefab.Init("Champion", "Beat the game in normal mode.", "Hard Mode\nUnlock");
+        }      
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.HARDCLEAR))
+        {
+            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
+            prefab.Init("True Champion", "Beat the game in hard mode.", "Amazing!");
         }
 
         #region º¸½ºÅ³

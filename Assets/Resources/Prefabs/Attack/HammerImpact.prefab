@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXName: Impact2
-  range: 0.4
+  range: 0.6
 --- !u!114 &6025647657313835228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.6
 --- !u!114 &4249538837580798397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +168,4 @@ MonoBehaviour:
   cantPenetrate: 0
   dmg: 1
   ownerTr: {fileID: 0}
+  maxHit: 0

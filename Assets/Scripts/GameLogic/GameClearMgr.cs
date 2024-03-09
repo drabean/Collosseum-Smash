@@ -38,11 +38,12 @@ public class GameClearMgr : MonoBehaviour
     {
         progressTMP.text = "";
         yield return new WaitForSeconds(2.0f);
+        SoundMgr.Inst.PlayBGM("WIN");
         if (!isHardMode) progressTMP.text = "You have smashed every enemy!";
         else progressTMP.text = "You have smashd countless, \nevil Things! ";
         yield return new WaitForSeconds(3.0f);
         if(!isHardMode)progressTMP.text = "Receive the trophy, \nGlorious champion!";
-        else progressTMP.text = "Ypu are a true \nchampion of colloseum!";
+        else progressTMP.text = "You are a true \nchampion of colloseum!";
         yield return new WaitForSeconds(1.0f);
         TrophyHolder.SetTrigger("Show");
         yield return new WaitForSeconds(1.0f);
@@ -52,7 +53,7 @@ public class GameClearMgr : MonoBehaviour
     public IEnumerator ShowClearPanel()
     {
         yield return new WaitForSeconds(3.0f);
-        UIMgr.Inst.defeated.InitClear(UTILS.GetRunData());
+        UIMgr.Inst.defeated.InitClear(UTILS.GetRunData(), isHardMode);
         UIMgr.Inst.defeated.OpenDefeatPanel();
     }
     public void GameClear()

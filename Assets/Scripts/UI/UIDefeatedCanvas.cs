@@ -23,6 +23,7 @@ public class UIDefeatedCanvas : MonoBehaviour
     int coin;
 
     [SerializeField] Sprite TrophyImage;
+    [SerializeField] Sprite HardTrophyImage;
     /// <summary>
     /// 게임오버 / 게임 클리어 시 보여주는 패널.
     /// </summary>
@@ -52,11 +53,12 @@ public class UIDefeatedCanvas : MonoBehaviour
 
     }
 
-    public void InitClear(RunData data)
+    public void InitClear(RunData data, bool isHardMode)
     {
         CharacterInfo character = LoadedData.Inst.getCharacterInfoByID(data.characterInfoIdx);
         TMP_Name.text = character.characterName;
-        CharacterDeathImage.sprite = TrophyImage;
+        if (!isHardMode) CharacterDeathImage.sprite = TrophyImage;
+        else CharacterDeathImage.sprite = HardTrophyImage;
         Destroy(ShadowImage);
         TMP_DeathMessage.text = "You have stood at the top of the Colosseum! \nHowever, new challenge await...";
         TMP_Title.text = "CLEAR";
@@ -75,11 +77,14 @@ public class UIDefeatedCanvas : MonoBehaviour
     }
     public void Btn_AdBtn()
     {
+        //TODO: 광고 연동 후 시청 여부 체크
         //광고시청
-        UTILS.DeleteRunData();
         SoundMgr.Inst.Play("Purchase");
         LoadedSave.Inst.save.Coin += coin;
         LoadedSave.Inst.SyncSaveData();
+
+
+        UTILS.DeleteRunData();
         LoadSceneMgr.LoadSceneAsync("Start");
     }
 

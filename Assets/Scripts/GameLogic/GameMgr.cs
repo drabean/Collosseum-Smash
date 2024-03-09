@@ -474,8 +474,13 @@ public class GameMgr : MonoSingleton<GameMgr>
         curRunData.normalProgress = 0;
         curRunData.bossProgress = 0;
         LoadedSave.Inst.save.Exp++;
-        
-        yield return new WaitForSeconds(3.0f);
+
+        DescriptionObject.SetTrigger("Hide");
+
+        yield return new WaitForSeconds(1.0f);
+        DescriptionObject.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1.0f);
 
         UTILS.SaveRunData(curRunData);
         LoadedSave.Inst.SyncSaveData();

@@ -8,6 +8,7 @@ public class UIShopCanvas : MonoBehaviour
 {
     public GameObject totalPanel;
     [SerializeField] UIShopPrefab ShopPrefab;
+    [SerializeField] UIAdPrefab AdPrefab;
     [SerializeField] Transform ShopPrefabHolder;
     bool isShoptInit = false;
 
@@ -21,6 +22,9 @@ public class UIShopCanvas : MonoBehaviour
     {
         if (isShoptInit) return;
         //TODO: 광고 추가하기
+
+        UIAdPrefab ad = Instantiate(AdPrefab, ShopPrefabHolder);
+        ad.Init();
 
         //공속
         UIShopPrefab prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
