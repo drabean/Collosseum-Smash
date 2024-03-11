@@ -19,9 +19,13 @@ public class LoadedData : Singleton<LoadedData>
     string characterInfoPath = "Datas/CharacterInfo";
     string stageInfoPath = "Datas/StageInfo";
     string equipPath = "Datas/EquipInfo";
+    string achivementPath = "Datas/AchivementInfo";
+
+    Dictionary<ACHIEVEMENT, AchievementInfo> Achivements = new Dictionary<ACHIEVEMENT, AchievementInfo>();
 
     public void LoadData()
     {
+        //캐릭터 정보 로딩
         CharacterInfo[] characterInfos = Resources.LoadAll<CharacterInfo>(characterInfoPath);
 
         foreach(CharacterInfo c in characterInfos)
@@ -35,7 +39,7 @@ public class LoadedData : Singleton<LoadedData>
 
         stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
 
-
+        //장비 정보 로딩
         EquipInfo[] equips = Resources.LoadAll<EquipInfo>(equipPath);
 
         foreach(EquipInfo e in equips)
@@ -49,6 +53,14 @@ public class LoadedData : Singleton<LoadedData>
             }
         }
 
+        //업적 정보 로딩
+
+        AchievementInfo[] achivements = Resources.LoadAll<AchievementInfo>(achivementPath);
+
+        foreach(AchievementInfo a in achivements)
+        {
+            Achivements.Add(a.Achievement, a);
+        }
         isDataLoaded = true;
     }
 
@@ -62,6 +74,19 @@ public class LoadedData : Singleton<LoadedData>
         else
         {
             Debug.Log("ID에 해당하는 아이템이 존재하지 않습니다");
+            return null;
+        }
+    }
+
+    public AchievementInfo getAchivementInfo(ACHIEVEMENT Achivement)
+    {
+        if(Achivements.ContainsKey(Achivement))
+        {
+            return Achivements[Achivement];
+        }
+        else
+        {
+            Debug.Log("업적 정보가 등록되어 있지 않습니다");
             return null;
         }
     }

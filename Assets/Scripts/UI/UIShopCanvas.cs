@@ -26,34 +26,54 @@ public class UIShopCanvas : MonoBehaviour
         UIAdPrefab ad = Instantiate(AdPrefab, ShopPrefabHolder);
         ad.Init();
 
+
+        UIShopPrefab prefab;
+
+        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR))
+        {
+            prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
+            prefab.Init(200, UNLOCK.ADDITEM, "inherited equipment", "At the beginning of the game, you start with one additional random equipment.");
+            if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ADDITEM)) prefab.disableBtn();
+        }
         //공속
-        UIShopPrefab prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(100, UNLOCK.ATKSPD, "Attack Speed", "Increase player's attack speed.");
+        prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
+        prefab.Init(100, UNLOCK.ATKSPD, "Quick Hands", "Increase player's attack speed.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKSPD)) prefab.disableBtn();
 
-        //투척데미지
+        //공격력
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.THRWDMG, "Throw Damage", "Increase player's Throw Damage.");
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.THRWDMG)) prefab.disableBtn();
+        prefab.Init(50, UNLOCK.ATKDMG, "Innate Strength", "Increase player's attack damage");
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKDMG)) prefab.disableBtn();
 
         //최대체력
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.MAXHP, "Max HP", "Increase player's Max HP.");
+        prefab.Init(50, UNLOCK.MAXHP, "Innate Stamina", "Increase player's Max HP.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MAXHP)) prefab.disableBtn();
+
+        //이동속도
+        prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
+        prefab.Init(50, UNLOCK.MOVSPD, "Innate Agility", "Increase player's move speed.");
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MOVSPD)) prefab.disableBtn();
+
+
+        //투척데미지
+        prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
+        prefab.Init(50, UNLOCK.THRWDMG, "Innate Accuracy", "Increase player's Throw Damage.");
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.THRWDMG)) prefab.disableBtn();
 
         //체력재생
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.HPREG, "HP Regeneration", "The health recovered at the end of the stage increases.");
+        prefab.Init(30, UNLOCK.HPREG, "Comfortable Bed", "The health recovered at the end of the stage increases.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) prefab.disableBtn();
 
         //돈
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.MONEY, "More Coin!", "Enemy drops coin more often.");
+        prefab.Init(30, UNLOCK.MONEY, "More Coin!", "Enemies drops coin more often.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MONEY)) prefab.disableBtn();
 
-        //투척데미지
+        //부활횟수
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.REVIVE, "More Life!", "Player can revive 1 more time.");
+        prefab.Init(20, UNLOCK.REVIVE, "More Life!", "Player can revive One more time.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) prefab.disableBtn();
 
         isShoptInit = true;

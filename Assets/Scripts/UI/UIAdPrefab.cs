@@ -10,8 +10,10 @@ public class UIAdPrefab : MonoBehaviour
     public Action onPurchase;
     public GameObject DisableGroup;
     public TextMeshProUGUI TMPTimeSpan;
+    public TextMeshProUGUI TMPDestription;
 
-    int ADCoolTime = 60;
+    int ADCoolTime = 10;
+    int reward = 40;
     public void Init()
     {
         //TODO: 마지막 광고시청시간 확인해서 비활성화 하기
@@ -21,6 +23,7 @@ public class UIAdPrefab : MonoBehaviour
 
         string lastADTime = PlayerPrefs.GetString("LastADBtnTime");
 
+        TMPDestription.text = "Watch Ads to get "+reward +" Coin! \n(Available once every "+ ADCoolTime.ToString() +" minutes)";
         if(lastADTime.Equals(""))
         {
             Debug.Log("FIRST");
@@ -53,13 +56,16 @@ public class UIAdPrefab : MonoBehaviour
     {
         //광고 확인후, 시청시에만 적용
 
-        SoundMgr.Inst.Play("Purchase");
-        LoadedSave.Inst.save.Coin += 30;
-        LoadedSave.Inst.SyncSaveData();
+        if (false) // 광고 확인.
+        {
+            SoundMgr.Inst.Play("Purchase");
+            LoadedSave.Inst.save.Coin += reward;
+            LoadedSave.Inst.SyncSaveData();
 
-        PlayerPrefs.SetString("LastADBtnTime", DateTime.Now.ToString());
-        disableBtn();
-        TMPTimeSpan.text = "Can Watch \nAfter "+ADCoolTime.ToString()+" Minutes";
+            PlayerPrefs.SetString("LastADBtnTime", DateTime.Now.ToString());
+            disableBtn();
+            TMPTimeSpan.text = "Can Watch \nAfter " + ADCoolTime.ToString() + " Minutes";
+        }
     }
 
     //패널로 덮어서 이미 샀다는걸 보여주기

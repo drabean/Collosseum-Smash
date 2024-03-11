@@ -6,6 +6,7 @@ public class ModuleExplosiveAttack : ModuleAttack
 {
     public Attack Explosion;
     bool exploded;
+    public GameObject owner;
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<CharacterBase>(out CharacterBase character))
@@ -15,7 +16,7 @@ public class ModuleExplosiveAttack : ModuleAttack
             character.onHit(ownerTr, dmg, StunTIme);
             exploded = true;
             Instantiate(Explosion).Shoot(transform.position, transform.position + Vector3.up * 0.01f);
-            Destroy(gameObject);
+            Destroy(owner);
         }
     }
 }

@@ -18,6 +18,7 @@ public class Poolable : MonoBehaviour
 
     public void Push()
     {
+        StopAllCoroutines(); // 일정 시간 이후 PUSH되는 효과와 중첩되는 현상 방지
         ActionPush?.Invoke(gameObject);
     }
     public void Push(float time)

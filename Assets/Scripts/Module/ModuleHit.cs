@@ -101,7 +101,7 @@ public class ModuleHit : MonoBehaviour
 
     #region Togle
     static float togleTime = 0.1f; // 깜박거리는주기
-    static Color togleColor = new Color(1, 1, 1, 0.4f);
+    static Color togleColor = new Color(1, 0.6f, 0.6f, 0.3f);
 
     public void Togle(float time)
     {

@@ -21,9 +21,9 @@ public class ItemMgr : MonoSingleton<ItemMgr>
     {
         normalPool = new List<Equip>();
         normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/EquipNormal").list); // 기본 아이템
-        if(LoadedSave.Inst.save.Exp > 5)
+        if(LoadedSave.Inst.save.BossKill > 10)
             normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock1").list); // 1차 해금 - 투척 관련 템들
-        if (LoadedSave.Inst.save.Exp > 10)
+        if (LoadedSave.Inst.save.NormalKill > 100)
             normalPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/Unlock2").list); // 2차 해금 - 부작용 있는 아이템
         //이미 획득한 아이템은 풀에서 빼주기
         foreach (int ItemsGot in data.item)
@@ -37,17 +37,21 @@ public class ItemMgr : MonoSingleton<ItemMgr>
        //TODO: 스테이지 별 전용 아이템 추가
     }
     /// <summary>
-    /// 플레이어의 최종 스탯을 기반으로 포션 아이템 풀 초기화
+    /// 기본 능력치 아이템들
     /// </summary>
     /// <param name="player"></param>
-    public void InitPotionEquipPool(Player player)
+    public void InitPotionEquipPool(RunData data)
     {
-        EquipInfo potionItems = Resources.Load<EquipInfo>("Datas/EquipInfo/EquipPotion");
         potionPool = new List<Equip>();
-        if (player.Stat.STR <= 5) potionPool.Add(potionItems.list[0]);
-        if (player.Stat.SPD <= 5) potionPool.Add(potionItems.list[1]);
-        if (player.Stat.VIT <= 5) potionPool.Add(potionItems.list[2]);
+        potionPool.AddRange(Resources.Load<EquipInfo>("Datas/EquipInfo/EquipPotion").list);
 
+        foreach (int ItemsGot in data.item)
+        {
+            if (potionPool.Contains(LoadedData.Inst.getEquipByID(ItemsGot)))
+            {
+                potionPool.Remove(LoadedData.Inst.getEquipByID(ItemsGot));
+            }
+        }
     }
 
     /// <summary>

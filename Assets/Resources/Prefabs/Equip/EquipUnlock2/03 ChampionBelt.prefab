@@ -47,8 +47,8 @@ MonoBehaviour:
   ID: 20403
   ItemSprite: {fileID: 21300000, guid: 9bd2a5c3eb444d649b1346e3b49c17c3, type: 3}
   itemName: Chapion Belt
-  Description: Attack damage and maxHP increase by 1. but if you got hit, your attack
-    damage and movespeed decrease for 8 seconds.
+  Description: Attack damage and movespeed increase by 1. but if you got hit, your
+    attack damage and movespeed decrease for 5 seconds.
   owner: {fileID: 0}
   curIcon: {fileID: 418515226947452513, guid: 6c109f9c263b77d4396f3af384b14376, type: 3}
-  DebufTime: 8
+  DebufTime: 5

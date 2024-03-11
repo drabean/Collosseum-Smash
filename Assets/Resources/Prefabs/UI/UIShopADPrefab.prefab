@@ -712,6 +712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisableGroup: {fileID: 5013144447817137256}
   TMPTimeSpan: {fileID: 5013144447885177998}
+  TMPDestription: {fileID: 5013144449734909706}
 --- !u!1 &5013144449050367775
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +855,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Watch Ads to get 30 Coin! \n(Available once every 60 minutes)"
+  m_text: "Watch Ads to get 30 Coin! \n(Available once every 10 minutes)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 85f3b75127766604488b42a375dcfea8, type: 2}
   m_sharedMaterial: {fileID: -5642168707093515901, guid: 85f3b75127766604488b42a375dcfea8, type: 2}

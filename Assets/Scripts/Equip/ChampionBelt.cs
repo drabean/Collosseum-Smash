@@ -10,14 +10,14 @@ public class ChampionBelt : Equip
     {
         base.onEquip(player);
         owner.Stat.STR++;
-        owner.Stat.VIT++;
+        owner.Stat.SPD++;
         owner.SetStatus();
         owner.actionHit += onHit;
     }
     public override void onUnEquip(Player player)
     {
         owner.Stat.STR--;
-        owner.Stat.VIT--;
+        owner.Stat.SPD--;
         owner.SetStatus();
     }
 

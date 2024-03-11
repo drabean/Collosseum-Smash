@@ -90,7 +90,7 @@ public class UTILS : MonoBehaviour
         {
             Debug.Log("SAVE DATA 로딩 실패 / 새로운 데이터 생성");
             SaveData newData = new SaveData();
-            UTILS.SaveSaveData(newData);
+            SaveSaveData(newData);
             return newData;
         }
     }
@@ -142,6 +142,66 @@ public class UTILS : MonoBehaviour
 
     #endregion
 
+    #region Achivement
+    static string AchivementName = "achivementShowList";
+    /// <summary>
+    /// AchivementShowList 불러오기
+    /// </summary>
+    /// <returns></returns>
+    public static AchivementShowList GetAchivementShowListData()
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + AchivementName;
+
+        if (File.Exists(finalPath))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fileStream = File.Open(finalPath, FileMode.Open);
+
+            if (fileStream != null)
+            {
+                AchivementShowList data = (AchivementShowList)bf.Deserialize(fileStream);
+                Debug.Log("AchivementShowList 로딩 성공!");
+
+                fileStream.Close();
+                return data;
+            }
+            else
+            {
+                Debug.Log("파일을 읽는 과정에서 오류 발생");
+                AchivementShowList newAC = new AchivementShowList();
+                SaveAchivementShowListData(newAC);
+                return newAC;
+            }
+        }
+        else
+        {
+            Debug.Log("AchivementShowList 존재하지 않음!");
+            AchivementShowList newAC = new AchivementShowList();
+            SaveAchivementShowListData(newAC);
+            return newAC;
+        }
+    }
+
+    /// <summary>
+    /// AchivementShowList 저장하기
+    /// </summary>
+    /// <param name="data"></param>
+    public static void SaveAchivementShowListData(AchivementShowList data)
+    {
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + AchivementName;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream fileStream = File.Create(finalPath);
+
+        bf.Serialize(fileStream, data);
+        fileStream.Close();
+    }
+
+    #endregion
+
+    #region 삭제 기능
 
 #if UNITY_EDITOR
 
@@ -198,17 +258,22 @@ public class UTILS : MonoBehaviour
         }
     }
 
-    #region 해금
-
-    public static void CheckEXP()
+#if UNITY_EDITOR
+    /// <summary>
+    /// 저장되어있는 Setting 삭제하기(reset)
+    /// </summary>
+    [MenuItem("MyTools/DeleteACListData")]
+#endif
+    public static void DeleteAchievementShowListData()
     {
-    }
-    public static void unlock(SaveData data)
-    {
-        data.Exp -= 100;
-        //TODO: ProgressLV 체크하기.
-    }
+        string persistentPath = Application.persistentDataPath;
+        string finalPath = persistentPath + "/" + AchivementName;
 
-
+        if (File.Exists(finalPath))
+        {
+            File.Delete(finalPath);
+            Debug.Log("AC 삭제됨!");
+        }
+    }
     #endregion
 }

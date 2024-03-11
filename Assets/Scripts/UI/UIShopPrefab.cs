@@ -33,7 +33,7 @@ public class UIShopPrefab : MonoBehaviour
     public void Btn_Purchase()
     {
         onPurchase?.Invoke();
-        if (LoadedSave.Inst.save.Coin > cost)
+        if (LoadedSave.Inst.save.Coin >= cost)
         {
             SoundMgr.Inst.Play("Purchase");
             LoadedSave.Inst.save.Coin -= cost;

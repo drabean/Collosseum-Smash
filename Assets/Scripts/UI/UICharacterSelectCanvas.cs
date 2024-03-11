@@ -29,6 +29,11 @@ public class UICharacterSelectCanvas : MonoBehaviour
         curIdx = saveIdx;
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
         changePlayer();
+    }
+    public void OpenCharacterSelect(int idx)
+    {
+        GroupCharacterSelect.SetActive(true);
+
         if (!LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR))
         {
             isTutorial = true;
@@ -39,9 +44,6 @@ public class UICharacterSelectCanvas : MonoBehaviour
             isTutorial = false;
             TutorialToggle.isOn = false;
         }
-
-
-
         if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR))
         {
             HardmodeToggle.gameObject.SetActive(true);
@@ -53,10 +55,6 @@ public class UICharacterSelectCanvas : MonoBehaviour
             HardmodeToggle.gameObject.SetActive(false);
             isHardMode = false;
         }
-    }
-    public void OpenCharacterSelect(int idx)
-    {
-        GroupCharacterSelect.SetActive(true);
 
         curIdx = idx;
         Show();
@@ -131,25 +129,25 @@ public class UICharacterSelectCanvas : MonoBehaviour
                     break;
                 }
             case 1:
-                if(LoadedSave.Inst.save.Exp >= 5)
+                if(LoadedSave.Inst.save.BossKill >= 5)
                 {
                     LockGroup.SetActive(false); 
                 }
                 else
                 {
                     LockGroup.SetActive(true);
-                    TMPLockProgress.text = "Unlock After Deafeating " + (5 - LoadedSave.Inst.save.Exp) + " Boss!";
+                    TMPLockProgress.text = "Unlock After Smashing " + (5 - LoadedSave.Inst.save.BossKill) + " Boss!";
                 }
                 break;
             case 2:
-                if (LoadedSave.Inst.save.Exp >= 10)
+                if (LoadedSave.Inst.save.NormalKill >= 100)
                 {
                     LockGroup.SetActive(false);
                 }
                 else
                 {
                     LockGroup.SetActive(true);
-                    TMPLockProgress.text = "Unlock After Deafeating " + (10 - LoadedSave.Inst.save.Exp) + " Boss!";
+                    TMPLockProgress.text = "Unlock After Smashing " + (100 - LoadedSave.Inst.save.NormalKill) + " Enemy!";
                 }
                 break;
         }
@@ -196,6 +194,10 @@ public class UICharacterSelectCanvas : MonoBehaviour
         for (int i = 0; i < info.playerItems.Count; i++)
         {
             data.item.Add(info.playerItems[i].ID);
+        }
+        if(LoadedSave.Inst.save.CheckUnlock(UNLOCK.ADDITEM))
+        {
+            data.item.Add(Random.Range(20101, 20110));
         }
         data.curHP =10;
         data.reviveCount = 1;

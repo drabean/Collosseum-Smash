@@ -22,62 +22,30 @@ public class UIAchievementCanvas : MonoBehaviour
 
         isShoptInit = true;
 
-        if(LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.TUTORIALCLEAR))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("First Step", "Cleared Totorial.", "10 Coin");
-        }
+        AddAchievementBlock(ACHIEVEMENT.TUTORIALCLEAR);
+        AddAchievementBlock(ACHIEVEMENT.NORMALCLEAR);
+        AddAchievementBlock(ACHIEVEMENT.HARDCLEAR);
 
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.NORMALCLEAR))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Champion", "Beat the game in normal mode.", "Hard Mode\nUnlock");
-        }      
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.HARDCLEAR))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("True Champion", "Beat the game in hard mode.", "Amazing!");
-        }
+        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS5);
+        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS10);
+        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL50);
+        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL100);
+
 
         #region º¸½ºÅ³
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLTUTORIAL))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Novice Gladiator", "Smashed Huge Training Doll.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLHAIRBALL))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Beast Hunt", "Smashed Huge Hairball.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLGOBLIN))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Goblin Slayer", "Smashed Goblin King.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLCHAMPION))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Veteran Gladiator", "Smashed Champion.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLSLIME))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Slimy Hero", "Samshed Huge Slime.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLLICH))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Exorcism", "Smashed Lich.", "20 Coin");
-        }
-        if (LoadedSave.Inst.save.CheckAchivement(ACHIEVEMENT.KILLBLOCK))
-        {
-            UIAchievementPrefab prefab = Instantiate(AchivementPrefab, AchivementHolder);
-            prefab.Init("Indiana Jones", "Smashed Ancient Machine.", "20 Coin");
-        }
-
+        AddAchievementBlock(ACHIEVEMENT.KILLTUTORIAL);
+        AddAchievementBlock(ACHIEVEMENT.KILLHAIRBALL);
+        AddAchievementBlock(ACHIEVEMENT.KILLGOBLIN);
+        AddAchievementBlock(ACHIEVEMENT.KILLCHAMPION);
+        AddAchievementBlock(ACHIEVEMENT.KILLSLIME);
+        AddAchievementBlock(ACHIEVEMENT.KILLLICH);
+        AddAchievementBlock(ACHIEVEMENT.KILLBLOCK);
         #endregion
 
+    }
+    public void AddAchievementBlock(ACHIEVEMENT Achievement)
+    {
+        Instantiate(AchivementPrefab, AchivementHolder).Init(LoadedData.Inst.getAchivementInfo(Achievement));
     }
 
     public void Btn_Exit()

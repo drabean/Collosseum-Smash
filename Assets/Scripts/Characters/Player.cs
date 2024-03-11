@@ -308,11 +308,15 @@ public class Player : CharacterBase
     {
         isHolding = false;
         if (curHoldingItem == null) return;
-        Projectile projectile = Instantiate(curHoldingItem.projectile);
-        projectile.gameObject.layer = LayerMask.NameToLayer("AllyAttack");
-        projectile.Shoot(transform.position, target.position);
-        projectile.moduleAttack.dmg = Stat.STR + Stat.ACC;
-        InvokeOnThrow(projectile);
+        if (target != null)
+        {
+            Projectile projectile = Instantiate(curHoldingItem.projectile);
+            projectile.gameObject.layer = LayerMask.NameToLayer("AllyAttack");
+            projectile.Shoot(transform.position, target.position);
+            projectile.moduleAttack.dmg = Stat.STR + Stat.ACC;
+            InvokeOnThrow(projectile);
+        }
+
         Destroy(curHoldingItem.gameObject);
         curHoldingItem = null;
 

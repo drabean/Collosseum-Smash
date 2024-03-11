@@ -9,7 +9,9 @@ public class DaggerPouch : Equip
     public int DaggerSpawnCount = 4;
     int daggerSpawnCountLeft = 0;
 
-    public Item daggerPrefab;
+    public int maxDaggerSpawn;
+    int curDaggerCount;
+    public ItemThrowable daggerPrefab;
 
     Transform[] spawnArea;
     public override void onEquip(Player player)
@@ -29,12 +31,15 @@ public class DaggerPouch : Equip
     {
         daggerSpawnCountLeft--;
 
-        if(daggerSpawnCountLeft <= 0)
+        if(daggerSpawnCountLeft <= 0 && curDaggerCount < maxDaggerSpawn)
         {
             Vector3 spawnPos = transform.position + Vector3.right * Random.Range(0, spawnAreaSize) + Vector3.up * Random.Range(0, spawnAreaSize);
 
-            Instantiate(daggerPrefab, spawnPos.Clamp(spawnArea[0].position, spawnArea[1].position), Quaternion.identity);
+            ItemThrowable dagger = Instantiate(daggerPrefab, spawnPos.Clamp(spawnArea[0].position, spawnArea[1].position), Quaternion.identity);
+            curDaggerCount++;
+            dagger.onAcquire += () => { curDaggerCount--; };
             daggerSpawnCountLeft = DaggerSpawnCount;
+           
         }
     }
 }

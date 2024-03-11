@@ -27,5 +27,10 @@ public abstract class Equip : MonoBehaviour
 
     public abstract void onUnEquip(Player player);
 
+    [ContextMenu("Unequip")]
+    void DoUnequip()
+    {
+        onUnEquip(owner);
+    }
 
 }

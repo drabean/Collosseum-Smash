@@ -82,7 +82,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
-        ItemMgr.Inst.InitPotionEquipPool(player);
+        ItemMgr.Inst.InitPotionEquipPool(curRunData);
         //테스트를 위한 임의 스테이지 지정
         if (testStage == null) stageInfo = getStageData();
         else stageInfo = testStage;
@@ -137,13 +137,21 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             player.Stat.ACC++;
         }
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKDMG))
+        {
+            player.Stat.STR++;
+        }
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MAXHP))
         {
             player.Stat.VIT++;
         }
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MOVSPD))
+        {
+            player.Stat.SPD++;
+        }
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MONEY))
         {
-            coinCount-=2;
+            coinCount-=3;
         }
     }
     void spawnGong()
@@ -174,7 +182,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     int maxBaseEnemyCount = 3;
     int progressCount = 0; 
     bool isBossSpawned;
-    public int dropCount = 6; // 투척 아이템 소환 빈도
+    public int dropCount = 7; // 투척 아이템 소환 빈도
     int curDropCount = 0;
     public int coinCount = 10;
     int curCoinCount = 0;
@@ -272,7 +280,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         GameMgr.Inst.removeAllNormalEnemies();
 
         progressTMP.text = stageInfo.bossText;
-
+        yield return new WaitForSeconds(0.5f);
         UIMgr.Inst.progress.HideAll();
         EnemyMgr.Inst.SpawnBossEnemy(stageInfo.Boss, Vector3.up, curRunData.isHardMode ,onBossDie);
         yield return new WaitForSeconds(1f);
@@ -318,6 +326,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// <param name="index">해당 적의 StageInfo에서의 index </param>
     void onNormalEnemyDie(int index)
     {
+        LoadedSave.Inst.save.NormalKill++;
+
         curEnemyCount--;
         if (index != 0) enemiesCanBeSpawned.Add(index);
         else baseEnemyCount--;
@@ -395,6 +405,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         StartCoroutine(co_SpawnItems());
         SoundMgr.Inst.BGMFadeout();
         UIMgr.Inst.progress.HideAll();
+        LoadedSave.Inst.save.BossKill++;
     }
     
     IEnumerator co_SpawnItems()
@@ -405,6 +416,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         player.AutoMove(Vector3.up * -6.4f);
 
         yield return new WaitForSeconds(2.0f);
+        MainCam.lockPos(Vector3.forward * -1);
         spawnItems();
         yield return new WaitForSeconds(1.0f);
         UIMgr.Inst.itemDescription.ShowDescription("Select One!");
@@ -473,7 +485,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         curRunData.normalProgress = 0;
         curRunData.bossProgress = 0;
-        LoadedSave.Inst.save.Exp++;
 
         DescriptionObject.SetTrigger("Hide");
 

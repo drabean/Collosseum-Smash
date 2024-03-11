@@ -31,6 +31,7 @@ public class UIPauseCanvas : MonoBehaviour
     {
         Time.timeScale = 1;
 
+        LoadedSave.Inst.SyncSetting();
         totalPanel.SetActive(false);
         GameMgr.Inst.isPause = false;
     }

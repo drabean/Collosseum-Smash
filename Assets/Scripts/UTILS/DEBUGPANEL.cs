@@ -97,7 +97,8 @@ public class DEBUGPANEL : MonoBehaviour
     public void Btn_EnableHardmode()
     {
         LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
-        LoadedSave.Inst.save.Exp += 10;
+        LoadedSave.Inst.save.NormalKill += 100;
+        LoadedSave.Inst.save.BossKill += 100;
         LoadedSave.Inst.SyncSaveData();
     }
 }

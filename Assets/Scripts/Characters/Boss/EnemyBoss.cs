@@ -79,14 +79,7 @@ public class EnemyBoss : Enemy
         Collider2D[] cols = GetComponentsInChildren<Collider2D>();
 
 
-        //업적 클리어하기 및 첫 클리어 보너스!
-        if (!LoadedSave.Inst.save.CheckAchivement(BossAchivement))
-        {
-            LoadedSave.Inst.save.ClearAchivement(BossAchivement);
-            Debug.Log("FirstClear!");
-            LoadedSave.Inst.save.Coin += 20;
-            LoadedSave.Inst.SyncSaveData();
-        }
+        LoadedSave.Inst.TryAddAchievement(BossAchivement);
 
 
         if(cols.Length != 0)
@@ -115,7 +108,8 @@ public class EnemyBoss : Enemy
         yield return base.co_Smash(GameMgr.Inst.player.transform);
         ItemCoin[] coins = GameObject.FindObjectsOfType<ItemCoin>();
         foreach (ItemCoin c in coins) c.magnet(Target.transform);
-
+        ItemThrowable[] throwItems = GameObject.FindObjectsOfType<ItemThrowable>();
+        foreach (ItemThrowable t in throwItems) Destroy(t.gameObject);
         GameMgr.Inst.MainCam.changeTargetToDefault();
     }
     #region Rage

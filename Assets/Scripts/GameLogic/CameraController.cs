@@ -66,6 +66,7 @@ public class CameraController : MonoBehaviour
     public void Shake(float duration, float shakeSpeed, float xPower, float yPower, bool isForced = false)
     {
         if (isShakeLocked) return;
+        if (targetLock) return;
         StopAllCoroutines();
         StartCoroutine(co_Shake(duration, shakeSpeed, xPower, yPower, isForced));
     }
@@ -78,7 +79,7 @@ public class CameraController : MonoBehaviour
             float x = shakeX.Evaluate(timer * shakeSpeed) * xPower;
             float y = shakeX.Evaluate(timer * shakeSpeed) * yPower;
 
-            transform.localPosition = clampVector(target.position) + new Vector3(x, y, 0f) + offset;
+            transform.position = clampVector(target.position) + Vector3.right * x + Vector3.up * y + offset;
 
 
             timer += Time.deltaTime;

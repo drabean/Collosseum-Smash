@@ -5,10 +5,12 @@ using UnityEngine;
 public class SaveData
 {
     public int Coin;
-    public int Exp; // 게임 진행도 경험치. (캐릭터 해금 및 아이템풀 해금에 사용)
     public List<int> Achievements = new List<int>();
     public List<int> Unlocks = new List<int>();
     public Dictionary<string, bool> unlocks = new Dictionary<string, bool>(); // 해금된 것들에 대한 정보. (캐릭터 등?)
+
+    public int BossKill; // 게임 진행도 경험치. (캐릭터 해금 및 아이템풀 해금에 사용)
+    public int NormalKill;
 
     #region 업적 관련 (ACHIVEMENT)
     public bool CheckAchivement(ACHIEVEMENT achievement) // 특정 업적의 클리어 여부를 반환.
@@ -68,7 +70,17 @@ public enum ACHIEVEMENT
     KILLCHAMPION =  120,
     KILLSLIME =     121,
     KILLLICH =      130,
-    KILLBLOCK =     131
+    KILLBLOCK =     131,
+
+    SMASHBOSS5 = 200,
+    SMASHBOSS10 = 201,
+    SMASHNORMAL50 = 202,
+    SMASHNORMAL100 = 203,
+
+    FIRSTRETRY = 300,
+    
+
+    NONE = 999
 
 }
 
@@ -83,5 +95,7 @@ public enum UNLOCK
     HPREG = 3,
     MONEY = 4,
     REVIVE = 5,
-
+    ATKDMG = 6,
+    MOVSPD = 7,
+    ADDITEM = 8,
 }

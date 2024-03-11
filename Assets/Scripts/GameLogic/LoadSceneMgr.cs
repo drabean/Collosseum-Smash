@@ -54,6 +54,7 @@ public class LoadSceneMgr : MonoSingleton<LoadSceneMgr>
 
         LoadingPanel.alpha = 1;
         // 비동기 씬 로딩을 시작
+        SoundMgr.Inst.BGMFadeout();
         operation = SceneManager.LoadSceneAsync(nextSceneName);
         operation.allowSceneActivation = false;
 

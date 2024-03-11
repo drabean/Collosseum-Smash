@@ -171,9 +171,10 @@ MonoBehaviour:
   StunTIme: 0
   cantPenetrate: 0
   dmg: 0
-  ownerTr: {fileID: 0}
-  maxHit: 0
+  ownerTr: {fileID: 3648400753803865964}
+  maxHit: 1
   Explosion: {fileID: 352636191645039693, guid: 67cdd14fbcd59374e9a09434ef0d4408, type: 3}
+  owner: {fileID: 3648400753803865966}
 --- !u!114 &6632805977411041603
 MonoBehaviour:
   m_ObjectHideFlags: 0

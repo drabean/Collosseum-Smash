@@ -9,7 +9,7 @@ public class StartSceneFadeIn : MonoBehaviour
 
     private void Awake()
     {
-        if (!MainGameLogic.isInit) StartCoroutine(co_FadeIn(1.0f));
+        if (!MainGameLogic.isInit) StartCoroutine(co_FadeIn(1.0f)); // 게임이 맨 처음 로딩될때만 Fadein 되면 됨 
         else Destroy(gameObject);
     }
 

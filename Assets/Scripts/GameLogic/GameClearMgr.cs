@@ -59,8 +59,14 @@ public class GameClearMgr : MonoBehaviour
     public void GameClear()
     {
         // rundata 삭제 및 업적 클리어하기
-        if(!isHardMode)LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.NORMALCLEAR);
-        else LoadedSave.Inst.save.ClearAchivement(ACHIEVEMENT.HARDCLEAR);
+        if (!isHardMode)
+        {
+            LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.NORMALCLEAR);
+        }
+        else
+        {
+            LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.HARDCLEAR);
+        }
         LoadedSave.Inst.SyncSaveData();
 
         StartCoroutine(ShowClearPanel());
