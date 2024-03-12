@@ -131,10 +131,10 @@ public class StartSceneMgr : MonoSingleton<StartSceneMgr>
 
     void checkAchievements()
     {
-        if (LoadedSave.Inst.save.BossKill >= 5) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHBOSS5);
-        if (LoadedSave.Inst.save.BossKill >= 10) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHBOSS10);
-        if (LoadedSave.Inst.save.NormalKill >= 50) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHNORMAL50);
-        if (LoadedSave.Inst.save.NormalKill >= 100) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHNORMAL100);
+        if (LoadedSave.Inst.save.BossKill >= 5) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHBOSS1);
+        if (LoadedSave.Inst.save.BossKill >= 10) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHBOSS2);
+        if (LoadedSave.Inst.save.NormalKill >= 150) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHNORMAL1);
+        if (LoadedSave.Inst.save.NormalKill >= 300) LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.SMASHNORMAL2);
     }
     #endregion
 

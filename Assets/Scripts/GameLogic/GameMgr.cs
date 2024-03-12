@@ -40,8 +40,6 @@ public class GameMgr : MonoSingleton<GameMgr>
     public bool isTest;
     [Tooltip("testRunData for testMode.")]
     public RunData testRunData;
-    [Tooltip("if not null, testStage will be loaded instead of saved stage")]
-    public StageInfo testStage;
 
     public Enemy GongPrefab;
 
@@ -84,8 +82,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(curRunData);
         //테스트를 위한 임의 스테이지 지정
-        if (testStage == null) stageInfo = getStageData();
-        else stageInfo = testStage;
+        stageInfo = getStageData();
 
         if(stageInfo == null)
         {
@@ -100,11 +97,9 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if(stageInfo.StageDeco != null) Instantiate(stageInfo.StageDeco, Vector3.zero, Quaternion.identity);
 
-        //즉시 시작이 아닌, 별도 오브젝트를 공격함으로서 게임이 시작하도록 만듬.
-
-        if (isTest && testStage == null) yield break;
 
 
+        if(isTest) yield break;
 
         if(curRunData.isTutorial)
         {
@@ -151,7 +146,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         }
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MONEY))
         {
-            coinCount-=3;
+            coinCount -= 3;
         }
     }
     void spawnGong()
@@ -169,12 +164,14 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     StageInfo getStageData()
     {
+        /*
         if(curRunData.stageProgress >= LoadedData.Inst.stageInfos.Length)
         {
             Debug.Log("All Clear!");
             return null;
         }
-        return LoadedData.Inst.stageInfos[curRunData.stageProgress];
+        */
+        return LoadedData.Inst.stageInfos[curRunData.curStageIdx];
     }
     StageInfo stageInfo;
     Coroutine curSpawnRoutine;
@@ -255,6 +252,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             BUF buf = BUF.NONE;
             if (curRunData.isHardMode)
             {
+                buf = BUF.HARDMODEDEFAULT;
                 if (Random.Range(0, 3) == 0)
                 {
                     if (idx2Spwn == 0) buf = (BUF)Random.Range(1, 3);   // 근접 몬스터는 메달 / 폭탄 버프만
@@ -478,7 +476,10 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// <returns></returns>
     IEnumerator co_ToNextScene()
     {
-        curRunData.stageProgress++;
+        //다음스테이지 인덱스 정하기
+        curRunData.ClearedStages.Add(curRunData.curStageIdx);
+
+
         curRunData.curHP = (int)player.curHP + 2;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;
         curRunData.isBoss = false;

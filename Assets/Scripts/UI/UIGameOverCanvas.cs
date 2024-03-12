@@ -24,7 +24,7 @@ public class UIGameOverCanvas : MonoBehaviour
 
         if(data == null)
         {
-            data = new RunData(0 , new List<int>(), 0);
+            data = new RunData(0 , new List<int>());
         }
 
         player = Instantiate(LoadedData.Inst.getCharacterInfoByID(data.characterInfoIdx).playerPrefab, new Vector3(0,2,0), Quaternion.identity);
@@ -82,6 +82,8 @@ public class UIGameOverCanvas : MonoBehaviour
         if(data.reviveCount != 0)TMP_ContinueMessage.text = "You Have " + data.reviveCount + " Chance Left. \n Good Luck!";
         else TMP_ContinueMessage.text = "This is your last chance. \n Wish your Luck!";
         UTILS.SaveRunData(data);
+
+        LoadedSave.Inst.TryAddAchievement(ACHIEVEMENT.FIRSTRETRY);
         LoadedSave.Inst.save.Coin -= 20;
         LoadedSave.Inst.SyncSaveData();
         SoundMgr.Inst.Play("Purchase");

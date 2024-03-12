@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf10453a34b94644885b6ee452401a22, type: 3}
-  m_Name: SMASHNORMAL50
+  m_Name: FIRSTRETRY
   m_EditorClassIdentifier: 
-  Achievement: 202
-  Title: Rookie Brawler
-  Description: Smash 150 Enemy.
-  RewardType: 1
-  RewardValue: 0
-  rewardText: 'New Items
-
-    Added '
+  Achievement: 300
+  Title: Second Chance!
+  Description: Revive for the first time.
+  RewardType: 0
+  RewardValue: 20
+  rewardText: 

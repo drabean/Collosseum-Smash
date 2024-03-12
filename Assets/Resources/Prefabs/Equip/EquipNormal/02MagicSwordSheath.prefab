@@ -47,9 +47,9 @@ MonoBehaviour:
   ID: 20102
   ItemSprite: {fileID: 21300000, guid: 61e7f901396a64c468b7016cd92385f3, type: 3}
   itemName: Magic Sword Sheath
-  Description: If you don't attack for 4 seconds, Increase your Attack damage by
+  Description: If you don't attack for 3 seconds, Increase your Attack damage by
     3 on next attack.
   owner: {fileID: 0}
-  cooltime: 4
+  cooltime: 3
   lastAttackTime: 0
   curIcon: {fileID: 0}

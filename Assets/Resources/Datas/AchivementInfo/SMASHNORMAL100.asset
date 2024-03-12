@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Achievement: 203
   Title: Skilled Brawler
-  Description: Smash 100 Enemy
+  Description: Smash 300 Enemy
   RewardType: 1
   RewardValue: 0
   rewardText: 'Character

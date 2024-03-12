@@ -26,11 +26,12 @@ public class UIAchievementCanvas : MonoBehaviour
         AddAchievementBlock(ACHIEVEMENT.NORMALCLEAR);
         AddAchievementBlock(ACHIEVEMENT.HARDCLEAR);
 
-        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS5);
-        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS10);
-        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL50);
-        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL100);
+        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS1);
+        AddAchievementBlock(ACHIEVEMENT.SMASHBOSS2);
+        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL1);
+        AddAchievementBlock(ACHIEVEMENT.SMASHNORMAL2);
 
+        AddAchievementBlock(ACHIEVEMENT.FIRSTRETRY);
 
         #region º¸½ºÅ³
         AddAchievementBlock(ACHIEVEMENT.KILLTUTORIAL);

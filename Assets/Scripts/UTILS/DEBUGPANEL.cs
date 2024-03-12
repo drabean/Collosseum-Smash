@@ -44,7 +44,7 @@ public class DEBUGPANEL : MonoBehaviour
 
     public void GameStart()
     {
-        RunData data = new RunData(curCharacterIdx, new List<int>(), 0);
+        RunData data = new RunData(curCharacterIdx, new List<int>());
         info = LoadedData.Inst.getCharacterInfoByID(curCharacterIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)
@@ -55,7 +55,7 @@ public class DEBUGPANEL : MonoBehaviour
         data.reviveCount = 1;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) data.reviveCount++;
 
-        data.stageProgress = curStageIdx;
+        //data.stageProgress = curStageIdx;
 
         ItemMgr.Inst.InitNormalEquipPool(data);
 

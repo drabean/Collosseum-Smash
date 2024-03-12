@@ -9,7 +9,8 @@ public enum BUF
     MEDAL = 1,
     BOMB = 2,
     TELEPORT = 3,
-    SHOOTER = 4
+    SHOOTER = 4,
+    HARDMODEDEFAULT = 10,
 }
 
 public class EnemyMgr : MonoSingleton<EnemyMgr>
@@ -120,6 +121,9 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
         switch (buf)
         {
+            case BUF.HARDMODEDEFAULT:
+                enemy.curHP += 2;
+                break;
             case BUF.MEDAL:
                 GameObject Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconMedal");
                 Icon.transform.parent = enemy.transform;

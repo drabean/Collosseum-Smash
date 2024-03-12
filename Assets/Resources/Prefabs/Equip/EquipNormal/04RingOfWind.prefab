@@ -47,7 +47,7 @@ MonoBehaviour:
   ID: 20104
   ItemSprite: {fileID: 21300000, guid: 8cb75a28226e72248980434a5f4c9ebb, type: 3}
   itemName: Ring of Wind
-  Description: If you dont attack for 2 seconds, increase your Movespeed by 2
+  Description: If you dont attack for 1 seconds, increase your Movespeed by 2
   owner: {fileID: 0}
   cooltime: 2
   bufAmount: 2

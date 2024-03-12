@@ -13,7 +13,9 @@ public class LoadedData : Singleton<LoadedData>
     public int characterInfosCount = 0;
 
     public StageInfo[] stageInfos;
-
+    List<StageInfo> easyStage = new List<StageInfo>();
+    List<StageInfo> normalStage = new List<StageInfo>();
+    List<StageInfo> hardStage = new List<StageInfo>();
     Dictionary<int, Equip> Equips = new Dictionary<int, Equip>();
 
     string characterInfoPath = "Datas/CharacterInfo";
@@ -38,7 +40,21 @@ public class LoadedData : Singleton<LoadedData>
         }
 
         stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
-
+        foreach(StageInfo stage in stageInfos)
+        {
+            switch(stage.Difficulty)
+            {
+                case DIFFICULTY.EASY:
+                    easyStage.Add(stage);
+                    break;
+                case DIFFICULTY.NORMAL:
+                    normalStage.Add(stage);
+                    break;
+                case DIFFICULTY.HARD:
+                    hardStage.Add(stage);
+                    break;
+            }
+        }
         //장비 정보 로딩
         EquipInfo[] equips = Resources.LoadAll<EquipInfo>(equipPath);
 

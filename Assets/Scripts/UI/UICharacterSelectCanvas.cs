@@ -147,7 +147,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
                 else
                 {
                     LockGroup.SetActive(true);
-                    TMPLockProgress.text = "Unlock After Smashing " + (100 - LoadedSave.Inst.save.NormalKill) + " Enemy!";
+                    TMPLockProgress.text = "Unlock After Smashing " + (300 - LoadedSave.Inst.save.NormalKill) + " Enemy!";
                 }
                 break;
         }
@@ -188,7 +188,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
     /// </summary>
     public void Btn_StartGame()
     {
-        RunData data = new RunData(curIdx, new List<int>(), 0);
+        RunData data = new RunData(curIdx, new List<int>());
         info = LoadedData.Inst.getCharacterInfoByID(curIdx);
 
         for (int i = 0; i < info.playerItems.Count; i++)

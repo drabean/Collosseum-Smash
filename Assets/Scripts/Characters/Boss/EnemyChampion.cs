@@ -158,7 +158,7 @@ public class EnemyChampion : EnemyBoss
             aimRange = 0.8f;
             setDir();
             float waitTime = patterns[0].waitBeforeTime;
-            if (i == 0) waitTime += 0.2f;
+            if (i == 0) waitTime += 0.35f;
 
             curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, waitTime);
             anim.SetBool("isAtkReady", true);
