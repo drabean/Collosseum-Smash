@@ -82,9 +82,9 @@ public class GameMgr : MonoSingleton<GameMgr>
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(curRunData);
         //테스트를 위한 임의 스테이지 지정
-        stageInfo = getStageData();
+        stageInfo = LoadedData.Inst.getStageInfoByID(curRunData.curStageID);
 
-        if(stageInfo == null)
+        if (stageInfo.ID == 100) // FINALE 스테이지 로딩시
         {
             GameClearMgr clear = gameObject.AddComponent<GameClearMgr>();
             clear.Init(curRunData, progressTMP);
@@ -162,17 +162,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             StartCoroutine(StartNormalStage());
         };
     }
-    StageInfo getStageData()
-    {
-        /*
-        if(curRunData.stageProgress >= LoadedData.Inst.stageInfos.Length)
-        {
-            Debug.Log("All Clear!");
-            return null;
-        }
-        */
-        return LoadedData.Inst.stageInfos[curRunData.curStageIdx];
-    }
+
     StageInfo stageInfo;
     Coroutine curSpawnRoutine;
     int maxCount = 3; // 소환 될 수 있는 최대 마리수
@@ -477,8 +467,31 @@ public class GameMgr : MonoSingleton<GameMgr>
     IEnumerator co_ToNextScene()
     {
         //다음스테이지 인덱스 정하기
-        curRunData.ClearedStages.Add(curRunData.curStageIdx);
+        curRunData.ClearedStages.Add(stageInfo.ID);
+        Debug.Log("CHECKSTART");
+        List<int> nextStages = new List<int>();
 
+        while (nextStages.Count == 0)
+        {
+            nextStages.AddRange(LoadedData.Inst.GetStageInfoList(curRunData.curDifficulty));
+
+            foreach (int stageID in curRunData.ClearedStages)
+            {
+                if (nextStages.Contains(stageID)) nextStages.Remove(stageID);
+            }
+            Debug.Log(curRunData.curDifficulty);
+
+            if (nextStages.Count == 0)
+            {
+                curRunData.curDifficulty = (DIFFICULTY)((int)curRunData.curDifficulty + 1);
+                nextStages.AddRange(LoadedData.Inst.GetStageInfoList(curRunData.curDifficulty));
+            }
+        }
+
+        Debug.Log("STAGECOUNT" + nextStages.Count);
+        curRunData.curStageID = nextStages[Random.Range(0, nextStages.Count)];
+
+        Debug.Log("NEXTSTAGE:" + curRunData.curStageID);
 
         curRunData.curHP = (int)player.curHP + 2;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;

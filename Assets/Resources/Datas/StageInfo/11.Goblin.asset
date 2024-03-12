@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
-  m_Name: 02.Goblin
+  m_Name: 11.Goblin
   m_EditorClassIdentifier: 
-  ID: 10102
+  ID: 11
+  Difficulty: 1
   Enemies:
   - {fileID: 2615918146226860490, guid: ab6c15cd655f6ac4d8dd5de1ae3c7b12, type: 3}
   - {fileID: 4139268799128413703, guid: 95aee7cd40e533e48b8813039f60b0fb, type: 3}

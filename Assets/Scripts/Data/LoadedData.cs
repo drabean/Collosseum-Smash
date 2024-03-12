@@ -12,11 +12,14 @@ public class LoadedData : Singleton<LoadedData>
     Dictionary<int, CharacterInfo> CharacterInfos = new Dictionary<int, CharacterInfo>();
     public int characterInfosCount = 0;
 
-    public StageInfo[] stageInfos;
-    List<StageInfo> easyStage = new List<StageInfo>();
-    List<StageInfo> normalStage = new List<StageInfo>();
-    List<StageInfo> hardStage = new List<StageInfo>();
+    public Dictionary<int, StageInfo> StageInfos = new Dictionary<int, StageInfo>();
+    List<int> tutorialStage = new List<int>();
+    List<int> easyStage = new List<int>();
+    List<int> normalStage = new List<int>();
+    List<int> hardStage = new List<int>();
+    List<int> finalStage = new List<int>();
     Dictionary<int, Equip> Equips = new Dictionary<int, Equip>();
+
 
     string characterInfoPath = "Datas/CharacterInfo";
     string stageInfoPath = "Datas/StageInfo";
@@ -39,19 +42,28 @@ public class LoadedData : Singleton<LoadedData>
             }
         }
 
-        stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
+        StageInfo[] stageInfos = Resources.LoadAll<StageInfo>(stageInfoPath);
+
         foreach(StageInfo stage in stageInfos)
         {
+            StageInfos.Add(stage.ID, stage);
+
             switch(stage.Difficulty)
             {
+                case DIFFICULTY.TUTORIAL:
+                    tutorialStage.Add(stage.ID);
+                    break;
                 case DIFFICULTY.EASY:
-                    easyStage.Add(stage);
+                    easyStage.Add(stage.ID);
                     break;
                 case DIFFICULTY.NORMAL:
-                    normalStage.Add(stage);
+                    normalStage.Add(stage.ID);
                     break;
                 case DIFFICULTY.HARD:
-                    hardStage.Add(stage);
+                    hardStage.Add(stage.ID);
+                    break;
+                case DIFFICULTY.FINALE:
+                    finalStage.Add(stage.ID);
                     break;
             }
         }
@@ -80,9 +92,35 @@ public class LoadedData : Singleton<LoadedData>
         isDataLoaded = true;
     }
 
+    public List<int> GetStageInfoList(DIFFICULTY difficulty)
+    {
+        switch(difficulty)
+        {
+            case DIFFICULTY.TUTORIAL:
+                return tutorialStage;
+            case DIFFICULTY.EASY:
+                return easyStage;
+            case DIFFICULTY.NORMAL:
+                return normalStage;
+            case DIFFICULTY.HARD:
+                return hardStage;
+        }
+
+        return finalStage;
+    }
     public CharacterInfo getCharacterInfoByID(int idx)
     {
         return CharacterInfos[idx];
+    }
+
+    public StageInfo getStageInfoByID(int ID)
+    {
+        if (StageInfos.ContainsKey(ID)) return StageInfos[ID];
+        else 
+        {
+            Debug.Log("ID에 해당하는 스테이지가 존재하지 않습니다");
+            return null;
+        }
     }
     public Equip getEquipByID(int ID)
     {

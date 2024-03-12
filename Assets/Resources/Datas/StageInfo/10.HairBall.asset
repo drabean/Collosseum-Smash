@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
-  m_Name: 01.Hairball
+  m_Name: 10.HairBall
   m_EditorClassIdentifier: 
-  ID: 10101
+  ID: 10
+  Difficulty: 1
   Enemies:
   - {fileID: 2240554736026179979, guid: 9b377497e118d814e9c999dc29301581, type: 3}
   - {fileID: 8819645963848089268, guid: 45dcd21c4a5cb10409dd347e86b5ad6a, type: 3}

@@ -466,5 +466,13 @@ public class Player : CharacterBase
     {
         StartCoroutine(co_Smash(Vector3.right));
     }
+
+    [ContextMenu("GODMOD")]
+    void godMode()
+    {
+        findRange = 20;
+        attackRange = 20;
+        Stat.STR = 100;
+    }
 #endif
 }

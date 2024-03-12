@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
-  m_Name: 03.Champion
+  m_Name: 20.Champion
   m_EditorClassIdentifier: 
-  ID: 10104
+  ID: 20
+  Difficulty: 2
   Enemies:
   - {fileID: 8582889309136982993, guid: 94261df14297d1b40b04c40cfc253b39, type: 3}
   - {fileID: 8533509118144780453, guid: 0c53d11e1e2dd66438315734c4b2fc76, type: 3}

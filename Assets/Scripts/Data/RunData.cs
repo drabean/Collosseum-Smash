@@ -20,13 +20,17 @@ public class RunData
     public int characterInfoIdx; // 캐릭터 Idx
     public List<int> item = new List<int>(); //소지중인 장비들
 
-    public int curStageIdx;
+    public int curStageID = 0;
     public List<int> ClearedStages = new List<int>();
+    public DIFFICULTY curDifficulty = DIFFICULTY.TUTORIAL;
+    public int stageProgress = 0;
 
     public int curHP;
 
+
     public bool isTutorial = false;
     public bool isBoss = false; // true일 시, 일반 몬스터 스테이지를 건너뛰고, 보스 스테이지로 직행
+
     public int normalProgress = 0; // 일반 몬스터 진행치 - 이번 스테이지에서 잡은 애들 수
     public int bossProgress = 0; // 보스 진행치 - 이번스테이지에서 적에게 "입힌 피해량"
 

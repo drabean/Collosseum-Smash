@@ -29,8 +29,9 @@ public class StageInfo : ScriptableObject
 [Serializable]
 public enum DIFFICULTY
 { 
-    TUTORIAL,
-    EASY,
-    NORMAL,
-    HARD,
+    TUTORIAL = 0,
+    EASY = 1,
+    NORMAL = 2,
+    HARD = 3,
+    FINALE = 4,
 }

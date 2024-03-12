@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
   m_Name: 00.tutorial
   m_EditorClassIdentifier: 
-  ID: 10100
+  ID: 0
+  Difficulty: 0
   Enemies:
   - {fileID: 3932594245380771357, guid: dc59de0abc55a1046a5d366ed8633bd5, type: 3}
   - {fileID: 811833523814136948, guid: 347d4c6a091757c46bca297a95882b1b, type: 3}
