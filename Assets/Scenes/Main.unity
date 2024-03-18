@@ -1230,7 +1230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466920635}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: -5.5, z: 0}
+  m_LocalPosition: {x: -7, y: -6.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2056,7 +2056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626450868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7, y: 5.3, z: 0}
+  m_LocalPosition: {x: 7, y: 5.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4534,7 +4534,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 8.5, y: 0}
+  m_Offset: {x: 8, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5094,6 +5094,9 @@ MonoBehaviour:
   curRunData:
     characterInfoIdx: 0
     item: 0200000008000000
+    curStageID: 0
+    ClearedStages: 
+    curDifficulty: 0
     stageProgress: 0
     curHP: 0
     isTutorial: 0
@@ -5111,6 +5114,9 @@ MonoBehaviour:
   testRunData:
     characterInfoIdx: 0
     item: 864e0000
+    curStageID: 0
+    ClearedStages: 
+    curDifficulty: 0
     stageProgress: 0
     curHP: 10
     isTutorial: 0
@@ -5122,7 +5128,6 @@ MonoBehaviour:
     isRevivedAd: 0
     isGameOver: 0
     totalCoinCount: 0
-  testStage: {fileID: 0}
   GongPrefab: {fileID: 210697480659275147, guid: 9ac698b7613447a438c849f98b298fc5, type: 3}
   progressTMP: {fileID: 969279953}
   CoinPrefab: {fileID: 8522252760596038181, guid: 4039a47af2f617b419a8f187a745f204, type: 3}

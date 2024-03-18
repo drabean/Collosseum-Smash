@@ -22,7 +22,7 @@ MonoBehaviour:
   maxKill: 20
   Intro: {fileID: 8300000, guid: bb599116b2c35fd47a01911a4f470828, type: 3}
   BGM: {fileID: 8300000, guid: baf2419b8a5012146b7d867eb8aed28f, type: 3}
-  StageDeco: {fileID: 6024388929744640293, guid: f9f914c3d56ae324bb95f9c866de33be, type: 3}
+  StageDeco: {fileID: 6024388929744640293, guid: d30730b08e19ba84a88cfc44888057cb, type: 3}
   bossText: "A growling sound of a beast \nechoes through air...\nPrepare your Battle!"
   DeathMessage: Your entire body is covered in fur!
   ThrowItem: {fileID: 2340179198039797983, guid: e496b6c99a0b8164d819560e33c783a6, type: 3}

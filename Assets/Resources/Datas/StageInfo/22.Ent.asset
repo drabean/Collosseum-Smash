@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
+  m_Name: 22.Ent
+  m_EditorClassIdentifier: 
+  ID: 22
+  Difficulty: 2
+  Enemies:
+  - {fileID: 1370048501653947582, guid: 95313f0591d34e04fb607f66d5838a16, type: 3}
+  - {fileID: 2857155524439066868, guid: 133c453b1a11d33499d5dab5904140d5, type: 3}
+  - {fileID: 4969999913521249082, guid: 93dc2059f810146448e36420ba7784f0, type: 3}
+  Boss: {fileID: 4262329880146541820, guid: c8538c7b13aa44c4fbada5a08e82e87c, type: 3}
+  maxKill: 30
+  Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
+  BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
+  StageDeco: {fileID: 6024388929744640293, guid: f9f914c3d56ae324bb95f9c866de33be, type: 3}
+  bossText: "You hear a sound of\n something rapidly sprouting.\nPrepare your battle!"
+  DeathMessage: You got buried under leaves and branches!
+  ThrowItem: {fileID: 6998232135651898140, guid: 97ad1be94e53fd64b94725b974098a54, type: 3}

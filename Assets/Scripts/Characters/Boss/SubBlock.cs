@@ -157,7 +157,7 @@ public class SubBlock : Enemy
         yield return new WaitForSeconds(1.0f);
 
         anim.SetBool("isShootLear", true);
-
+        attacks[1].ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
         float timeLeft = duration-1;
         float fireTimeLeft = 0.0f;
@@ -194,7 +194,7 @@ public class SubBlock : Enemy
         yield return new WaitForSeconds(1.0f);
 
         anim.SetBool("isShootLear", true);
-
+        attacks[1].ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
         float timeLeft = duration-1; // 이동모션 위해  대기한만큼 뺴줌

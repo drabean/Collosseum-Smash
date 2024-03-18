@@ -18,11 +18,11 @@ MonoBehaviour:
   - {fileID: 3932594245380771357, guid: dc59de0abc55a1046a5d366ed8633bd5, type: 3}
   - {fileID: 811833523814136948, guid: 347d4c6a091757c46bca297a95882b1b, type: 3}
   Boss: {fileID: 11029592527816433, guid: 07684a6c4a1bd794ca5bef022a782554, type: 3}
-  maxKill: 20
+  maxKill: 15
   Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
   BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
   StageDeco: {fileID: 0}
   bossText: "After Smashing enough enemy, \nstrong enemy will appear.\nSmash it to
     clear stage!"
-  DeathMessage: It was  just a beginning. good luck!
+  DeathMessage: Good luck, novice challenger!
   ThrowItem: {fileID: 3860790137050885266, guid: f7e8bbc5441ac944ca38f7ca43bd3288, type: 3}

@@ -29,6 +29,5 @@ MonoBehaviour:
 
     Prepare your
     Battle!'
-  DeathMessage: Though small, those goblins proved to be quite fierce, not yielding
-    to even the bravest!
+  DeathMessage: They were small but strong..
   ThrowItem: {fileID: 7969373804357992898, guid: 1b8431cc086dbd64ab64a0f3629d3ff8, type: 3}

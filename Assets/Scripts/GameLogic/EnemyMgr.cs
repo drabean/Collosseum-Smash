@@ -32,6 +32,13 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
     #region 외부 접근용 유틸 함수
     public Vector2 getRandomPos() { return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)]; }
     public List<Vector2> getCornerPos() { return cornerPoints; }
+
+    public bool checkInStage(Vector3 pos)
+    {
+        return pos.x >= spawnArea[0].position.x && pos.x <= spawnArea[1].position.x &&
+               pos.y >= spawnArea[0].position.y && pos.y <= spawnArea[1].position.y &&
+               pos.z >= spawnArea[0].position.z && pos.z <= spawnArea[1].position.z;
+    }
     #endregion
 
     protected void Awake()

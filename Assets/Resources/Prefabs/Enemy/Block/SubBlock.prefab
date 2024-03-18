@@ -345,7 +345,7 @@ MonoBehaviour:
     prefabName: Prefabs/Attack/BlockImpact
   - range: 0
     width: 0
-    waitBeforeTime: 0.8
+    waitBeforeTime: 1.2
     waitAfterTime: 1
     intervalTime: 0.4
     repeatTIme: 8
@@ -353,7 +353,7 @@ MonoBehaviour:
     prefabName: Prefabs/Attack/EnergyBolt
   - range: 0
     width: 0
-    waitBeforeTime: 0.8
+    waitBeforeTime: 1.2
     waitAfterTime: 1
     intervalTime: 0.3
     repeatTIme: 4
@@ -370,7 +370,9 @@ MonoBehaviour:
   Owner: {fileID: 0}
   face: {fileID: 4432736917588910786}
   LaserPos: {fileID: 902259755}
+  fire1WaitTime: 0.7
   firePos: {fileID: 6956294450710974282}
+  fire2WaitTime: 0.9
 --- !u!95 &4432736918336127243
 Animator:
   serializedVersion: 5

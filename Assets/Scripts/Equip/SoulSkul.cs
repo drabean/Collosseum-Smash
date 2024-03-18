@@ -33,7 +33,7 @@ public class SoulSkul : Equip
     CharacterBase FindTarget()
     {
         //CircleCast를 통해 주변 모든 Enemy Layer 오브젝트 검색
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 5.0f, Vector3.forward, 0f, layer);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, 10.0f, Vector3.forward, 0f, layer);
 
 
         if (hits.Length == 0) return null;

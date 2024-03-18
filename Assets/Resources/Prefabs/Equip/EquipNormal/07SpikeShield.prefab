@@ -47,5 +47,5 @@ MonoBehaviour:
   ID: 20107
   ItemSprite: {fileID: 21300000, guid: 77b20c1bb02c281409652ad8959ce095, type: 3}
   itemName: Spike Shield
-  Description: Strike nearby enemies when damaged.
+  Description: deal massive damge to  nearby enemies when got hit.
   owner: {fileID: 0}

@@ -37,8 +37,10 @@ public class UIAchievementCanvas : MonoBehaviour
         AddAchievementBlock(ACHIEVEMENT.KILLTUTORIAL);
         AddAchievementBlock(ACHIEVEMENT.KILLHAIRBALL);
         AddAchievementBlock(ACHIEVEMENT.KILLGOBLIN);
+        AddAchievementBlock(ACHIEVEMENT.KILLMUSHROOM);
         AddAchievementBlock(ACHIEVEMENT.KILLCHAMPION);
         AddAchievementBlock(ACHIEVEMENT.KILLSLIME);
+        AddAchievementBlock(ACHIEVEMENT.KILLENT);
         AddAchievementBlock(ACHIEVEMENT.KILLLICH);
         AddAchievementBlock(ACHIEVEMENT.KILLBLOCK);
         #endregion

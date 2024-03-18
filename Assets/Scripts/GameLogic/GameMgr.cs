@@ -54,6 +54,8 @@ public class GameMgr : MonoSingleton<GameMgr>
         {
             if (!LoadedSave.isInit) LoadedSave.Inst.Init();
             if (!LoadedData.isDataLoaded) LoadedData.Inst.LoadData();
+            curRunData = testRunData;
+            yield return null;
         }
         //데이터 불러오기
         else curRunData = UTILS.GetRunData();
@@ -81,6 +83,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         ItemMgr.Inst.InitNormalEquipPool(curRunData);
         ItemMgr.Inst.InitPotionEquipPool(curRunData);
+
+        if (isTest) yield break;
         //테스트를 위한 임의 스테이지 지정
         stageInfo = LoadedData.Inst.getStageInfoByID(curRunData.curStageID);
 
@@ -326,31 +330,31 @@ public class GameMgr : MonoSingleton<GameMgr>
         switch(progressCount)
         {
             case <=5:
-                baseEnemyCount = 2;
+                maxBaseEnemyCount = 2;
                 maxCount = 2;
                 break;
             case <= 10:
-                baseEnemyCount = 2;
+                maxBaseEnemyCount = 2;
                 maxCount = 3;
                 break;
             case <= 15:
-                baseEnemyCount = 3;
+                maxBaseEnemyCount = 3;
                 maxCount = 4;
                 break;
             case <= 25:
-                baseEnemyCount = 3;
+                maxBaseEnemyCount = 3;
                 maxCount = 5;
                 break;
             case <= 30:
-                baseEnemyCount = 4;
+                maxBaseEnemyCount = 4;
                 maxCount = 6;
                 break;           
             case <= 35:
-                baseEnemyCount = 3;
+                maxBaseEnemyCount = 3;
                 maxCount = 6;
                 break;
             case <= 45:
-                baseEnemyCount = 3;
+                maxBaseEnemyCount = 3;
                 maxCount = 7;
                 break;
         }
@@ -468,7 +472,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
         //다음스테이지 인덱스 정하기
         curRunData.ClearedStages.Add(stageInfo.ID);
-        Debug.Log("CHECKSTART");
+        curRunData.stageProgress++;
+    
+
         List<int> nextStages = new List<int>();
 
         while (nextStages.Count == 0)
@@ -481,17 +487,16 @@ public class GameMgr : MonoSingleton<GameMgr>
             }
             Debug.Log(curRunData.curDifficulty);
 
-            if (nextStages.Count == 0)
+            if (nextStages.Count == 0 || curRunData.stageProgress == 2)
             {
+                curRunData.stageProgress = 0;
                 curRunData.curDifficulty = (DIFFICULTY)((int)curRunData.curDifficulty + 1);
+                nextStages = new List<int>();
                 nextStages.AddRange(LoadedData.Inst.GetStageInfoList(curRunData.curDifficulty));
             }
         }
 
-        Debug.Log("STAGECOUNT" + nextStages.Count);
         curRunData.curStageID = nextStages[Random.Range(0, nextStages.Count)];
-
-        Debug.Log("NEXTSTAGE:" + curRunData.curStageID);
 
         curRunData.curHP = (int)player.curHP + 2;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;

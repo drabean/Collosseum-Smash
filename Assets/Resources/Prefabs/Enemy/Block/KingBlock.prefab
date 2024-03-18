@@ -362,7 +362,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 1
-    waitAfterTime: 1.1
+    waitAfterTime: 2
     intervalTime: 0.2
     repeatTIme: 0
     duration: 7
@@ -370,7 +370,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 1.5
-    waitAfterTime: 1.5
+    waitAfterTime: 1.8
     intervalTime: 0.4
     repeatTIme: 3
     duration: 0
@@ -378,7 +378,7 @@ MonoBehaviour:
   - range: 0
     width: 0
     waitBeforeTime: 2
-    waitAfterTime: 1
+    waitAfterTime: 2
     intervalTime: 0.4
     repeatTIme: 0
     duration: 10

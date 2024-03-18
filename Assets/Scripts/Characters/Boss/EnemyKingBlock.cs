@@ -324,7 +324,7 @@ public class EnemyKingBlock : EnemyBoss
         changeFaceColor(2);
         showSpikes(edges);
 
-        yield return new WaitForSeconds(patterns[1].duration-1);
+        yield return new WaitForSeconds(patterns[1].duration);
 
         hideAllSpikes();
         changeFaceColor(0);

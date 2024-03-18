@@ -24,6 +24,7 @@ public class UIControlCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler,
     void Awake()
     {
         radius = joystickBackground.sizeDelta.x * 0.5f;
+        if (!LoadedSave.isInit) return;
         if(LoadedSave.Inst.setting.isJoystickFloating) isFixed = false;
         else isFixed = true;
     }

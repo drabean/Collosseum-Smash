@@ -47,7 +47,7 @@ MonoBehaviour:
   ID: 20106
   ItemSprite: {fileID: 21300000, guid: 56d25fd2d09a6b94193a09e1c3f31a07, type: 3}
   itemName: Small Shield
-  Description: After smashing 15  enemy, ignore 1 attack hit.
+  Description: After smashing 15  enemy, ignore enemies attack for 1 time.
   owner: {fileID: 0}
   maxKillCount: 15
   curIcon: {fileID: 0}

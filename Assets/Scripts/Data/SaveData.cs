@@ -67,8 +67,10 @@ public enum ACHIEVEMENT
     KILLTUTORIAL =  100,
     KILLHAIRBALL =  110,
     KILLGOBLIN =    111,
+    KILLMUSHROOM =  112,
     KILLCHAMPION =  120,
     KILLSLIME =     121,
+    KILLENT =       122,
     KILLLICH =      130,
     KILLBLOCK =     131,
 

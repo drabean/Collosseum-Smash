@@ -27,7 +27,7 @@ public class DEBUGPANEL : MonoBehaviour
 
     void changeStage(float value)
     {
-        curStageIdx =(int)( value * 6);
+        curStageIdx =(int)( value * 2);
         stage.text = curStageIdx.ToString();
     }
     
@@ -55,7 +55,22 @@ public class DEBUGPANEL : MonoBehaviour
         data.reviveCount = 1;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) data.reviveCount++;
 
-        //data.stageProgress = curStageIdx;
+        switch(curStageIdx)
+        {
+            case 0:
+                data.curStageID = 12;
+                data.curDifficulty = DIFFICULTY.EASY;
+                break;
+            case 1:
+                data.curStageID = 22;
+                data.curDifficulty = DIFFICULTY.NORMAL;
+                break;
+            case 2:
+                data.curStageID = 100;
+                data.curDifficulty = DIFFICULTY.FINALE;
+                break;
+        }
+
 
         ItemMgr.Inst.InitNormalEquipPool(data);
 

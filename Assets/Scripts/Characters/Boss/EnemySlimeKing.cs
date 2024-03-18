@@ -177,7 +177,6 @@ public class EnemySlimeKing : EnemyBoss
         SoundMgr.Inst.Play("Throw");
 
         float randomRange = 2.5f;
-        if (isRage) randomRange = -0.6f;
 
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));

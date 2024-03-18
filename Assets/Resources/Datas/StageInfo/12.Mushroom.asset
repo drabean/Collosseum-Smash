@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2adfdaa53b02f3149ad11a4e109f07ae, type: 3}
+  m_Name: 12.Mushroom
+  m_EditorClassIdentifier: 
+  ID: 12
+  Difficulty: 1
+  Enemies:
+  - {fileID: 2886713604371943562, guid: b1a35e590b0208e46a0b7dd2cbcfbbdc, type: 3}
+  - {fileID: 4525623631842585273, guid: bfba1eac7864b3246a89d0a4d7972846, type: 3}
+  - {fileID: 4726710938914828949, guid: a5e165baa18e2f24abe51db4a0718b3a, type: 3}
+  - {fileID: 4726710938914828949, guid: a5e165baa18e2f24abe51db4a0718b3a, type: 3}
+  Boss: {fileID: 6768658415642477296, guid: 374bdc0791714254c8ad13f0101965d3, type: 3}
+  maxKill: 20
+  Intro: {fileID: 8300000, guid: 75f9f08f51b6b4a47a554668ced40a53, type: 3}
+  BGM: {fileID: 8300000, guid: a32e30f0abab32748b44b383ff005e68, type: 3}
+  StageDeco: {fileID: 6024388929744640293, guid: 9b238a93796bf9f49b60edf7f3f4b5f9, type: 3}
+  bossText: "You hear the sound of \nspores bursting. \nPrepare your Battle!"
+  DeathMessage: I can't stop coughing because of the mushroom spores!
+  ThrowItem: {fileID: 6998232135651898140, guid: 86092a259b0385a4e8e70e0a03db3b7c, type: 3}

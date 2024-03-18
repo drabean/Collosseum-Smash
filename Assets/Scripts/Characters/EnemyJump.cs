@@ -49,7 +49,7 @@ public class EnemyJump : Enemy
 
         setDir(chargeDir);
         //curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, 0.5f, waitBeforeTime);
-        if(!isCharge) curAttackWarning = attack.ShowWarning(transform.position, aim.position, waitBeforeTime);
+        if(!isCharge) curAttackWarning = attack.ShowWarning(transform.position, chargeDestination, waitBeforeTime);
         else curAttackWarning = GameMgr.Inst.AttackEffectLinear(transform.position, chargeDestination, size*2, waitBeforeTime);
 
         yield return new WaitForSeconds(waitBeforeTime);
