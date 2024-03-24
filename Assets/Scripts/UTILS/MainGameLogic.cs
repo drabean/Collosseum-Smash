@@ -17,6 +17,12 @@ public class MainGameLogic : MonoBehaviour
         if (!LoadedSave.isInit) LoadedSave.Inst.Init();
         if (!LoadedData.isDataLoaded) LoadedData.Inst.LoadData();
         if (!AdMgr.isInit) AdMgr.Inst.Init();
+
+        while (!LoadedSave.isInit || !LoadedData.isDataLoaded || !AdMgr.isInit)
+        {
+            // 조건이 충족될 때까지 기다림
+            yield return null;
+        }
         isInit = true;
     }
 }

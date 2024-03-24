@@ -78,6 +78,8 @@ public class UIDefeatedCanvas : MonoBehaviour
     public void Btn_AdBtn()
     {
         //AdMgr.Inst.ShowRewardAD(rewardAction);
+        AdMgr.Inst.LoadRewardedAd();
+        AdMgr.Inst.ShowRewardedAd();
     }
 
 

@@ -23,7 +23,7 @@ public class UIAdPrefab : MonoBehaviour
 
         string lastADTime = PlayerPrefs.GetString("LastADBtnTime");
 
-        TMPDestription.text = "Watch Ads to get "+reward +" Coin! \n(Available once every "+ ADCoolTime.ToString() +" minutes)";
+        TMPDestription.text = "Watch Ads to get "+reward +" Coin! \n(Available every "+ ADCoolTime.ToString() +" minutes)";
         if(lastADTime.Equals(""))
         {
             Debug.Log("FIRST");
@@ -55,7 +55,8 @@ public class UIAdPrefab : MonoBehaviour
     public void Btn_Purchase()
     {
         //광고 확인후, 시청시에만 적용
-        //AdMgr.Inst.ShowRewardAD(rewardAction);
+        AdMgr.Inst.LoadRewardedAd();
+        AdMgr.Inst.ShowRewardedAd();
 
 
     }
