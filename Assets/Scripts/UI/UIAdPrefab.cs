@@ -18,7 +18,6 @@ public class UIAdPrefab : MonoBehaviour
     public void Init()
     {
         //TODO: 마지막 광고시청시간 확인해서 비활성화 하기
-        Debug.Log(DateTime.Now);
 
         bool canWatchAD;
 
