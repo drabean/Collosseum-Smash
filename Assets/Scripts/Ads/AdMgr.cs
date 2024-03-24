@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds;
+//using GoogleMobileAds.Api;
 using System;
 
 
@@ -12,7 +12,7 @@ public class AdMgr : MonoSingleton<AdMgr>
 
     public void Init()
     {
-        MobileAds.Initialize(initStatus => { });
+      //  MobileAds.Initialize(initStatus => { });
         isInit = true;
         DontDestroyOnLoad(gameObject);
     }
@@ -26,7 +26,9 @@ public class AdMgr : MonoSingleton<AdMgr>
   private string _adUnitId = "unused";
 #endif
 
-    private RewardedAd _rewardedAd;
+    /*
+
+   // private RewardedAd _rewardedAd;
 
     /// <summary>
     /// Loads the rewarded ad.
@@ -82,5 +84,7 @@ public class AdMgr : MonoSingleton<AdMgr>
         }
         );
     }
+
+    */
 
 }

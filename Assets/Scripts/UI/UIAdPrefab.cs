@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Api;
 
 
 public class UIAdPrefab : MonoBehaviour
@@ -56,7 +56,7 @@ public class UIAdPrefab : MonoBehaviour
     public void Btn_Purchase()
     {
         //광고 확인후, 시청시에만 적용
-        AdMgr.Inst.ShowRewardAD(rewardAction);
+        //AdMgr.Inst.ShowRewardAD(rewardAction);
 
 
     }
