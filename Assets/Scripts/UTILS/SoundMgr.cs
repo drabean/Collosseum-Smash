@@ -57,10 +57,12 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
 
         AudioSource audioSource = findAudioSource();
-
-        audioSource.clip = sfx.clip;
-        audioSource.volume = sfx.volume * SFXvolume;
-        audioSource.Play();
+        if (audioSource != null)
+        {
+            audioSource.clip = sfx.clip;
+            audioSource.volume = sfx.volume * SFXvolume;
+            audioSource.Play();
+        }
 
     }
 

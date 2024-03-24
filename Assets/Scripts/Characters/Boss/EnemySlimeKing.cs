@@ -71,7 +71,7 @@ public class EnemySlimeKing : EnemyBoss
         maxSpawnCount++;
         slimeballMoveTime -= 0.2f;
         patterns[0].waitBeforeTime -= 0.15f;
-        patterns[0].intervalTime = -0.35f;
+        patterns[0].intervalTime = -0.25f;
         patterns[2].repeatTIme += 2;
         patterns[2].waitBeforeTime -= 0.15f;
     }
@@ -185,7 +185,7 @@ public class EnemySlimeKing : EnemyBoss
 
     IEnumerator co_attack2(Attack slimeBall, Vector3 attackPos)
     {
-        slimeBall.ShowWarning(attackPos, attackPos, slimeballMoveTime + 0.15f);
+        slimeBall.ShowWarning(attackPos, attackPos, slimeballMoveTime);
         yield return new WaitForSeconds(0.15f);
         //날아가는 슬라임 볼 생성
         ProjectileParabola tempObj = (ProjectileParabola)Instantiate(slimeBall);

@@ -14,7 +14,7 @@ public class EnemyEnt : EnemyBoss
     {
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
         attacks[1] = Resources.Load<Attack>(patterns[1].prefabName);
-        transform.position = Vector3.up * 5.75f;
+        transform.position = Vector3.up * 5.4f;
         evnt.attack = onAttack;
         evnt.attack2 = onAttack2;
 
@@ -23,9 +23,9 @@ public class EnemyEnt : EnemyBoss
             patterns[0].waitBeforeTime -= 0.1f;
             patterns[1].waitBeforeTime -= 0.1f;
             patterns[2].waitBeforeTime -= 0.1f;
-            patterns[0].waitAfterTime -= 0.3f;
-            patterns[1].waitAfterTime -= 0.3f;
-            patterns[2].waitAfterTime -= 0.3f;
+            patterns[0].waitAfterTime -= 0.2f;
+            patterns[1].waitAfterTime -= 0.2f;
+            patterns[2].waitAfterTime -= 0.2f;
         }
 
     }
@@ -72,11 +72,15 @@ public class EnemyEnt : EnemyBoss
 
     protected override void rageChange()
     {
-        patterns[0].waitAfterTime -= 0.3f;
+
+        patterns[0].waitAfterTime -= 0.2f;
         patterns[0].repeatTIme += 2;
-        patterns[1].waitAfterTime -= 0.3f;
-        patterns[2].waitAfterTime -= 0.3f;
-        spawnCount -= 1;
+        patterns[1].waitAfterTime -= 0.2f;
+        patterns[2].waitAfterTime -= 0.2f;
+
+        patterns[0].waitBeforeTime -= 0.3f;
+        patterns[1].waitBeforeTime -= 0.3f;
+        patterns[2].waitBeforeTime -= 0.3f;
     }
    
 
@@ -361,7 +365,7 @@ public class EnemyEnt : EnemyBoss
             float waitTime = patterns[2].waitBeforeTime;
             if (i == 0) waitTime += 0.6f;
 
-            int safeNum = Random.Range(-2, 2);
+            int safeNum = Random.Range(-2, 1);
 
             List<List<Vector3>> targetVectors = new List<List<Vector3>>();
             for (int j = 0; j < ragePatCount; j++) targetVectors.Add(new List<Vector3>());

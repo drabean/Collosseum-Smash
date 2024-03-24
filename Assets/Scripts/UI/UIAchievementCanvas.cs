@@ -9,6 +9,9 @@ public class UIAchievementCanvas : MonoBehaviour
     [SerializeField] Transform AchivementHolder;
     bool isShoptInit = false;
 
+    public List<GameObject> Cleared = new List<GameObject>();
+    public List<GameObject> NotCleared = new List<GameObject>();
+
     public void OpenPanel()
     {
         totalPanel.SetActive(true);
@@ -45,10 +48,16 @@ public class UIAchievementCanvas : MonoBehaviour
         AddAchievementBlock(ACHIEVEMENT.KILLBLOCK);
         #endregion
 
+        foreach (GameObject ac in Cleared) ac.transform.SetParent(AchivementHolder, false);
+        foreach (GameObject ac in NotCleared) ac.transform.SetParent(AchivementHolder, false);
+
     }
     public void AddAchievementBlock(ACHIEVEMENT Achievement)
     {
-        Instantiate(AchivementPrefab, AchivementHolder).Init(LoadedData.Inst.getAchivementInfo(Achievement));
+        UIAchievementPrefab ac = Instantiate(AchivementPrefab);
+         ac.Init(LoadedData.Inst.getAchivementInfo(Achievement));
+        if (LoadedSave.Inst.save.CheckAchivement(Achievement)) Cleared.Add(ac.gameObject);
+        else NotCleared.Add(ac.gameObject);
     }
 
     public void Btn_Exit()

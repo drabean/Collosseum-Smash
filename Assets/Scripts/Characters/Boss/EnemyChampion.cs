@@ -158,7 +158,7 @@ public class EnemyChampion : EnemyBoss
             aimRange = 0.8f;
             setDir();
             float waitTime = patterns[0].waitBeforeTime;
-            if (i == 0) waitTime += 0.35f;
+            if (i != 0) waitTime -= 0.3f;
 
             curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, waitTime);
             anim.SetBool("isAtkReady", true);
@@ -214,7 +214,7 @@ public class EnemyChampion : EnemyBoss
 
             float waitTime = patterns[1].waitBeforeTime;
             if (i == 0) waitTime += 0.15f;
-            if (isRage) waitTime -= 0.1f;
+            if (isRage) waitTime -= 0.05f;
 
             curAttackWarning = attacks[1].ShowWarning(transform.position, Target.transform.position, waitTime);
 
@@ -307,6 +307,7 @@ public class EnemyChampion : EnemyBoss
 
     protected override void rageChange()
     {
+        patterns[0].waitBeforeTime-= 0.1f;
         patterns[3].repeatTIme++;
         patterns[3].waitBeforeTime -= 0.15f;
     }

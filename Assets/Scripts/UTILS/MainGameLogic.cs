@@ -16,6 +16,7 @@ public class MainGameLogic : MonoBehaviour
 
         if (!LoadedSave.isInit) LoadedSave.Inst.Init();
         if (!LoadedData.isDataLoaded) LoadedData.Inst.LoadData();
+        if (!AdMgr.isInit) AdMgr.Inst.Init();
         isInit = true;
     }
 }

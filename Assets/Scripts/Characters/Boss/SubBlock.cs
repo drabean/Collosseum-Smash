@@ -157,7 +157,9 @@ public class SubBlock : Enemy
         yield return new WaitForSeconds(1.0f);
 
         anim.SetBool("isShootLear", true);
-        attacks[1].ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
+        int fireCount = 0;
+        Vector3 firstInitPos = Target.transform.position;
+        attacks[1].ShowWarning(transform.position, firstInitPos, patterns[1].waitBeforeTime);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
         float timeLeft = duration-1;
         float fireTimeLeft = 0.0f;
@@ -170,7 +172,13 @@ public class SubBlock : Enemy
                 GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
 
                 GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
-                Instantiate(attacks[1]).Shoot(firePos.position, Target.transform.position);
+                Vector3 targetVec;
+
+                if (fireCount == 0) targetVec = firstInitPos;
+                else targetVec = Target.transform.position;
+
+                fireCount++;
+                Instantiate(attacks[1]).Shoot(firePos.position, targetVec);
                 anim.SetTrigger("doShootLear");
                 fireTimeLeft = fire1WaitTime;
             }
@@ -182,7 +190,7 @@ public class SubBlock : Enemy
         anim.SetBool("isShootLear", false);
     }
 
-    public float fire2WaitTime = 0.9f;
+    public float fire2WaitTime = 1f;
     float rapidWaitTime = 0.1f;
 
     /// <summary>
@@ -194,6 +202,9 @@ public class SubBlock : Enemy
         yield return new WaitForSeconds(1.0f);
 
         anim.SetBool("isShootLear", true);
+
+        int fireCount = 0;
+        Vector3 firstInitPos = Target.transform.position;
         attacks[1].ShowWarning(transform.position, Target.transform.position, patterns[1].waitBeforeTime);
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
 
@@ -202,13 +213,20 @@ public class SubBlock : Enemy
 
         while (timeLeft > 0)
         { 
-            Vector3 targetVec = Target.transform.position;
 
             if (fireTimeLeft < 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
                     GameMgr.Inst.MainCam.Shake(0.2f, 10, 0.1f, 0f);
+                    Vector3 targetVec;
+
+                    if (fireCount == 0) targetVec = firstInitPos;
+                    else targetVec = Target.transform.position;
+
+                    fireCount++;
+                    Instantiate(attacks[1]).Shoot(firePos.position, targetVec);
+
                     Instantiate<Attack>(attacks[1]).Shoot(firePos.position, targetVec);
                     anim.SetTrigger("doShootLear");
 

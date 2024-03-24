@@ -242,9 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73996b48722ca9428cde0d6052d7a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXName: 
+  SFXName: Throw
   targetAttack: {fileID: 334716579514766352, guid: 63035333f19dab4489ecb8f3e45f9ce3, type: 3}
-  moveTime: 0.75
+  moveTime: 0.85
   anim: {fileID: 6274656256198770185}
 --- !u!95 &6274656256198770185
 Animator:

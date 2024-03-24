@@ -46,29 +46,21 @@ public class EnemyMushroomKing : EnemyBoss
 
     protected override void rageChange()
     {
-        patterns[0].waitAfterTime -= 0.5f;
-        patterns[1].waitAfterTime -= 0.5f;
-        patterns[2].waitAfterTime -= 0.5f;
-        maxSpawnCount++;
+        patterns[0].waitAfterTime -= 0.1f;
+        patterns[1].waitAfterTime -= 0.1f;
     }
     IEnumerator co_Pat1()
     {
         anim.SetBool("isAttackReady", true);
 
-        SporeSmall.ShowWarning(transform.position, transform.position + Vector3.right * patterns[0].range, patterns[0].waitBeforeTime);
-        SporeSmall.ShowWarning(transform.position, transform.position + Vector3.left * patterns[0].range, patterns[0].waitBeforeTime);
-        SporeSmall.ShowWarning(transform.position, transform.position + Vector3.up * patterns[0].range, patterns[0].waitBeforeTime);
-        SporeSmall.ShowWarning(transform.position, transform.position + Vector3.down * patterns[0].range, patterns[0].waitBeforeTime);
+        SporeBig.ShowWarning(transform.position, transform.position, patterns[0].waitBeforeTime);
         yield return new WaitForSeconds(patterns[0].waitBeforeTime);
         PatParticle.Play();
         
         anim.SetBool("isAttackReady", false);
         anim.SetTrigger("doAttack");
 
-        Instantiate(SporeSmall).Shoot(transform.position, transform.position + Vector3.right * patterns[0].range);
-        Instantiate(SporeSmall).Shoot(transform.position, transform.position + Vector3.left * patterns[0].range);
-        Instantiate(SporeSmall).Shoot(transform.position, transform.position + Vector3.up * patterns[0].range);
-        Instantiate(SporeSmall).Shoot(transform.position, transform.position + Vector3.down * patterns[0].range);
+        Instantiate(SporeBig).Shoot(transform.position, transform.position);
 
         GameMgr.Inst.MainCam.Shake(1.0f, 15f, 0.12f, 0f);
         StartCoroutine(co_Idle(patterns[0].waitAfterTime));
@@ -98,7 +90,6 @@ public class EnemyMushroomKing : EnemyBoss
             Attack atk = Instantiate(MushroomParabola);
             atk.Shoot(transform.position, targetPositions[i]);
             if(i == 0)atk.attackAction = () => { spawnMob(0, targetPositions[0], deadOption); };
-            if(i == 1)atk.attackAction = () => { spawnMob(0, targetPositions[1], deadOption); };
         }
 
         GameMgr.Inst.MainCam.Shake(1.0f, 15f, 0.12f, 0f);

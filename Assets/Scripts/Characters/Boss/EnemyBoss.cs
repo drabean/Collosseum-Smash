@@ -99,7 +99,11 @@ public class EnemyBoss : Enemy
             GameObject temp = DictionaryPool.Inst.Pop("Prefabs/Effect/ExplosionEffect");
             temp.transform.position = transform.position.Randomize(size);
             ItemCoin c = Instantiate(coin, transform.position, Quaternion.identity);
+
+            RunData curRunData = GameMgr.Inst.curRunData;
+
             c.Init(1);
+            c.onAcquire += () => { curRunData.totalCoinCount++; };
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
@@ -120,7 +124,7 @@ public class EnemyBoss : Enemy
     //반피 이하일 시 2페이즈 진입
     protected virtual void checkRage()
     {
-        if(!isRage && (curHP < ((float)maxHP/2)))
+        if(!isRage && (curHP < ((float)maxHP * (0.6f))))
         {
             isRage = true;
             if (!alreadyUsedPattern) isRagePattern = true;

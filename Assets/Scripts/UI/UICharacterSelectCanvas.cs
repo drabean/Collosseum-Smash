@@ -140,7 +140,7 @@ public class UICharacterSelectCanvas : MonoBehaviour
                 }
                 break;
             case 2:
-                if (LoadedSave.Inst.save.NormalKill >= 100)
+                if (LoadedSave.Inst.save.NormalKill >= 300)
                 {
                     LockGroup.SetActive(false);
                 }

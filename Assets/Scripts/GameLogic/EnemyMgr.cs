@@ -241,7 +241,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
 
         UIMgr.Inst.progress.SetBossHP(spawnedEnemy.curHP, spawnedEnemy.maxHP);
         if(spawnedEnemy.curHP != spawnedEnemy.maxHP)SoundMgr.Inst.Play("Hit");
-        if (spawnedEnemy.curHP < ((float)spawnedEnemy.maxHP / 2f))
+        if (spawnedEnemy.curHP < ((float)spawnedEnemy.maxHP * (0.65f)))
         {
             Debug.Log("Continued boss's HP is lower than half");
             spawnedEnemy.GetComponent<EnemyBoss>().alreadyUsedPattern = true; // 반피 이하에서 continue시 발악패턴 안쓰도록 조절

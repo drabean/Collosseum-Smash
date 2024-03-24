@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using GoogleMobileAds.Api;
 
 
 public class UIAdPrefab : MonoBehaviour
@@ -42,7 +43,7 @@ public class UIAdPrefab : MonoBehaviour
                 canWatchAD = false;
                 double timeLeft = ADCoolTime - (timeSpan.Minutes);
                 string timeLeftString = timeLeft.ToString("F0");
-                TMPTimeSpan.text = "Can Watch \nAfter " + timeLeftString + " Hours";
+                TMPTimeSpan.text = "Can Watch \nAfter " + timeLeftString + " Minutes";
             }
         }
 
@@ -55,19 +56,21 @@ public class UIAdPrefab : MonoBehaviour
     public void Btn_Purchase()
     {
         //광고 확인후, 시청시에만 적용
+        AdMgr.Inst.ShowRewardAD(rewardAction);
 
-        if (false) // 광고 확인.
-        {
-            SoundMgr.Inst.Play("Purchase");
-            LoadedSave.Inst.save.Coin += reward;
-            LoadedSave.Inst.SyncSaveData();
 
-            PlayerPrefs.SetString("LastADBtnTime", DateTime.Now.ToString());
-            disableBtn();
-            TMPTimeSpan.text = "Can Watch \nAfter " + ADCoolTime.ToString() + " Minutes";
-        }
     }
 
+    public void rewardAction()
+    {
+        SoundMgr.Inst.Play("Purchase");
+        LoadedSave.Inst.save.Coin += reward;
+        LoadedSave.Inst.SyncSaveData();
+
+        PlayerPrefs.SetString("LastADBtnTime", DateTime.Now.ToString());
+        disableBtn();
+        TMPTimeSpan.text = "Can Watch \nAfter " + ADCoolTime.ToString() + " Minutes";
+    }
     //패널로 덮어서 이미 샀다는걸 보여주기
     //순서를 밑으로 밀어버리기
     public void disableBtn()

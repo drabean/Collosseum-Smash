@@ -77,20 +77,22 @@ public class UIDefeatedCanvas : MonoBehaviour
     }
     public void Btn_AdBtn()
     {
-        if (false)
-        {
-            //TODO: 광고 연동 후 시청 여부 체크
-            //광고시청
-            SoundMgr.Inst.Play("Purchase");
-            LoadedSave.Inst.save.Coin += coin;
-            LoadedSave.Inst.SyncSaveData();
-
-
-            UTILS.DeleteRunData();
-            LoadSceneMgr.LoadSceneAsync("Start");
-        }
+        AdMgr.Inst.ShowRewardAD(rewardAction);
     }
 
+
+    public void rewardAction()
+    {
+        //TODO: 광고 연동 후 시청 여부 체크
+        //광고시청
+        SoundMgr.Inst.Play("Purchase");
+        LoadedSave.Inst.save.Coin += coin;
+        LoadedSave.Inst.SyncSaveData();
+
+
+        UTILS.DeleteRunData();
+        LoadSceneMgr.LoadSceneAsync("Start");
+    }
     public void Btn_GoToTitle()
     {
         UTILS.DeleteRunData();

@@ -18,4 +18,9 @@ public class DescriptionArea : MonoBehaviour
     {
         if (collision.CompareTag("Player")) UIMgr.Inst.itemDescription.HideDescription();
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")) ShowDescription();
+    }
 }

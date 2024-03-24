@@ -22,8 +22,8 @@ public class StatPotion : Equip
                 break;
             case 2:
                 player.Stat.VIT++;
-                player.SetStatus();
                 player.Heal(1);
+                player.SetStatus();
                 break;
             case 3:
                 player.Stat.ACC++;

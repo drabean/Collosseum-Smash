@@ -99,8 +99,8 @@ MonoBehaviour:
   Target: {fileID: 0}
   isChasing: 0
   isSuperarmor: 0
-  attackRange: 10
-  attackWaitTime: 1.1
+  attackRange: 3.5
+  attackWaitTime: 1.5
   attackAfterTime: 1.5
   runawayTime: 2
   projectileName: Prefabs/Attack/TrainingSpear

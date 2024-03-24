@@ -347,7 +347,7 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 1.2
     waitAfterTime: 1
-    intervalTime: 0.4
+    intervalTime: 0.5
     repeatTIme: 8
     duration: 0
     prefabName: Prefabs/Attack/EnergyBolt
@@ -355,7 +355,7 @@ MonoBehaviour:
     width: 0
     waitBeforeTime: 1.2
     waitAfterTime: 1
-    intervalTime: 0.3
+    intervalTime: 0.4
     repeatTIme: 4
     duration: 0
     prefabName: Prefabs/Attack/EnergyBolt

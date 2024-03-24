@@ -32914,7 +32914,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &487583311
 RectTransform:
@@ -33576,7 +33576,7 @@ MonoBehaviour:
   AchivementBtn: {fileID: 1611862103}
   title: {fileID: 1346241019}
   ProgressTMP: {fileID: 329288375}
-  isTestMode: 1
+  isTestMode: 0
 --- !u!4 &583229765
 Transform:
   m_ObjectHideFlags: 0
@@ -43971,6 +43971,8 @@ MonoBehaviour:
   totalPanel: {fileID: 781399746}
   AchivementPrefab: {fileID: 5379884007993038828, guid: b1f747612e1375e4fb8daf157fb8aa44, type: 3}
   AchivementHolder: {fileID: 3593235}
+  Cleared: []
+  NotCleared: []
 --- !u!1 &2077626594
 GameObject:
   m_ObjectHideFlags: 0

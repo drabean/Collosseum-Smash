@@ -39,7 +39,7 @@ public class GameClearMgr : MonoBehaviour
         progressTMP.text = "";
         yield return new WaitForSeconds(2.0f);
         SoundMgr.Inst.PlayBGM("WIN");
-        if (!isHardMode) progressTMP.text = "You have smashed every enemy!";
+        if (!isHardMode) progressTMP.text = "You have smashed \nevery enemy!";
         else progressTMP.text = "You have smashd countless, \nevil Things! ";
         yield return new WaitForSeconds(3.0f);
         if(!isHardMode)progressTMP.text = "Receive the trophy, \nGlorious champion!";

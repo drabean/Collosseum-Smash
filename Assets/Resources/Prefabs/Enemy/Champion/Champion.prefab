@@ -5061,7 +5061,7 @@ MonoBehaviour:
   patterns:
   - range: 1
     width: 1
-    waitBeforeTime: 0.35
+    waitBeforeTime: 0.55
     waitAfterTime: 0.4
     intervalTime: 0.05
     repeatTIme: 3

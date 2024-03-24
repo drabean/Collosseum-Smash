@@ -16,5 +16,5 @@ MonoBehaviour:
   Title: Second Chance!
   Description: Revive for the first time.
   RewardType: 0
-  RewardValue: 20
+  RewardValue: 30
   rewardText: 

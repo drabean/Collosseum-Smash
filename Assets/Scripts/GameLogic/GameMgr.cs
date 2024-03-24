@@ -338,16 +338,16 @@ public class GameMgr : MonoSingleton<GameMgr>
                 maxCount = 3;
                 break;
             case <= 15:
-                maxBaseEnemyCount = 3;
-                maxCount = 4;
+                maxBaseEnemyCount = 1;
+                maxCount = 3;
                 break;
             case <= 25:
-                maxBaseEnemyCount = 3;
-                maxCount = 5;
+                maxBaseEnemyCount = 2;
+                maxCount = 4;
                 break;
             case <= 30:
-                maxBaseEnemyCount = 4;
-                maxCount = 6;
+                maxBaseEnemyCount = 3;
+                maxCount = 5;
                 break;           
             case <= 35:
                 maxBaseEnemyCount = 3;
@@ -389,7 +389,7 @@ public class GameMgr : MonoSingleton<GameMgr>
             curCoinCount = 0;
             ItemCoin coin = Instantiate(CoinPrefab, position, Quaternion.identity);
             coin.Init(1);
-            coin.onAcquire += () => { curRunData.totalCoinCount++; };
+            coin.onAcquire += () => { curRunData.totalCoinCount++;};
         }
     }
     void onBossDie(Vector3 pos)
@@ -470,6 +470,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     /// <returns></returns>
     IEnumerator co_ToNextScene()
     {
+        yield return new WaitForSeconds(0.3f); // 아이템에 의한 변경사항 적용을 위한 딜레이.
         //다음스테이지 인덱스 정하기
         curRunData.ClearedStages.Add(stageInfo.ID);
         curRunData.stageProgress++;
@@ -499,6 +500,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         curRunData.curStageID = nextStages[Random.Range(0, nextStages.Count)];
 
         curRunData.curHP = (int)player.curHP + 2;
+
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;
         curRunData.isBoss = false;
 
