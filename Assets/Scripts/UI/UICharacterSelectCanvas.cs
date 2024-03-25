@@ -197,8 +197,11 @@ public class UICharacterSelectCanvas : MonoBehaviour
         }
         if(LoadedSave.Inst.save.CheckUnlock(UNLOCK.ADDITEM))
         {
-            data.item.Add(Random.Range(20101, 20110));
+            ItemMgr.Inst.InitNormalEquipPool(data);
+            data.item.Add(ItemMgr.Inst.GetNormalEquip().ID);
         }
+
+
         data.curHP =10;
         data.reviveCount = 1;
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) data.reviveCount++;

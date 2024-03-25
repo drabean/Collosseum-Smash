@@ -397,9 +397,9 @@ public class Player : CharacterBase
 
         UIMgr.Inst.hp.Set((int)curHP);
         hit.FlashWhite(0.3f);
-        hit.Togle(1.0f);
+        hit.Togle(2.0f);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.0f);
 
         isInvincible = false;
     }

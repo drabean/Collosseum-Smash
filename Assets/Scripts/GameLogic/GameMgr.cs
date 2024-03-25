@@ -501,7 +501,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         curRunData.curHP = (int)player.curHP + 2;
 
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP++;
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) curRunData.curHP += 10;
         curRunData.isBoss = false;
 
         curRunData.normalProgress = 0;

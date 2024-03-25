@@ -185,7 +185,7 @@ public class EnemySlimeKing : EnemyBoss
 
     IEnumerator co_attack2(Attack slimeBall, Vector3 attackPos)
     {
-        slimeBall.ShowWarning(attackPos, attackPos, (1 - slimeballMoveTime));
+        slimeBall.ShowWarning(attackPos, attackPos, (1 - slimeballMoveTime) + 0.15f);
         yield return new WaitForSeconds(0.15f);
         //날아가는 슬라임 볼 생성
         ProjectileParabola tempObj = (ProjectileParabola)Instantiate(slimeBall);
