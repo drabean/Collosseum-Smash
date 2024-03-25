@@ -48,6 +48,7 @@ public class EnemyMushroomKing : EnemyBoss
     {
         patterns[0].waitAfterTime -= 0.1f;
         patterns[1].waitAfterTime -= 0.1f;
+        patterns[1].repeatTIme += 2;
     }
     IEnumerator co_Pat1()
     {
