@@ -28,12 +28,13 @@ public class SmallShield : Equip
         killCount++;
         if(killCount >= maxKillCount)
         {
-            owner.actionHit += Block;
             curIcon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/ShieldEffect").GetComponent<Poolable>();
             owner.iconHolder.addIcon(curIcon.transform);
 
             isShieldActive = true;
             killCount = 0;
+
+            owner.resistenceChain.AddResistanceEffect(Block);
         }
     }
 
@@ -48,7 +49,7 @@ public class SmallShield : Equip
         curIcon = null;
         isShieldActive = false;
 
-        owner.actionHit -= Block;
+        owner.resistenceChain.RemoveResistanceEffect(Block);
         DictionaryPool.Inst.Pop("Prefabs/Effect/BlockEffect").transform.position = owner.transform.position;
 
         return true;

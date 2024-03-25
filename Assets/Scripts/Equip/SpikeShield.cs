@@ -7,12 +7,12 @@ public class SpikeShield : Equip
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        player.actionHit += Spike;
+        owner.resistenceChain.AddResistanceEffect(Spike);
 
     }
     public override void onUnEquip(Player player)
     {
-        player.actionHit -= Spike;
+        owner.resistenceChain.RemoveResistanceEffect(Spike);
     }
 
     bool Spike(bool resisted)

@@ -11,7 +11,7 @@ public class HolyPandant : Equip
     public override void onEquip(Player player)
     {
         base.onEquip(player);
-        player.actionHit += blessing;
+        owner.resistenceChain.AddResistanceEffect(blessing);
 
     }
     public override void onUnEquip(Player player)

@@ -12,13 +12,14 @@ public class ChampionBelt : Equip
         owner.Stat.STR++;
         owner.Stat.SPD++;
         owner.SetStatus();
-        owner.actionHit += onHit;
+        owner.resistenceChain.AddResistanceEffect(onHit);
     }
     public override void onUnEquip(Player player)
     {
         owner.Stat.STR--;
         owner.Stat.SPD--;
         owner.SetStatus();
+        owner.resistenceChain.RemoveResistanceEffect(onHit);
     }
 
     public bool onHit(bool resisted)

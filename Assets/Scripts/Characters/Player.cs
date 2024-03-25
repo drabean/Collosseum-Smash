@@ -103,14 +103,7 @@ public class Player : CharacterBase
     /// <summary>
     /// 피격 시
     /// </summary>
-    public Func<bool, bool> actionHit;
-    public bool InvokeOnHit(bool resisted)
-    {
-        if (actionHit == null)
-            return false;
-        else
-            return actionHit(resisted);
-    }
+    public ResistanceChain resistenceChain = new ResistanceChain();
 
     /// <summary>
     /// 공격 시
@@ -373,7 +366,7 @@ public class Player : CharacterBase
         Vector3 hitVec = (transform.position - attackerPos.position).normalized;
 
         SoundMgr.Inst.Play("PlayerHit");
-        bool resisted = InvokeOnHit(false);
+        bool resisted = resistenceChain.ApplyResistance(false);
 
         hit.FlashWhite(0.2f);
         hit.HitEffect(hitVec, size);
@@ -381,6 +374,7 @@ public class Player : CharacterBase
         StartCoroutine(co_Invincible(resisted, hitVec));
 
     }
+
 
     /// <summary>
     /// 데미지를 입히고, 무적시간을 부여하며 연출을 해주는 코루틴
