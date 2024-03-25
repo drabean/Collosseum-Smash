@@ -24,5 +24,6 @@ public class MainGameLogic : MonoBehaviour
             yield return null;
         }
         isInit = true;
+        Debug.Log("Initializing Done!");
     }
 }

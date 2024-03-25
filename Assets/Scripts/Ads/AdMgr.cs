@@ -12,105 +12,101 @@ public class AdMgr : MonoSingleton<AdMgr>
     public void Init()
     {
         MobileAds.Initialize(initStatus => { });
-        isInit = true;
+
+        LoadInterstitialAd();
+
 
         DontDestroyOnLoad(gameObject);
+        isInit = true;
     }
 
 
-
-
-    #region REWARDED
-
-    // These ad units are configured to always serve test ads.
+    #region Àü¸é±¤°í
 #if UNITY_ANDROID
-    private string _adUnitId = "ca-app-pub-3940256099942544/5224354917";
-#elif UNITY_IPHONE
-  private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
+    private string _intersititialAdID = "ca-app-pub-3317633089740042/1758431422";
 #else
-  private string _adUnitId = "unused";
+  private string _intersititialAdID  = "unused";
 #endif
 
-    /// <summary>
-    /// Loads the rewarded ad.
-    /// </summary>
-    private RewardedAd rewardedAd;
+    private InterstitialAd _interstitialAd;
 
-    public void LoadRewardedAd()
+  /// <summary>
+  /// Loads the interstitial ad.
+  /// </summary>
+  public void LoadInterstitialAd()
     {
-
-        if (rewardedAd != null)
+        // Clean up the old ad before loading a new one.
+        if (_interstitialAd != null)
         {
-            rewardedAd.Destroy();
-            rewardedAd = null;
+            _interstitialAd.Destroy();
+            _interstitialAd = null;
         }
+
+        Debug.Log("Loading the interstitial ad.");
+
+        // create our request used to load the ad.
         var adRequest = new AdRequest();
-        adRequest.Keywords.Add("unity-admob-sample");
 
-        RewardedAd.Load(_adUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
-        {
-            if (error != null || ad == null)
+        // send the request to load the ad.
+        InterstitialAd.Load(_intersititialAdID, adRequest,
+            (InterstitialAd ad, LoadAdError error) =>
             {
-                print("Rewarded failed to load" + error);
-                return;
-            }
+              // if error is not null, the load request failed.
+              if (error != null || ad == null)
+                {
+                    Debug.LogError("interstitial ad failed to load an ad " +
+                                   "with error : " + error);
+                    return;
+                }
 
-            print("Rewarded ad loaded !!");
-            rewardedAd = ad;
-            RewardedAdEvents(rewardedAd);
-        });
-    }
-    public void ShowRewardedAd()
-    {
+                Debug.Log("Interstitial ad loaded with response : "
+                          + ad.GetResponseInfo());
 
-        if (rewardedAd != null && rewardedAd.CanShowAd())
-        {
-            rewardedAd.Show((Reward reward) =>
-            {
+                _interstitialAd = ad;
             });
-        }
-        else
-        {
-            print("Rewarded ad not ready");
-        }
-    }
-    public void RewardedAdEvents(RewardedAd ad)
-    {
-        // Raised when the ad is estimated to have earned money.
-        ad.OnAdPaid += (AdValue adValue) =>
-        {
-            Debug.Log("Rewarded ad paid {0} {1}." +
-                adValue.Value +
-                adValue.CurrencyCode);
-        };
-        // Raised when an impression is recorded for an ad.
-        ad.OnAdImpressionRecorded += () =>
-        {
-            Debug.Log("Rewarded ad recorded an impression.");
-        };
-        // Raised when a click is recorded for an ad.
-        ad.OnAdClicked += () =>
-        {
-            Debug.Log("Rewarded ad was clicked.");
-        };
-        // Raised when an ad opened full screen content.
-        ad.OnAdFullScreenContentOpened += () =>
-        {
-            Debug.Log("Rewarded ad full screen content opened.");
-        };
-        // Raised when the ad closed full screen content.
-        ad.OnAdFullScreenContentClosed += () =>
-        {
-            Debug.Log("Rewarded ad full screen content closed.");
-        };
-        // Raised when the ad failed to open full screen content.
-        ad.OnAdFullScreenContentFailed += (AdError error) =>
-        {
-            Debug.LogError("Rewarded ad failed to open full screen content " +
-                           "with error : " + error);
-        };
     }
 
+    public void SetInterstitialAdEvent(Action action)
+    {
+        rewardAction = action;
+
+        _interstitialAd.OnAdFullScreenContentClosed += () => {rewardFlag = true; };
+    }
+    public void ShowInterstialAd()
+    {
+        StartCoroutine(co_ShowInterstial());
+    }
+
+    IEnumerator co_ShowInterstial()
+    {
+
+        while (_interstitialAd != null && !_interstitialAd.CanShowAd()) yield return new WaitForSeconds(0.2f);
+
+        _interstitialAd.Show();
+
+        yield return null;
+    }
+
+    public bool CheckCanShow()
+    {
+        return _interstitialAd.CanShowAd();
+    }
+
+    Action rewardAction;
+    bool rewardFlag;
+
+
+    private void Update()
+    {
+        if(rewardFlag && rewardAction != null)
+        {
+            rewardFlag = false;
+            rewardAction?.Invoke();
+            rewardAction = null;
+
+            LoadInterstitialAd();
+        }
+    }
     #endregion
 
 

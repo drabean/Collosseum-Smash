@@ -129,7 +129,7 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
         switch (buf)
         {
             case BUF.HARDMODEDEFAULT:
-                enemy.curHP += 2;
+                enemy.curHP += enemy.curHP *  (0.3f);
                 break;
             case BUF.MEDAL:
                 GameObject Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconMedal");

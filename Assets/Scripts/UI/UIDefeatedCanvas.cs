@@ -77,9 +77,9 @@ public class UIDefeatedCanvas : MonoBehaviour
     }
     public void Btn_AdBtn()
     {
-        //AdMgr.Inst.ShowRewardAD(rewardAction);
-        AdMgr.Inst.LoadRewardedAd();
-        AdMgr.Inst.ShowRewardedAd();
+        AdMgr.Inst.SetInterstitialAdEvent(rewardAction);
+        //광고 확인후, 시청시에만 적용
+        AdMgr.Inst.ShowInterstialAd();
     }
 
 
