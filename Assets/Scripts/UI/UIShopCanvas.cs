@@ -63,7 +63,7 @@ public class UIShopCanvas : MonoBehaviour
 
         //Ã¼·ÂÀç»ý
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.HPREG, "Comfortable Bed", "The health recovered at the end of the stage increases.");
+        prefab.Init(30, UNLOCK.HPREG, "Comfortable Bed", "After Clearing Stage, restore all HP");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) prefab.disableBtn();
 
         //µ·
@@ -73,7 +73,7 @@ public class UIShopCanvas : MonoBehaviour
 
         //ºÎÈ°È½¼ö
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(20, UNLOCK.REVIVE, "More Life!", "Player can revive One more time.");
+        prefab.Init(20, UNLOCK.REVIVE, "More Life!", "Player can revive one more time.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) prefab.disableBtn();
 
         isShoptInit = true;
