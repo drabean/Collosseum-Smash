@@ -206,6 +206,7 @@ public class Player : CharacterBase
     public void AttachUI()
     {
         UIMgr.Inst.hp.Set((int)curHP);
+        UIMgr.Inst.hp.SetMaxHP((int)maxHP);
         UIMgr.Inst.joystick.setTarget(GetInput);
     }
     [SerializeField] LayerMask layer;
@@ -363,6 +364,7 @@ public class Player : CharacterBase
         if (curHP > maxHP) curHP = maxHP;
 
         UIMgr.Inst.hp.Set((int)curHP);
+        UIMgr.Inst.hp.SetMaxHP((int)maxHP);
     }
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
