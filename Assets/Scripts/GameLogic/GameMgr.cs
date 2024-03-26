@@ -169,8 +169,8 @@ public class GameMgr : MonoSingleton<GameMgr>
 
     StageInfo stageInfo;
     Coroutine curSpawnRoutine;
-    int maxCount = 3; // 소환 될 수 있는 최대 마리수
-    int maxBaseEnemyCount = 3;
+    int maxCount = 2; // 소환 될 수 있는 최대 마리수
+    int maxBaseEnemyCount = 2;
     int progressCount = 0; 
     bool isBossSpawned;
     public int dropCount = 7; // 투척 아이템 소환 빈도
@@ -228,7 +228,7 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
     int curEnemyCount = 0;
     int baseEnemyCount = 0; // 기본형 적 최대 소환 수
-    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(1.0f);
+    WaitForSeconds waitForEnemySpawn = new WaitForSeconds(0.3f);
     IEnumerator normalEnemySpawnRoutine()
     {
         while (true)
@@ -329,31 +329,43 @@ public class GameMgr : MonoSingleton<GameMgr>
         #region 난이도관리
         switch(progressCount)
         {
-            case <=5:
+            case <=4:
                 maxBaseEnemyCount = 2;
                 maxCount = 2;
                 break;
             case <= 10:
-                maxBaseEnemyCount = 2;
-                maxCount = 3;
-                break;
-            case <= 15:
-                maxBaseEnemyCount = 1;
-                maxCount = 3;
-                break;
-            case <= 25:
-                maxBaseEnemyCount = 2;
+                maxBaseEnemyCount = 3;
                 maxCount = 4;
                 break;
-            case <= 30:
+            case <= 14:
+                maxBaseEnemyCount = 2;
+                maxCount = 2;
+                break;
+            case <= 20:
                 maxBaseEnemyCount = 3;
                 maxCount = 5;
-                break;           
-            case <= 35:
-                maxBaseEnemyCount = 3;
+                break;
+            case <= 24:
+                maxBaseEnemyCount = 2;
+                maxCount = 2;
+                break;
+            case <= 30:
+                maxBaseEnemyCount = 2;
                 maxCount = 6;
                 break;
-            case <= 45:
+            case <= 34:
+                maxBaseEnemyCount = 2;
+                maxCount = 2;
+                break;
+            case <= 40:
+                maxBaseEnemyCount = 2;
+                maxCount = 6;
+                break;
+            case <= 44:
+                maxBaseEnemyCount = 2;
+                maxCount = 2;
+                break;
+            case <= 50:
                 maxBaseEnemyCount = 3;
                 maxCount = 7;
                 break;

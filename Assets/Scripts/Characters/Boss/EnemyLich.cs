@@ -493,6 +493,10 @@ public class EnemyLich : EnemyBoss
         anim.SetBool("isGroggy", true);
         GameMgr.Inst.removeAllNormalEnemies();
         foreach(SubShooter subSkul in subSkuls) { Destroy(subSkul.gameObject); }
+        if(hardSubSkuls.Count != 0)
+        {
+            foreach(SubShooter subSkul in hardSubSkuls) { Destroy(subSkul.gameObject); };
+        }
         GetComponent<Collider2D>().enabled = true;
         transform.position = groggyVec;
     }

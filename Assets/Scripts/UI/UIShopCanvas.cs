@@ -37,23 +37,23 @@ public class UIShopCanvas : MonoBehaviour
         }
         //공속
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(100, UNLOCK.ATKSPD, "Quick Hands", "Increase player's attack speed.");
+        prefab.Init(200, UNLOCK.ATKSPD, "Quick Hands", "Increase player's attack speed.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKSPD)) prefab.disableBtn();
 
         //공격력
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.ATKDMG, "Innate Strength", "Increase player's attack damage");
+        prefab.Init(200, UNLOCK.ATKDMG, "Innate Strength", "Increase player's attack damage");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.ATKDMG)) prefab.disableBtn();
+
+        //이동속도
+        prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
+        prefab.Init(100, UNLOCK.MOVSPD, "Innate Agility", "Increase player's move speed.");
+        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MOVSPD)) prefab.disableBtn();
 
         //최대체력
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
         prefab.Init(50, UNLOCK.MAXHP, "Innate Stamina", "Increase player's Max HP.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MAXHP)) prefab.disableBtn();
-
-        //이동속도
-        prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(50, UNLOCK.MOVSPD, "Innate Agility", "Increase player's move speed.");
-        if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MOVSPD)) prefab.disableBtn();
 
 
         //투척데미지
@@ -63,17 +63,17 @@ public class UIShopCanvas : MonoBehaviour
 
         //체력재생
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.HPREG, "Comfortable Bed", "After Clearing Stage, restore all HP");
+        prefab.Init(50, UNLOCK.HPREG, "Comfortable Bed", "After Clearing Stage, restore all HP");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.HPREG)) prefab.disableBtn();
 
         //돈
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(30, UNLOCK.MONEY, "More Coin!", "Enemies drops coin more often.");
+        prefab.Init(50, UNLOCK.MONEY, "More Coin!", "Enemies drops coin more often.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.MONEY)) prefab.disableBtn();
 
         //부활횟수
         prefab = Instantiate(ShopPrefab, ShopPrefabHolder);
-        prefab.Init(20, UNLOCK.REVIVE, "More Life!", "Player can revive one more time.");
+        prefab.Init(50, UNLOCK.REVIVE, "More Life!", "Player can revive one more time.");
         if (LoadedSave.Inst.save.CheckUnlock(UNLOCK.REVIVE)) prefab.disableBtn();
 
         isShoptInit = true;

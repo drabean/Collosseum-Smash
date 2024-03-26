@@ -58,7 +58,7 @@ public class DEBUGPANEL : MonoBehaviour
         switch(curStageIdx)
         {
             case 0:
-                data.curStageID = 10;
+                data.curStageID = 31;
                 data.curDifficulty = DIFFICULTY.EASY;
                 break;
             case 1:

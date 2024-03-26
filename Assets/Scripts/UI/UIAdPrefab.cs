@@ -14,7 +14,7 @@ public class UIAdPrefab : MonoBehaviour
     public TextMeshProUGUI TMPDestription;
 
     int ADCoolTime = 10;
-    int reward = 40;
+    int reward = 30;
     public void Init()
     {
         //TODO: 마지막 광고시청시간 확인해서 비활성화 하기

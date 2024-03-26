@@ -77,11 +77,11 @@ public class Player : CharacterBase
     /// </summary>
     public void SetStatus()
     {
-        moveSpeed = 2f + (Stat.SPD * 0.4f);
+        moveSpeed = 2.2f + (Stat.SPD * 0.4f);
         anim.SetFloat("moveSpeed", moveSpeed / 3);
         maxHP = Stat.VIT + 1;
         if(curHP > maxHP)curHP = maxHP;
-
+        UIMgr.Inst.hp.SetMaxHP((int)maxHP);
     }
 
     #endregion
@@ -356,8 +356,8 @@ public class Player : CharacterBase
         curHP += amount;
         if (curHP > maxHP) curHP = maxHP;
 
-        UIMgr.Inst.hp.Set((int)curHP);
         UIMgr.Inst.hp.SetMaxHP((int)maxHP);
+        UIMgr.Inst.hp.Set((int)curHP);
     }
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.5f)
     {
