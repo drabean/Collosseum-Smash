@@ -28,7 +28,7 @@ public class Projectile : Attack
         if(moveVec == Vector3.zero)
         {
             Debug.Log("잘못된 방향입니다.");//00으로 발사시 가만히 잇는 현상 방지.
-            Destroy(gameObject);
+            moveVec = Vector3.right;
             return;
         }
         if (isRotate) transform.rotation = moveVec.ToQuaternion();

@@ -47,7 +47,9 @@ public class GameMgr : MonoSingleton<GameMgr>
     PHASE curPhase = PHASE.LOADING;
 
     public ItemCoin CoinPrefab;
-    
+
+    StageMechanic StageGimmic;
+
     private IEnumerator Start()
     {
         if (isTest)
@@ -101,6 +103,11 @@ public class GameMgr : MonoSingleton<GameMgr>
 
         if(stageInfo.StageDeco != null) Instantiate(stageInfo.StageDeco, Vector3.zero, Quaternion.identity);
 
+        if (curRunData.isHardMode && stageInfo.StageGimmic != null)
+        {
+            StageGimmic = Instantiate(stageInfo.StageGimmic, Vector3.zero, Quaternion.identity);
+            StageGimmic.Init(player.transform);
+        }
 
 
         if(isTest) yield break;
@@ -194,6 +201,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         progressTMP.text = progressCount + " / " + TotalSpawnCount;
         curSpawnRoutine = StartCoroutine(normalEnemySpawnRoutine());
         curPhase = PHASE.NORMAL;
+        StageGimmic?.StartAction();
     }
 
     void InitEnemyPool()
@@ -270,7 +278,8 @@ public class GameMgr : MonoSingleton<GameMgr>
     {
 
         GameMgr.Inst.removeAllNormalEnemies();
-
+        StageGimmic?.endAction();
+        if(StageGimmic!=null)Destroy(StageGimmic.gameObject);
         progressTMP.text = stageInfo.bossText;
         yield return new WaitForSeconds(0.5f);
         UIMgr.Inst.progress.HideAll();
@@ -279,6 +288,7 @@ public class GameMgr : MonoSingleton<GameMgr>
         progressTMP.text = stageInfo.bossText;
         yield return new WaitForSeconds(1.7f);
         progressTMP.text = "";
+
     }
     /// <summary>
     /// 현재 소환 가능한 몬스터들 Index

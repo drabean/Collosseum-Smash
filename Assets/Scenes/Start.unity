@@ -33544,7 +33544,7 @@ MonoBehaviour:
   AchivementBtn: {fileID: 1611862103}
   title: {fileID: 1346241019}
   ProgressTMP: {fileID: 329288375}
-  isTestMode: 0
+  isTestMode: 1
 --- !u!4 &583229765
 Transform:
   m_ObjectHideFlags: 0
@@ -34678,6 +34678,7 @@ MonoBehaviour:
   SliderCharacter: {fileID: 811713087}
   stage: {fileID: 1169106538}
   character: {fileID: 979304545}
+  stage2Test: 31
 --- !u!224 &725963312 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 294826020846633421, guid: 0d1577029cfc2314aa249939e851734d, type: 3}

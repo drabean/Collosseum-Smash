@@ -16,7 +16,7 @@ public class HolySword : EquipWeapon
     {
         base.specialAttack();
         Projectile special = Instantiate(projectile, transform.position, Quaternion.identity);
-        special.moduleAttack.dmg+= owner.Stat.STR;
+        special.moduleAttack.dmg = owner.Stat.STR;
         special.Shoot(transform.position, owner.aim.transform.position);
 
     }

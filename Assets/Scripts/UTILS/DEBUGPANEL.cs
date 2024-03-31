@@ -42,6 +42,8 @@ public class DEBUGPANEL : MonoBehaviour
         startFromBoss = value;
     }
 
+    public int stage2Test;
+
     public void GameStart()
     {
         RunData data = new RunData(curCharacterIdx, new List<int>());
@@ -58,11 +60,11 @@ public class DEBUGPANEL : MonoBehaviour
         switch(curStageIdx)
         {
             case 0:
-                data.curStageID = 31;
+                data.curStageID = stage2Test;
                 data.curDifficulty = DIFFICULTY.EASY;
                 break;
             case 1:
-                data.curStageID = 22;
+                data.curStageID = stage2Test;
                 data.curDifficulty = DIFFICULTY.NORMAL;
                 break;
             case 2:

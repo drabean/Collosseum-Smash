@@ -439,6 +439,13 @@ public class EnemyLich : EnemyBoss
 
         base.onHit(attackerPos, dmg, stunTime);
     }
+
+    protected override IEnumerator co_Smash(Transform attackerPos)
+    {
+        SubShooter[] lis = GameObject.FindObjectsOfType<SubShooter>();
+        foreach (SubShooter ss in lis) Destroy(ss.gameObject);
+        return base.co_Smash(attackerPos);
+    }
     protected override void rageChange()
     {
         maxSpawnCount = 2;
@@ -492,11 +499,9 @@ public class EnemyLich : EnemyBoss
         anim.SetBool("isAtk3Ready", false);
         anim.SetBool("isGroggy", true);
         GameMgr.Inst.removeAllNormalEnemies();
-        foreach(SubShooter subSkul in subSkuls) { Destroy(subSkul.gameObject); }
-        if(hardSubSkuls.Count != 0)
-        {
-            foreach(SubShooter subSkul in hardSubSkuls) { Destroy(subSkul.gameObject); };
-        }
+        SubShooter[] lis = GameObject.FindObjectsOfType<SubShooter>();
+        foreach (SubShooter ss in lis) Destroy(ss.gameObject);
+
         GetComponent<Collider2D>().enabled = true;
         transform.position = groggyVec;
     }
