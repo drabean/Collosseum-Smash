@@ -5146,6 +5146,7 @@ MonoBehaviour:
   - {fileID: 6028886635807258624, guid: 23a925423b60b9b4ba20388df6a9d24e, type: 3}
   alreadyUsedPattern: 0
   maxSpawnCount: 3
+  BombPrefab: {fileID: 2968552124905286440, guid: 1ff9cc29c70b2ad4db6662ad519c5f70, type: 3}
   SpawnCoolTime: 6
 --- !u!95 &4568708114615270418
 Animator:

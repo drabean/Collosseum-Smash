@@ -134,11 +134,11 @@ public class EnemyMgr : MonoSingleton<EnemyMgr>
             case BUF.MEDAL:
                 GameObject Icon = DictionaryPool.Inst.Pop("Prefabs/Effect/Icon/IconMedal");
                 Icon.transform.parent = enemy.transform;
-                Icon.transform.localPosition = Vector3.up * 0.8f;
+                Icon.transform.localPosition = Vector3.up * 1.0f;
 
                 //크기 증가, 체력 및 이속 증가
                 enemy.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                enemy.curHP += enemy.curHP *(0.8f);
+                enemy.curHP += enemy.curHP *(1.5f);
                 enemy.moveSpeed *= 1.2f;
                 enemy.isSuperarmor = true;
                 break;

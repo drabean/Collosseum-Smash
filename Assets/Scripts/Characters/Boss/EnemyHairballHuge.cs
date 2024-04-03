@@ -20,9 +20,13 @@ public class EnemyHairballHuge : EnemyBoss
         GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock");
         evnt.attack += doAttack;
         evnt.attack2 += doJumpAttack;
+
     }
     public override void StartAI()
     {
+        if (isHardMode) aimRange += 0.4f;
+        if (isHardMode) patterns[0].waitBeforeTime -= 0.15f;
+
         spawnMob(Random.Range(0, 3), deadOption);
         selectPattern();
     }
@@ -57,7 +61,7 @@ public class EnemyHairballHuge : EnemyBoss
             if (isRage) patternCount++;
 
             if(!isRage) StartCoroutine(co_Fatigue(2.7f));
-            else StartCoroutine(co_Fatigue(1.0f));
+            else StartCoroutine(co_Fatigue(1.6f));
             //TODO: FATIQUEMOTION
         }
 
@@ -105,7 +109,7 @@ public class EnemyHairballHuge : EnemyBoss
 
         anim.SetTrigger("doAttack");
 
-        if (isHardMode) ShootGroundBlock();
+        if (isHardMode) HardModeAdd();
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
 
     }
@@ -135,6 +139,7 @@ public class EnemyHairballHuge : EnemyBoss
     }
     IEnumerator co_Jump(Vector3 destination)
     {
+        setDir(destination - transform.position);
         attacks[1].ShowWarning(destination + Vector3.up * 0.5f, destination + Vector3.up * 0.5f, patterns[0].waitBeforeTime + 0.5f);
 
         yield return new WaitForSeconds(patterns[1].waitBeforeTime);
@@ -160,7 +165,7 @@ public class EnemyHairballHuge : EnemyBoss
         Attack temp = Instantiate(attacks[1]);
         temp.Shoot(transform.position, aim.position);
 
-        ShootGroundBlock();
+        GroundSmash();
     }
 
     #endregion
@@ -233,7 +238,20 @@ public class EnemyHairballHuge : EnemyBoss
     #endregion
 
     #region 하드모드 추가패턴 
-    public void ShootGroundBlock()
+
+    public void HardModeAdd()
+    {
+        StartCoroutine(co_ShootGroundBlockOnHard());
+    }
+        IEnumerator co_ShootGroundBlockOnHard()
+        {
+            Vector3[] targetPositions = new Vector3[3] { Target.transform.position.Randomize(3.0f), Target.transform.position.Randomize(3.0f), Target.transform.position.Randomize(3.0f) };
+            for (int i = 0; i < 3; i++) GroundBlock.ShowWarning(transform.position, targetPositions[i], groundBlockWaitTime);
+            yield return new WaitForSeconds(groundBlockWaitTime);
+            for (int i = 0; i < 3; i++) Instantiate(GroundBlock).Shoot(aim.transform.position, targetPositions[i]);
+
+        }
+        public void GroundSmash()
     {
         StartCoroutine(co_ShootGroundBlock());
     }

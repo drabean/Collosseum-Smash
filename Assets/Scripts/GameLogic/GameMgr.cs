@@ -654,4 +654,12 @@ public class GameMgr : MonoSingleton<GameMgr>
     }
 
     #endregion
+
+    #region 보스 전환 테스트
+    [ContextMenu("PROGRESSCOUNT++")]
+    public void spawnCountUp()
+    {
+        progressCount += 50;
+    }
+    #endregion
 }

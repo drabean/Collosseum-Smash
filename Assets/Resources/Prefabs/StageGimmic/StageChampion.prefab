@@ -396,9 +396,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   attack: {fileID: 4967136709424932885, guid: c13a4afc42462be43841ee672e3fbf15, type: 3}
-  attackIntervalTime: 4.5
+  attackIntervalTime: 6.5
   attackWaitTime: 2.5
-  attackRange: 7
+  attackRange: 8
   anim: {fileID: 9041037827715977353}
   evnt: {fileID: 5424766949561820444}
   aim: {fileID: 1175325180559851421}

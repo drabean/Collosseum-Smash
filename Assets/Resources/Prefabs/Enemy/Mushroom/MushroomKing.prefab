@@ -5265,6 +5265,7 @@ MonoBehaviour:
   isHardMode: 0
   mobs:
   - {fileID: 2886713604371943562, guid: b1a35e590b0208e46a0b7dd2cbcfbbdc, type: 3}
+  - {fileID: 4525623631842585273, guid: bfba1eac7864b3246a89d0a4d7972846, type: 3}
   alreadyUsedPattern: 0
   maxSpawnCount: 1
   EyeTr: {fileID: 1219918637607251815}

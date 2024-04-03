@@ -6,6 +6,8 @@ public class EnemyGoblinKing : EnemyBoss
 {
     Attack[] attacks = new Attack[3];
 
+    public GameObject BombPrefab;
+
     private void Awake()
     {
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
@@ -98,6 +100,7 @@ public class EnemyGoblinKing : EnemyBoss
         temp.Shoot(transform.position, aim.position);
 
         temp.GetComponent<SpriteRenderer>().flipX = sp.flipX;
+        if(isHardMode) Instantiate(BombPrefab, Target.transform.position.Randomize(2.0f), Quaternion.identity);
     }
 
 

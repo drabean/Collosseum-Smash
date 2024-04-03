@@ -14,8 +14,21 @@ public class EnemyMushroomKing : EnemyBoss
     public ParticleSystem PatParticle;
 
     int patIdx;
+
     public override void StartAI()
     {
+        if (isHardMode)
+        {
+            patterns[0].waitAfterTime -= 1.0f;
+            patterns[1].waitAfterTime -= 1.0f;
+            patterns[2].waitAfterTime -= 1.0f;
+
+            patterns[0].waitBeforeTime -= 0.5f;
+            patterns[1].waitBeforeTime -= 0.6f;
+            patterns[2].waitBeforeTime -= 0.2f;
+            maxSpawnCount += 2;
+        }
+
         StartCoroutine(co_Idle(1.5f));
     }
 
@@ -62,6 +75,7 @@ public class EnemyMushroomKing : EnemyBoss
         anim.SetTrigger("doAttack");
 
         Instantiate(SporeBig).Shoot(transform.position, transform.position);
+        spawnMob(1, transform.position.Randomize(4.0f), deadOption);
 
         GameMgr.Inst.MainCam.Shake(1.0f, 15f, 0.12f, 0f);
         StartCoroutine(co_Idle(patterns[0].waitAfterTime));
@@ -72,9 +86,12 @@ public class EnemyMushroomKing : EnemyBoss
     {
         anim.SetBool("isAttackReady", true);
 
-        Vector3[] targetPositions = new Vector3[patterns[1].repeatTIme];
+        int repeatCount = patterns[1].repeatTIme;
 
-        for(int i = 0; i < patterns[1].repeatTIme; i++)
+        Vector3[] targetPositions = new Vector3[repeatCount];
+
+
+        for (int i = 0; i < repeatCount; i++)
         {
             if (i != 0) targetPositions[i] = transform.position.Randomize(patterns[1].range);
             else targetPositions[i] = Target.transform.position;
@@ -86,11 +103,12 @@ public class EnemyMushroomKing : EnemyBoss
         anim.SetBool("isAttackReady", false);
         anim.SetTrigger("doAttack");
 
-        for (int i = 0; i < patterns[1].repeatTIme; i++)
+        for (int i = 0; i < repeatCount; i++)
         {
             Attack atk = Instantiate(MushroomParabola);
-            atk.Shoot(transform.position, targetPositions[i]);
             if(i == 0)atk.attackAction = () => { spawnMob(0, targetPositions[0], deadOption); };
+
+            atk.Shoot(transform.position, targetPositions[i]);
         }
 
         GameMgr.Inst.MainCam.Shake(1.0f, 15f, 0.12f, 0f);
@@ -140,6 +158,7 @@ public class EnemyMushroomKing : EnemyBoss
         selectPattern();
     }
 
+    int rageAtkCount = 7;
     IEnumerator co_PatRage()
     {
         anim.SetBool("isAttackReady", true);
@@ -156,9 +175,9 @@ public class EnemyMushroomKing : EnemyBoss
             anim.SetBool("isAttackReady", true);
 
 
-            Vector3[] targetPositions = new Vector3[patterns[1].repeatTIme];
+            Vector3[] targetPositions = new Vector3[rageAtkCount];
 
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < rageAtkCount; j++)
             {
                 if (j != 0) targetPositions[j] = transform.position.Randomize(patterns[1].range);
                 else targetPositions[j] = Target.transform.position;
@@ -172,7 +191,7 @@ public class EnemyMushroomKing : EnemyBoss
 
             PatParticle.Play();
             GameMgr.Inst.MainCam.Shake(0.4f, 15f, 0.09f, 0f);
-            for (int j = 0; j < 7; j++)
+            for (int j = 0; j < rageAtkCount; j++)
             {
                 Instantiate(MushroomParabola).Shoot(transform.position, targetPositions[j]);
             }
