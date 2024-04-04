@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyChampion : EnemyBoss
 {
-    Attack[] attacks = new Attack[4];
+    Attack[] attacks = new Attack[5];
     Attack GroundBlock;
     #region Override
     private void Awake()
@@ -20,6 +20,7 @@ public class EnemyChampion : EnemyBoss
         attacks[1] = Resources.Load<Attack>(patterns[1].prefabName);
         attacks[2] = Resources.Load<Attack>(patterns[2].prefabName);
         attacks[3] = Resources.Load<Attack>(patterns[3].prefabName);
+        attacks[4] = Resources.Load<Attack>("Prefabs/Attack/MultiSpear2");
 
         GroundBlock = Resources.Load<Attack>("Prefabs/Attack/GroundBlock");
     }
@@ -27,6 +28,11 @@ public class EnemyChampion : EnemyBoss
 
     public override void StartAI()
     {
+        if(isHardMode)
+        {
+            patterns[3].repeatTIme++;
+            patterns[3].intervalTime -= 0.3f;
+        }
         selectPattern();
     }
 
@@ -82,7 +88,7 @@ public class EnemyChampion : EnemyBoss
         anim.SetBool("isMoving", false);
 
         float timeLeft = patterns[2].waitAfterTime;
-        subHP = maxHP / 5;
+        subHP = 30;
         while (subHP >= 0 && timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
@@ -148,6 +154,7 @@ public class EnemyChampion : EnemyBoss
         else selectPattern();
     }
     #endregion
+    bool isSmashGround;
     //Patterm1 - 근접공격
     IEnumerator co_Pat1(IEnumerator nextMove = null)
     {
@@ -158,7 +165,7 @@ public class EnemyChampion : EnemyBoss
             aimRange = 0.8f;
             setDir();
             float waitTime = patterns[0].waitBeforeTime;
-            if (i != 0) waitTime -= 0.3f;
+            if (i != 0) waitTime -= 0.15f;
 
             curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, waitTime);
             anim.SetBool("isAtkReady", true);
@@ -168,9 +175,12 @@ public class EnemyChampion : EnemyBoss
             anim.SetTrigger("doAttack");
             yield return new WaitForSeconds(patterns[0].intervalTime);
         }
+
+
         aimRange = 1.4f;
         setDir();
         curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, 0.6f);
+        if (isHardMode) isSmashGround = true;
         anim.SetBool("isAtkReady", true);
         yield return new WaitForSeconds(0.6f);
         anim.SetBool("isAtkReady", false);
@@ -180,6 +190,7 @@ public class EnemyChampion : EnemyBoss
         if(isRage)
         {
             curAttackWarning = attacks[0].ShowWarning(aim.position, aim.position, 0.6f);
+            if (isHardMode) isSmashGround = true;
             anim.SetBool("isAtkReady", true);
             yield return new WaitForSeconds(Random.Range( 0.5f, 0.8f));
             anim.SetBool("isAtkReady", false);
@@ -195,7 +206,11 @@ public class EnemyChampion : EnemyBoss
     //실제 공격을 하는 함수. (Animation Event를 통해 호출)
     void doPat1()
     {
-        if (isHardMode) ShootGroundBlock();
+        if (isSmashGround)
+        {
+            isSmashGround = false;
+            ShootGroundBlock();
+        }
         Instantiate(attacks[0]).Shoot(aim.position, aim.position);
         transform.position += (aim.position - transform.position).normalized * 0.5f; //공격 할 때 마다, 공격 방향으로 약간 이동
 
@@ -260,25 +275,30 @@ public class EnemyChampion : EnemyBoss
         GameMgr.Inst.MainCam.Shake(0.4f, 20, 0.15f, 0, true);
 
     }
+
+    Attack curAttack3;
     IEnumerator co_Pat4(IEnumerator nextMove = null)
     {
         anim.SetBool("isMoving", false);
 
         for (int i = 0; i < patterns[3].repeatTIme; i++)
         {
+            curAttack3 = attacks[3];
+            if(isHardMode)
+            {
+                if (Random.Range(0, 2) == 0) curAttack3 = attacks[4];
+            }
+            setDir();
+            anim.SetBool("isThrowStrongReady", true);
 
-        
-        setDir();
-        anim.SetBool("isThrowStrongReady", true);
+            float waitTime = patterns[3].waitBeforeTime;
 
-        float waitTime = patterns[3].waitBeforeTime;
+            curAttack3.ShowWarning(transform.position, Target.transform.position, waitTime);
 
-        curAttackWarning = attacks[3].ShowWarning(transform.position, Target.transform.position, waitTime);
-
-        yield return new WaitForSeconds(patterns[3].waitBeforeTime);
-        anim.SetBool("isThrowStrongReady", false);
-        anim.SetTrigger("doThrowStrong");
-        yield return new WaitForSeconds(patterns[3].waitAfterTime);
+            yield return new WaitForSeconds(patterns[3].waitBeforeTime);
+            anim.SetBool("isThrowStrongReady", false);
+            anim.SetTrigger("doThrowStrong");
+            yield return new WaitForSeconds(patterns[3].waitAfterTime);
         }
 
         if (nextMove != null) StartCoroutine(nextMove);
@@ -287,7 +307,7 @@ public class EnemyChampion : EnemyBoss
 
     void doPat4()
     {
-        Attack curProjectile = Instantiate<Attack>(attacks[3], transform.position, Quaternion.identity);
+        Attack curProjectile = Instantiate<Attack>(curAttack3, transform.position, Quaternion.identity);
         curProjectile.Shoot(transform.position, aim.transform.position);
     }
 

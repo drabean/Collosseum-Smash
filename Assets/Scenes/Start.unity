@@ -34678,7 +34678,7 @@ MonoBehaviour:
   SliderCharacter: {fileID: 811713087}
   stage: {fileID: 1169106538}
   character: {fileID: 979304545}
-  stage2Test: 31
+  stage2Test: 22
 --- !u!224 &725963312 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 294826020846633421, guid: 0d1577029cfc2314aa249939e851734d, type: 3}

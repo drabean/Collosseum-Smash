@@ -8,8 +8,8 @@ public class EnemyEnt : EnemyBoss
 
     float rootIntervalLength = 1.7f; // 피할 간격을 없애고 싶을 때, 공격 사이의 거리
 
-    int spawnCount = 5; // 해당수치만큼 패턴 사용 후에 소환패턴 사용
-    int spawnCountLeft = 2;
+    int spawnCount = 7; // 해당수치만큼 패턴 사용 후에 소환패턴 사용
+    int spawnCountLeft = 4; // 소환을 앞당기기 위한 수치 조절
     private void Awake()
     {
         attacks[0] = Resources.Load<Attack>(patterns[0].prefabName);
@@ -18,21 +18,23 @@ public class EnemyEnt : EnemyBoss
         evnt.attack = onAttack;
         evnt.attack2 = onAttack2;
 
-        if (isHardMode)
-        {
-            patterns[0].waitBeforeTime -= 0.1f;
-            patterns[1].waitBeforeTime -= 0.1f;
-            patterns[2].waitBeforeTime -= 0.1f;
-            patterns[0].waitAfterTime -= 0.2f;
-            patterns[1].waitAfterTime -= 0.2f;
-            patterns[2].waitAfterTime -= 0.2f;
-        }
-
     }
 
 
     public override void StartAI()
     {
+        if (isHardMode)
+        {
+            patterns[0].waitBeforeTime -= 0.3f;
+            patterns[1].waitBeforeTime -= 0.3f;
+            patterns[2].waitBeforeTime -= 0.15f;
+            patterns[0].waitAfterTime -= 0.1f;
+            patterns[1].waitAfterTime -= 0.7f;
+            patterns[2].waitAfterTime -= 0.2f;
+
+            patterns[0].repeatTIme += 1;
+            waitForAttack = new WaitForSeconds(0.14f);
+        }
         selectPattern();
     }
 
@@ -74,7 +76,6 @@ public class EnemyEnt : EnemyBoss
     {
 
         patterns[0].waitAfterTime -= 0.2f;
-        patterns[0].repeatTIme += 2;
         patterns[1].waitAfterTime -= 0.2f;
         patterns[2].waitAfterTime -= 0.2f;
 
@@ -91,60 +92,66 @@ public class EnemyEnt : EnemyBoss
 
     float pat1WaitTime = 1.0f;
     int pat1Count = 9;
-    WaitForSeconds waitForAttack = new WaitForSeconds(0.15f);
+    int pat1WayCount = 3;
+    WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);
+
 
     IEnumerator co_Pat1() 
     {
         // attacks[0].ShowWarning(transform.position, transform.position, patterns[0].waitBeforeTime);
-
-        atk1TargetVectors = new List<List<Vector3>>();
-        float originAngle = 0f;
-        float angle;
-
-        for(int i = 0; i < pat1Count; i++)
+        for (int r = 0; r < patterns[0].repeatTIme; r++)
         {
-            atk1TargetVectors.Add(new List<Vector3>());
-        }
+            atk1TargetVectors = new List<List<Vector3>>();
+            float originAngle = 0f;
+            float angle;
 
-        for(int i = 0; i < patterns[0].repeatTIme; i++)
-        {
-            if (i == 0)
+            for (int i = 0; i < pat1Count; i++)
             {
-                Vector3 direction = Target.transform.position - Atk1Pos.position;
-                originAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                // 각도가 음수로 나올 수 있으므로 360으로 나눈 나머지를 취함
-                originAngle = (originAngle + 360) % 360;
-                angle = originAngle;
-            }
-            else
-            {
-                angle = originAngle + Random.Range(20f, 60f) * (i % 2 == 0 ? 1 : -1);
+                atk1TargetVectors.Add(new List<Vector3>());
             }
 
-            for (int j = 0; j < pat1Count; j++)
+            atk1TargetVectors[0].Add(Atk1Pos.position);
+            for (int i = 0; i < pat1WayCount; i++)
             {
-                float radians = angle * Mathf.Deg2Rad;
+                if (i == 0)
+                {
+                    Vector3 direction = Target.transform.position - Atk1Pos.position;
+                    originAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    // 각도가 음수로 나올 수 있으므로 360으로 나눈 나머지를 취함
+                    originAngle = (originAngle + 360) % 360;
+                    angle = originAngle;
+                }
+                else
+                {
+                    angle = originAngle + Random.Range(20f, 60f) * (i % 2 == 0 ? 1 : -1);
+                }
+
+                for (int j = 1; j < pat1Count; j++)
+                {
+                    if (isHardMode) angle += Random.Range(-9, 9);
+                    float radians = angle * Mathf.Deg2Rad;
 
 
-                Vector3 targetV = Atk1Pos.position + (Vector3.right * Mathf.Cos(radians) + Vector3.up * Mathf.Sin(radians)) * j * rootIntervalLength;
+                    Vector3 targetV = Atk1Pos.position + (Vector3.right * Mathf.Cos(radians) + Vector3.up * Mathf.Sin(radians)) * j * rootIntervalLength;
 
 
 
-                if (EnemyMgr.Inst.checkInStage(targetV)) atk1TargetVectors[j].Add(targetV);
+                    if (EnemyMgr.Inst.checkInStage(targetV)) atk1TargetVectors[j].Add(targetV);
+                }
             }
+
+            foreach (List<Vector3> tV in atk1TargetVectors)
+            {
+                foreach (Vector3 tV2 in tV) attacks[0].ShowWarning(tV2, tV2, patterns[0].waitBeforeTime + pat1WaitTime);
+            }
+
+            yield return new WaitForSeconds(patterns[0].waitBeforeTime);
+            anim.SetTrigger("doAttack1");
+
+            yield return new WaitForSeconds(patterns[0].intervalTime);
+            transform.localScale = Vector3.right * (-1) * transform.localScale.x + Vector3.up + Vector3.forward; // 다음 공격 할 손 전환
         }
-
-        foreach(List<Vector3> tV in atk1TargetVectors)
-        {
-            foreach(Vector3 tV2 in tV)  attacks[0].ShowWarning(tV2, tV2, patterns[0].waitBeforeTime + pat1WaitTime);
-        }
-
-        yield return new WaitForSeconds(patterns[0].waitBeforeTime);
-        anim.SetTrigger("doAttack1");
-
         yield return new WaitForSeconds(patterns[0].waitAfterTime);
-
-        transform.localScale = Vector3.right * (-1) * transform.localScale.x + Vector3.up + Vector3.forward; // 다음 공격 할 손 전환
         selectPattern();
     }
 
@@ -202,6 +209,7 @@ public class EnemyEnt : EnemyBoss
             {
                 for (int j = 1; j < pat2Count; j++)
                 {
+                    if (isHardMode) angle += Random.Range(-9, 9);
                     float radians = angle * Mathf.Deg2Rad;
 
 
@@ -274,21 +282,25 @@ public class EnemyEnt : EnemyBoss
             for (int j = 0; j < pat3Count; j++) atk3TargetVectors.Add(new List<Vector3>());
 
             //Target의 위치를 중심으로 십자가의 형태.
-            Vector3 startPos = Target.transform.position;
+            Vector3 startPos = Target.transform.position.Randomize(2.0f);
 
             atk3TargetVectors[0].Add(startPos);
             for(int j = 1; j < pat3Count; j++)
             {
                 Vector3 targetV = startPos + rootIntervalLength * Vector3.right * j;
+                if (isHardMode) targetV = targetV.Randomize(1);
                 if (EnemyMgr.Inst.checkInStage(targetV)) atk3TargetVectors[j].Add(targetV);
 
                 targetV = startPos + rootIntervalLength * Vector3.up * j;
+                if (isHardMode) targetV = targetV.Randomize(1);
                 if (EnemyMgr.Inst.checkInStage(targetV)) atk3TargetVectors[j].Add(targetV);
 
                 targetV = startPos + rootIntervalLength * Vector3.left * j;
+                if (isHardMode) targetV = targetV.Randomize(1);
                 if (EnemyMgr.Inst.checkInStage(targetV)) atk3TargetVectors[j].Add(targetV);
 
                 targetV = startPos + rootIntervalLength * Vector3.down * j;
+                if (isHardMode) targetV = targetV.Randomize(1);
                 if (EnemyMgr.Inst.checkInStage(targetV)) atk3TargetVectors[j].Add(targetV);
             }
 

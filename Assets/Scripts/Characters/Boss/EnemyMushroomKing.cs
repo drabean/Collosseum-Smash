@@ -19,17 +19,16 @@ public class EnemyMushroomKing : EnemyBoss
     {
         if (isHardMode)
         {
-            patterns[0].waitAfterTime -= 1.0f;
-            patterns[1].waitAfterTime -= 1.0f;
-            patterns[2].waitAfterTime -= 1.0f;
+            patterns[1].waitAfterTime -= 0.4f;
+            patterns[2].waitAfterTime -= 0.4f;
 
-            patterns[0].waitBeforeTime -= 0.5f;
             patterns[1].waitBeforeTime -= 0.6f;
             patterns[2].waitBeforeTime -= 0.2f;
-            maxSpawnCount += 2;
         }
 
         StartCoroutine(co_Idle(1.5f));
+
+        if (isHardMode) StartCoroutine(co_HardmodeSpore());
     }
 
     protected override void selectPattern()
@@ -207,4 +206,36 @@ public class EnemyMushroomKing : EnemyBoss
         aim.transform.localPosition = dir * aimRange;
     }
 
+
+    float hardmodeInvervalTime = 2.0f;
+    int hardmoeSporeCount = 3;
+    IEnumerator co_HardmodeSpore()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+
+            anim.SetBool("isAttackReady", true);
+
+
+            Vector3[] targetPositions = new Vector3[hardmoeSporeCount];
+
+            for (int j = 0; j < hardmoeSporeCount; j++)
+            {
+                targetPositions[j] = transform.position.Randomize(4);
+                MushroomParabola.ShowWarning(transform.position, targetPositions[j], 0.5f);
+            }
+            yield return new WaitForSeconds(0.5f);
+
+            PatParticle.Play();
+            for (int j = 0; j < hardmoeSporeCount; j++)
+            {
+                Instantiate(MushroomParabola).Shoot(transform.position, targetPositions[j]);
+            }
+            yield return new WaitForSeconds(hardmodeInvervalTime);
+        }
+    }
 }

@@ -69,11 +69,12 @@ public class EnemySlimeKing : EnemyBoss
     protected override void rageChange()
     {
         maxSpawnCount++;
-        slimeballMoveTime -= 0.2f;
-        patterns[0].waitBeforeTime -= 0.15f;
+        slimeballMoveTime -= 0.15f;
+        patterns[0].waitAfterTime -= 0.15f;
         patterns[0].intervalTime = -0.25f;
-        patterns[2].repeatTIme += 2;
-        patterns[2].waitBeforeTime -= 0.15f;
+        patterns[1].waitAfterTime -= 0.1f;
+        patterns[2].repeatTIme += 1;
+        patterns[2].waitAfterTime -= 0.15f;
     }
     IEnumerator co_Wait(float timeleft)
     {
@@ -155,7 +156,6 @@ public class EnemySlimeKing : EnemyBoss
 
         float timeLeft = patterns[1].duration;
         anim.SetBool("isShakingWeak", true);
-        if (isHardMode) ShootParabolaSlime();
         GameMgr.Inst.MainCam.Shake(patterns[1].duration, 20, 0.08f, 0, true);
         isImmune = true;
         while(timeLeft >= 0)
@@ -176,11 +176,11 @@ public class EnemySlimeKing : EnemyBoss
     {
         SoundMgr.Inst.Play("Throw");
 
-        float randomRange = 2.5f;
+        float randomRange = 3.0f;
 
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
         StartCoroutine(co_attack2(attacks[2], Target.transform.position.Randomize(randomRange)));
-        StartCoroutine(co_attack2(attacks[3], Target.transform.position.Randomize(randomRange)));
+        if(isHardMode) StartCoroutine(co_attack2(attacks[3], Target.transform.position.Randomize(randomRange)));
     }
 
     IEnumerator co_attack2(Attack slimeBall, Vector3 attackPos)
@@ -296,10 +296,10 @@ public class EnemySlimeKing : EnemyBoss
         StartCoroutine(co_ShootParabolaSlime());
     }
 
-    float slimeBallWaitTIme = 0.1f;
+    float slimeBallWaitTIme = 0.15f;
     IEnumerator co_ShootParabolaSlime()
     {
-        Vector3[] targetPositions = new Vector3[3] { transform.position.Randomize(3.0f), transform.position.Randomize(3.0f), transform.position.Randomize(3.0f) };
+        Vector3[] targetPositions = new Vector3[3] { Target.transform.position.Randomize(2.0f), transform.position.Randomize(3.0f), transform.position.Randomize(3.0f) };
         for (int i = 0; i < 3; i++) attacks[2].ShowWarning(transform.position, targetPositions[i], slimeBallWaitTIme);
         yield return new WaitForSeconds(slimeBallWaitTIme);
         for (int i = 0; i < 3; i++) Instantiate(attacks[2]).Shoot(transform.position, targetPositions[i]);
