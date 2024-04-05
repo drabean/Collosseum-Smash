@@ -29,6 +29,7 @@ public class UIDefeatedCanvas : MonoBehaviour
     /// </summary>
     public void OpenDefeatPanel()
     {
+        SoundMgr.Inst.Play("StageStart");
         totalPanel.SetActive(true);
     }
 

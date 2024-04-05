@@ -95,7 +95,7 @@ MonoBehaviour:
   curHP: 7
   moveSpeed: 1
   moveSpeedCo: 1
-  aimRange: 0.9
+  aimRange: 0.7
   size: 0.25
   Target: {fileID: 0}
   isChasing: 0

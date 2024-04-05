@@ -541,7 +541,6 @@ public class GameMgr : MonoSingleton<GameMgr>
     [ContextMenu("DEFEATTEST")]
     public void ShowDefeated()
     {
-        SoundMgr.Inst.Play("StageStart");
         UIMgr.Inst.defeated.Init(stageInfo, curRunData);
         UIMgr.Inst.defeated.OpenDefeatPanel();
     }

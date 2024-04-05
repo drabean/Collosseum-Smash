@@ -49,7 +49,16 @@ public class EnemyKingBlock : EnemyBoss
         subBlocks[1].Init(this, Target);
         subBlocks[1].transform.localScale = Vector3.right * (-1) + Vector3.up + Vector3.forward;
 
-        if (isHardMode) SpawnSubShooter();
+        if (isHardMode)
+        {
+            SpawnSubShooter();
+            patterns[3].intervalTime -= 0.05f;
+            foreach(SubBlock sb in subBlocks)
+            {
+                sb.fire1WaitTime -= 0.1f;
+                sb.fire2WaitTime -= 0.2f;
+            }
+        }
     }
 
     IEnumerator co_Idle(float time = 1.5f)
@@ -113,7 +122,7 @@ public class EnemyKingBlock : EnemyBoss
         }
         if (isHardMode && subShooter != null)
         {
-            if (colorIdx == 0) subShooter.ShootCount(3); // 안전 모드로 돌아갈때 4발
+            if (colorIdx == 0) subShooter.ShootCount(3, 0.6f); // 안전 모드로 돌아갈때 3발
             else subShooter.ShootCount(2); // 패턴 시작할때 2발
         }
     }
@@ -124,7 +133,7 @@ public class EnemyKingBlock : EnemyBoss
         foreach(SubBlock block in subBlocks)
         {
             block.fire1WaitTime -= 0.05f;
-            block.fire2WaitTime -= 0.1f;
+            block.fire2WaitTime -= 0.05f;
         }
     }
     #region 이동
@@ -418,7 +427,6 @@ public class EnemyKingBlock : EnemyBoss
             if (fireTimeLeft < 0)
             {
                 fireTimeLeft = patterns[3].intervalTime;
-                GameMgr.Inst.MainCam.Shake(0.1f, 10, 0.05f, 0f);
                 Vector3 targetVec = Vector3.right * Random.Range(firePositions[0].x, firePositions[1].x) + Vector3.up * firePositions[0].y;
                 Instantiate(attacks[3]).Shoot(firePos.position, targetVec);
                 anim.SetTrigger("doShootFront");
@@ -476,7 +484,7 @@ public class EnemyKingBlock : EnemyBoss
 
     #region 강력한 패턴
 
-    float fireInterval = 1.3f;
+    float fireInterval = 1.5f;
     IEnumerator co_Pat6()
     {
 
@@ -536,13 +544,13 @@ public class EnemyKingBlock : EnemyBoss
 
     #endregion
     #region 하드모드패턴
-    public SubShooter SubShooterPrefab;
-    SubShooter subShooter;
+    SubBlock subShooter;
 
     void SpawnSubShooter()
     {
-        subShooter = Instantiate(SubShooterPrefab, new Vector3(0, -6, 0), Quaternion.identity);
-        subShooter.Init(transform, Target);
+        subShooter = Instantiate(subBlockPrefab, new Vector3(0, -6, 0), Quaternion.identity);
+        subShooter.Spawn();
+        subShooter.Init(this, Target);
     }
     #endregion
 }

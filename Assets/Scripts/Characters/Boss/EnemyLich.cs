@@ -27,7 +27,13 @@ public class EnemyLich : EnemyBoss
         StartCoroutine(co_Idle(0.7f));
 
         spawnSkul();
-        if(isHardMode) StartCoroutine(spawnSubSkulHard());
+        if (isHardMode)
+        {
+            StartCoroutine(spawnSubSkulHard());
+            pat1WaitTIme -= 0.1f;
+            skulMissileWaitTIme -= 0.05f;
+            patterns[3].intervalTime -= 0.11f;
+        }
     }
 
     void spawnSkul()
@@ -81,7 +87,7 @@ public class EnemyLich : EnemyBoss
 
     #region Patterns
 
-    float pat1WaitTIme = 0.55f;
+    float pat1WaitTIme = 0.65f;
     //4방위 뼈창 공격
     IEnumerator co_Pat1()
     {
@@ -144,7 +150,7 @@ public class EnemyLich : EnemyBoss
     }
 
     //해골미사일 연속투척
-    float skulMissileWaitTIme = 0.2f;
+    float skulMissileWaitTIme = 0.25f;
     IEnumerator co_Pat2()
     {
         Attack atk = Resources.Load<Attack>(patterns[1].prefabName);
@@ -313,10 +319,10 @@ public class EnemyLich : EnemyBoss
         float angle = 0;
 
         teleport(3);
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 3; j++)
         {
             // 각도를 라디안으로 변환
-            float radians = (angle + j * 90) * Mathf.Deg2Rad;
+            float radians = (angle + j * 120) * Mathf.Deg2Rad;
 
             // 좌표 계산
             float xOffset = patterns[0].range * Mathf.Cos(radians);
@@ -329,7 +335,7 @@ public class EnemyLich : EnemyBoss
 
         while(timeLeft > 0)
         {
-            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 40f;
+            spinSpeed = rotationSpeedCurve.Evaluate(patterns[4].duration - timeLeft) * 45f;
             timeLeft -= Time.deltaTime;
             magicCircleFireTime -= Time.deltaTime;
             lichFireTIme -= Time.deltaTime;
@@ -435,7 +441,7 @@ public class EnemyLich : EnemyBoss
 
     public override void onHit(Transform attackerPos, float dmg, float stunTime = 0.0f)
     {
-        if (curHP == 3) groggy();
+        if (curHP == 7) groggy();
 
         base.onHit(attackerPos, dmg, stunTime);
     }
@@ -510,7 +516,7 @@ public class EnemyLich : EnemyBoss
     {
         for (int i = 0; i < 2; i++)
         {
-            SubShooter skul = Instantiate(subSkul, Vector3.right * (i ==1 ? -5 : 5) + Vector3.up * 5.5f, Quaternion.identity);
+            SubShooter skul = Instantiate(subSkul, Vector3.right * (i ==1 ? -5 : 5) + Vector3.up * 7.5f, Quaternion.identity);
             skul.Init(transform, (Player)Target);
             Destroy(skul.GetComponent<ModuleFollow>());
             hardSubSkuls.Add(skul);

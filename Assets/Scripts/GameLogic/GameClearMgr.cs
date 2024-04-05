@@ -20,8 +20,6 @@ public class GameClearMgr : MonoBehaviour
         this.progressTMP = progressTMP;
         this.isHardMode = runData.isHardMode;
 
-        TrophyHolder = Instantiate(Resources.Load<Animator>("Prefabs/TrophyHolder"));
-        TrophyHolder.transform.position = Vector3.up * 0.5f;
     }
 
     public void SpawnTrophy()
@@ -42,9 +40,12 @@ public class GameClearMgr : MonoBehaviour
         if (!isHardMode) progressTMP.text = "You have smashed \nevery enemy!";
         else progressTMP.text = "You have smashd countless, \nevil Things! ";
         yield return new WaitForSeconds(3.0f);
-        if(!isHardMode)progressTMP.text = "Receive the trophy, \nGlorious champion!";
+        if(!isHardMode)progressTMP.text = "Receive the trophy, \nnew champion!";
         else progressTMP.text = "You are a true \nchampion of colloseum!";
         yield return new WaitForSeconds(1.0f);
+
+        TrophyHolder = Instantiate(Resources.Load<Animator>("Prefabs/TrophyHolder"));
+        TrophyHolder.transform.position = Vector3.up * 0.5f;
         TrophyHolder.SetTrigger("Show");
         yield return new WaitForSeconds(1.0f);
         SpawnTrophy();

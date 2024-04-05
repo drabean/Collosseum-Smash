@@ -145,7 +145,7 @@ public class SubBlock : Enemy
 
 
     #region 발사 패턴
-   public float fire1WaitTime = 0.7f;
+   public float fire1WaitTime = 0.8f;
     public Transform firePos;
 
     /// <summary>
@@ -190,7 +190,7 @@ public class SubBlock : Enemy
         anim.SetBool("isShootLear", false);
     }
 
-    public float fire2WaitTime = 1f;
+    public float fire2WaitTime = 1.2f;
     float rapidWaitTime = 0.1f;
 
     /// <summary>
@@ -300,5 +300,53 @@ public class SubBlock : Enemy
         anim.SetBool("isShootLear", false);
     }
 
+    #endregion
+
+    #region 하드모드 전용
+
+    float attackBeforeTime = 0.3f;
+    float shootInterval = 0.5f;
+    public void ShootOnce()
+    {
+        StartCoroutine(co_ShootOnce());
+    }
+    IEnumerator co_ShootOnce()
+    {
+        Vector3 targetPos = calcPlayerPos(attackBeforeTime);
+        attacks[1].ShowWarning(transform.position, targetPos, attackBeforeTime);
+
+        yield return new WaitForSeconds(attackBeforeTime);
+        Instantiate(attacks[1]).Shoot(transform.position, targetPos);
+    }
+    public Vector3 calcPlayerPos(float time)
+    {
+        Vector3 playerpos = Target.transform.position;
+
+        playerpos += (Target.aim.transform.position - Target.transform.position) * Target.moveSpeed * time;
+
+        return playerpos;
+
+    }
+
+    public void ShootCount(int count, float waitTime = 0f)
+    {
+        StartCoroutine(Shoot(count, waitTime));
+    }
+
+    IEnumerator Shoot(int count, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        anim.SetTrigger("doFaceChange");
+        anim.SetBool("isShootFront", true);
+        while (count > 0)
+        {
+            ShootOnce();
+            yield return new WaitForSeconds(shootInterval);
+            count--;
+        }
+        anim.SetTrigger("doFaceChange");
+        anim.SetBool("isShootFront", false);
+
+    }
     #endregion
 }

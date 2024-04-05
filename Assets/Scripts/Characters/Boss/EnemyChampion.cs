@@ -88,7 +88,7 @@ public class EnemyChampion : EnemyBoss
         anim.SetBool("isMoving", false);
 
         float timeLeft = patterns[2].waitAfterTime;
-        subHP = 30;
+        subHP = 25;
         while (subHP >= 0 && timeLeft >= 0)
         {
             timeLeft -= Time.deltaTime;
